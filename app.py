@@ -14,7 +14,7 @@ df_income = pd.read_csv("./sources/income.csv")
 
 # Importing partners data
 
-df_partners = pd.read_csv("./sources/partners.csv")
+df_partners = pd.read_csv("./sources/partners_small.csv")
 
 # Preprocessing
 
