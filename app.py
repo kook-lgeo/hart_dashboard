@@ -4,17 +4,22 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.graph_objs.scatter.marker import Line
+from sqlalchemy import create_engine
 import warnings
 
 warnings.filterwarnings("ignore")
 
 # Importing income data
 
-df_income = pd.read_csv("./sources/income.csv")
+engine = create_engine('sqlite:///sources//hart.db')
+
+df_income = pd.read_sql_table('income', engine.connect())
+# df_income = pd.read_csv("./sources/income.csv")
 
 # Importing partners data
 
-df_partners = pd.read_csv("./sources/partners_small.csv")
+df_partners = pd.read_sql_table('partners', engine.connect())
+#df_partners = pd.read_csv("./sources/partners_small.csv")
 
 # Preprocessing
 
