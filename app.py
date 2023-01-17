@@ -106,6 +106,17 @@ app.layout = html.Div(children = [
                 html.H2(children = html.Strong("HART Dashboard"), id = 'home')
             ]),
 
+            # Dropdown for sector selection
+            html.H3(children = html.Strong('Area Selectcion'), id = 'area-selection'),
+
+            html.Div(children = [
+                html.Strong('Select Area (For All Plots and Tables)'),
+                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='all-geo-dropdown'),
+                ], 
+                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
+            ),
+
+
         # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
 
             html.H3(children = html.Strong('Area Median Household Income (AMHI) Categories and Shelter Costs'), id = 'overview-scenario3'),
@@ -113,7 +124,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov3-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -127,16 +138,16 @@ app.layout = html.Div(children = [
                     dash_table.DataTable(
                         id='datatable-interactivity',
                         columns=[
-                            {"name": i, "id": i, "deletable": True, "selectable": True} for i in table.columns
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
                         ],
                         data=table.to_dict('records'),
                         editable=True,
                         # filter_action="native",
                         sort_action="native",
                         sort_mode="multi",
-                        column_selectable="multi",
-                        row_selectable="multi",
-                        row_deletable=True,
+                        column_selectable=False,#"multi",
+                        row_selectable=False,#"multi",
+                        row_deletable=False,
                         selected_columns=[],
                         selected_rows=[],
                         page_action="native",
@@ -168,7 +179,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -204,7 +215,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov2-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -239,7 +250,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov4-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -253,16 +264,16 @@ app.layout = html.Div(children = [
                     dash_table.DataTable(
                         id='datatable2-interactivity',
                         columns=[
-                            {"name": i, "id": i, "deletable": True, "selectable": True} for i in table2.columns
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table2.columns
                         ],
                         data=table2.to_dict('records'),
                         editable=True,
                         # filter_action="native",
                         sort_action="native",
                         sort_mode="multi",
-                        column_selectable="multi",
-                        row_selectable="multi",
-                        row_deletable=True,
+                        column_selectable=False,#"multi",
+                        row_selectable=False,#"multi",
+                        row_deletable=False,
                         selected_columns=[],
                         selected_rows=[],
                         page_action="native",
@@ -282,7 +293,7 @@ app.layout = html.Div(children = [
                 ], 
                 style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
                 ),
-            ]
+            ],style={'width': '80%'}
             ),
 
 
@@ -293,7 +304,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov5-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -329,7 +340,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov6-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -365,7 +376,7 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
 
             html.Div(children = [
-                html.Strong('Select Sector'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov7-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
@@ -406,6 +417,20 @@ app.layout = html.Div(children = [
 # hovertemplate_bar_y = ': %{y:.3s}<extra></extra>'
 # hovertemplate_line = '%{x}: %{y:.3s}<extra></extra>'
 
+# Dropdown for all plots
+
+@app.callback(
+    Output('ov-geo-dropdown', 'value'),
+    Output('ov2-geo-dropdown', 'value'),
+    Output('ov3-geo-dropdown', 'value'),
+    Output('ov4-geo-dropdown', 'value'),
+    Output('ov5-geo-dropdown', 'value'),
+    Output('ov6-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value')
+)
+def update_all_dropdown(value):
+    return value, value, value, value, value, value
+
 
 # Refreshing Overview by Sectors plots by selected sector
 
@@ -445,7 +470,7 @@ def update_geo_figure(geo):
             orientation = 'h', 
             hovertemplate= '%{x} - ' + '%{y}<extra></extra>'
         ))
-    fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#f0faff', title = 'Percent HH By Income Category', legend_title = "Income")
+    fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#f0faff', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
 
     
     return fig
@@ -515,7 +540,7 @@ def update_geo_figure2(geo):
             hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
         ))
         
-    fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = 'Percent HH By Area Mean Household Income', legend_title = "Household Size")
+    fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Area Mean Household Income - {geo}', legend_title = "Household Size")
 
     return fig2
 
@@ -617,8 +642,10 @@ def update_table2(geo, selected_columns):
             else:
                 column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of AMHI-Households in core housing need'
                 h_hold_value.append(joined_df_filtered[column].tolist()[0])
-                
-        table2[f'{h} p HH'] = h_hold_value
+        if h == 1:        
+            table2[f'{h} person HH'] = h_hold_value
+        else:
+            table2[f'{h} people HH'] = h_hold_value
 
     table2['All HH Sizes'] = table2.sum(axis = 1)
 
@@ -687,7 +714,7 @@ def update_geo_figure5(geo):
             hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
             
         ))
-    fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = True, plot_bgcolor='#f0faff', title = 'Percentage of Households (HHs) in Core Housing Need by Priority Population', legend_title = "HH Category")
+    fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = True, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
 
     return fig5
 
@@ -803,7 +830,7 @@ def update_geo_figure6(geo):
             hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
         ))
         
-    fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = 'Percentage of Households (HHs) in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
+    fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
 
     return fig6
 
@@ -922,7 +949,7 @@ def update_geo_figure7(geo):
             hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
         ))
             
-    fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = 'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size', legend_title = "HH Size")
+    fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
 
     return fig7
 
