@@ -499,8 +499,8 @@ def update_geo_figure2(geo):
 
     plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
 
-    # colors = ['#FFDD5D', '#FAB88A', '#4a5b97', '#4A8F97', '#0B4952']
-    colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+    # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+    colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
     fig2 = go.Figure()
 
@@ -790,6 +790,7 @@ def update_geo_figure6(geo):
     fig6 = go.Figure()
 
     colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+    # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
 
     for i, c in zip(plot_df['Income_Category'].unique(), colors):
         plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
@@ -907,6 +908,7 @@ def update_geo_figure7(geo):
 
     fig7 = go.Figure()
 
+    # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
     colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
 
     for h, c in zip(plot_df['HH_Size'].unique(), colors):
