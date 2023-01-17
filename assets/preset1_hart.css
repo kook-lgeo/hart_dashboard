@@ -104,6 +104,16 @@
 /* Dashboard
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+.backgroupd {
+  width: 95%;
+  display: inline-block;
+  padding-left: 2%;
+  padding-right: 10%;
+  /*border-left-style: solid;
+  border-left-color: #4A8F97;
+  border-left-width: 1pt; */
+}
+
 .dashboard {
   /*width: 100%;*/
   display: inline-block;
