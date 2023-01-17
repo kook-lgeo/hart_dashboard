@@ -155,7 +155,7 @@ app.layout = html.Div(children = [
                         page_size= 10,
                     ),
                     html.Div(id='datatable-interactivity-container')
-                ], style={'padding-top': '30px', 'padding-bottom': '30px'}
+                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
                 ),
 
 
@@ -281,7 +281,7 @@ app.layout = html.Div(children = [
                         page_size= 10,
                     ),
                     html.Div(id='datatable2-interactivity-container')
-                ], style={'padding-top': '30px', 'padding-bottom': '30px'}
+                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
                 ),
 
 
