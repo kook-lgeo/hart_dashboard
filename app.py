@@ -1,6 +1,7 @@
 from dash import Dash, dcc, dash_table, html, Input, Output
 import dash
 import pandas as pd
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.graph_objs.scatter.marker import Line
@@ -110,7 +111,7 @@ app.layout = html.Div(children = [
             html.H3(children = html.Strong('Area Selectcion'), id = 'area-selection'),
 
             html.Div(children = [
-                html.Strong('Select Area (For All Plots and Tables)'),
+                html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='all-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
@@ -120,15 +121,6 @@ app.layout = html.Div(children = [
         # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
 
             html.H3(children = html.Strong('Area Median Household Income (AMHI) Categories and Shelter Costs'), id = 'overview-scenario3'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov3-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Table
 
@@ -157,16 +149,6 @@ app.layout = html.Div(children = [
                     html.Div(id='datatable-interactivity-container')
                 ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
                 ),
-
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov3-download-csv"),
-                dcc.Download(id="ov3-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
 
@@ -175,15 +157,6 @@ app.layout = html.Div(children = [
         # Percent of Households (HHs) in Core Housing Need, by Household Income Category
 
             html.H3(children = html.Strong('Percent of Households (HHs) in Core Housing Need, by Household Income Category'), id = 'overview-scenario'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Graphs
 
@@ -195,15 +168,6 @@ app.layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov-download-csv"),
-                dcc.Download(id="ov-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
 
@@ -211,15 +175,6 @@ app.layout = html.Div(children = [
         # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
 
             html.H3(children = html.Strong('Percent of Household Size Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov2-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Graphs
 
@@ -231,30 +186,12 @@ app.layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov2-download-csv"),
-                dcc.Download(id="ov2-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
 
         # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
 
             html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov4-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Table
 
@@ -284,15 +221,6 @@ app.layout = html.Div(children = [
                 ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
                 ),
 
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov4-download-csv"),
-                dcc.Download(id="ov4-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ],style={'width': '80%'}
             ),
 
@@ -300,15 +228,6 @@ app.layout = html.Div(children = [
         # Percentage of Households (HHs) in Core Housing Need by Priority Population
 
             html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population'), id = 'overview-scenario5'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov5-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Graphs
 
@@ -320,15 +239,6 @@ app.layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov5-download-csv"),
-                dcc.Download(id="ov5-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
 
@@ -336,15 +246,6 @@ app.layout = html.Div(children = [
         # Percentage of Households (HHs) in Core Housing Need by Priority Population
 
             html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and Income'), id = 'overview-scenario6'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov6-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Graphs
 
@@ -356,15 +257,6 @@ app.layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov6-download-csv"),
-                dcc.Download(id="ov6-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
 
@@ -372,15 +264,6 @@ app.layout = html.Div(children = [
         # Percentage of Households (HHs) in Core Housing Need by Priority Population
 
             html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and HH Size'), id = 'overview-scenario7'),
-
-            # Dropdown for sector selection
-
-            html.Div(children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='ov7-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Graphs
 
@@ -392,18 +275,17 @@ app.layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
-
-            # Raw data download
-
-                html.Div([
-                html.Button("Download Full Raw Data", id="ov7-download-csv"),
-                dcc.Download(id="ov7-download-text")
-                ], 
-                style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
-                ),
             ]
             ),
+            
+            # Raw data download
 
+            html.Div([
+            html.Button("Download Full Raw Data", id="ov7-download-csv"),
+            dcc.Download(id="ov7-download-text")
+            ], 
+            style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
+            ),
 
 
         ], className = 'dashboard'
@@ -419,26 +301,29 @@ app.layout = html.Div(children = [
 
 # Dropdown for all plots
 
-@app.callback(
-    Output('ov-geo-dropdown', 'value'),
-    Output('ov2-geo-dropdown', 'value'),
-    Output('ov3-geo-dropdown', 'value'),
-    Output('ov4-geo-dropdown', 'value'),
-    Output('ov5-geo-dropdown', 'value'),
-    Output('ov6-geo-dropdown', 'value'),
-    Input('all-geo-dropdown', 'value')
-)
-def update_all_dropdown(value):
-    return value, value, value, value, value, value
+# @app.callback(
+#     Output('ov-geo-dropdown', 'value'),
+#     Output('ov2-geo-dropdown', 'value'),
+#     Output('ov3-geo-dropdown', 'value'),
+#     Output('ov4-geo-dropdown', 'value'),
+#     Output('ov5-geo-dropdown', 'value'),
+#     Output('ov6-geo-dropdown', 'value'),
+#     Input('all-geo-dropdown', 'value')
+# )
+# def update_all_dropdown(value):
+#     return value, value, value, value, value, value
 
 
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('graph', 'figure'),
-    Input('ov-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
 )
 def update_geo_figure(geo):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -476,26 +361,16 @@ def update_geo_figure(geo):
     return fig
 
 
-
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov-download-text", "data"),
-    Input("ov-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
-
-
-
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('graph2', 'figure'),
-    Input('ov2-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
 )
 def update_geo_figure2(geo):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -546,28 +421,19 @@ def update_geo_figure2(geo):
 
 
 
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov2-download-text", "data"),
-    Input("ov2-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov2(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
-
-
-
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('datatable-interactivity', 'columns'),
     Output('datatable-interactivity', 'data'),
     Output('datatable-interactivity', 'style_data_conditional'),
-    Input('ov3-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
     Input('datatable-interactivity', 'selected_columns')
 )
 def update_table1(geo, selected_columns):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -593,19 +459,6 @@ def update_table1(geo, selected_columns):
     } for i in selected_columns]
 
 
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov3-download-text", "data"),
-    Input("ov3-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov3(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
-
-
-
-
 
 # Refreshing Overview by Sectors plots by selected sector
 
@@ -613,10 +466,13 @@ def func_ov3(n_clicks):
     Output('datatable2-interactivity', 'columns'),
     Output('datatable2-interactivity', 'data'),
     Output('datatable2-interactivity', 'style_data_conditional'),
-    Input('ov4-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
     Input('datatable2-interactivity', 'selected_columns')
 )
 def update_table2(geo, selected_columns):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -655,25 +511,18 @@ def update_table2(geo, selected_columns):
     } for i in selected_columns]
 
 
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov4-download-text", "data"),
-    Input("ov4-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov4(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
-
 
 
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('graph5', 'figure'),
-    Input('ov5-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
 )
 def update_geo_figure5(geo):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -699,36 +548,41 @@ def update_geo_figure5(geo):
     percent_hh = [joined_df_filtered[c].tolist()[0] for c in columns]
 
     plot_df = pd.DataFrame({'HH_Category': hh_categories, 'Percent_HH': percent_hh})
+    plot_df['Percent_HH'] = plot_df['Percent_HH'].fillna(0)
 
-    colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
+    # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
+    color_dict = {}
+
+    for h in plot_df['HH_Category'].unique():
+        
+        if plot_df['Percent_HH'].max() == 0:
+            color_dict[h] = '#bfd5ff'
+        else:
+            if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
+                    color_dict[h] = '#4a5b97'
+            elif h == 'Community (all HH)':
+                color_dict[h] = '#158232'
+            else:
+                color_dict[h] = '#bfd5ff'
+
+    for i in plot_df:
+        plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
 
     fig5 = go.Figure()
-    for i, c in zip(hh_categories, colors):
+    for i in hh_categories:
         plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
         fig5.add_trace(go.Bar(
             y = plot_df_frag['HH_Category'],
             x = plot_df_frag['Percent_HH'],
             name = i,
-            marker_color = c,
+            marker_color = color_dict[i],
             orientation = 'h', 
             hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
             
         ))
-    fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = True, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+    fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
 
     return fig5
-
-
-
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov5-download-text", "data"),
-    Input("ov5-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov5(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
 
 
 
@@ -736,9 +590,12 @@ def func_ov5(n_clicks):
 
 @app.callback(
     Output('graph6', 'figure'),
-    Input('ov6-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
 )
 def update_geo_figure6(geo):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -836,25 +693,16 @@ def update_geo_figure6(geo):
 
 
 
-# Creating raw csv data file for download option
-
-@app.callback(
-    Output("ov6-download-text", "data"),
-    Input("ov6-download-csv", "n_clicks"),
-    prevent_initial_call=True,
-)
-def func_ov6(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
-
-
-
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('graph7', 'figure'),
-    Input('ov7-geo-dropdown', 'value'),
+    Input('all-geo-dropdown', 'value'),
 )
 def update_geo_figure7(geo):
+
+    if geo == None:
+        geo = 'Greater Vancouver (CD, BC)'
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -971,7 +819,3 @@ def func_ov7(n_clicks):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
-
-
-
