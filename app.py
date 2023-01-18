@@ -394,6 +394,7 @@ def update_geo_figure2(geo):
     for h in hh_p_num_list:
         for i in income_lv_list:
             column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
+            print(geo, joined_df_filtered[column])
             h_hold_value.append(joined_df_filtered[column].tolist()[0])
             hh_p_num_list_full.append(h)
 
