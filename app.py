@@ -5,6 +5,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.graph_objs.scatter.marker import Line
+from plotly.subplots import make_subplots
 from sqlalchemy import create_engine
 import warnings
 
@@ -87,8 +88,8 @@ for i, c in zip(plot_df['Income_Category'], colors):
     ))
 fig.update_layout(plot_bgcolor='#f0faff', title = 'Percent HH By Geography', legend_title = "Income")
 
-table = joined_df_filtered[columns]
-table2 = joined_df_filtered[columns]
+table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
+table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 fig5 = fig
 fig6 = fig
 fig7 = fig
@@ -108,11 +109,18 @@ app.layout = html.Div(children = [
             ]),
 
             # Dropdown for sector selection
-            html.H3(children = html.Strong('Area Selectcion'), id = 'area-selection'),
+            html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
 
             html.Div(children = [
                 html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='all-geo-dropdown'),
+                ], 
+                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
+            ),
+
+            html.Div(children = [
+                html.Strong('Comparison Area'),
+                dcc.Dropdown(joined_df['Geography'].unique(), 'Toronto (CD, ON)', id='comparison-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
@@ -145,10 +153,14 @@ app.layout = html.Div(children = [
                         page_action="native",
                         page_current= 0,
                         page_size= 10,
+                        merge_duplicate_headers=True,
+                        # style_data = {'font_size': '1.0rem', 'width': '100px'},
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
                     ),
                     html.Div(id='datatable-interactivity-container')
-                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
+                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
                 ),
+
             ]
             ),
 
@@ -194,7 +206,7 @@ app.layout = html.Div(children = [
             html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
 
             # Table
-
+            
             html.Div(children = [ 
 
                 html.Div([
@@ -216,6 +228,8 @@ app.layout = html.Div(children = [
                         page_action="native",
                         page_current= 0,
                         page_size= 10,
+                        merge_duplicate_headers=True,
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable2-interactivity-container')
                 ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
@@ -314,113 +328,6 @@ app.layout = html.Div(children = [
 #     return value, value, value, value, value, value
 
 
-# Refreshing Overview by Sectors plots by selected sector
-
-@app.callback(
-    Output('graph', 'figure'),
-    Input('all-geo-dropdown', 'value'),
-)
-def update_geo_figure(geo):
-
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
-
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
-
-    x_list = []
-
-    i = 0
-    for b, c in zip(x_base, x_columns):
-        if i < 4:
-            x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
-            x_list.append(x)
-        else:
-            x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
-            x_list.append(x)
-        i += 1
-
-    plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
-
-    colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
-    #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-
-    fig = go.Figure()
-    for i, c in zip(plot_df['Income_Category'], colors):
-        plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
-        fig.add_trace(go.Bar(
-            y = plot_df_frag['Income_Category'],
-            x = plot_df_frag['Percent HH'],
-            name = i,
-            marker_color = c,
-            orientation = 'h', 
-            hovertemplate= '%{x} - ' + '%{y}<extra></extra>'
-        ))
-    fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#f0faff', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
-
-    
-    return fig
-
-
-# Refreshing Overview by Sectors plots by selected sector
-
-@app.callback(
-    Output('graph2', 'figure'),
-    Input('all-geo-dropdown', 'value'),
-)
-def update_geo_figure2(geo):
-
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
-
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
-
-    x_list = []
-
-    i = 0
-    for b, c in zip(x_base, x_columns):
-        if i < 4:
-            x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
-            x_list.append(x)
-        else:
-            x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
-            x_list.append(x)
-        i += 1
-
-    income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
-
-    h_hold_value = []
-    hh_p_num_list_full = []
-
-    for h in hh_p_num_list:
-        for i in income_lv_list:
-            column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
-            print(geo, joined_df_filtered[column])
-            h_hold_value.append(joined_df_filtered[column].tolist()[0])
-            hh_p_num_list_full.append(h)
-
-    plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
-
-    # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-    colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-
-    fig2 = go.Figure()
-
-    for h, c in zip(plot_df['HH_Size'].unique(), colors):
-        plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
-        fig2.add_trace(go.Bar(
-            y = plot_df_frag['Income_Category'],
-            x = plot_df_frag['Percent'],
-            name = h,
-            marker_color = c,
-            orientation = 'h', 
-            hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
-        ))
-        
-    fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Area Mean Household Income - {geo}', legend_title = "Household Size")
-
-    return fig2
-
-
 
 # Refreshing Overview by Sectors plots by selected sector
 
@@ -429,35 +336,426 @@ def update_geo_figure2(geo):
     Output('datatable-interactivity', 'data'),
     Output('datatable-interactivity', 'style_data_conditional'),
     Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
     Input('datatable-interactivity', 'selected_columns')
 )
-def update_table1(geo, selected_columns):
+def update_table1(geo, geo_c, selected_columns):
 
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
 
-    portion_of_total_hh = []
-    for x in x_base:
-        portion_of_total_hh.append(round(joined_df_filtered[f'Percent of Total HH that are in {x}'].tolist()[0] * 100, 2))
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    amhi_list = []
-    for a in amhi_range:
-        amhi_list.append(joined_df_filtered[a].tolist()[0])
+        portion_of_total_hh = []
+        for x in x_base:
+            portion_of_total_hh.append(round(joined_df_filtered[f'Percent of Total HH that are in {x}'].tolist()[0] * 100, 2))
 
-    shelter_range = ['20% or under of AMHI.1', '21% to 50% of AMHI.1', '51% to 80% of AMHI.1', '81% to 120% of AMHI.1', '121% and more of AMHI.1']
-    shelter_list = []
-    for s in shelter_range:
-        shelter_list.append(joined_df_filtered[s].tolist()[0])
+        amhi_list = []
+        for a in amhi_range:
+            amhi_list.append(joined_df_filtered[a].tolist()[0])
 
-    table = pd.DataFrame({'Area Median Household Income': income_ct, 'Portion of total HHs(%)': portion_of_total_hh , 'Annual Household Income': amhi_list, 'Affordable shelter cost (2015 CAD$)': shelter_list})
+        shelter_range = ['20% or under of AMHI.1', '21% to 50% of AMHI.1', '51% to 80% of AMHI.1', '81% to 120% of AMHI.1', '121% and more of AMHI.1']
+        shelter_list = []
+        for s in shelter_range:
+            shelter_list.append(joined_df_filtered[s].tolist()[0])
+
+        table = pd.DataFrame({'Area Median HH Income': income_ct, 'Portion of total HHs(%)': portion_of_total_hh , 'Annual Household Income': amhi_list, 'Affordable shelter cost (2015 CAD$)': shelter_list})
+
+        col_list = []
+
+        for i in table.columns:
+            col_list.append({"name": [geo, i], "id": i})
+
+        return col_list, table.to_dict('record'), [{
+            'if': { 'column_id': i },
+            'background_color': '#D2F3FF'
+        } for i in selected_columns]
+        
+    else:
+        if geo == None:
+            geo = 'Greater Vancouver (CD, BC)'
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        portion_of_total_hh = []
+        for x in x_base:
+            portion_of_total_hh.append(round(joined_df_filtered[f'Percent of Total HH that are in {x}'].tolist()[0] * 100, 2))
+
+        amhi_list = []
+        for a in amhi_range:
+            amhi_list.append(joined_df_filtered[a].tolist()[0])
+
+        shelter_range = ['20% or under of AMHI.1', '21% to 50% of AMHI.1', '51% to 80% of AMHI.1', '81% to 120% of AMHI.1', '121% and more of AMHI.1']
+        shelter_list = []
+        for s in shelter_range:
+            shelter_list.append(joined_df_filtered[s].tolist()[0])
+
+        table = pd.DataFrame({'Area Median HH Income': income_ct, '% of Total HHs': portion_of_total_hh , 'Annual HH Income': amhi_list, 'Affordable Shelter Cost': shelter_list})
+        table['% of Total HHs'] = table['% of Total HHs'].astype(str) + '%'
+
+        col_list = []
+
+        for i in table.columns:
+            if i == 'Area Median HH Income':
+                col_list.append({"name": ["Income Category", i], "id": i})
+            else:
+                col_list.append({"name": [geo, i], "id": i})
+
+        # Comparison
+
+        if geo_c == None:
+            geo_c = geo
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        portion_of_total_hh = []
+        for x in x_base:
+            portion_of_total_hh.append(round(joined_df_filtered[f'Percent of Total HH that are in {x}'].tolist()[0] * 100, 2))
+
+        amhi_list = []
+        for a in amhi_range:
+            amhi_list.append(joined_df_filtered[a].tolist()[0])
+
+        shelter_range = ['20% or under of AMHI.1', '21% to 50% of AMHI.1', '51% to 80% of AMHI.1', '81% to 120% of AMHI.1', '121% and more of AMHI.1']
+        shelter_list = []
+        for s in shelter_range:
+            shelter_list.append(joined_df_filtered[s].tolist()[0])
+
+        table_c = pd.DataFrame({'Area Median HH Income': income_ct, '% of Total HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
+        table_c['% of Total HHs '] = table_c['% of Total HHs '].astype(str) + '%'
+
+        table_j = table.merge(table_c, how = 'left', on = 'Area Median HH Income')
+
+        print(table_j)
+
+        for i in table_c.columns[1:]:
+            col_list.append({"name": [geo_c, i], "id": i})
+
+        print(col_list)
+
+        return col_list, table_j.to_dict('record'), [{
+            'if': { 'column_id': i },
+            'background_color': '#D2F3FF'
+        } for i in selected_columns]
 
 
-    return [{"name": i, "id": i, "deletable": True, "selectable": True} for i in table.columns], table.to_dict('record'), [{
-        'if': { 'column_id': i },
-        'background_color': '#D2F3FF'
-    } for i in selected_columns]
+
+
+# Refreshing Overview by Sectors plots by selected sector
+
+@app.callback(
+    Output('graph', 'figure'),
+    Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
+)
+def update_geo_figure(geo, geo_c):
+
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
+
+        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        fig = go.Figure()
+        for i, c in zip(plot_df['Income_Category'], colors):
+            plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
+            fig.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['Percent HH'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+            ))
+
+        fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#f0faff', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
+        fig.update_xaxes(range = [0, 1])
+            
+        return fig
+
+    else:
+        if geo == None:
+            geo = 'Greater Vancouver (CD, BC)'
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                b = b.replace(" Income", "")
+                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                b = b.replace(" Income", "")
+                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
+
+        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        fig = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
+
+        n = 0
+        for i, c, b in zip(plot_df['Income_Category'], colors, x_base):
+            plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
+            fig.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['Percent HH'],
+                name = b.replace(" Income", ""),
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = f'{n}'
+            ), row = 1, col = 1)
+            n += 1
+
+        # Comparison plot
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                b = b.replace(" Income", "")
+                x = b + " ($" + str(joined_df_filtered_c[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                b = b.replace(" Income", "")
+                x = b + " (>$" + str(joined_df_filtered_c[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        plot_df_c = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered_c[columns].T.iloc[:,0].tolist()})
+
+        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        n = 0
+        for i, c, b in zip(plot_df_c['Income_Category'], colors, x_base):
+            plot_df_frag_c = plot_df_c.loc[plot_df_c['Income_Category'] == i, :]
+            fig.add_trace(go.Bar(
+                y = plot_df_frag_c['Income_Category'],
+                x = plot_df_frag_c['Percent HH'],
+                name = b.replace(" Income", ""),
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = f'{n}',
+                showlegend = False
+            ), row = 1, col = 2)
+            n += 1
+
+
+        fig.update_layout(title = f'Percent HH By Income Category', plot_bgcolor='#f0faff', legend_title = "Income", legend = dict(font = dict(size = 9)))
+        fig.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
+        fig.update_xaxes(range = [0, 1])
+
+        return fig
+
+
+
+# Refreshing Overview by Sectors plots by selected sector
+
+@app.callback(
+    Output('graph2', 'figure'),
+    Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
+)
+def update_geo_figure2(geo, geo_c):
+
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+
+        h_hold_value = []
+        hh_p_num_list_full = []
+
+        for h in hh_p_num_list:
+            for i in income_lv_list:
+                column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
+                #print(geo, joined_df_filtered[column])
+                h_hold_value.append(joined_df_filtered[column].tolist()[0])
+                hh_p_num_list_full.append(h)
+
+        plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
+
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        fig2 = go.Figure()
+
+        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
+            fig2.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+            ))
+            
+        fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
+
+        return fig2
+
+    else:
+        if geo == None:
+            geo = 'Greater Vancouver (CD, BC)'
+            
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                b = b.replace(" Income", "")
+                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                b = b.replace(" Income", "")
+                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+
+        h_hold_value = []
+        hh_p_num_list_full = []
+
+        for h in hh_p_num_list:
+            for i in income_lv_list:
+                column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
+                #print(geo, joined_df_filtered[column])
+                h_hold_value.append(joined_df_filtered[column].tolist()[0])
+                hh_p_num_list_full.append(h)
+
+        plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
+
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        fig2 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
+
+        n = 0
+        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
+            fig2.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+                legendgroup = f'{n}'
+            ), row = 1, col = 1)
+            n += 1
+            
+        # Comparison plot
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        x_list = []
+
+        i = 0
+        for b, c in zip(x_base, x_columns):
+            if i < 4:
+                b = b.replace(" Income", "")
+                x = b + " ($" + str(joined_df_filtered_c[c].tolist()[0]) + ")"
+                x_list.append(x)
+            else:
+                b = b.replace(" Income", "")
+                x = b + " (>$" + str(joined_df_filtered_c[c].tolist()[0]) + ")"
+                x_list.append(x)
+            i += 1
+
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+
+        h_hold_value = []
+        hh_p_num_list_full = []
+
+        for h in hh_p_num_list:
+            for i in income_lv_list:
+                column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
+                #print(geo, joined_df_filtered[column])
+                h_hold_value.append(joined_df_filtered_c[column].tolist()[0])
+                hh_p_num_list_full.append(h)
+
+        plot_df_c = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
+
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+
+        n = 0
+        for h, c in zip(plot_df_c['HH_Size'].unique(), colors):
+            plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Size'] == h, :]
+            fig2.add_trace(go.Bar(
+                y = plot_df_frag_c['Income_Category'],
+                x = plot_df_frag_c['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+                legendgroup = f'{n}',
+                showlegend = False
+            ), row = 1, col = 2)
+            n += 1
+
+        fig2.update_layout(legend_traceorder = 'normal', barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
+        fig2.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
+
+        return fig2
 
 
 
@@ -468,48 +766,158 @@ def update_table1(geo, selected_columns):
     Output('datatable2-interactivity', 'data'),
     Output('datatable2-interactivity', 'style_data_conditional'),
     Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
     Input('datatable2-interactivity', 'selected_columns')
 )
-def update_table2(geo, selected_columns):
+def update_table2(geo, geo_c, selected_columns):
 
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
 
-    table2 = pd.DataFrame({'Income Group': income_ct})
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    h_hold_value = []
-    hh_p_num_list = [1,2,3,4,'5 or more']
-    income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+        table2 = pd.DataFrame({'Income Group': income_ct})
 
-    for h in hh_p_num_list:
         h_hold_value = []
-        if h == 1:
-            h2 = '1 person'
-        elif h == '5 or more':
-            h2 = '5 or more persons household'
-        else:
-            h2 = f'{str(h)} persons'
-        for i in income_lv_list:
-            if i == '20% or under':
-                column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of area median household income (AMHI)-Households in core housing need'
-                h_hold_value.append(joined_df_filtered[column].tolist()[0])
+        hh_p_num_list = [1,2,3,4,'5 or more']
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
 
+        for h in hh_p_num_list:
+            h_hold_value = []
+            if h == 1:
+                h2 = '1 person'
+            elif h == '5 or more':
+                h2 = '5 or more persons household'
             else:
-                column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of AMHI-Households in core housing need'
-                h_hold_value.append(joined_df_filtered[column].tolist()[0])
-        if h == 1:        
-            table2[f'{h} person HH'] = h_hold_value
-        else:
-            table2[f'{h} people HH'] = h_hold_value
+                h2 = f'{str(h)} persons'
+            for i in income_lv_list:
+                if i == '20% or under':
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of area median household income (AMHI)-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered[column].tolist()[0])
 
-    table2['All HH Sizes'] = table2.sum(axis = 1)
+                else:
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of AMHI-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered[column].tolist()[0])
+            if h == 1:        
+                table2[f'{h} P HH'] = h_hold_value
+            elif h == '5 or more':
+                table2[f'5 >= P HH'] = h_hold_value
+            else:
+                table2[f'{h} P HH'] = h_hold_value
 
-    return [{"name": i, "id": i, "deletable": True, "selectable": True} for i in table2.columns], table2.to_dict('record'), [{
-        'if': { 'column_id': i },
-        'background_color': '#D2F3FF'
-    } for i in selected_columns]
+        table2['Total'] = table2.sum(axis = 1)
+
+        col_list = []
+
+        for i in table2.columns:
+            col_list.append({"name": [geo, i], "id": i})
+
+        return col_list, table2.to_dict('record'), [{
+            'if': { 'column_id': i },
+            'background_color': '#D2F3FF'
+        } for i in selected_columns]
+
+
+    else:
+        if geo == None:
+            geo = geo_c
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        table2 = pd.DataFrame({'Area Median HH Income': income_ct})
+
+        h_hold_value = []
+        hh_p_num_list = [1,2,3,4,'5 or more']
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+
+        for h in hh_p_num_list:
+            h_hold_value = []
+            if h == 1:
+                h2 = '1 person'
+            elif h == '5 or more':
+                h2 = '5 or more persons household'
+            else:
+                h2 = f'{str(h)} persons'
+            for i in income_lv_list:
+                if i == '20% or under':
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of area median household income (AMHI)-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered[column].tolist()[0])
+
+                else:
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of AMHI-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered[column].tolist()[0])
+            if h == 1:        
+                table2[f'{h} P HH'] = h_hold_value
+            elif h == '5 or more':
+                table2[f'5 >= P HH'] = h_hold_value
+            else:
+                table2[f'{h} P HH'] = h_hold_value
+
+        table2['Total'] = table2.sum(axis = 1)
+
+        col_list = []
+
+        for i in table2.columns:
+            if i == 'Area Median HH Income':
+                col_list.append({"name": ["Income Category", i], "id": i})
+            else:
+                col_list.append({"name": [geo, i], "id": i})
+
+        # Comparison Table
+
+        if geo == None:
+            geo = 'Greater Vancouver (CD, BC)'
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        table2_c = pd.DataFrame({'Area Median HH Income': income_ct})
+
+        h_hold_value = []
+        hh_p_num_list = [1,2,3,4,'5 or more']
+        income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+
+        for h in hh_p_num_list:
+            h_hold_value = []
+            if h == 1:
+                h2 = '1 person'
+            elif h == '5 or more':
+                h2 = '5 or more persons household'
+            else:
+                h2 = f'{str(h)} persons'
+            for i in income_lv_list:
+                if i == '20% or under':
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of area median household income (AMHI)-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered_c[column].tolist()[0])
+
+                else:
+                    column = f'Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)-{h2}-Households with income {i} of AMHI-Households in core housing need'
+                    h_hold_value.append(joined_df_filtered_c[column].tolist()[0])
+            if h == 1:        
+                table2_c[f'{h} P HH '] = h_hold_value
+            elif h == '5 or more':
+                table2_c[f'5 >= P HH '] = h_hold_value
+            else:
+                table2_c[f'{h} P HH '] = h_hold_value
+
+        table2_c['Total '] = table2.sum(axis = 1)
+
+        for i in table2_c.columns[1:]:
+            if i == 'Area Median HH Income':
+                col_list.append({"name": ["Income Category", i], "id": i})
+            else:
+                col_list.append({"name": [geo_c, i], "id": i})
+
+        table2_j = table2.merge(table2_c, how = 'left', on = 'Area Median HH Income')
+
+        return col_list, table2_j.to_dict('record'), [{
+            'if': { 'column_id': i },
+            'background_color': '#D2F3FF'
+        } for i in selected_columns]
+
 
 
 
@@ -519,71 +927,152 @@ def update_table2(geo, selected_columns):
 @app.callback(
     Output('graph5', 'figure'),
     Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
 )
-def update_geo_figure5(geo):
-
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
-
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+def update_geo_figure5(geo, geo_c):
 
     hh_category_dict = {
-                    'Percent Women-led HH in core housing need' : 'Women-led HH', 
-                    'Percent Single Mother led HH in core housing need' : 'Single mother-led HH', 
-                    'Percent Indigenous HH in core housing need' : 'Indigenous HH', 
-                    'Percent Visible minority HH in core housing need' : 'Visible minority HH', 
-                    'Percent Black-led HH in core housing need' : 'Black-led HH', 
-                    'Percent New migrant-led HH in core housing need' : 'New migrant-led HH', 
-                    'Percent Refugee claimant-led HH in core housing need' : 'Refugee claimant-led HH', 
-                    'Percent HH head under 25 in core housing need' : 'HH head under 25', 
-                    'Percent HH head over 65 in core housing need' : 'HH head over 65', 
-                    'Percent HH head over 85 in core housing need' : 'HH head over 85', 
-                    'Percent HH with physical act. limit. in core housing need' : 'HH with physical activity limitation', 
-                    'Percent HH with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental, or addictions activity limitation', 
-                    'Percent HH in core housing need' : 'Community (all HH)'
-                   }
+                'Percent Women-led HH in core housing need' : 'Women-led HH', 
+                'Percent Single Mother led HH in core housing need' : 'Single mother-led HH', 
+                'Percent Indigenous HH in core housing need' : 'Indigenous HH', 
+                'Percent Visible minority HH in core housing need' : 'Visible minority HH', 
+                'Percent Black-led HH in core housing need' : 'Black-led HH', 
+                'Percent New migrant-led HH in core housing need' : 'New migrant-led HH', 
+                'Percent Refugee claimant-led HH in core housing need' : 'Refugee claimant-led HH', 
+                'Percent HH head under 25 in core housing need' : 'HH head under 25', 
+                'Percent HH head over 65 in core housing need' : 'HH head over 65', 
+                'Percent HH head over 85 in core housing need' : 'HH head over 85', 
+                'Percent HH with physical act. limit. in core housing need' : 'HH with physical activity limitation', 
+                'Percent HH with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental, or addictions activity limitation', 
+                'Percent HH in core housing need' : 'Community (all HH)'
+            }
 
     columns = hh_category_dict.keys()
     hh_categories = list(hh_category_dict.values())
 
-    percent_hh = [joined_df_filtered[c].tolist()[0] for c in columns]
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
-    plot_df = pd.DataFrame({'HH_Category': hh_categories, 'Percent_HH': percent_hh})
-    plot_df['Percent_HH'] = plot_df['Percent_HH'].fillna(0)
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
 
-    # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
-    color_dict = {}
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    for h in plot_df['HH_Category'].unique():
-        
-        if plot_df['Percent_HH'].max() == 0:
-            color_dict[h] = '#bfd5ff'
-        else:
-            if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
-                    color_dict[h] = '#4a5b97'
-            elif h == 'Community (all HH)':
-                color_dict[h] = '#158232'
-            else:
-                color_dict[h] = '#bfd5ff'
+        percent_hh = [joined_df_filtered[c].tolist()[0] for c in columns]
 
-    for i in plot_df:
-        plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
+        plot_df = pd.DataFrame({'HH_Category': hh_categories, 'Percent_HH': percent_hh})
+        plot_df['Percent_HH'] = plot_df['Percent_HH'].fillna(0)
 
-    fig5 = go.Figure()
-    for i in hh_categories:
-        plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
-        fig5.add_trace(go.Bar(
-            y = plot_df_frag['HH_Category'],
-            x = plot_df_frag['Percent_HH'],
-            name = i,
-            marker_color = color_dict[i],
-            orientation = 'h', 
-            hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+        # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
+        color_dict = {}
+
+        for h in plot_df['HH_Category'].unique():
             
-        ))
-    fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+            if plot_df['Percent_HH'].max() == 0:
+                color_dict[h] = '#bfd5ff'
+            else:
+                if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
+                        color_dict[h] = '#4a5b97'
+                elif h == 'Community (all HH)':
+                    color_dict[h] = '#158232'
+                else:
+                    color_dict[h] = '#bfd5ff'
 
-    return fig5
+        fig5 = go.Figure()
+        for i in hh_categories:
+            plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
+            fig5.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent_HH'],
+                name = i,
+                marker_color = color_dict[i],
+                orientation = 'h', 
+                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                
+            ))
+        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+
+        return fig5
+
+    else:
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        percent_hh = [joined_df_filtered[c].tolist()[0] for c in columns]
+
+        plot_df = pd.DataFrame({'HH_Category': hh_categories, 'Percent_HH': percent_hh})
+        plot_df['Percent_HH'] = plot_df['Percent_HH'].fillna(0)
+
+        # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
+        color_dict = {}
+
+        for h in plot_df['HH_Category'].unique():
+            
+            if plot_df['Percent_HH'].max() == 0:
+                color_dict[h] = '#bfd5ff'
+            else:
+                if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
+                        color_dict[h] = '#4a5b97'
+                elif h == 'Community (all HH)':
+                    color_dict[h] = '#158232'
+                else:
+                    color_dict[h] = '#bfd5ff'
+
+        fig5 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        for i in hh_categories:
+            plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
+            fig5.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent_HH'],
+                name = i,
+                marker_color = color_dict[i],
+                orientation = 'h', 
+                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                
+            ),row = 1, col = 1)
+
+
+        # Comparison Plot
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        percent_hh = [joined_df_filtered_c[c].tolist()[0] for c in columns]
+
+        plot_df_c = pd.DataFrame({'HH_Category': hh_categories, 'Percent_HH': percent_hh})
+        plot_df_c['Percent_HH'] = plot_df_c['Percent_HH'].fillna(0)
+
+        # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
+        color_dict = {}
+
+        for h in plot_df_c['HH_Category'].unique():
+            
+            if plot_df_c['Percent_HH'].max() == 0:
+                color_dict[h] = '#bfd5ff'
+            else:
+                if h == plot_df_c.loc[plot_df_c['Percent_HH'] == plot_df_c['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
+                        color_dict[h] = '#4a5b97'
+                elif h == 'Community (all HH)':
+                    color_dict[h] = '#158232'
+                else:
+                    color_dict[h] = '#bfd5ff'
+
+        for i in hh_categories:
+            plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Category'] == i, :]
+            fig5.add_trace(go.Bar(
+                y = plot_df_frag_c['HH_Category'],
+                x = plot_df_frag_c['Percent_HH'],
+                name = i,
+                marker_color = color_dict[i],
+                orientation = 'h', 
+                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                
+            ),row = 1, col = 2)
+        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
+
+        return fig5
+
 
 
 
@@ -592,13 +1081,9 @@ def update_geo_figure5(geo):
 @app.callback(
     Output('graph6', 'figure'),
     Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
 )
-def update_geo_figure6(geo):
-
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
-
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+def update_geo_figure6(geo, geo_c):
 
     hh_category_dict2 = {
                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
@@ -649,48 +1134,151 @@ def update_geo_figure6(geo):
     columns3 = hh_category_dict3.keys()
     columns4 = hh_category_dict4.keys()
 
-    income_col = []
-    percent_col = []
-    hh_cat_col = []
-
     income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
 
-    for c, c2, c3 in zip(columns2, columns3, columns4):
-        for i in income_lv_list:
-            if i == '20% or under':
-                p_hh = joined_df_filtered[f'{c} with income {i} of the AMHI'].tolist()[0]
-                hh_cat_col.append(hh_category_dict2[c])
-            elif i == '21% to 50%':
-                p_hh = joined_df_filtered[f'{c2} with income {i} of AMHI'].tolist()[0]
-                hh_cat_col.append(hh_category_dict3[c2])
-            else:
-                p_hh = joined_df_filtered[f'{c3} with income {i} of AMHI'].tolist()[0]
-                hh_cat_col.append(hh_category_dict4[c3])
-                
-            income_col.append(i)
-            percent_col.append(p_hh)
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
-    plot_df = pd.DataFrame({'Income_Category': income_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
 
-    fig6 = go.Figure()
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-    # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+        income_col = []
+        percent_col = []
+        hh_cat_col = []
 
-    for i, c in zip(plot_df['Income_Category'].unique(), colors):
-        plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
-        fig6.add_trace(go.Bar(
-            y = plot_df_frag['HH_Category'],
-            x = plot_df_frag['Percent'],
-            name = i,
-            marker_color = c,
-            orientation = 'h', 
-            hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
-        ))
-        
-    fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for i in income_lv_list:
+                if i == '20% or under':
+                    p_hh = joined_df_filtered[f'{c} with income {i} of the AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif i == '21% to 50%':
+                    p_hh = joined_df_filtered[f'{c2} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                else:
+                    p_hh = joined_df_filtered[f'{c3} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                income_col.append(i)
+                percent_col.append(p_hh)
 
-    return fig6
+        plot_df = pd.DataFrame({'Income_Category': income_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        fig6 = go.Figure()
+
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        for i, c in zip(plot_df['Income_Category'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
+            fig6.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+            ))
+            
+        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
+
+        return fig6
+
+    else:
+
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        income_col = []
+        percent_col = []
+        hh_cat_col = []
+
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for i in income_lv_list:
+                if i == '20% or under':
+                    p_hh = joined_df_filtered[f'{c} with income {i} of the AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif i == '21% to 50%':
+                    p_hh = joined_df_filtered[f'{c2} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                else:
+                    p_hh = joined_df_filtered[f'{c3} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                income_col.append(i)
+                percent_col.append(p_hh)
+
+        plot_df = pd.DataFrame({'Income_Category': income_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        fig6 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        n = 0
+        for i, c in zip(plot_df['Income_Category'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
+            fig6.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+                legendgroup= f'{n}'
+            ), row = 1, col = 1)
+            n += 1
+            
+
+        # Comparison plot
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        income_col = []
+        percent_col = []
+        hh_cat_col = []
+
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for i in income_lv_list:
+                if i == '20% or under':
+                    p_hh = joined_df_filtered_c[f'{c} with income {i} of the AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif i == '21% to 50%':
+                    p_hh = joined_df_filtered_c[f'{c2} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                else:
+                    p_hh = joined_df_filtered_c[f'{c3} with income {i} of AMHI'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                income_col.append(i)
+                percent_col.append(p_hh)
+
+        plot_df_c = pd.DataFrame({'Income_Category': income_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        n = 0
+        for i, c in zip(plot_df_c['Income_Category'].unique(), colors):
+            plot_df_frag_c = plot_df_c.loc[plot_df_c['Income_Category'] == i, :]
+            fig6.add_trace(go.Bar(
+                y = plot_df_frag_c['HH_Category'],
+                x = plot_df_frag_c['Percent'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate = '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+                legendgroup = f'{n}',
+                showlegend = False
+            ), row = 1, col = 2)
+            n += 1
+            
+        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
+
+        return fig6
+
+
 
 
 
@@ -699,13 +1287,9 @@ def update_geo_figure6(geo):
 @app.callback(
     Output('graph7', 'figure'),
     Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
 )
-def update_geo_figure7(geo):
-
-    if geo == None:
-        geo = 'Greater Vancouver (CD, BC)'
-
-    joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+def update_geo_figure7(geo, geo_c):
 
     hh_category_dict2 = {
                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
@@ -756,52 +1340,161 @@ def update_geo_figure7(geo):
     columns3 = hh_category_dict3.keys()
     columns4 = hh_category_dict4.keys()
 
-    hh_size_col = []
-    percent_col = []
-    hh_cat_col = []
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
-    hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver (CD, BC)'
 
-    for c, c2, c3 in zip(columns2, columns3, columns4):
-        for h in hh_size:
-            if h == '1 person':
-                p_hh = joined_df_filtered[f'{c} with a HH size of {h}'].tolist()[0]
-                hh_cat_col.append(hh_category_dict2[c])
-            elif h == '2 people':
-                p_hh = joined_df_filtered[f'{c2} with a HH size of {h}'].tolist()[0]
-                hh_cat_col.append(hh_category_dict3[c2])
-            elif h == '5 or more people':
-                p_hh = joined_df_filtered[f'{c3}with a HH size of {h}'].tolist()[0]
-                hh_cat_col.append(hh_category_dict4[c3])
-            else:
-                p_hh = joined_df_filtered[f'{c3} with a HH size of {h}'].tolist()[0]
-                hh_cat_col.append(hh_category_dict4[c3])
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
+
+        hh_size_col = []
+        percent_col = []
+        hh_cat_col = []
+
+        hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
+
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for h in hh_size:
+                if h == '1 person':
+                    p_hh = joined_df_filtered[f'{c} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif h == '2 people':
+                    p_hh = joined_df_filtered[f'{c2} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                elif h == '5 or more people':
+                    p_hh = joined_df_filtered[f'{c3}with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                else:
+                    p_hh = joined_df_filtered[f'{c3} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                hh_size_col.append(h)
+                percent_col.append(p_hh)
+
+        plot_df = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        fig7 = go.Figure()
+
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
+            fig7.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+            ))
                 
-            hh_size_col.append(h)
-            percent_col.append(p_hh)
+        fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
 
-    plot_df = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+        return fig7
 
-    fig7 = go.Figure()
+    else:
 
-    # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-    colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+        joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    for h, c in zip(plot_df['HH_Size'].unique(), colors):
-        plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
-        fig7.add_trace(go.Bar(
-            y = plot_df_frag['HH_Category'],
-            x = plot_df_frag['Percent'],
-            name = h,
-            marker_color = c,
-            orientation = 'h', 
-            hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
-        ))
-            
-    fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
+        hh_size_col = []
+        percent_col = []
+        hh_cat_col = []
 
-    return fig7
+        hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
 
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for h in hh_size:
+                if h == '1 person':
+                    p_hh = joined_df_filtered[f'{c} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif h == '2 people':
+                    p_hh = joined_df_filtered[f'{c2} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                elif h == '5 or more people':
+                    p_hh = joined_df_filtered[f'{c3}with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                else:
+                    p_hh = joined_df_filtered[f'{c3} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                hh_size_col.append(h)
+                percent_col.append(p_hh)
+
+        plot_df = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        fig7 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        n = 0
+        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+            plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
+            fig7.add_trace(go.Bar(
+                y = plot_df_frag['HH_Category'],
+                x = plot_df_frag['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+                legendgroup = f'{n}'
+            ),row = 1, col = 1)
+            n += 1
+
+        # Comparison Plot
+
+        joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
+
+        hh_size_col = []
+        percent_col = []
+        hh_cat_col = []
+
+        hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
+
+        for c, c2, c3 in zip(columns2, columns3, columns4):
+            for h in hh_size:
+                if h == '1 person':
+                    p_hh = joined_df_filtered_c[f'{c} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict2[c])
+                elif h == '2 people':
+                    p_hh = joined_df_filtered_c[f'{c2} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict3[c2])
+                elif h == '5 or more people':
+                    p_hh = joined_df_filtered_c[f'{c3}with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                else:
+                    p_hh = joined_df_filtered_c[f'{c3} with a HH size of {h}'].tolist()[0]
+                    hh_cat_col.append(hh_category_dict4[c3])
+                    
+                hh_size_col.append(h)
+                percent_col.append(p_hh)
+
+        plot_df_c = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
+
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
+
+        n = 0
+        for h, c in zip(plot_df_c['HH_Size'].unique(), colors):
+            plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Size'] == h, :]
+            fig7.add_trace(go.Bar(
+                y = plot_df_frag_c['HH_Category'],
+                x = plot_df_frag_c['Percent'],
+                name = h,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+                legendgroup = f'{n}',
+                showlegend = False
+            ),row = 1, col = 2)
+            n += 1
+                
+        fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
+
+        return fig7
 
 
 # Creating raw csv data file for download option
