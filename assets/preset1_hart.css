@@ -123,6 +123,12 @@
   border-left-width: 1pt; */
 }
 
+.region_button {
+  display: inline-block;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
@@ -340,8 +346,9 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-  color: #333;
+  color: rgb(52, 88, 245);
   border-color: #888;
+  /* background-color: #b6ebfc; */
   outline: 0; }
 .button.button-primary,
 button.button-primary,

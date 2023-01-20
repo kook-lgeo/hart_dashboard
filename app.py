@@ -1,4 +1,4 @@
-from dash import Dash, dcc, dash_table, html, Input, Output
+from dash import Dash, dcc, dash_table, html, Input, Output, ctx
 import dash
 import pandas as pd
 import numpy as np
@@ -22,6 +22,37 @@ df_income = pd.read_sql_table('income', engine.connect())
 
 df_partners = pd.read_sql_table('partners', engine.connect())
 #df_partners = pd.read_csv("./sources/partners_small.csv")
+
+# Geo Code Mapping
+
+geo_code = df_income['Geography']
+
+def geo_code_extractor(geography):
+    geo = geography.split()
+    for g in geo:
+        if g[0] == '(' and g[1].isdigit():
+            g = g.replace("(", "")
+            g = g.replace(")", "")
+            break
+    return g
+
+geo_code_list = geo_code.apply(lambda x: geo_code_extractor(x))
+region_code_list = geo_code_list.apply(lambda x: x[:4])
+province_code_list = geo_code_list.apply(lambda x: x[:2])
+
+geo_code_mapping = pd.DataFrame({'Geo_Code': geo_code_list, 'Region_Code': region_code_list, 'Province_Code': province_code_list, 'Geography': df_income['Formatted Name']})
+geo_code_mapping['Geo_Code_Length'] = geo_code_mapping['Geo_Code'].apply(lambda x: len(x))
+
+region_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] == 4, :]
+
+province_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] <= 2, :]
+
+mapped_geo_code = geo_code_mapping.merge(region_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Region_Code', right_on = 'Geo_Code')
+mapped_geo_code = mapped_geo_code.merge(province_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Province_Code', right_on = 'Geo_Code')
+mapped_geo_code = mapped_geo_code[['Geo_Code_x', 'Region_Code', 'Province_Code', 'Geography_x','Geography_y','Geography']]
+mapped_geo_code.columns = ['Geo_Code', 'Region_Code', 'Province_Code', 'Geography','Region','Province']
+
+mapped_geo_code['Region'] = mapped_geo_code['Region'].fillna(mapped_geo_code['Province'])
 
 # Preprocessing
 
@@ -113,14 +144,14 @@ app.layout = html.Div(children = [
 
             html.Div(children = [
                 html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver (CD, BC)', id='all-geo-dropdown'),
+                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
 
             html.Div(children = [
                 html.Strong('Comparison Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Toronto (CD, ON)', id='comparison-geo-dropdown'),
+                dcc.Dropdown(joined_df['Geography'].unique(), id='comparison-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
@@ -133,6 +164,18 @@ app.layout = html.Div(children = [
             # Table
 
             html.Div(children = [ 
+                html.Div(children = [ 
+                    html.Button('To Geography', id='to-geography-1', n_clicks=0),     
+                                    ], className = 'region_button'
+                    ),           
+                    html.Div(children = [ 
+                    html.Button('To Region', id='to-region-1', n_clicks=0),
+                                    ], className = 'region_button'
+                    ),         
+                    html.Div(children = [ 
+                    html.Button('To Province', id='to-province-1', n_clicks=0),
+                                    ], className = 'region_button'
+                    ),         
 
                 html.Div([
                     dash_table.DataTable(
@@ -154,6 +197,7 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        # export_format = "csv",
                         # style_data = {'font_size': '1.0rem', 'width': '100px'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
                     ),
@@ -229,7 +273,8 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
+                        # export_format = "csv"
                     ),
                     html.Div(id='datatable2-interactivity-container')
                 ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
@@ -337,16 +382,31 @@ app.layout = html.Div(children = [
     Output('datatable-interactivity', 'style_data_conditional'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
-    Input('datatable-interactivity', 'selected_columns')
+    Input('datatable-interactivity', 'selected_columns'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_table1(geo, geo_c, selected_columns):
+def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
+
+
+
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -376,8 +436,18 @@ def update_table1(geo, geo_c, selected_columns):
         } for i in selected_columns]
         
     else:
-        if geo == None:
-            geo = 'Greater Vancouver (CD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -459,7 +529,7 @@ def update_geo_figure(geo, geo_c):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -499,7 +569,7 @@ def update_geo_figure(geo, geo_c):
 
     else:
         if geo == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -599,7 +669,7 @@ def update_geo_figure2(geo, geo_c):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -642,7 +712,7 @@ def update_geo_figure2(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
         fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
@@ -651,7 +721,7 @@ def update_geo_figure2(geo, geo_c):
 
     else:
         if geo == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
             
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -697,7 +767,7 @@ def update_geo_figure2(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}'
             ), row = 1, col = 1)
             n += 1
@@ -746,7 +816,7 @@ def update_geo_figure2(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{x}, ' + f'HH Size: {h} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}',
                 showlegend = False
             ), row = 1, col = 2)
@@ -776,7 +846,7 @@ def update_table2(geo, geo_c, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -870,7 +940,7 @@ def update_table2(geo, geo_c, selected_columns):
         # Comparison Table
 
         if geo == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
 
@@ -955,7 +1025,7 @@ def update_geo_figure5(geo, geo_c):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -988,7 +1058,7 @@ def update_geo_figure5(geo, geo_c):
                 name = i,
                 marker_color = color_dict[i],
                 orientation = 'h', 
-                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
         fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
@@ -1029,7 +1099,7 @@ def update_geo_figure5(geo, geo_c):
                 name = i,
                 marker_color = color_dict[i],
                 orientation = 'h', 
-                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 1)
 
@@ -1066,7 +1136,7 @@ def update_geo_figure5(geo, geo_c):
                 name = i,
                 marker_color = color_dict[i],
                 orientation = 'h', 
-                hovertemplate= '%{x} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
         fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
@@ -1141,7 +1211,7 @@ def update_geo_figure6(geo, geo_c):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1179,7 +1249,7 @@ def update_geo_figure6(geo, geo_c):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
             ))
             
         fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
@@ -1225,7 +1295,7 @@ def update_geo_figure6(geo, geo_c):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup= f'{n}'
             ), row = 1, col = 1)
             n += 1
@@ -1268,7 +1338,7 @@ def update_geo_figure6(geo, geo_c):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate = '%{y}, ' + f'Income Level: {i} - ' + '%{x}<extra></extra>',
+                hovertemplate = '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}',
                 showlegend = False
             ), row = 1, col = 2)
@@ -1345,7 +1415,7 @@ def update_geo_figure7(geo, geo_c):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver (CD, BC)'
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1388,7 +1458,7 @@ def update_geo_figure7(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
                 
         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
@@ -1439,7 +1509,7 @@ def update_geo_figure7(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}'
             ),row = 1, col = 1)
             n += 1
@@ -1486,7 +1556,7 @@ def update_geo_figure7(geo, geo_c):
                 name = h,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}',
                 showlegend = False
             ),row = 1, col = 2)
