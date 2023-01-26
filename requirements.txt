@@ -21,3 +21,6 @@ tenacity==8.1.0
 Werkzeug==2.2.2
 zipp==3.11.0
 SQLAlchemy==1.4.39
+geopandas==0.12.2
+pyproj==3.4.1
+json5==0.9.6

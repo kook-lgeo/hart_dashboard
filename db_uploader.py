@@ -1,4 +1,4 @@
-import sqlalchemy
+# import sqlalchemy
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, Float, MetaData
@@ -10,14 +10,63 @@ from sqlalchemy import insert
 df_income = pd.read_csv("./sources/income.csv")
 df_income = df_income.reset_index()
 df_income = df_income.rename(columns = {'index': 'pk'})
-df_income
 
 # Importing partners data
 
 df_partners = pd.read_csv("./sources/partners_small.csv")
 df_partners = df_partners.reset_index()
 df_partners = df_partners.rename(columns = {'index': 'pk'})
-df_partners
+
+# Importing csd_hhprojection
+
+df_csd_projection = pd.read_csv("./sources/csd_hhprojections.csv")
+
+# Importing cd_hhprojection
+
+df_cd_projection = pd.read_csv("./sources/cd_hhprojections.csv")
+
+# Importing cd_growthrate
+
+df_cd_growthrate = pd.read_csv("./sources/cd_growthrate.csv")
+
+# Preprocessing for Geocode Mapping Tables
+
+geo_code = df_income['Geography']
+
+def geo_code_extractor(geography):
+    geo = geography.split()
+    for g in geo:
+        if g[0] == '(' and g[1].isdigit():
+            g = g.replace("(", "")
+            g = g.replace(")", "")
+            break
+    return g
+
+geo_code_list = geo_code.apply(lambda x: geo_code_extractor(x))
+region_code_list = geo_code_list.apply(lambda x: x[:4])
+province_code_list = geo_code_list.apply(lambda x: x[:2])
+
+geo_code_mapping = pd.DataFrame({'Geo_Code': geo_code_list, 'Region_Code': region_code_list, 'Province_Code': province_code_list, 'Geography': df_income['Formatted Name']})
+geo_code_mapping['Geo_Code_Length'] = geo_code_mapping['Geo_Code'].apply(lambda x: len(x))
+
+region_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] == 4, :]
+province_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] <= 2, :]
+
+mapped_geo_code = geo_code_mapping.merge(region_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Region_Code', right_on = 'Geo_Code')
+mapped_geo_code = mapped_geo_code.merge(province_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Province_Code', right_on = 'Geo_Code')
+mapped_geo_code = mapped_geo_code[['Geo_Code_x', 'Region_Code', 'Province_Code', 'Geography_x','Geography_y','Geography']]
+mapped_geo_code.columns = ['Geo_Code', 'Region_Code', 'Province_Code', 'Geography','Region','Province']
+mapped_geo_code['Region'] = mapped_geo_code['Region'].fillna(mapped_geo_code['Province'])
+
+geo_code_table = mapped_geo_code[['Geo_Code', 'Geography']].drop_duplicates()
+geo_code_table = geo_code_table.loc[geo_code_table['Geo_Code'].astype(int) > 9999, :].reset_index() #307
+geo_code_table = geo_code_table.drop(columns = ['index'])
+
+region_code_table = mapped_geo_code[['Region_Code', 'Region']].drop_duplicates()
+region_code_table = region_code_table.loc[region_code_table['Region_Code'].astype(int) > 999, :].reset_index() #307
+region_code_table = region_code_table.drop(columns = ['index'])
+
+province_code_table = mapped_geo_code[['Province_Code', 'Province']].drop_duplicates()
 
 # Defining sqlalchemy engine
 
@@ -55,6 +104,111 @@ class Income(Base):
 
 Income.__table__.create(bind=engine, checkfirst=True)
 
+class GeoCodesIntegrated(Base):
+    __tablename__ = "geocodes_integrated"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in mapped_geo_code.columns[1:]:
+        if mapped_geo_code.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+GeoCodesIntegrated.__table__.create(bind=engine, checkfirst=True)
+
+class GeoCode(Base):
+    __tablename__ = "geocodes"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in geo_code_table.columns[1:]:
+        if geo_code_table.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+GeoCode.__table__.create(bind=engine, checkfirst=True)
+
+class RegionCode(Base):
+    __tablename__ = "regioncodes"
+    
+    # define your primary key
+    Region_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in region_code_table.columns[1:]:
+        if region_code_table.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+RegionCode.__table__.create(bind=engine, checkfirst=True)
+
+class ProvinceCode(Base):
+    __tablename__ = "provincecodes"
+    
+    # define your primary key
+    Province_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in province_code_table.columns[1:]:
+        if province_code_table.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+ProvinceCode.__table__.create(bind=engine, checkfirst=True)
+
+class CSDHHProjections(Base):
+    __tablename__ = "csd_hh_projections"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in df_csd_projection.columns[1:]:
+        if df_csd_projection.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+CSDHHProjections.__table__.create(bind=engine, checkfirst=True)
+
+class CDHHProjections(Base):
+    __tablename__ = "cd_hh_projections"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in df_cd_projection.columns[1:]:
+        if df_cd_projection.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+CDHHProjections.__table__.create(bind=engine, checkfirst=True)
+
+class CDGrowthRates(Base):
+    __tablename__ = "cd_growthrates"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    for i in df_cd_growthrate.columns[1:]:
+        if df_cd_growthrate.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(String)
+
+CDGrowthRates.__table__.create(bind=engine, checkfirst=True)
+
 # Inserting data
 
 conn = engine.connect()
@@ -64,5 +218,26 @@ for i in range(0, len(df_partners)):
 
 for i in range(0, len(df_income)):
     conn.execute(insert(Income), [df_income.loc[i,:].to_dict()])
+
+for i in range(0, len(mapped_geo_code)):
+    conn.execute(insert(GeoCodesIntegrated), [mapped_geo_code.loc[i,:].to_dict()])
+
+for i in range(0, len(geo_code_table)):
+    conn.execute(insert(GeoCode), [geo_code_table.loc[i,:].to_dict()])
+
+for i in range(0, len(region_code_table)):
+    conn.execute(insert(RegionCode), [region_code_table.loc[i,:].to_dict()])
+
+for i in range(0, len(province_code_table)):
+    conn.execute(insert(ProvinceCode), [province_code_table.loc[i,:].to_dict()])
+
+for i in range(0, len(df_csd_projection)):
+    conn.execute(insert(CSDHHProjections), [df_csd_projection.loc[i,:].to_dict()])
+
+for i in range(0, len(df_cd_projection)):
+    conn.execute(insert(CDHHProjections), [df_cd_projection.loc[i,:].to_dict()])
+
+for i in range(0, len(df_cd_growthrate)):
+    conn.execute(insert(CDGrowthRates), [df_cd_growthrate.loc[i,:].to_dict()])
 
 conn.close()

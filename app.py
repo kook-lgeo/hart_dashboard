@@ -8,6 +8,9 @@ from plotly.graph_objs.scatter.marker import Line
 from plotly.subplots import make_subplots
 from sqlalchemy import create_engine
 import warnings
+import json
+import geopandas as gpd
+
 
 warnings.filterwarnings("ignore")
 
@@ -23,36 +26,57 @@ df_income = pd.read_sql_table('income', engine.connect())
 df_partners = pd.read_sql_table('partners', engine.connect())
 #df_partners = pd.read_csv("./sources/partners_small.csv")
 
-# Geo Code Mapping
+# Importing Geo Code Information
 
-geo_code = df_income['Geography']
+mapped_geo_code = pd.read_sql_table('geocodes_integrated', engine.connect())
+df_geo_list = pd.read_sql_table('geocodes', engine.connect())
+df_region_list = pd.read_sql_table('regioncodes', engine.connect())
+df_region_list.columns = df_geo_list.columns
+df_province_list = pd.read_sql_table('provincecodes', engine.connect())
+df_province_list.columns = df_geo_list.columns
 
-def geo_code_extractor(geography):
-    geo = geography.split()
-    for g in geo:
-        if g[0] == '(' and g[1].isdigit():
-            g = g.replace("(", "")
-            g = g.replace(")", "")
-            break
-    return g
+# Importing Projection Data
 
-geo_code_list = geo_code.apply(lambda x: geo_code_extractor(x))
-region_code_list = geo_code_list.apply(lambda x: x[:4])
-province_code_list = geo_code_list.apply(lambda x: x[:2])
+df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
+df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
+df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
 
-geo_code_mapping = pd.DataFrame({'Geo_Code': geo_code_list, 'Region_Code': region_code_list, 'Province_Code': province_code_list, 'Geography': df_income['Formatted Name']})
-geo_code_mapping['Geo_Code_Length'] = geo_code_mapping['Geo_Code'].apply(lambda x: len(x))
+# Merging Projection data with Geography codes
 
-region_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] == 4, :]
+df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
+df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
+df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
 
-province_code_mapping = geo_code_mapping.loc[geo_code_mapping['Geo_Code_Length'] <= 2, :]
+# Importing Province Boundaries shape data
 
-mapped_geo_code = geo_code_mapping.merge(region_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Region_Code', right_on = 'Geo_Code')
-mapped_geo_code = mapped_geo_code.merge(province_code_mapping[['Geo_Code','Geography']], how = 'left', left_on = 'Province_Code', right_on = 'Geo_Code')
-mapped_geo_code = mapped_geo_code[['Geo_Code_x', 'Region_Code', 'Province_Code', 'Geography_x','Geography_y','Geography']]
-mapped_geo_code.columns = ['Geo_Code', 'Region_Code', 'Province_Code', 'Geography','Region','Province']
+gdf_p = gpd.read_file('./sources/Province Boundaries/Canada.shp')
+gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Yukon Territory", "Yukon"))
+gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Quebec", "Québec"))
 
-mapped_geo_code['Region'] = mapped_geo_code['Region'].fillna(mapped_geo_code['Province'])
+df_province_list2 = df_province_list.copy()
+df_province_list2['NAME'] = df_province_list2['Geography'].apply(lambda x: x.replace(" (Province)", ""))
+
+gdf_p_code_added = gdf_p.merge(df_province_list2[['NAME', 'Geo_Code']], how = 'left', on = 'NAME')
+gdf_p_code_added = gdf_p_code_added.to_crs("EPSG:4326")
+gdf_p_code_added['lat'] = gdf_p_code_added.geometry.centroid.y
+gdf_p_code_added['lon'] = gdf_p_code_added.geometry.centroid.x
+gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
+
+# Importing Region Boundaries shape data
+
+gdf_r = gpd.read_file('./sources/Census Divisions/lcd_000a16a_e.shp')
+gdf_r = gdf_r.to_crs("EPSG:4326")
+gdf_r['lat'] = gdf_r.geometry.centroid.y
+gdf_r['lon'] = gdf_r.geometry.centroid.x
+gdf_r = gdf_r.set_index("CDUID")
+
+# Importing SubRegion Boundaries shape data
+
+gdf_sr = gpd.read_file('./sources/Census SubDivisions/lcsd000b16a_e.shp')
+gdf_sr = gdf_sr.to_crs("EPSG:4326")
+gdf_sr['lat'] = gdf_sr.geometry.centroid.y
+gdf_sr['lon'] = gdf_sr.geometry.centroid.x
+gdf_sr = gdf_sr.set_index("CSDUID")
 
 # Preprocessing
 
@@ -126,6 +150,28 @@ fig6 = fig
 fig7 = fig
 
 
+gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+
+fig_m = go.Figure()
+
+fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                locations = gdf_p_code_added.index, 
+                                z = gdf_p_code_added.rand, 
+                                showscale = False, 
+                                hovertext= gdf_p_code_added.NAME,
+                                marker = dict(opacity = 0.2),
+                                marker_line_width=.5))
+
+
+fig_m.update_layout(mapbox_style="open-street-map",
+                mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
+                height = 500,
+                width = 1000,
+                mapbox_zoom = 1.4,
+                autosize=True)
+
+
+
 # Setting layout for dashboard
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -142,18 +188,67 @@ app.layout = html.Div(children = [
             # Dropdown for sector selection
             html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
 
+            # Reset Button for Map
+
+            html.Div(children = [ 
+
+                html.Div(children = [                     
+                    html.Button('Reset Map', id='reset-map', n_clicks=0),     
+                                    ], className = 'region_button'
+                    ),                
+                ], 
+                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+            ),
+
+            # Map
+
+            html.Div(children = [ 
+                html.Div(
+                    dcc.Graph(
+                        id='canada_map',
+                        figure=fig_m
+                    ),
+                    style={'width': '100%', 'display': 'inline-block'}
+                ),
+            ]
+            ),
+
             html.Div(children = [
                 html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                # dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
 
             html.Div(children = [
                 html.Strong('Comparison Area'),
-                dcc.Dropdown(joined_df['Geography'].unique(), id='comparison-geo-dropdown'),
+                # dcc.Dropdown(joined_df['Geography'].unique(), id='comparison-geo-dropdown'),
+                dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
                 ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
+                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
+            ),
+
+            # Area Scale Selection
+
+            html.H3(children = html.Strong('Area Scale Selection'), id = 'area-scale'),
+
+            html.Div(children = [ 
+
+                html.Div(children = [                     
+                    html.Button('To Subregion', id='to-geography-1', n_clicks=0),     
+                                    ], className = 'region_button'
+                    ),           
+                html.Div(children = [ 
+                    html.Button('To Region', id='to-region-1', n_clicks=0),
+                                    ], className = 'region_button'
+                    ),         
+                html.Div(children = [ 
+                    html.Button('To Province', id='to-province-1', n_clicks=0),
+                                    ], className = 'region_button'
+                    ),         
+                ], 
+                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
             ),
 
 
@@ -163,49 +258,32 @@ app.layout = html.Div(children = [
 
             # Table
 
-            html.Div(children = [ 
-                html.Div(children = [ 
-                    html.Button('To Geography', id='to-geography-1', n_clicks=0),     
-                                    ], className = 'region_button'
-                    ),           
-                    html.Div(children = [ 
-                    html.Button('To Region', id='to-region-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                    html.Div(children = [ 
-                    html.Button('To Province', id='to-province-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-
-                html.Div([
-                    dash_table.DataTable(
-                        id='datatable-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        # filter_action="native",
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,#"multi",
-                        row_selectable=False,#"multi",
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        merge_duplicate_headers=True,
-                        # export_format = "csv",
-                        # style_data = {'font_size': '1.0rem', 'width': '100px'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
-                    ),
-                    html.Div(id='datatable-interactivity-container')
-                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
+            html.Div([
+                dash_table.DataTable(
+                    id='datatable-interactivity',
+                    columns=[
+                        {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                    ],
+                    data=table.to_dict('records'),
+                    editable=True,
+                    # filter_action="native",
+                    sort_action="native",
+                    sort_mode="multi",
+                    column_selectable=False,#"multi",
+                    row_selectable=False,#"multi",
+                    row_deletable=False,
+                    selected_columns=[],
+                    selected_rows=[],
+                    page_action="native",
+                    page_current= 0,
+                    page_size= 10,
+                    merge_duplicate_headers=True,
+                    # export_format = "csv",
+                    # style_data = {'font_size': '1.0rem', 'width': '100px'},
+                    style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
                 ),
-
-            ]
+                html.Div(id='datatable-interactivity-container')
+            ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
             ),
 
 
@@ -336,7 +414,91 @@ app.layout = html.Div(children = [
                 ),
             ]
             ),
-            
+
+
+        # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
+
+            html.H3(children = html.Strong('2026 Projections by HH Size and Income Level'), id = 'overview-scenario8'),
+
+            # Table
+
+            html.Div([
+                html.Div([
+                    html.Label(children = html.Strong('Community 2026 HH'), className = 'table-title'),
+                    dash_table.DataTable(
+                        id='datatable3-interactivity',
+                        columns=[
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                        ],
+                        data=table.to_dict('records'),
+                        editable=True,
+                        sort_action="native",
+                        sort_mode="multi",
+                        column_selectable=False,
+                        row_selectable=False,
+                        row_deletable=False,
+                        selected_columns=[],
+                        selected_rows=[],
+                        page_action="native",
+                        page_current= 0,
+                        page_size= 10,
+                        merge_duplicate_headers=True,
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    ),
+                    html.Div(id='datatable3-interactivity-container'),
+                ], className = 'tables'),
+                html.Div([
+                    html.Label(children = html.Strong('Community 2026 HH (Regional Rates)'), className = 'table-title'),
+                    dash_table.DataTable(
+                        id='datatable4-interactivity',
+                        columns=[
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                        ],
+                        data=table.to_dict('records'),
+                        editable=True,
+                        sort_action="native",
+                        sort_mode="multi",
+                        column_selectable=False,
+                        row_selectable=False,
+                        row_deletable=False,
+                        selected_columns=[],
+                        selected_rows=[],
+                        page_action="native",
+                        page_current= 0,
+                        page_size= 10,
+                        merge_duplicate_headers=True,
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    ),
+                    html.Div(id='datatable4-interactivity-container'),
+                ], className = 'tables'),
+                html.Div([
+                    html.Label(children = html.Strong('Regional 2026 HH'), className = 'table-title'),
+                    dash_table.DataTable(
+                        id='datatable5-interactivity',
+                        columns=[
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                        ],
+                        data=table.to_dict('records'),
+                        editable=True,
+                        sort_action="native",
+                        sort_mode="multi",
+                        column_selectable=False,
+                        row_selectable=False,
+                        row_deletable=False,
+                        selected_columns=[],
+                        selected_rows=[],
+                        page_action="native",
+                        page_current= 0,
+                        page_size= 10,
+                        merge_duplicate_headers=True,
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    ),
+                    html.Div(id='datatable5-interactivity-container'),
+                ], className = 'tables'),
+            ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
+            ),
+
+
             # Raw data download
 
             html.Div([
@@ -372,6 +534,194 @@ app.layout = html.Div(children = [
 # def update_all_dropdown(value):
 #     return value, value, value, value, value, value
 
+# Area Selection Map
+
+@app.callback(
+    Output('canada_map', 'figure'),
+    Output('all-geo-dropdown', 'value'),
+    [Input('canada_map', 'clickData')],
+    Input('reset-map', 'n_clicks'),
+    )
+def update_map(clickData, btn1):
+    # print(clickData, btn1)
+        # if "reset-map" == ctx.triggered_id:
+        #     geo = geo
+        # elif "to-region-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        # elif "to-province-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]    
+    # print(clickData)
+    # print(clickData['points'][0]['location'])
+
+    if "reset-map" == ctx.triggered_id:
+
+        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+
+        fig_m = go.Figure()
+
+        fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                        locations = gdf_p_code_added.index, 
+                                        z = gdf_p_code_added.rand, 
+                                        showscale = False, 
+                                        hovertext= gdf_p_code_added.NAME,
+                                        marker = dict(opacity = 0.2),
+                                        marker_line_width=.5))
+
+
+        fig_m.update_layout(mapbox_style="open-street-map",
+                        mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 1.4,
+                        autosize=True)
+
+        return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
+
+
+
+    if type(clickData) == dict:
+        # print(clickData['points'][0]['location'])
+
+        clicked_code = str(clickData['points'][0]['location'])
+        if len(clicked_code) == 2:
+            
+            region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
+            gdf_r_filtered = gdf_r.loc[region_codes, :]
+
+            gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+            
+            # print(gdf_r_filtered.index)
+
+            fig_mr = go.Figure()
+
+            fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
+                                            locations = gdf_r_filtered.index, 
+                                            z = gdf_r_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_r_filtered.CDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
+
+
+            fig_mr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 2.5,
+                            autosize=True)
+            # print('map is created')
+
+            return fig_mr, 'Greater Vancouver A RDA (CSD, BC)'
+
+        elif len(clicked_code) == 4:
+
+            # print(clicked_code)
+
+            # clicked_code = 5915
+            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code}'")['Geo_Code'].unique()[1:].astype(str)
+            # print(subregion_codes)
+            gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
+
+            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+
+            # print(gdf_sr_filtered.index)
+
+            fig_msr = go.Figure()
+
+            fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                            locations = gdf_sr_filtered.index, 
+                                            z = gdf_sr_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_sr_filtered.CSDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
+
+            max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                            abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+            zoom = 11.5 - np.log(max_bound)
+            # print(zoom)
+
+            fig_msr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            autosize=True)
+
+            # print('map is created')
+
+            return fig_msr, 'Greater Vancouver A RDA (CSD, BC)'
+
+        elif len(clicked_code) > 4:
+
+            # print(clicked_code)
+
+            clicked_code_region = clicked_code[:4]
+
+            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code_region}'")['Geo_Code'].unique()[1:].astype(str)
+            # print(subregion_codes)
+            gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
+
+            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+
+            # print(gdf_sr_filtered.index)
+
+            fig_msr = go.Figure()
+
+            fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                            locations = gdf_sr_filtered.index, 
+                                            z = gdf_sr_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_sr_filtered.CSDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
+
+            max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                            abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+            zoom = 11.5 - np.log(max_bound)
+            # print(zoom)
+
+            fig_msr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            autosize=True)
+
+            # print('map is created')
+
+            subregion_name = mapped_geo_code.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
+            # print(subregion_name)
+            return fig_msr, subregion_name
+
+    else:
+        # print(btn1)
+        # print(ctx.triggered_id)
+        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+
+        fig_m = go.Figure()
+
+        fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                        locations = gdf_p_code_added.index, 
+                                        z = gdf_p_code_added.rand, 
+                                        showscale = False, 
+                                        hovertext= gdf_p_code_added.NAME,
+                                        marker = dict(opacity = 0.2),
+                                        marker_line_width=.5))
+
+
+        fig_m.update_layout(mapbox_style="open-street-map",
+                        mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 1.4,
+                        autosize=True)
+
+        return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
+
+
 
 
 # Refreshing Overview by Sectors plots by selected sector
@@ -388,9 +738,6 @@ app.layout = html.Div(children = [
     Input('to-province-1', 'n_clicks')
 )
 def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
-
-
-
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -500,12 +847,8 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
         table_j = table.merge(table_c, how = 'left', on = 'Area Median HH Income')
 
-        print(table_j)
-
         for i in table_c.columns[1:]:
             col_list.append({"name": [geo_c, i], "id": i})
-
-        print(col_list)
 
         return col_list, table_j.to_dict('record'), [{
             'if': { 'column_id': i },
@@ -521,8 +864,19 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
     Output('graph', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_geo_figure(geo, geo_c):
+def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
+
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
+
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -530,6 +884,16 @@ def update_geo_figure(geo, geo_c):
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -568,8 +932,19 @@ def update_geo_figure(geo, geo_c):
         return fig
 
     else:
-        if geo == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+        # if geo == None:
+        #     geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -661,8 +1036,11 @@ def update_geo_figure(geo, geo_c):
     Output('graph2', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_geo_figure2(geo, geo_c):
+def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -670,6 +1048,21 @@ def update_geo_figure2(geo, geo_c):
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -720,9 +1113,21 @@ def update_geo_figure2(geo, geo_c):
         return fig2
 
     else:
-        if geo == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
-            
+
+        # if geo == None:
+        #     geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
+
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
         x_list = []
@@ -837,9 +1242,12 @@ def update_geo_figure2(geo, geo_c):
     Output('datatable2-interactivity', 'style_data_conditional'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
-    Input('datatable2-interactivity', 'selected_columns')
+    Input('datatable2-interactivity', 'selected_columns'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_table2(geo, geo_c, selected_columns):
+def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -847,6 +1255,22 @@ def update_table2(geo, geo_c, selected_columns):
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -893,8 +1317,19 @@ def update_table2(geo, geo_c, selected_columns):
 
 
     else:
-        if geo == None:
-            geo = geo_c
+        # if geo == None:
+        #     geo = geo_c
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -998,8 +1433,13 @@ def update_table2(geo, geo_c, selected_columns):
     Output('graph5', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_geo_figure5(geo, geo_c):
+def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
+
+
 
     hh_category_dict = {
                 'Percent Women-led HH in core housing need' : 'Women-led HH', 
@@ -1026,6 +1466,22 @@ def update_geo_figure5(geo, geo_c):
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1066,6 +1522,17 @@ def update_geo_figure5(geo, geo_c):
         return fig5
 
     else:
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1152,8 +1619,11 @@ def update_geo_figure5(geo, geo_c):
     Output('graph6', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_geo_figure6(geo, geo_c):
+def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 
     hh_category_dict2 = {
                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
@@ -1213,6 +1683,22 @@ def update_geo_figure6(geo, geo_c):
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
+
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
         income_col = []
@@ -1257,6 +1743,16 @@ def update_geo_figure6(geo, geo_c):
         return fig6
 
     else:
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1358,8 +1854,11 @@ def update_geo_figure6(geo, geo_c):
     Output('graph7', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
 )
-def update_geo_figure7(geo, geo_c):
+def update_geo_figure7(geo, geo_c, btn1, btn2, btn3):
 
     hh_category_dict2 = {
                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
@@ -1410,12 +1909,27 @@ def update_geo_figure7(geo, geo_c):
     columns3 = hh_category_dict3.keys()
     columns4 = hh_category_dict4.keys()
 
+    # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+    #     if geo == None and geo_c != None:
+    #         geo = geo_c
+    #     elif geo == None and geo_c == None:
+    #         geo = 'Greater Vancouver A RDA (CSD, BC)'
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1466,6 +1980,16 @@ def update_geo_figure7(geo, geo_c):
         return fig7
 
     else:
+
+        if "to-geography-1" == ctx.triggered_id:
+            geo = geo
+            geo_c = geo_c
+        elif "to-region-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        elif "to-province-1" == ctx.triggered_id:
+            geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+            geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
@@ -1565,6 +2089,290 @@ def update_geo_figure7(geo, geo_c):
         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
 
         return fig7
+
+
+
+
+
+# Refreshing Overview by Sectors plots by selected sector
+
+@app.callback(
+    Output('datatable3-interactivity', 'columns'),
+    Output('datatable3-interactivity', 'data'),
+    Output('datatable3-interactivity', 'style_data_conditional'),
+    Output('datatable4-interactivity', 'columns'),
+    Output('datatable4-interactivity', 'data'),
+    Output('datatable4-interactivity', 'style_data_conditional'),
+    Output('datatable5-interactivity', 'columns'),
+    Output('datatable5-interactivity', 'data'),
+    Output('datatable5-interactivity', 'style_data_conditional'),
+    Input('all-geo-dropdown', 'value'),
+    Input('comparison-geo-dropdown', 'value'),
+    Input('datatable3-interactivity', 'selected_columns'),
+    Input('datatable4-interactivity', 'selected_columns'),
+    Input('datatable5-interactivity', 'selected_columns'),
+    # Input('to-geography-1', 'n_clicks'),
+    # Input('to-region-1', 'n_clicks'),
+    # Input('to-province-1', 'n_clicks')
+)
+def update_table3(geo, geo_c, selected_columns, selected_columns2, selected_columns3):#, btn1, btn2, btn3):
+
+    income_col_list = ['20% or under of area median household income (AMHI)', 
+                        '21% to 50% of AMHI', 
+                        '51% to 80% of AMHI', 
+                        '81% to 120% of AMHI', 
+                        '121% or over of AMHI']
+
+    pp_list = ['1pp', '2pp', '3pp', '4pp', '5pp']
+
+    income_col_list_r = ['20%orunderofareamedianhouseholdincome(AMHI)', 
+                        '21%to50%ofAMHI', 
+                        '51%to80%ofAMHI', 
+                        '81%to120%ofAMHI', 
+                        '121%oroverofAMHI']
+
+    pp_list_r = ['1person', '2persons', '3persons', '4persons', '5ormorepersonshousehold']
+
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+        if geo == None and geo_c != None:
+            geo = geo_c
+        elif geo == None and geo_c == None:
+            geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+        # if "to-geography-1" == ctx.triggered_id:
+        #     geo = geo
+        # elif "to-region-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        # elif "to-province-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+
+        df_csd_proj_merged_filtered = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo,:]
+        geo_region = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo]['Region_Code'].values[0])
+        df_cd_proj_merged_filtered = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
+        df_cd_grow_merged_filtered = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
+
+        income_l = []
+        pp_l = []
+        result_csd_l = []
+        result_cd_l = []
+        result_g_l = []
+        result_t_l = []
+
+        for i, i_r in zip(income_col_list, income_col_list_r):
+            for p, p_r in zip(pp_list, pp_list_r):
+                col_format_r = f'TotalPrivatehouseholdsbyhouseholdtypeincludingcensusfamilystructure - Householdswithincome{i_r} - {p_r} - 2016'
+                col_format_p = f'2026 Projected {p} HH with income {i}'
+                col_format_g = f'2026 Projected Growth {p} HH with income {i}'
+                income_l.append(i)
+                pp_l.append(p)
+                result_csd_l.append(df_csd_proj_merged_filtered[col_format_p].tolist()[0])
+                result_cd_l.append(df_cd_proj_merged_filtered[col_format_p].tolist()[0])
+                result_t_l.append(df_csd_proj_merged_filtered[col_format_r].tolist()[0])
+                result_g_l.append(df_cd_grow_merged_filtered[col_format_g].tolist()[0])
+                
+        table3 = pd.DataFrame({'Income_Category': income_l, 'HH_Category': pp_l, 'CSD_Projection': result_csd_l, 'CD_Projection': result_cd_l, 'CSD_Total': result_t_l, 'Growth': result_g_l})
+        table3 = table3.fillna(0)
+        table3['CSD_Total'] = table3['CSD_Total'].astype(float)
+        table3['Growth'] = table3['Growth'].astype(float)
+        table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), 2)
+        table3['CD_Projection'] = np.round(table3['CD_Projection'].astype(float), 2)
+        table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], 2)
+
+        table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_csd = table3_csd.reset_index()
+
+        table3_cd_r = table3.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd_r = table3_cd_r.reset_index()
+
+        table3_cd = table3.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd = table3_cd.reset_index()
+
+        col_list_csd = []
+
+        for i in table3_csd.columns:
+            col_list_csd.append({"name": [geo, i], "id": i})
+
+        col_list_cd_r = []
+
+        for i in table3_cd_r.columns:
+            col_list_cd_r.append({"name": [geo, i], "id": i})
+
+        col_list_cd = []
+
+        for i in table3_cd.columns:
+            col_list_cd.append({"name": [geo, i], "id": i})
+
+        return col_list_csd, \
+                table3_csd.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns], \
+                col_list_cd_r, \
+                table3_cd_r.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns2], \
+                col_list_cd, \
+                table3_cd.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns3]
+
+
+    else:
+        # if geo == None:
+        #     geo = geo_c
+
+        # if "to-geography-1" == ctx.triggered_id:
+        #     geo = geo
+        #     geo_c = geo_c
+        # elif "to-region-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        #     geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
+        # elif "to-province-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+        #     geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
+
+        df_csd_proj_merged_filtered = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo,:]
+        geo_region = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo]['Region_Code'].values[0])
+        df_cd_proj_merged_filtered = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
+        df_cd_grow_merged_filtered = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
+
+        income_l = []
+        pp_l = []
+        result_csd_l = []
+        result_cd_l = []
+        result_g_l = []
+        result_t_l = []
+
+        for i, i_r in zip(income_col_list, income_col_list_r):
+            for p, p_r in zip(pp_list, pp_list_r):
+                col_format_r = f'TotalPrivatehouseholdsbyhouseholdtypeincludingcensusfamilystructure - Householdswithincome{i_r} - {p_r} - 2016'
+                col_format_p = f'2026 Projected {p} HH with income {i}'
+                col_format_g = f'2026 Projected Growth {p} HH with income {i}'
+                income_l.append(i)
+                pp_l.append(p)
+                result_csd_l.append(df_csd_proj_merged_filtered[col_format_p].tolist()[0])
+                result_cd_l.append(df_cd_proj_merged_filtered[col_format_p].tolist()[0])
+                result_t_l.append(df_csd_proj_merged_filtered[col_format_r].tolist()[0])
+                result_g_l.append(df_cd_grow_merged_filtered[col_format_g].tolist()[0])
+                
+        table3 = pd.DataFrame({'Income_Category': income_l, 'HH_Category': pp_l, 'CSD_Projection': result_csd_l, 'CD_Projection': result_cd_l, 'CSD_Total': result_t_l, 'Growth': result_g_l})
+        table3 = table3.fillna(0)
+        table3['CSD_Total'] = table3['CSD_Total'].astype(float)
+        table3['Growth'] = table3['Growth'].astype(float)
+        table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), 2)
+        table3['CD_Projection'] = np.round(table3['CD_Projection'].astype(float), 2)
+        table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], 2)
+
+        table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_csd = table3_csd.reset_index()
+
+        table3_cd_r = table3.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd_r = table3_cd_r.reset_index()
+
+        table3_cd = table3.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd = table3_cd.reset_index()
+
+        col_list_csd = []
+
+        for i in table3_csd.columns:
+            col_list_csd.append({"name": [geo, i], "id": i})
+
+        col_list_cd_r = []
+
+        for i in table3_cd_r.columns:
+            col_list_cd_r.append({"name": [geo, i], "id": i})
+
+        col_list_cd = []
+
+        for i in table3_cd.columns:
+            col_list_cd.append({"name": [geo, i], "id": i})
+
+
+        # Comparison Table
+
+        df_csd_proj_merged_filtered_c = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo_c,:]
+        geo_region_c = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c]['Region_Code'].values[0])
+        df_cd_proj_merged_filtered_c = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region_c,:]
+        df_cd_grow_merged_filtered_c = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region_c,:]
+
+        income_l = []
+        pp_l = []
+        result_csd_l = []
+        result_cd_l = []
+        result_g_l = []
+        result_t_l = []
+
+        for i, i_r in zip(income_col_list, income_col_list_r):
+            for p, p_r in zip(pp_list, pp_list_r):
+                col_format_r = f'TotalPrivatehouseholdsbyhouseholdtypeincludingcensusfamilystructure - Householdswithincome{i_r} - {p_r} - 2016'
+                col_format_p = f'2026 Projected {p} HH with income {i}'
+                col_format_g = f'2026 Projected Growth {p} HH with income {i}'
+                income_l.append(i)
+                pp_l.append(p)
+                result_csd_l.append(df_csd_proj_merged_filtered_c[col_format_p].tolist()[0])
+                result_cd_l.append(df_cd_proj_merged_filtered_c[col_format_p].tolist()[0])
+                result_t_l.append(df_csd_proj_merged_filtered_c[col_format_r].tolist()[0])
+                result_g_l.append(df_cd_grow_merged_filtered_c[col_format_g].tolist()[0])
+                
+        table3_c = pd.DataFrame({'Income_Category': income_l, 'HH_Category': pp_l, 'CSD_Projection': result_csd_l, 'CD_Projection': result_cd_l, 'CSD_Total': result_t_l, 'Growth': result_g_l})
+        table3_c = table3_c.fillna(0)
+        table3_c['CSD_Total'] = table3_c['CSD_Total'].astype(float)
+        table3_c['Growth'] = table3_c['Growth'].astype(float)
+        table3_c['CSD_Projection'] = np.round(table3_c['CSD_Projection'].astype(float), 2)
+        table3_c['CD_Projection'] = np.round(table3_c['CD_Projection'].astype(float), 2)
+        table3_c['Projection'] = np.round((table3_c['CSD_Total'] * table3_c['Growth']) + table3_c['CSD_Total'], 2)
+
+        table3_csd_c = table3_c.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_csd_c = table3_csd_c.reset_index()
+        table3_csd_c = table3_csd_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
+
+        table3_cd_r_c = table3_c.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd_r_c = table3_cd_r_c.reset_index()
+        table3_cd_r_c = table3_cd_r_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
+
+        table3_cd_c = table3_c.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
+        table3_cd_c = table3_cd_c.reset_index()
+        table3_cd_c = table3_cd_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
+
+        for i in table3_csd_c.columns[1:]:
+            col_list_csd.append({"name": [geo_c, i], "id": i})
+
+        for i in table3_cd_r_c.columns[1:]:
+            col_list_cd_r.append({"name": [geo_c, i], "id": i})
+
+        for i in table3_cd_c.columns[1:]:
+            col_list_cd.append({"name": [geo_c, i], "id": i})
+
+        table3_csd_j = table3_csd.merge(table3_csd_c, how = 'left', on = 'Income_Category')
+        table3_cd_j = table3_cd.merge(table3_cd_c, how = 'left', on = 'Income_Category')
+        table3_cd_r_j = table3_cd_r.merge(table3_cd_r_c, how = 'left', on = 'Income_Category')
+        
+        print(table3_cd_j)
+
+        return col_list_csd, \
+                table3_csd_j.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns], \
+                col_list_cd_r, \
+                table3_cd_r_j.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns2], \
+                col_list_cd, \
+                table3_cd_j.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns3]
 
 
 # Creating raw csv data file for download option
