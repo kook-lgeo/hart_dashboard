@@ -86,8 +86,8 @@ gdf_r = gdf_r.set_index("CDUID")
 # gdf_sr['lon'] = gdf_sr.geometry.centroid.x
 # gdf_sr.to_file('./sources/mapdata/subregion.shp')
 
-gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
-gdf_sr = gdf_sr.set_index("CSDUID")
+# gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
+# gdf_sr = gdf_sr.set_index("CSDUID")
 
 # Preprocessing
 
@@ -527,192 +527,198 @@ app.layout = html.Div(children = [
 
 
 
-# # Area Selection Map
+# Area Selection Map
 
-# @app.callback(
-#     Output('canada_map', 'figure'),
-#     Output('all-geo-dropdown', 'value'),
-#     [Input('canada_map', 'clickData')],
-#     Input('reset-map', 'n_clicks'),
-#     )
-# def update_map(clickData, btn1):
-#     # print(clickData, btn1)
-#         # if "reset-map" == ctx.triggered_id:
-#         #     geo = geo
-#         # elif "to-region-1" == ctx.triggered_id:
-#         #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-#         # elif "to-province-1" == ctx.triggered_id:
-#         #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]    
-#     # print(clickData)
-#     # print(clickData['points'][0]['location'])
+@app.callback(
+    Output('canada_map', 'figure'),
+    Output('all-geo-dropdown', 'value'),
+    [Input('canada_map', 'clickData')],
+    Input('reset-map', 'n_clicks'),
+    )
+def update_map(clickData, btn1):
+    # print(clickData, btn1)
+        # if "reset-map" == ctx.triggered_id:
+        #     geo = geo
+        # elif "to-region-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
+        # elif "to-province-1" == ctx.triggered_id:
+        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]    
+    # print(clickData)
+    # print(clickData['points'][0]['location'])
 
-#     if "reset-map" == ctx.triggered_id:
+    if "reset-map" == ctx.triggered_id:
 
-#         gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
 
-#         fig_m = go.Figure()
+        fig_m = go.Figure()
 
-#         fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
-#                                         locations = gdf_p_code_added.index, 
-#                                         z = gdf_p_code_added.rand, 
-#                                         showscale = False, 
-#                                         hovertext= gdf_p_code_added.NAME,
-#                                         marker = dict(opacity = 0.2),
-#                                         marker_line_width=.5))
-
-
-#         fig_m.update_layout(mapbox_style="open-street-map",
-#                         mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
-#                         height = 500,
-#                         width = 1000,
-#                         mapbox_zoom = 1.4,
-#                         autosize=True)
-
-#         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
+        fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                        locations = gdf_p_code_added.index, 
+                                        z = gdf_p_code_added.rand, 
+                                        showscale = False, 
+                                        hovertext= gdf_p_code_added.NAME,
+                                        marker = dict(opacity = 0.2),
+                                        marker_line_width=.5))
 
 
+        fig_m.update_layout(mapbox_style="open-street-map",
+                        mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 1.4,
+                        autosize=True)
 
-#     if type(clickData) == dict:
-#         # print(clickData['points'][0]['location'])
+        return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
 
-#         clicked_code = str(clickData['points'][0]['location'])
-#         if len(clicked_code) == 2:
+
+
+    if type(clickData) == dict:
+        # print(clickData['points'][0]['location'])
+
+        clicked_code = str(clickData['points'][0]['location'])
+        if len(clicked_code) == 2:
             
-#             region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
-#             gdf_r_filtered = gdf_r.loc[region_codes, :]
+            region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
+            gdf_r_filtered = gdf_r.loc[region_codes, :]
 
-#             gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+            gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
             
-#             # print(gdf_r_filtered.index)
+            # print(gdf_r_filtered.index)
 
-#             fig_mr = go.Figure()
+            fig_mr = go.Figure()
 
-#             fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
-#                                             locations = gdf_r_filtered.index, 
-#                                             z = gdf_r_filtered.rand, 
-#                                             showscale = False, 
-#                                             hovertext= gdf_r_filtered.CDNAME,
-#                                             marker = dict(opacity = 0.2),
-#                                             marker_line_width=.5))
-
-
-#             fig_mr.update_layout(mapbox_style="open-street-map",
-#                             mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
-#                             height = 500,
-#                             width = 1000,
-#                             mapbox_zoom = 2.5,
-#                             autosize=True)
-#             # print('map is created')
-
-#             return fig_mr, 'Greater Vancouver A RDA (CSD, BC)'
-
-#         elif len(clicked_code) == 4:
-
-#             # print(clicked_code)
-
-#             # clicked_code = 5915
-#             subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code}'")['Geo_Code'].unique()[1:].astype(str)
-#             # print(subregion_codes)
-#             gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
-
-#             gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
-
-#             # print(gdf_sr_filtered.index)
-
-#             fig_msr = go.Figure()
-
-#             fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
-#                                             locations = gdf_sr_filtered.index, 
-#                                             z = gdf_sr_filtered.rand, 
-#                                             showscale = False, 
-#                                             hovertext= gdf_sr_filtered.CSDNAME,
-#                                             marker = dict(opacity = 0.2),
-#                                             marker_line_width=.5))
-
-#             max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
-#                             abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
-
-#             zoom = 11.5 - np.log(max_bound)
-#             # print(zoom)
-
-#             fig_msr.update_layout(mapbox_style="open-street-map",
-#                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
-#                             height = 500,
-#                             width = 1000,
-#                             mapbox_zoom = 11.5 - np.log(max_bound),
-#                             autosize=True)
-
-#             # print('map is created')
-
-#             return fig_msr, 'Greater Vancouver A RDA (CSD, BC)'
-
-#         elif len(clicked_code) > 4:
-
-#             # print(clicked_code)
-
-#             clicked_code_region = clicked_code[:4]
-
-#             subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code_region}'")['Geo_Code'].unique()[1:].astype(str)
-#             # print(subregion_codes)
-#             gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
-
-#             gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
-
-#             # print(gdf_sr_filtered.index)
-
-#             fig_msr = go.Figure()
-
-#             fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
-#                                             locations = gdf_sr_filtered.index, 
-#                                             z = gdf_sr_filtered.rand, 
-#                                             showscale = False, 
-#                                             hovertext= gdf_sr_filtered.CSDNAME,
-#                                             marker = dict(opacity = 0.2),
-#                                             marker_line_width=.5))
-
-#             max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
-#                             abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
-
-#             zoom = 11.5 - np.log(max_bound)
-#             # print(zoom)
-
-#             fig_msr.update_layout(mapbox_style="open-street-map",
-#                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
-#                             height = 500,
-#                             width = 1000,
-#                             mapbox_zoom = 11.5 - np.log(max_bound),
-#                             autosize=True)
-
-#             # print('map is created')
-
-#             subregion_name = mapped_geo_code.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
-#             # print(subregion_name)
-#             return fig_msr, subregion_name
-
-#     else:
-#         # print(btn1)
-#         # print(ctx.triggered_id)
-#         gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
-
-#         fig_m = go.Figure()
-
-#         fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
-#                                         locations = gdf_p_code_added.index, 
-#                                         z = gdf_p_code_added.rand, 
-#                                         showscale = False, 
-#                                         hovertext= gdf_p_code_added.NAME,
-#                                         marker = dict(opacity = 0.2),
-#                                         marker_line_width=.5))
+            fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
+                                            locations = gdf_r_filtered.index, 
+                                            z = gdf_r_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_r_filtered.CDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
 
 
-#         fig_m.update_layout(mapbox_style="open-street-map",
-#                         mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
-#                         height = 500,
-#                         width = 1000,
-#                         mapbox_zoom = 1.4,
-#                         autosize=True)
+            fig_mr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 2.5,
+                            autosize=True)
+            # print('map is created')
 
-#         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
+            return fig_mr, 'Greater Vancouver A RDA (CSD, BC)'
+
+        elif len(clicked_code) == 4:
+
+            # print(clicked_code)
+
+            # clicked_code = 5915
+            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code}'")['Geo_Code'].unique()[1:].astype(str)
+            # print(subregion_codes)
+            # gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
+            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata/subregion_data/{clicked_code}.shp')
+            gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
+
+            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+
+            # print(gdf_sr_filtered.index)
+
+            fig_msr = go.Figure()
+
+            fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                            locations = gdf_sr_filtered.index, 
+                                            z = gdf_sr_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_sr_filtered.CSDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
+
+            max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                            abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+            zoom = 11.5 - np.log(max_bound)
+            # print(zoom)
+
+            fig_msr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            autosize=True)
+
+            # print('map is created')
+
+            return fig_msr, 'Greater Vancouver A RDA (CSD, BC)'
+
+        elif len(clicked_code) > 4:
+
+            # print(clicked_code)
+
+            clicked_code_region = clicked_code[:4]
+
+
+            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code_region}'")['Geo_Code'].unique()[1:].astype(str)
+            # print(subregion_codes)
+            # gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
+            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata/subregion_data/{clicked_code_region}.shp')
+            gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
+
+
+            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+
+            # print(gdf_sr_filtered.index)
+
+            fig_msr = go.Figure()
+
+            fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                            locations = gdf_sr_filtered.index, 
+                                            z = gdf_sr_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_sr_filtered.CSDNAME,
+                                            marker = dict(opacity = 0.2),
+                                            marker_line_width=.5))
+
+            max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                            abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+            zoom = 11.5 - np.log(max_bound)
+            # print(zoom)
+
+            fig_msr.update_layout(mapbox_style="open-street-map",
+                            mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            autosize=True)
+
+            # print('map is created')
+
+            subregion_name = mapped_geo_code.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
+            # print(subregion_name)
+            return fig_msr, subregion_name
+
+    else:
+        # print(btn1)
+        # print(ctx.triggered_id)
+        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+
+        fig_m = go.Figure()
+
+        fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                        locations = gdf_p_code_added.index, 
+                                        z = gdf_p_code_added.rand, 
+                                        showscale = False, 
+                                        hovertext= gdf_p_code_added.NAME,
+                                        marker = dict(opacity = 0.2),
+                                        marker_line_width=.5))
+
+
+        fig_m.update_layout(mapbox_style="open-street-map",
+                        mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 1.4,
+                        autosize=True)
+
+        return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
 
 
 
