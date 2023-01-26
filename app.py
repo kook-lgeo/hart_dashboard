@@ -86,8 +86,8 @@ gdf_r = gdf_r.set_index("CDUID")
 # gdf_sr['lon'] = gdf_sr.geometry.centroid.x
 # gdf_sr.to_file('./sources/mapdata/subregion.shp')
 
-# gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
-# gdf_sr = gdf_sr.set_index("CSDUID")
+gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
+gdf_sr = gdf_sr.set_index("CSDUID")
 
 # Preprocessing
 
