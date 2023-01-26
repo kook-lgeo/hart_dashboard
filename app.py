@@ -75,8 +75,8 @@ gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 # gdf_r['lon'] = gdf_r.geometry.centroid.x
 # gdf_r.to_file('./sources/mapdata/region.shp')
 
-gdf_r = gpd.read_file('./sources/mapdata/region.shp')
-gdf_r = gdf_r.set_index("CDUID")
+# gdf_r = gpd.read_file('./sources/mapdata/region.shp')
+# gdf_r = gdf_r.set_index("CDUID")
 
 # Importing SubRegion Boundaries shape data
 
@@ -578,8 +578,11 @@ def update_map(clickData, btn1):
         clicked_code = str(clickData['points'][0]['location'])
         if len(clicked_code) == 2:
             
-            region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
-            gdf_r_filtered = gdf_r.loc[region_codes, :]
+            # region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
+            # gdf_r_filtered = gdf_r.loc[region_codes, :]
+
+            gdf_r_filtered = gpd.read_file(f'./sources/mapdata/region_data/{clicked_code}.shp')
+            gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
 
             gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
             
