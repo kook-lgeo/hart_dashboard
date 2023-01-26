@@ -10,6 +10,8 @@ from sqlalchemy import create_engine
 import warnings
 import json
 import geopandas as gpd
+import fiona
+fiona.supported_drivers  
 
 
 warnings.filterwarnings("ignore")
@@ -49,33 +51,42 @@ df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Cod
 
 # Importing Province Boundaries shape data
 
-gdf_p = gpd.read_file('./sources/Province Boundaries/Canada.shp')
-gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Yukon Territory", "Yukon"))
-gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Quebec", "Québec"))
+# gdf_p = gpd.read_file('./sources/Province Boundaries/Canada.shp')
+# gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Yukon Territory", "Yukon"))
+# gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Quebec", "Québec"))
 
-df_province_list2 = df_province_list.copy()
-df_province_list2['NAME'] = df_province_list2['Geography'].apply(lambda x: x.replace(" (Province)", ""))
+# df_province_list2 = df_province_list.copy()
+# df_province_list2['NAME'] = df_province_list2['Geography'].apply(lambda x: x.replace(" (Province)", ""))
 
-gdf_p_code_added = gdf_p.merge(df_province_list2[['NAME', 'Geo_Code']], how = 'left', on = 'NAME')
-gdf_p_code_added = gdf_p_code_added.to_crs("EPSG:4326")
-gdf_p_code_added['lat'] = gdf_p_code_added.geometry.centroid.y
-gdf_p_code_added['lon'] = gdf_p_code_added.geometry.centroid.x
+# gdf_p_code_added = gdf_p.merge(df_province_list2[['NAME', 'Geo_Code']], how = 'left', on = 'NAME')
+# gdf_p_code_added = gdf_p_code_added.to_crs("EPSG:4326")
+# gdf_p_code_added['lat'] = gdf_p_code_added.geometry.centroid.y
+# gdf_p_code_added['lon'] = gdf_p_code_added.geometry.centroid.x
+# gdf_p_code_added.to_file('./sources/mapdata/province.shp')
+
+gdf_p_code_added = gpd.read_file('./sources/mapdata/province.shp')
 gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 
-# # Importing Region Boundaries shape data
+# Importing Region Boundaries shape data
 
 # gdf_r = gpd.read_file('./sources/Census Divisions/lcd_000a16a_e.shp')
 # gdf_r = gdf_r.to_crs("EPSG:4326")
 # gdf_r['lat'] = gdf_r.geometry.centroid.y
 # gdf_r['lon'] = gdf_r.geometry.centroid.x
-# gdf_r = gdf_r.set_index("CDUID")
+# gdf_r.to_file('./sources/mapdata/region.shp')
 
-# # Importing SubRegion Boundaries shape data
+gdf_r = gpd.read_file('./sources/mapdata/region.shp')
+gdf_r = gdf_r.set_index("CDUID")
+
+# Importing SubRegion Boundaries shape data
 
 # gdf_sr = gpd.read_file('./sources/Census SubDivisions/lcsd000b16a_e.shp')
 # gdf_sr = gdf_sr.to_crs("EPSG:4326")
 # gdf_sr['lat'] = gdf_sr.geometry.centroid.y
 # gdf_sr['lon'] = gdf_sr.geometry.centroid.x
+# gdf_sr.to_file('./sources/mapdata/subregion.shp')
+
+# gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
 # gdf_sr = gdf_sr.set_index("CSDUID")
 
 # Preprocessing
@@ -516,7 +527,7 @@ app.layout = html.Div(children = [
 
 
 
-# Area Selection Map
+# # Area Selection Map
 
 # @app.callback(
 #     Output('canada_map', 'figure'),
