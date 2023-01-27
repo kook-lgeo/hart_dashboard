@@ -51,43 +51,10 @@ df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Cod
 
 # Importing Province Boundaries shape data
 
-# gdf_p = gpd.read_file('./sources/Province Boundaries/Canada.shp')
-# gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Yukon Territory", "Yukon"))
-# gdf_p['NAME'] = gdf_p['NAME'].apply(lambda x: x.replace("Quebec", "Québec"))
-
-# df_province_list2 = df_province_list.copy()
-# df_province_list2['NAME'] = df_province_list2['Geography'].apply(lambda x: x.replace(" (Province)", ""))
-
-# gdf_p_code_added = gdf_p.merge(df_province_list2[['NAME', 'Geo_Code']], how = 'left', on = 'NAME')
-# gdf_p_code_added = gdf_p_code_added.to_crs("EPSG:4326")
-# gdf_p_code_added['lat'] = gdf_p_code_added.geometry.centroid.y
-# gdf_p_code_added['lon'] = gdf_p_code_added.geometry.centroid.x
-# gdf_p_code_added.to_file('./sources/mapdata/province.shp')
 
 gdf_p_code_added = gpd.read_file('./sources/mapdata/province.shp')
 gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 
-# Importing Region Boundaries shape data
-
-# gdf_r = gpd.read_file('./sources/Census Divisions/lcd_000a16a_e.shp')
-# gdf_r = gdf_r.to_crs("EPSG:4326")
-# gdf_r['lat'] = gdf_r.geometry.centroid.y
-# gdf_r['lon'] = gdf_r.geometry.centroid.x
-# gdf_r.to_file('./sources/mapdata/region.shp')
-
-# gdf_r = gpd.read_file('./sources/mapdata/region.shp')
-# gdf_r = gdf_r.set_index("CDUID")
-
-# Importing SubRegion Boundaries shape data
-
-# gdf_sr = gpd.read_file('./sources/Census SubDivisions/lcsd000b16a_e.shp')
-# gdf_sr = gdf_sr.to_crs("EPSG:4326")
-# gdf_sr['lat'] = gdf_sr.geometry.centroid.y
-# gdf_sr['lon'] = gdf_sr.geometry.centroid.x
-# gdf_sr.to_file('./sources/mapdata/subregion.shp')
-
-# gdf_sr = gpd.read_file('./sources/mapdata/subregion.shp')
-# gdf_sr = gdf_sr.set_index("CSDUID")
 
 # Preprocessing
 
@@ -211,7 +178,7 @@ app.layout = html.Div(children = [
                 style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
             ),
 
-            # Map
+            # Map picker
 
             html.Div(children = [ 
                 html.Div(
@@ -536,16 +503,8 @@ app.layout = html.Div(children = [
     Input('reset-map', 'n_clicks'),
     )
 def update_map(clickData, btn1):
-    # print(clickData, btn1)
-        # if "reset-map" == ctx.triggered_id:
-        #     geo = geo
-        # elif "to-region-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        # elif "to-province-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]    
-    # print(clickData)
-    # print(clickData['points'][0]['location'])
 
+    # When Reset-Map button is clicked
     if "reset-map" == ctx.triggered_id:
 
         gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
@@ -571,6 +530,7 @@ def update_map(clickData, btn1):
         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
 
 
+    # When users clicked province on the map
 
     if type(clickData) == dict:
         # print(clickData['points'][0]['location'])
@@ -578,10 +538,9 @@ def update_map(clickData, btn1):
         clicked_code = str(clickData['points'][0]['location'])
         if len(clicked_code) == 2:
             
-            # region_codes = mapped_geo_code.query("Province_Code == " + f"'{clicked_code}'")['Region_Code'].unique()[1:]
-            # gdf_r_filtered = gdf_r.loc[region_codes, :]
+            # Importing Region Maps for selected Province -> show region maps
 
-            gdf_r_filtered = gpd.read_file(f'./sources/mapdata/region_data/{clicked_code}.shp')
+            gdf_r_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_code}.shp')
             gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
 
             gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
@@ -609,15 +568,14 @@ def update_map(clickData, btn1):
 
             return fig_mr, 'Greater Vancouver A RDA (CSD, BC)'
 
+        # When users clicked region on the regional map after clicking province -> show subregion map
+
         elif len(clicked_code) == 4:
 
-            # print(clicked_code)
 
-            # clicked_code = 5915
-            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code}'")['Geo_Code'].unique()[1:].astype(str)
-            # print(subregion_codes)
-            # gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
-            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata/subregion_data/{clicked_code}.shp')
+            # Importing Subregion Maps for selected Region
+
+            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_code}.shp')
             gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
             gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
@@ -651,17 +609,17 @@ def update_map(clickData, btn1):
 
             return fig_msr, 'Greater Vancouver A RDA (CSD, BC)'
 
+        # When users clicked subregion on the regional map after clicking province -> remains subregion map and send subregion code to area selection dropdown
+
         elif len(clicked_code) > 4:
 
             # print(clicked_code)
 
             clicked_code_region = clicked_code[:4]
 
+            # Importing Subregion Maps for selected Region
 
-            subregion_codes = mapped_geo_code.query("Region_Code == " + f"'{clicked_code_region}'")['Geo_Code'].unique()[1:].astype(str)
-            # print(subregion_codes)
-            # gdf_sr_filtered = gdf_sr.loc[subregion_codes, :]
-            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata/subregion_data/{clicked_code_region}.shp')
+            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_code_region}.shp')
             gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
 
@@ -697,6 +655,9 @@ def update_map(clickData, btn1):
             subregion_name = mapped_geo_code.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
             # print(subregion_name)
             return fig_msr, subregion_name
+
+
+    # default map (show provinces) before clicking anything on the map
 
     else:
         # print(btn1)
