@@ -107,7 +107,9 @@ columns = ['Percent HH with income 20% or under of AMHI in core housing need',
 
 plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
-colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
+hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
+hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
@@ -119,7 +121,7 @@ for i, c in zip(plot_df['Income_Category'], colors):
         marker_color = c,
         hovertemplate= '%{x} - ' + '%{y:.3s}<extra></extra>'
     ))
-fig.update_layout(plot_bgcolor='#f0faff', title = 'Percent HH By Geography', legend_title = "Income")
+fig.update_layout(plot_bgcolor='#F8F9F9', title = 'Percent HH By Geography', legend_title = "Income")
 
 table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
@@ -524,7 +526,8 @@ def update_map(clickData, btn1):
                         mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
                         height = 500,
                         width = 1000,
-                        mapbox_zoom = 1.4,
+                        mapbox_zoom = 2.0,
+                        margin=dict(b=0,t=10,l=0,r=10),
                         autosize=True)
 
         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
@@ -563,6 +566,7 @@ def update_map(clickData, btn1):
                             height = 500,
                             width = 1000,
                             mapbox_zoom = 2.5,
+                            margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
             # print('map is created')
 
@@ -603,6 +607,7 @@ def update_map(clickData, btn1):
                             height = 500,
                             width = 1000,
                             mapbox_zoom = 11.5 - np.log(max_bound),
+                            margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
 
             # print('map is created')
@@ -648,6 +653,7 @@ def update_map(clickData, btn1):
                             height = 500,
                             width = 1000,
                             mapbox_zoom = 11.5 - np.log(max_bound),
+                            margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
 
             # print('map is created')
@@ -679,7 +685,8 @@ def update_map(clickData, btn1):
                         mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
                         height = 500,
                         width = 1000,
-                        mapbox_zoom = 1.4,
+                        mapbox_zoom = 2.0,
+                        margin=dict(b=0,t=10,l=0,r=10),
                         autosize=True)
 
         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
@@ -874,7 +881,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
 
         plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
-        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        # colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
         #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         fig = go.Figure()
@@ -889,7 +896,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
             ))
 
-        fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#f0faff', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
+        fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
         fig.update_xaxes(range = [0, 1])
             
         return fig
@@ -927,7 +934,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
 
         plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
-        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        # colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
         #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         fig = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
@@ -966,7 +973,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
 
         plot_df_c = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered_c[columns].T.iloc[:,0].tolist()})
 
-        colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
+        # colors = ['#0B4952', '#4A8F97', '#4a5b97', '#FAB88A', '#FFDD5D', ]
         #colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         n = 0
@@ -985,7 +992,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
             n += 1
 
 
-        fig.update_layout(title = f'Percent HH By Income Category', plot_bgcolor='#f0faff', legend_title = "Income", legend = dict(font = dict(size = 9)))
+        fig.update_layout(title = f'Percent HH By Income Category', plot_bgcolor='#F8F9F9', legend_title = "Income", legend = dict(font = dict(size = 9)))
         fig.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
         fig.update_xaxes(range = [0, 1])
 
@@ -1056,11 +1063,11 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
         plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
 
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         fig2 = go.Figure()
 
-        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+        for h, c in zip(plot_df['HH_Size'].unique(), hh_colors):
             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
             fig2.add_trace(go.Bar(
                 y = plot_df_frag['Income_Category'],
@@ -1071,7 +1078,7 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
+        fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
 
         return fig2
 
@@ -1122,12 +1129,12 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
         plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
 
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         fig2 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
 
         n = 0
-        for h, c in zip(plot_df['HH_Size'].unique(), colors):
+        for h, c in zip(plot_df['HH_Size'].unique(), hh_colors):
             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
             fig2.add_trace(go.Bar(
                 y = plot_df_frag['Income_Category'],
@@ -1173,10 +1180,10 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
         plot_df_c = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
 
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
 
         n = 0
-        for h, c in zip(plot_df_c['HH_Size'].unique(), colors):
+        for h, c in zip(plot_df_c['HH_Size'].unique(), hh_colors):
             plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Size'] == h, :]
             fig2.add_trace(go.Bar(
                 y = plot_df_frag_c['Income_Category'],
@@ -1190,7 +1197,7 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
             ), row = 1, col = 2)
             n += 1
 
-        fig2.update_layout(legend_traceorder = 'normal', barmode='stack', plot_bgcolor='#f0faff', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
+        fig2.update_layout(legend_traceorder = 'normal', barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
         fig2.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
 
         return fig2
@@ -1455,18 +1462,18 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
 
         # colors = ['#fff194','#4A8F97', '#210b52', '#0B4952', '#FFDD5D', '#158232', '#4a5b97', '#6ed0db', '#bfd5ff', '#ff8d3d', '#166370', '#FAB88A',  '#ffe28f']
         color_dict = {}
-
+        
         for h in plot_df['HH_Category'].unique():
             
             if plot_df['Percent_HH'].max() == 0:
-                color_dict[h] = '#bfd5ff'
+                color_dict[h] = hh_type_color[2]
             else:
                 if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
-                        color_dict[h] = '#4a5b97'
+                        color_dict[h] = hh_type_color[0]
                 elif h == 'Community (all HH)':
-                    color_dict[h] = '#158232'
+                    color_dict[h] = hh_type_color[1]
                 else:
-                    color_dict[h] = '#bfd5ff'
+                    color_dict[h] = hh_type_color[2]
 
         fig5 = go.Figure()
         for i in hh_categories:
@@ -1480,7 +1487,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
-        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
 
         return fig5
 
@@ -1510,14 +1517,14 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
         for h in plot_df['HH_Category'].unique():
             
             if plot_df['Percent_HH'].max() == 0:
-                color_dict[h] = '#bfd5ff'
+                color_dict[h] = hh_type_color[2]
             else:
                 if h == plot_df.loc[plot_df['Percent_HH'] == plot_df['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
-                        color_dict[h] = '#4a5b97'
+                        color_dict[h] = hh_type_color[0]
                 elif h == 'Community (all HH)':
-                    color_dict[h] = '#158232'
+                    color_dict[h] = hh_type_color[1]
                 else:
-                    color_dict[h] = '#bfd5ff'
+                    color_dict[h] = hh_type_color[2]
 
         fig5 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -1549,14 +1556,14 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
         for h in plot_df_c['HH_Category'].unique():
             
             if plot_df_c['Percent_HH'].max() == 0:
-                color_dict[h] = '#bfd5ff'
+                color_dict[h] = hh_type_color[2]
             else:
                 if h == plot_df_c.loc[plot_df_c['Percent_HH'] == plot_df_c['Percent_HH'].max(), 'HH_Category'].tolist()[0]:
-                        color_dict[h] = '#4a5b97'
+                        color_dict[h] = hh_type_color[0]
                 elif h == 'Community (all HH)':
-                    color_dict[h] = '#158232'
+                    color_dict[h] = hh_type_color[1]
                 else:
-                    color_dict[h] = '#bfd5ff'
+                    color_dict[h] = hh_type_color[2]
 
         for i in hh_categories:
             plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Category'] == i, :]
@@ -1569,7 +1576,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
-        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
 
         return fig5
 
@@ -1687,7 +1694,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 
         fig6 = go.Figure()
 
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
 
         for i, c in zip(plot_df['Income_Category'].unique(), colors):
@@ -1701,7 +1708,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
 
         return fig6
 
@@ -1742,7 +1749,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 
         fig6 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
 
         n = 0
@@ -1785,7 +1792,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 
         plot_df_c = pd.DataFrame({'Income_Category': income_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
 
-        colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
+        # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
         # colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
 
         n = 0
@@ -1803,7 +1810,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
             ), row = 1, col = 2)
             n += 1
             
-        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
 
         return fig6
 
@@ -1938,7 +1945,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 #                 hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
 #             ))
                 
-#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
+#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
 
 #         return fig7
 
@@ -2049,7 +2056,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 #             ),row = 1, col = 2)
 #             n += 1
                 
-#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#f0faff', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
+#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
 
 #         return fig7
 
