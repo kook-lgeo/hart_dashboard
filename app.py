@@ -107,9 +107,12 @@ columns = ['Percent HH with income 20% or under of AMHI in core housing need',
 
 plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
-colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
-hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
+# colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
+# hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
+colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
+hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
+columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
@@ -331,6 +334,7 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
                         # export_format = "csv"
                     ),
@@ -378,24 +382,6 @@ app.layout = html.Div(children = [
             ),
 
 
-        # # Percentage of Households (HHs) in Core Housing Need by Priority Population
-
-        #     html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and HH Size'), id = 'overview-scenario7'),
-
-        #     # Graphs
-
-        #     html.Div(children = [ 
-        #         html.Div(
-        #             dcc.Graph(
-        #                 id='graph7',
-        #                 figure=fig7
-        #             ),
-        #             style={'width': '100%', 'display': 'inline-block'}
-        #         ),
-        #     ]
-        #     ),
-
-
         # Percent of Household Size Categories in Core Housing Need, by Area Median Household Income (AMHI)
 
             html.H3(children = html.Strong('2026 Projections by HH Size and Income Level'), id = 'overview-scenario8'),
@@ -404,7 +390,9 @@ app.layout = html.Div(children = [
 
             html.Div([
                 html.Div([
-                    html.Label(children = html.Strong('Community 2026 HH'), className = 'table-title'),
+
+                    html.H5(children = html.Strong('Community 2026 HH'), className = 'table-title'),
+
                     dash_table.DataTable(
                         id='datatable3-interactivity',
                         columns=[
@@ -423,12 +411,29 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        # style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable3-interactivity-container'),
+
+                    # Graphs
+
+                    html.Div(children = [ 
+                        html.Div(
+                            dcc.Graph(
+                                id='graph7',
+                                figure=fig5
+                            ),
+                            style={'width': '100%', 'display': 'inline-block'}
+                        ),
+                    ]
+                    ),
+
                 ], className = 'tables'),
                 html.Div([
-                    html.Label(children = html.Strong('Community 2026 HH (Regional Rates)'), className = 'table-title'),
+                   
+                    html.H5(children = html.Strong('Community 2026 HH (Regional Rates)'), className = 'table-title'),
+
                     dash_table.DataTable(
                         id='datatable4-interactivity',
                         columns=[
@@ -447,35 +452,26 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        # style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable4-interactivity-container'),
                 ], className = 'tables'),
-                # html.Div([
-                #     html.Label(children = html.Strong('Regional 2026 HH'), className = 'table-title'),
-                #     dash_table.DataTable(
-                #         id='datatable5-interactivity',
-                #         columns=[
-                #             {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                #         ],
-                #         data=table.to_dict('records'),
-                #         editable=True,
-                #         sort_action="native",
-                #         sort_mode="multi",
-                #         column_selectable=False,
-                #         row_selectable=False,
-                #         row_deletable=False,
-                #         selected_columns=[],
-                #         selected_rows=[],
-                #         page_action="native",
-                #         page_current= 0,
-                #         page_size= 10,
-                #         merge_duplicate_headers=True,
-                #         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
-                #     ),
-                #     html.Div(id='datatable5-interactivity-container'),
-                # ], className = 'tables'),
-            ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
+
+                    # Graphs
+
+                    html.Div(children = [ 
+                        html.Div(
+                            dcc.Graph(
+                                id='graph8',
+                                figure=fig5
+                            ),
+                            style={'width': '100%', 'display': 'inline-block'}
+                        ),
+                    ]
+                    ),
+
+            ], #style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
             ),
 
 
@@ -700,6 +696,7 @@ def update_map(clickData, btn1):
     Output('datatable-interactivity', 'columns'),
     Output('datatable-interactivity', 'data'),
     Output('datatable-interactivity', 'style_data_conditional'),
+    Output('datatable-interactivity', 'style_cell_conditional'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
     Input('datatable-interactivity', 'selected_columns'),
@@ -746,11 +743,25 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
         for i in table.columns:
             col_list.append({"name": [geo, i], "id": i})
+        
+        # print(col_list)
+
+        style_cell_conditional=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table.columns[0]},
+                'backgroundColor': columns_color_fill[0]
+            }
+        ]
 
         return col_list, table.to_dict('record'), [{
             'if': { 'column_id': i },
             'background_color': '#D2F3FF'
-        } for i in selected_columns]
+        } for i in selected_columns], style_cell_conditional
         
     else:
 
@@ -820,10 +831,27 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
         for i in table_c.columns[1:]:
             col_list.append({"name": [geo_c, i], "id": i})
 
+        style_cell_conditional=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[2]
+            } for c in table_c.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table.columns[0]},
+                'backgroundColor': columns_color_fill[0]
+            }
+        ]
+
         return col_list, table_j.to_dict('record'), [{
             'if': { 'column_id': i },
             'background_color': '#D2F3FF'
-        } for i in selected_columns]
+        } for i in selected_columns], style_cell_conditional
 
 
 
@@ -1210,6 +1238,7 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
     Output('datatable2-interactivity', 'columns'),
     Output('datatable2-interactivity', 'data'),
     Output('datatable2-interactivity', 'style_data_conditional'),
+    Output('datatable2-interactivity', 'style_cell_conditional'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
     Input('datatable2-interactivity', 'selected_columns'),
@@ -1277,13 +1306,25 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
         col_list = []
 
+        style_cell_conditional=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table2.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table2.columns[0]},
+                'backgroundColor': columns_color_fill[0]
+            }
+        ]
+
         for i in table2.columns:
             col_list.append({"name": [geo, i], "id": i})
 
         return col_list, table2.to_dict('record'), [{
             'if': { 'column_id': i },
             'background_color': '#D2F3FF'
-        } for i in selected_columns]
+        } for i in selected_columns], style_cell_conditional
 
 
     else:
@@ -1388,10 +1429,27 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
         table2_j = table2.merge(table2_c, how = 'left', on = 'Area Median HH Income')
 
+        style_cell_conditional=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table2.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[2]
+            } for c in table2_c.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table2.columns[0]},
+                'backgroundColor': columns_color_fill[0]
+            }
+        ]
+
         return col_list, table2_j.to_dict('record'), [{
             'if': { 'column_id': i },
             'background_color': '#D2F3FF'
-        } for i in selected_columns]
+        } for i in selected_columns], style_cell_conditional
 
 
 
@@ -1815,277 +1873,25 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
         return fig6
 
 
-
-
-
-# # Refreshing Overview by Sectors plots by selected sector
-
-# @app.callback(
-#     Output('graph7', 'figure'),
-#     Input('all-geo-dropdown', 'value'),
-#     Input('comparison-geo-dropdown', 'value'),
-#     Input('to-geography-1', 'n_clicks'),
-#     Input('to-region-1', 'n_clicks'),
-#     Input('to-province-1', 'n_clicks')
-# )
-# def update_geo_figure7(geo, geo_c, btn1, btn2, btn3):
-
-#     hh_category_dict2 = {
-#                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
-#                         'Percent of Single Mother led HH in core housing need' : 'Single mother-led HH', 
-#                         'Percent of Indigenous HH in core housing need' : 'Indigenous HH', 
-#                         'Percent of Visible minority HH in core housing need' : 'Visible minority HH', 
-#                         'Percent of Black-led HH in core housing need' : 'Black-led HH', 
-#                         'Percent of New migrant-led HH in core housing need' : 'New migrant-led HH', 
-#                         'Percent of Refugee claimant-led HH in core housing need' : 'Refugee claimant-led HH', 
-#                         'Percent of HH head under 25 in core housing need' : 'HH head under 25', 
-#                         'Percent of HH head over 65 in core housing need' : 'HH head over 65', 
-#                         'Percent of HH head over 85 in core housing need' : 'HH head over 85', 
-#                         'Percent of HH with physical act. limit. in core housing need' : 'HH with physical activity limitation', 
-#                         'Percent of HH with with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental, or addictions activity limitation',
-#                         }
-
-#     hh_category_dict3 = {
-#                         'Percent of Women-led HH core housing' : 'Women-led HH', 
-#                         'Percent of Single Mother led HH core housing' : 'Single mother-led HH', 
-#                         'Percent of Indigenous HH in core housing' : 'Indigenous HH', 
-#                         'Percent of Visible minority HH core housing' : 'Visible minority HH', 
-#                         'Percent of Black-led HH core housing' : 'Black-led HH', 
-#                         'Percent of New migrant-led HH core housing' : 'New migrant-led HH', 
-#                         'Percent of Refugee claimant-led HH core housing' : 'Refugee claimant-led HH', 
-#                         'Percent of HH head under 25 core housing' : 'HH head under 25', 
-#                         'Percent of HH head over 65 core housing' : 'HH head over 65', 
-#                         'Percent of HH head over 85 core housing' : 'HH head over 85', 
-#                         'Percent of HH with physical act. limit. in core housing' : 'HH with physical activity limitation', 
-#                         'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental, or addictions activity limitation', 
-#                         }
-
-#     hh_category_dict4 = {
-#                         'Percent of Women-led HH in core housing' : 'Women-led HH', 
-#                         'Percent of Single Mother led HH in core housing' : 'Single mother-led HH', 
-#                         'Percent of Indigenous HH in core housing' : 'Indigenous HH', 
-#                         'Percent of Visible minority HH in core housing' : 'Visible minority HH', 
-#                         'Percent of Black-led HH in core housing' : 'Black-led HH', 
-#                         'Percent of New migrant-led HH in core housing' : 'New migrant-led HH', 
-#                         'Percent of Refugee claimant-led HH in core housing' : 'Refugee claimant-led HH', 
-#                         'Percent of HH head under 25 in core housing' : 'HH head under 25', 
-#                         'Percent of HH head over 65 in core housing' : 'HH head over 65', 
-#                         'Percent of HH head over 85 in core housing' : 'HH head over 85', 
-#                         'Percent of HH with physical act. limit. in core housing' : 'HH with physical activity limitation', 
-#                         'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental, or addictions activity limitation',
-#                         }
-
-#     columns2 = hh_category_dict2.keys()
-#     columns3 = hh_category_dict3.keys()
-#     columns4 = hh_category_dict4.keys()
-
-#     # if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
-
-#     #     if geo == None and geo_c != None:
-#     #         geo = geo_c
-#     #     elif geo == None and geo_c == None:
-#     #         geo = 'Greater Vancouver A RDA (CSD, BC)'
-
-#     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
-
-#         if geo == None and geo_c != None:
-#             geo = geo_c
-#         elif geo == None and geo_c == None:
-#             geo = 'Greater Vancouver A RDA (CSD, BC)'
-
-
-#         if "to-geography-1" == ctx.triggered_id:
-#             geo = geo
-#         elif "to-region-1" == ctx.triggered_id:
-#             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-#         elif "to-province-1" == ctx.triggered_id:
-#             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
-
-#         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
-
-#         hh_size_col = []
-#         percent_col = []
-#         hh_cat_col = []
-
-#         hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
-
-#         for c, c2, c3 in zip(columns2, columns3, columns4):
-#             for h in hh_size:
-#                 if h == '1 person':
-#                     p_hh = joined_df_filtered[f'{c} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict2[c])
-#                 elif h == '2 people':
-#                     p_hh = joined_df_filtered[f'{c2} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict3[c2])
-#                 elif h == '5 or more people':
-#                     p_hh = joined_df_filtered[f'{c3}with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-#                 else:
-#                     p_hh = joined_df_filtered[f'{c3} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-                    
-#                 hh_size_col.append(h)
-#                 percent_col.append(p_hh)
-
-#         plot_df = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
-
-#         fig7 = go.Figure()
-
-#         # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-#         colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-
-#         for h, c in zip(plot_df['HH_Size'].unique(), colors):
-#             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
-#             fig7.add_trace(go.Bar(
-#                 y = plot_df_frag['HH_Category'],
-#                 x = plot_df_frag['Percent'],
-#                 name = h,
-#                 marker_color = c,
-#                 orientation = 'h', 
-#                 hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
-#             ))
-                
-#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
-
-#         return fig7
-
-#     else:
-
-#         if "to-geography-1" == ctx.triggered_id:
-#             geo = geo
-#             geo_c = geo_c
-#         elif "to-region-1" == ctx.triggered_id:
-#             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-#             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-#         elif "to-province-1" == ctx.triggered_id:
-#             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
-#             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
-
-#         joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
-
-#         hh_size_col = []
-#         percent_col = []
-#         hh_cat_col = []
-
-#         hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
-
-#         for c, c2, c3 in zip(columns2, columns3, columns4):
-#             for h in hh_size:
-#                 if h == '1 person':
-#                     p_hh = joined_df_filtered[f'{c} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict2[c])
-#                 elif h == '2 people':
-#                     p_hh = joined_df_filtered[f'{c2} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict3[c2])
-#                 elif h == '5 or more people':
-#                     p_hh = joined_df_filtered[f'{c3}with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-#                 else:
-#                     p_hh = joined_df_filtered[f'{c3} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-                    
-#                 hh_size_col.append(h)
-#                 percent_col.append(p_hh)
-
-#         plot_df = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
-
-#         fig7 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
-
-#         # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-#         colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-
-#         n = 0
-#         for h, c in zip(plot_df['HH_Size'].unique(), colors):
-#             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
-#             fig7.add_trace(go.Bar(
-#                 y = plot_df_frag['HH_Category'],
-#                 x = plot_df_frag['Percent'],
-#                 name = h,
-#                 marker_color = c,
-#                 orientation = 'h', 
-#                 hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
-#                 legendgroup = f'{n}'
-#             ),row = 1, col = 1)
-#             n += 1
-
-#         # Comparison Plot
-
-#         joined_df_filtered_c = joined_df.query('Geography == '+ f'"{geo_c}"')
-
-#         hh_size_col = []
-#         percent_col = []
-#         hh_cat_col = []
-
-#         hh_size = ['1 person', '2 people', '3 people', '4 people', '5 or more people']
-
-#         for c, c2, c3 in zip(columns2, columns3, columns4):
-#             for h in hh_size:
-#                 if h == '1 person':
-#                     p_hh = joined_df_filtered_c[f'{c} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict2[c])
-#                 elif h == '2 people':
-#                     p_hh = joined_df_filtered_c[f'{c2} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict3[c2])
-#                 elif h == '5 or more people':
-#                     p_hh = joined_df_filtered_c[f'{c3}with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-#                 else:
-#                     p_hh = joined_df_filtered_c[f'{c3} with a HH size of {h}'].tolist()[0]
-#                     hh_cat_col.append(hh_category_dict4[c3])
-                    
-#                 hh_size_col.append(h)
-#                 percent_col.append(p_hh)
-
-#         plot_df_c = pd.DataFrame({'HH_Size': hh_size_col, 'HH_Category': hh_cat_col, 'Percent': percent_col})
-
-#         # colors = ['#bfd5ff', '#4A8F97', '#4a5b97', '#0B4952', '#210b52']
-#         colors = ['#fff194', '#FFDD5D', '#FAB88A', '#ff8d3d', '#fc7b5d']
-
-#         n = 0
-#         for h, c in zip(plot_df_c['HH_Size'].unique(), colors):
-#             plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Size'] == h, :]
-#             fig7.add_trace(go.Bar(
-#                 y = plot_df_frag_c['HH_Category'],
-#                 x = plot_df_frag_c['Percent'],
-#                 name = h,
-#                 marker_color = c,
-#                 orientation = 'h', 
-#                 hovertemplate= '%{y}, ' + f'Income Level: {h} - ' + '%{x: .2%}<extra></extra>',
-#                 legendgroup = f'{n}',
-#                 showlegend = False
-#             ),row = 1, col = 2)
-#             n += 1
-                
-#         fig7.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of Households (HHs) in Core Housing Need by Priority Population and HH Size - {geo}', legend_title = "HH Size")
-
-#         return fig7
-
-
-
-
-
 # Refreshing Overview by Sectors plots by selected sector
 
 @app.callback(
     Output('datatable3-interactivity', 'columns'),
     Output('datatable3-interactivity', 'data'),
     Output('datatable3-interactivity', 'style_data_conditional'),
+    Output('datatable3-interactivity', 'style_cell_conditional'),
     Output('datatable4-interactivity', 'columns'),
     Output('datatable4-interactivity', 'data'),
     Output('datatable4-interactivity', 'style_data_conditional'),
-    # Output('datatable5-interactivity', 'columns'),
-    # Output('datatable5-interactivity', 'data'),
-    # Output('datatable5-interactivity', 'style_data_conditional'),
+    Output('datatable4-interactivity', 'style_cell_conditional'),
+    Output('graph7', 'figure'),
+    Output('graph8', 'figure'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
     Input('datatable3-interactivity', 'selected_columns'),
     Input('datatable4-interactivity', 'selected_columns'),
-    # Input('datatable5-interactivity', 'selected_columns'),
-    # Input('to-geography-1', 'n_clicks'),
-    # Input('to-region-1', 'n_clicks'),
-    # Input('to-province-1', 'n_clicks')
 )
-def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_columns3):#, btn1, btn2, btn3):
+def update_table3(geo, geo_c, selected_columns, selected_columns2):
 
     income_col_list = ['20% or under of area median household income (AMHI)', 
                         '21% to 50% of AMHI', 
@@ -2110,16 +1916,8 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
-        # if "to-geography-1" == ctx.triggered_id:
-        #     geo = geo
-        # elif "to-region-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        # elif "to-province-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
-
         df_csd_proj_merged_filtered = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo,:]
         geo_region = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo]['Region_Code'].values[0])
-        # df_cd_proj_merged_filtered = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
         df_cd_grow_merged_filtered = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
 
         geo_region_name = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
@@ -2127,7 +1925,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         income_l = []
         pp_l = []
         result_csd_l = []
-        # result_cd_l = []
         result_g_l = []
         result_t_l = []
 
@@ -2139,7 +1936,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
                 income_l.append(i)
                 pp_l.append(p)
                 result_csd_l.append(df_csd_proj_merged_filtered[col_format_p].tolist()[0])
-                # result_cd_l.append(df_cd_proj_merged_filtered[col_format_p].tolist()[0])
                 result_t_l.append(df_csd_proj_merged_filtered[col_format_r].tolist()[0])
                 result_g_l.append(df_cd_grow_merged_filtered[col_format_g].tolist()[0])
                 
@@ -2148,7 +1944,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3['CSD_Total'] = table3['CSD_Total'].astype(float)
         table3['Growth'] = table3['Growth'].astype(float)
         table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), -1)
-        # table3['CD_Projection'] = np.round(table3['CD_Projection'].astype(float), 2)
         table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], -1)
 
         table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
@@ -2157,10 +1952,8 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3_cd_r = table3.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
         table3_cd_r = table3_cd_r.reset_index()
 
-        # table3_cd = table3.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
-        # table3_cd = table3_cd.reset_index()
-
         col_list_csd = []
+
 
         for i in table3_csd.columns:
             col_list_csd.append({"name": [geo, i], "id": i})
@@ -2170,10 +1963,66 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         for i in table3_cd_r.columns:
             col_list_cd_r.append({"name": [geo_region_name, i], "id": i})
 
-        # col_list_cd = []
+        style_cell_conditional_csd=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_csd.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_csd.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
 
-        # for i in table3_cd.columns:
-        #     col_list_cd.append({"name": [geo_region_name, i], "id": i})
+        style_cell_conditional_cd_r=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_cd_r.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_cd_r.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+        table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
+        table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income_Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
+
+        table3_cd_r_plot = table3_cd_r.replace([np.inf, -np.inf], 0)
+        table3_cd_r_plot = pd.melt(table3_cd_r_plot, id_vars = 'Income_Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
+
+        fig_csd = go.Figure()
+        for i, c in zip(table3_csd_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_csd_plot.loc[table3_csd_plot['HH_Category'] == i, :]
+            fig_csd.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+            ))
+
+        fig_csd.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+
+
+        fig_cd_r = go.Figure()
+        for i, c in zip(table3_cd_r_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_cd_r_plot.loc[table3_cd_r_plot['HH_Category'] == i, :]
+            fig_cd_r.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+            ))
+
+        fig_cd_r.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates) - {geo_region_name}', legend_title = "Income Category")
 
         return col_list_csd, \
                 table3_csd.to_dict('record'), \
@@ -2181,37 +2030,19 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
                     'if': { 'column_id': i },
                     'background_color': '#D2F3FF'
                 } for i in selected_columns], \
+                style_cell_conditional_csd, \
                 col_list_cd_r, \
                 table3_cd_r.to_dict('record'), \
                 [{
                     'if': { 'column_id': i },
                     'background_color': '#D2F3FF'
                 } for i in selected_columns2], \
-                # col_list_cd, \
-                # table3_cd.to_dict('record'), \
-                # [{
-                #     'if': { 'column_id': i },
-                #     'background_color': '#D2F3FF'
-                # } for i in selected_columns3]
-
+                style_cell_conditional_cd_r, fig_csd, fig_cd_r
 
     else:
-        # if geo == None:
-        #     geo = geo_c
-
-        # if "to-geography-1" == ctx.triggered_id:
-        #     geo = geo
-        #     geo_c = geo_c
-        # elif "to-region-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        #     geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        # elif "to-province-1" == ctx.triggered_id:
-        #     geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
-        #     geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         df_csd_proj_merged_filtered = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo,:]
         geo_region = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo]['Region_Code'].values[0])
-        df_cd_proj_merged_filtered = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
         df_cd_grow_merged_filtered = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
 
         geo_region_name = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
@@ -2219,7 +2050,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         income_l = []
         pp_l = []
         result_csd_l = []
-        # result_cd_l = []
         result_g_l = []
         result_t_l = []
 
@@ -2231,7 +2061,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
                 income_l.append(i)
                 pp_l.append(p)
                 result_csd_l.append(df_csd_proj_merged_filtered[col_format_p].tolist()[0])
-                # result_cd_l.append(df_cd_proj_merged_filtered[col_format_p].tolist()[0])
                 result_t_l.append(df_csd_proj_merged_filtered[col_format_r].tolist()[0])
                 result_g_l.append(df_cd_grow_merged_filtered[col_format_g].tolist()[0])
                 
@@ -2239,9 +2068,8 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3 = table3.fillna(0)
         table3['CSD_Total'] = table3['CSD_Total'].astype(float)
         table3['Growth'] = table3['Growth'].astype(float)
-        table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), 2)
-        # table3['CD_Projection'] = np.round(table3['CD_Projection'].astype(float), 2)
-        table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], 2)
+        table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), -1)
+        table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], -1)
 
         table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
         table3_csd = table3_csd.reset_index()
@@ -2249,30 +2077,27 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3_cd_r = table3.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
         table3_cd_r = table3_cd_r.reset_index()
 
-        # table3_cd = table3.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
-        # table3_cd = table3_cd.reset_index()
-
         col_list_csd = []
 
         for i in table3_csd.columns:
-            col_list_csd.append({"name": [geo, i], "id": i})
+            if i == 'Income_Category':
+                col_list_csd.append({"name": ["Subregions", i], "id": i})
+            else:
+                col_list_csd.append({"name": [geo, i], "id": i})
 
         col_list_cd_r = []
 
         for i in table3_cd_r.columns:
-            col_list_cd_r.append({"name": [geo_region_name, i], "id": i})
-
-        # col_list_cd = []
-
-        # for i in table3_cd.columns:
-        #     col_list_cd.append({"name": [geo_region_name, i], "id": i})
+            if i == 'Income_Category':
+                col_list_cd_r.append({"name": ["Regions", i], "id": i})
+            else:
+                col_list_cd_r.append({"name": [geo_region_name, i], "id": i})
 
 
         # Comparison Table
 
         df_csd_proj_merged_filtered_c = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo_c,:]
         geo_region_c = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c]['Region_Code'].values[0])
-        # df_cd_proj_merged_filtered_c = df_cd_proj_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region_c,:]
         df_cd_grow_merged_filtered_c = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region_c,:]
 
         geo_region_name_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
@@ -2280,7 +2105,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         income_l = []
         pp_l = []
         result_csd_l = []
-        # result_cd_l = []
         result_g_l = []
         result_t_l = []
 
@@ -2292,7 +2116,6 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
                 income_l.append(i)
                 pp_l.append(p)
                 result_csd_l.append(df_csd_proj_merged_filtered_c[col_format_p].tolist()[0])
-                # result_cd_l.append(df_cd_proj_merged_filtered_c[col_format_p].tolist()[0])
                 result_t_l.append(df_csd_proj_merged_filtered_c[col_format_r].tolist()[0])
                 result_g_l.append(df_cd_grow_merged_filtered_c[col_format_g].tolist()[0])
                 
@@ -2300,9 +2123,8 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3_c = table3_c.fillna(0)
         table3_c['CSD_Total'] = table3_c['CSD_Total'].astype(float)
         table3_c['Growth'] = table3_c['Growth'].astype(float)
-        table3_c['CSD_Projection'] = np.round(table3_c['CSD_Projection'].astype(float), 2)
-        table3_c['CD_Projection'] = np.round(table3_c['CD_Projection'].astype(float), 2)
-        table3_c['Projection'] = np.round((table3_c['CSD_Total'] * table3_c['Growth']) + table3_c['CSD_Total'], 2)
+        table3_c['CSD_Projection'] = np.round(table3_c['CSD_Projection'].astype(float), -1)
+        table3_c['Projection'] = np.round((table3_c['CSD_Total'] * table3_c['Growth']) + table3_c['CSD_Total'], -1)
 
         table3_csd_c = table3_c.pivot_table(values='CSD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
         table3_csd_c = table3_csd_c.reset_index()
@@ -2312,24 +2134,137 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
         table3_cd_r_c = table3_cd_r_c.reset_index()
         table3_cd_r_c = table3_cd_r_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
-        # table3_cd_c = table3_c.pivot_table(values='CD_Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
-        # table3_cd_c = table3_cd_c.reset_index()
-        # table3_cd_c = table3_cd_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
         for i in table3_csd_c.columns[1:]:
-            col_list_csd.append({"name": [geo_c, i], "id": i})
+            if i == 'Income_Category':
+                col_list_csd.append({"name": ["Subregions", i], "id": i})
+            else:
+                col_list_csd.append({"name": [geo_c, i], "id": i})
 
         for i in table3_cd_r_c.columns[1:]:
-            col_list_cd_r.append({"name": [geo_region_name_c, i], "id": i})
-
-        # for i in table3_cd_c.columns[1:]:
-            # col_list_cd.append({"name": [geo_region_name_c, i], "id": i})
+            if i == 'Income_Category':
+                col_list_cd_r.append({"name": ["Regions", i], "id": i})
+            else:
+                col_list_cd_r.append({"name": [geo_region_name_c, i], "id": i})
 
         table3_csd_j = table3_csd.merge(table3_csd_c, how = 'left', on = 'Income_Category')
-        table3_cd_j = table3_cd.merge(table3_cd_c, how = 'left', on = 'Income_Category')
-        # table3_cd_r_j = table3_cd_r.merge(table3_cd_r_c, how = 'left', on = 'Income_Category')
-        
-        # print(table3_cd_j)
+        table3_cd_r_j = table3_cd_r.merge(table3_cd_r_c, how = 'left', on = 'Income_Category')
+
+        style_cell_conditional_csd=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_csd.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[2]
+            } for c in table3_csd_c.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_csd.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+        style_cell_conditional_cd_r=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_cd_r.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[2]
+            } for c in table3_cd_r_c.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_cd_r.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+        table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
+        table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income_Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
+
+        table3_cd_r_plot = table3_cd_r.replace([np.inf, -np.inf], 0)
+        table3_cd_r_plot = pd.melt(table3_cd_r_plot, id_vars = 'Income_Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
+
+        table3_csd_c_plot = table3_csd_c.replace([np.inf, -np.inf], 0)
+        table3_csd_c_plot = pd.melt(table3_csd_c_plot, id_vars = 'Income_Category', value_vars = ['1pp ', '2pp ', '3pp ', '4pp ', '5pp '])
+
+        table3_cd_r_c_plot = table3_cd_r_c.replace([np.inf, -np.inf], 0)
+        table3_cd_r_c_plot = pd.melt(table3_cd_r_c_plot, id_vars = 'Income_Category', value_vars = ['1pp ', '2pp ', '3pp ', '4pp ', '5pp '])
+
+        fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        n = 0
+        for i, c in zip(table3_csd_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_csd_plot.loc[table3_csd_plot['HH_Category'] == i, :]
+            fig_csd.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = n,
+            ), row = 1, col = 1)
+            n += 1
+
+        n = 0
+        for i, c in zip(table3_csd_c_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_csd_c_plot.loc[table3_csd_c_plot['HH_Category'] == i, :]
+            fig_csd.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = n,
+                showlegend = False
+            ), row = 1, col = 2)
+            n += 1
+            
+        fig_csd.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
+
+
+        fig_cd_r = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo_region_name}", f"{geo_region_name_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        n = 0
+        for i, c in zip(table3_cd_r_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_cd_r_plot.loc[table3_cd_r_plot['HH_Category'] == i, :]
+            fig_cd_r.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = n,
+            ), row = 1, col = 1)
+            n += 1
+
+        n = 0
+        for i, c in zip(table3_cd_r_c_plot['HH_Category'].unique(), colors):
+            plot_df_frag = table3_cd_r_c_plot.loc[table3_cd_r_c_plot['HH_Category'] == i, :]
+            fig_cd_r.add_trace(go.Bar(
+                y = plot_df_frag['Income_Category'],
+                x = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                orientation = 'h', 
+                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                legendgroup = n,
+                showlegend = False
+            ), row = 1, col = 2)
+            n += 1
+            
+        fig_cd_r.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
+
 
         return col_list_csd, \
                 table3_csd_j.to_dict('record'), \
@@ -2337,18 +2272,15 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):#, selected_c
                     'if': { 'column_id': i },
                     'background_color': '#D2F3FF'
                 } for i in selected_columns], \
+                style_cell_conditional_csd, \
                 col_list_cd_r, \
                 table3_cd_r_j.to_dict('record'), \
                 [{
                     'if': { 'column_id': i },
                     'background_color': '#D2F3FF'
                 } for i in selected_columns2], \
-                # col_list_cd, \
-                # table3_cd_j.to_dict('record'), \
-                # [{
-                #     'if': { 'column_id': i },
-                #     'background_color': '#D2F3FF'
-                # } for i in selected_columns3]
+                style_cell_conditional_cd_r, fig_csd, fig_cd_r
+
 
 
 # Creating raw csv data file for download option
