@@ -55,6 +55,10 @@ df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Cod
 gdf_p_code_added = gpd.read_file('./sources/mapdata/province.shp')
 gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 
+# Importing subregions which don't have data
+
+not_avail = pd.read_csv('not_in_list.csv')
+not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Preprocessing
 
@@ -113,6 +117,8 @@ colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
+map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
+map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
@@ -142,11 +148,11 @@ fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geomet
                                 z = gdf_p_code_added.rand, 
                                 showscale = False, 
                                 hovertext= gdf_p_code_added.NAME,
-                                marker = dict(opacity = 0.2),
+                                marker = dict(opacity = 0.4),
                                 marker_line_width=.5))
 
 
-fig_m.update_layout(mapbox_style="open-street-map",
+fig_m.update_layout(mapbox_style="carto-positron",
                 mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
                 height = 500,
                 width = 1000,
@@ -505,7 +511,8 @@ def update_map(clickData, btn1):
     # When Reset-Map button is clicked
     if "reset-map" == ctx.triggered_id:
 
-        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+        # gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+        gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
 
         fig_m = go.Figure()
 
@@ -513,12 +520,13 @@ def update_map(clickData, btn1):
                                         locations = gdf_p_code_added.index, 
                                         z = gdf_p_code_added.rand, 
                                         showscale = False, 
+                                        colorscale = map_colors_wo_black,
                                         hovertext= gdf_p_code_added.NAME,
-                                        marker = dict(opacity = 0.2),
+                                        marker = dict(opacity = 0.4),
                                         marker_line_width=.5))
 
 
-        fig_m.update_layout(mapbox_style="open-street-map",
+        fig_m.update_layout(mapbox_style="carto-positron",
                         mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
                         height = 500,
                         width = 1000,
@@ -542,7 +550,8 @@ def update_map(clickData, btn1):
             gdf_r_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_code}.shp')
             gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
 
-            gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+            # gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+            gdf_r_filtered["rand"] = [i for i in range(0,len(gdf_r_filtered))]
             
             # print(gdf_r_filtered.index)
 
@@ -551,17 +560,18 @@ def update_map(clickData, btn1):
             fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
                                             locations = gdf_r_filtered.index, 
                                             z = gdf_r_filtered.rand, 
-                                            showscale = False, 
+                                            showscale = False,
+                                            colorscale = map_colors_wo_black,
                                             hovertext= gdf_r_filtered.CDNAME,
-                                            marker = dict(opacity = 0.2),
+                                            marker = dict(opacity = 0.4),
                                             marker_line_width=.5))
 
 
-            fig_mr.update_layout(mapbox_style="open-street-map",
+            fig_mr.update_layout(mapbox_style="carto-positron",
                             mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
                             height = 500,
                             width = 1000,
-                            mapbox_zoom = 2.5,
+                            mapbox_zoom = 3.0,
                             margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
             # print('map is created')
@@ -576,11 +586,17 @@ def update_map(clickData, btn1):
             # Importing Subregion Maps for selected Region
 
             gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_code}.shp')
+            gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))           
             gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
-            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+            # gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
 
             # print(gdf_sr_filtered.index)
+
+            if 0 in gdf_sr_filtered["rand"].tolist():
+                colorlist = map_colors_w_black
+            else:
+                colorlist = map_colors_wo_black
 
             fig_msr = go.Figure()
 
@@ -589,7 +605,8 @@ def update_map(clickData, btn1):
                                             z = gdf_sr_filtered.rand, 
                                             showscale = False, 
                                             hovertext= gdf_sr_filtered.CSDNAME,
-                                            marker = dict(opacity = 0.2),
+                                            colorscale = colorlist,
+                                            marker = dict(opacity = 0.4),
                                             marker_line_width=.5))
 
             max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
@@ -598,7 +615,7 @@ def update_map(clickData, btn1):
             zoom = 11.5 - np.log(max_bound)
             # print(zoom)
 
-            fig_msr.update_layout(mapbox_style="open-street-map",
+            fig_msr.update_layout(mapbox_style="carto-positron",
                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
                             height = 500,
                             width = 1000,
@@ -621,12 +638,18 @@ def update_map(clickData, btn1):
             # Importing Subregion Maps for selected Region
 
             gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_code_region}.shp')
+            gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
             gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
 
-            gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+            # gdf_sr_filtered["rand"] = gdf_sr_filtered.np.random.randint(1, 100, len(gdf_sr_filtered))
 
             # print(gdf_sr_filtered.index)
+
+            if 0 in gdf_sr_filtered["rand"].tolist():
+                colorlist = map_colors_w_black
+            else:
+                colorlist = map_colors_wo_black
 
             fig_msr = go.Figure()
 
@@ -635,7 +658,8 @@ def update_map(clickData, btn1):
                                             z = gdf_sr_filtered.rand, 
                                             showscale = False, 
                                             hovertext= gdf_sr_filtered.CSDNAME,
-                                            marker = dict(opacity = 0.2),
+                                            colorscale = colorlist,
+                                            marker = dict(opacity = 0.4),
                                             marker_line_width=.5))
 
             max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
@@ -644,7 +668,7 @@ def update_map(clickData, btn1):
             zoom = 11.5 - np.log(max_bound)
             # print(zoom)
 
-            fig_msr.update_layout(mapbox_style="open-street-map",
+            fig_msr.update_layout(mapbox_style="carto-positron",
                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
                             height = 500,
                             width = 1000,
@@ -664,7 +688,8 @@ def update_map(clickData, btn1):
     else:
         # print(btn1)
         # print(ctx.triggered_id)
-        gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+        # gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
+        gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
 
         fig_m = go.Figure()
 
@@ -673,11 +698,12 @@ def update_map(clickData, btn1):
                                         z = gdf_p_code_added.rand, 
                                         showscale = False, 
                                         hovertext= gdf_p_code_added.NAME,
-                                        marker = dict(opacity = 0.2),
+                                        colorscale = map_colors_wo_black,
+                                        marker = dict(opacity = 0.4),
                                         marker_line_width=.5))
 
 
-        fig_m.update_layout(mapbox_style="open-street-map",
+        fig_m.update_layout(mapbox_style="carto-positron",
                         mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
                         height = 500,
                         width = 1000,
@@ -2004,7 +2030,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
         fig_csd.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
@@ -2019,7 +2045,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
         fig_cd_r.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates) - {geo_region_name}', legend_title = "Income Category")
@@ -2209,7 +2235,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
                 legendgroup = n,
             ), row = 1, col = 1)
             n += 1
@@ -2223,7 +2249,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
                 legendgroup = n,
                 showlegend = False
             ), row = 1, col = 2)
@@ -2243,7 +2269,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
                 legendgroup = n,
             ), row = 1, col = 1)
             n += 1
@@ -2257,7 +2283,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 name = i,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
                 legendgroup = n,
                 showlegend = False
             ), row = 1, col = 2)
