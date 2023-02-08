@@ -118,7 +118,7 @@ hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
 map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
+map_colors_w_black = ['#ffffff', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
@@ -615,13 +615,17 @@ def update_map(clickData, btn1):
             zoom = 11.5 - np.log(max_bound)
             # print(zoom)
 
+            if len(gdf_sr_filtered) == 1:
+                zoom = 9
+
             fig_msr.update_layout(mapbox_style="carto-positron",
                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
                             height = 500,
                             width = 1000,
-                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            mapbox_zoom = zoom,
                             margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
+
 
             # print('map is created')
 
@@ -667,12 +671,14 @@ def update_map(clickData, btn1):
 
             zoom = 11.5 - np.log(max_bound)
             # print(zoom)
+            if len(gdf_sr_filtered) == 1:
+                zoom = 9
 
             fig_msr.update_layout(mapbox_style="carto-positron",
                             mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
                             height = 500,
                             width = 1000,
-                            mapbox_zoom = 11.5 - np.log(max_bound),
+                            mapbox_zoom = zoom,
                             margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
 
