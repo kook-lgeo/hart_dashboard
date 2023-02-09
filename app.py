@@ -118,7 +118,7 @@ hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
 map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_w_black = ['#ffffff', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
+map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
