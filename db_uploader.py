@@ -13,7 +13,7 @@ df_income = df_income.rename(columns = {'index': 'pk'})
 
 # Importing partners data
 
-df_partners = pd.read_csv("./sources/partners_small.csv")
+df_partners = pd.read_csv("./sources/partners_small_230209.csv")
 df_partners = df_partners.reset_index()
 df_partners = df_partners.rename(columns = {'index': 'pk'})
 
@@ -241,3 +241,5 @@ for i in range(0, len(df_cd_growthrate)):
     conn.execute(insert(CDGrowthRates), [df_cd_growthrate.loc[i,:].to_dict()])
 
 conn.close()
+
+print('done')
