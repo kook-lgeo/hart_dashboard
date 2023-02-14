@@ -5,6 +5,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.graph_objs.scatter.marker import Line
+from dash.dash_table.Format import Format, Scheme, Sign, Symbol, Group
 from plotly.subplots import make_subplots
 from sqlalchemy import create_engine
 import warnings
@@ -512,31 +513,103 @@ app.layout = html.Div(children = [
     Input('reset-map', 'n_clicks'),
     Input('all-geo-dropdown', 'value'),
     Input('all-geo-dropdown-parent', 'n_clicks'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
     )
-def update_map(clickData, btn1, value, btn2):
-    print(clickData)
-    print(btn1)
-    print(value, ctx.triggered_id)
-    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
-    print(clicked_code)
+def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
 
-    if 'all-geo-dropdown-parent' == ctx.triggered_id:
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+
+    if "to-region-1" == ctx.triggered_id:
+
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
+
+        clicked_province_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+        clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+        print(value, clicked_code, type(clicked_code))
+
+        gdf_r_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_province_code}.shp')
+        print(gdf_r_filtered['CDUID'])
+        gdf_r_filtered["rand"] = gdf_r_filtered['CDUID'].apply(lambda x: 0 if x == clicked_code else 100) 
+        gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
+
+        # gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+        # gdf_r_filtered["rand"] = [i for i in range(0,len(gdf_r_filtered))]
+ 
+        
+        # print(gdf_r_filtered.index)
+
+        fig_mr = go.Figure()
+
+        fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
+                                        locations = gdf_r_filtered.index, 
+                                        z = gdf_r_filtered.rand, 
+                                        showscale = False,
+                                        colorscale = map_colors_wo_black,
+                                        hovertext= gdf_r_filtered.CDNAME,
+                                        marker = dict(opacity = 0.4),
+                                        marker_line_width=.5))
+
+
+        fig_mr.update_layout(mapbox_style="carto-positron",
+                        mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 3.0,
+                        margin=dict(b=0,t=10,l=0,r=10),
+                        autosize=True)
+        # print('map is created')
+
+        return fig_mr, value
+
+
+    if "to-province-1" == ctx.triggered_id:
+        if value == None:
+            value = 'Greater Vancouver A RDA (CSD, BC)'
+
+        clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+        # print(gdf_p_code_added)
+        # gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
+        gdf_p_code_added['Geo_Code'] = gdf_p_code_added.index
+
+        gdf_p_code_added["rand"] = gdf_p_code_added['Geo_Code'].apply(lambda x: 0 if x == int(clicked_code) else 100)  
+
+        fig_m = go.Figure()
+
+        fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                        locations = gdf_p_code_added.index, 
+                                        z = gdf_p_code_added.rand, 
+                                        showscale = False, 
+                                        colorscale = map_colors_wo_black,
+                                        hovertext= gdf_p_code_added.NAME,
+                                        marker = dict(opacity = 0.4),
+                                        marker_line_width=.5))
+
+
+        fig_m.update_layout(mapbox_style="carto-positron",
+                        mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = 2.0,
+                        margin=dict(b=0,t=10,l=0,r=10),
+                        autosize=True)
+
+        return fig_m, value
+
+    if 'all-geo-dropdown-parent' == ctx.triggered_id or "to-geography-1" == ctx.triggered_id:
+        if value == None:
+            value = 'Greater Vancouver A RDA (CSD, BC)'
+
         clicked_region_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
         clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Geo_Code'].tolist()[0]
-        print('clicked_code = ', clicked_code)
         
         # Importing Subregion Maps for selected Region
-
+        print(clicked_code)
         gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_region_code}.shp')
-        # gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
         gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == str(clicked_code) else 100))           
         gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
-
-        # gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
-
-        # print(gdf_sr_filtered.index)
 
         if 0 in gdf_sr_filtered["rand"].tolist():
             colorlist = map_colors_w_black
@@ -558,7 +631,6 @@ def update_map(clickData, btn1, value, btn2):
                         abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
 
         zoom = 11.5 - np.log(max_bound)
-        # print(zoom)
 
         if len(gdf_sr_filtered) == 1:
             zoom = 9
@@ -570,9 +642,6 @@ def update_map(clickData, btn1, value, btn2):
                         mapbox_zoom = zoom,
                         margin=dict(b=0,t=10,l=0,r=10),
                         autosize=True)
-
-
-        # print('map is created')
 
         return fig_msr, value
 
@@ -1421,7 +1490,14 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
         ]
 
         for i in table2.columns:
-            col_list.append({"name": [geo, i], "id": i})
+            col_list.append({"name": [geo, i],
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
 
         return col_list, table2.to_dict('record'), [{
             'if': { 'column_id': i },
@@ -1483,7 +1559,14 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
             if i == 'Area Median HH Income':
                 col_list.append({"name": ["Income Category", i], "id": i})
             else:
-                col_list.append({"name": [geo, i], "id": i})
+                col_list.append({"name": [geo, i], 
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
 
         # Comparison Table
 
@@ -1527,7 +1610,14 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
             if i == 'Area Median HH Income':
                 col_list.append({"name": ["Income Category", i], "id": i})
             else:
-                col_list.append({"name": [geo_c, i], "id": i})
+                col_list.append({"name": [geo_c, i], 
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
 
         table2_j = table2.merge(table2_c, how = 'left', on = 'Area Median HH Income')
 
@@ -1737,6 +1827,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 
             ),row = 1, col = 2)
         fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
+        fig5.update_xaxes(range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
 
         return fig5
 
@@ -2058,12 +2149,26 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
 
 
         for i in table3_csd.columns:
-            col_list_csd.append({"name": [geo, i], "id": i})
+            col_list_csd.append({"name": [geo, i],
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
 
         col_list_cd_r = []
 
         for i in table3_cd_r.columns:
-            col_list_cd_r.append({"name": [geo_region_name, i], "id": i})
+            col_list_cd_r.append({"name": [geo_region_name, i],
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
 
         style_cell_conditional_csd=[
             {
@@ -2185,7 +2290,14 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             if i == 'Income_Category':
                 col_list_csd.append({"name": ["Subregions", i], "id": i})
             else:
-                col_list_csd.append({"name": [geo, i], "id": i})
+                col_list_csd.append({"name": [geo, i],
+                                      "id": i, 
+                                      "type": 'numeric', 
+                                      "format": Format(
+                                                        group=Group.yes,
+                                                        scheme=Scheme.fixed,
+                                                        precision=0
+                                                        )})
 
         col_list_cd_r = []
 
@@ -2193,7 +2305,14 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             if i == 'Income_Category':
                 col_list_cd_r.append({"name": ["Regions", i], "id": i})
             else:
-                col_list_cd_r.append({"name": [geo_region_name, i], "id": i})
+                col_list_cd_r.append({"name": [geo_region_name, i],
+                                      "id": i, 
+                                      "type": 'numeric', 
+                                      "format": Format(
+                                                        group=Group.yes,
+                                                        scheme=Scheme.fixed,
+                                                        precision=0
+                                                        )})
 
 
         # Comparison Table
@@ -2241,13 +2360,27 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             if i == 'Income_Category':
                 col_list_csd.append({"name": ["Subregions", i], "id": i})
             else:
-                col_list_csd.append({"name": [geo_c, i], "id": i})
+                col_list_csd.append({"name": [geo_c, i], 
+                                      "id": i, 
+                                      "type": 'numeric', 
+                                      "format": Format(
+                                                        group=Group.yes,
+                                                        scheme=Scheme.fixed,
+                                                        precision=0
+                                                        )})
 
         for i in table3_cd_r_c.columns[1:]:
             if i == 'Income_Category':
                 col_list_cd_r.append({"name": ["Regions", i], "id": i})
             else:
-                col_list_cd_r.append({"name": [geo_region_name_c, i], "id": i})
+                col_list_cd_r.append({"name": [geo_region_name_c, i], 
+                                      "id": i, 
+                                      "type": 'numeric', 
+                                      "format": Format(
+                                                        group=Group.yes,
+                                                        scheme=Scheme.fixed,
+                                                        precision=0
+                                                        )})
 
         table3_csd_j = table3_csd.merge(table3_csd_c, how = 'left', on = 'Income_Category')
         table3_cd_r_j = table3_cd_r.merge(table3_cd_r_c, how = 'left', on = 'Income_Category')
@@ -2332,7 +2465,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             n += 1
             
         fig_csd.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
-
+        fig_csd.update_xaxes(range=[0, max(table3_csd_plot['value'].max(), table3_csd_c_plot['value'].max())])
 
         fig_cd_r = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo_region_name}", f"{geo_region_name_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -2366,7 +2499,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             n += 1
             
         fig_cd_r.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
-
+        fig_cd_r.update_xaxes(range=[0, max(table3_cd_r_plot['value'].max(), table3_cd_r_c_plot['value'].max())])
 
         return col_list_csd, \
                 table3_csd_j.to_dict('record'), \
