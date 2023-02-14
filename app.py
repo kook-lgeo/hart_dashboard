@@ -202,7 +202,9 @@ app.layout = html.Div(children = [
             ]
             ),
 
-            html.Div(children = [
+            html.Div(
+                id = 'all-geo-dropdown-parent',
+                children = [
                 html.Strong('Select Area'),
                 # dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
@@ -210,7 +212,9 @@ app.layout = html.Div(children = [
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
 
-            html.Div(children = [
+            html.Div(
+                id = 'comparison-geo-dropdown-parent',
+                children = [
                 html.Strong('Comparison Area'),
                 # dcc.Dropdown(joined_df['Geography'].unique(), id='comparison-geo-dropdown'),
                 dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
@@ -220,24 +224,24 @@ app.layout = html.Div(children = [
 
             # Area Scale Selection
 
-            html.H3(children = html.Strong('Area Scale Selection'), id = 'area-scale'),
+            html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
 
             html.Div(children = [ 
 
                 html.Div(children = [                     
-                    html.Button('To Subregion', id='to-geography-1', n_clicks=0),     
+                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
                                     ], className = 'region_button'
                     ),           
                 html.Div(children = [ 
-                    html.Button('To Region', id='to-region-1', n_clicks=0),
+                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
                                     ], className = 'region_button'
                     ),         
                 html.Div(children = [ 
-                    html.Button('To Province', id='to-province-1', n_clicks=0),
+                    html.Button('View Province', id='to-province-1', n_clicks=0),
                                     ], className = 'region_button'
                     ),         
                 ], 
-                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+                style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
             ),
 
 
@@ -484,7 +488,7 @@ app.layout = html.Div(children = [
             # Raw data download
 
             html.Div([
-            html.Button("Download Full Raw Data", id="ov7-download-csv"),
+            html.Button("Download This Community", id="ov7-download-csv"),
             dcc.Download(id="ov7-download-text")
             ], 
             style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
@@ -500,15 +504,80 @@ app.layout = html.Div(children = [
 
 # Area Selection Map
 
+
 @app.callback(
     Output('canada_map', 'figure'),
     Output('all-geo-dropdown', 'value'),
     [Input('canada_map', 'clickData')],
     Input('reset-map', 'n_clicks'),
+    Input('all-geo-dropdown', 'value'),
+    Input('all-geo-dropdown-parent', 'n_clicks'),
     )
-def update_map(clickData, btn1):
+def update_map(clickData, btn1, value, btn2):
+    print(clickData)
+    print(btn1)
+    print(value, ctx.triggered_id)
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+    print(clicked_code)
+
+    if 'all-geo-dropdown-parent' == ctx.triggered_id:
+        if value == None:
+            value = 'Greater Vancouver A RDA (CSD, BC)'
+        clicked_region_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+        clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Geo_Code'].tolist()[0]
+        print('clicked_code = ', clicked_code)
+        
+        # Importing Subregion Maps for selected Region
+
+        gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_region_code}.shp')
+        # gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
+        gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == str(clicked_code) else 100))           
+        gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
+
+        # gdf_sr_filtered["rand"] = np.random.randint(1, 100, len(gdf_sr_filtered))
+
+        # print(gdf_sr_filtered.index)
+
+        if 0 in gdf_sr_filtered["rand"].tolist():
+            colorlist = map_colors_w_black
+        else:
+            colorlist = map_colors_wo_black
+
+        fig_msr = go.Figure()
+
+        fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                        locations = gdf_sr_filtered.index, 
+                                        z = gdf_sr_filtered.rand, 
+                                        showscale = False, 
+                                        hovertext= gdf_sr_filtered.CSDNAME,
+                                        colorscale = colorlist,
+                                        marker = dict(opacity = 0.4),
+                                        marker_line_width=.5))
+
+        max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                        abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+        zoom = 11.5 - np.log(max_bound)
+        # print(zoom)
+
+        if len(gdf_sr_filtered) == 1:
+            zoom = 9
+
+        fig_msr.update_layout(mapbox_style="carto-positron",
+                        mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                        height = 500,
+                        width = 1000,
+                        mapbox_zoom = zoom,
+                        margin=dict(b=0,t=10,l=0,r=10),
+                        autosize=True)
+
+
+        # print('map is created')
+
+        return fig_msr, value
 
     # When Reset-Map button is clicked
+
     if "reset-map" == ctx.triggered_id:
 
         # gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
@@ -642,7 +711,8 @@ def update_map(clickData, btn1):
             # Importing Subregion Maps for selected Region
 
             gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_code_region}.shp')
-            gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
+            # gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
+            gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == clicked_code else 100))
             gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
 
