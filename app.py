@@ -207,8 +207,8 @@ app.layout = html.Div(children = [
                 id = 'all-geo-dropdown-parent',
                 children = [
                 html.Strong('Select Area'),
-                # dcc.Dropdown(joined_df['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
-                dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                dcc.Dropdown(joined_df['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                # dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
@@ -217,8 +217,8 @@ app.layout = html.Div(children = [
                 id = 'comparison-geo-dropdown-parent',
                 children = [
                 html.Strong('Comparison Area'),
-                # dcc.Dropdown(joined_df['Geography'].unique(), id='comparison-geo-dropdown'),
-                dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
+                dcc.Dropdown(joined_df['Geography'].unique()[1:], id='comparison-geo-dropdown'),
+                # dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
                 ], 
                 style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
             ),
@@ -521,7 +521,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
 
-    if "to-region-1" == ctx.triggered_id:
+    if (len(clicked_code) == 4 and 'all-geo-dropdown-parent' == ctx.triggered_id) or "to-region-1" == ctx.triggered_id:
 
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
@@ -565,7 +565,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
         return fig_mr, value
 
 
-    if "to-province-1" == ctx.triggered_id:
+    if (len(clicked_code) == 2 and 'all-geo-dropdown-parent' == ctx.triggered_id) or "to-province-1" == ctx.triggered_id:
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
 
@@ -598,7 +598,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
 
         return fig_m, value
 
-    if 'all-geo-dropdown-parent' == ctx.triggered_id or "to-geography-1" == ctx.triggered_id:
+    if (len(clicked_code) > 4 and 'all-geo-dropdown-parent' == ctx.triggered_id) or "to-geography-1" == ctx.triggered_id:
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
 
@@ -713,8 +713,11 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                             margin=dict(b=0,t=10,l=0,r=10),
                             autosize=True)
             # print('map is created')
+            # print(clicked_code)
+            region_name = df_province_list.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
+            # print(region_name)
 
-            return fig_mr, 'Greater Vancouver A RDA (CSD, BC)'
+            return fig_mr, region_name#'Greater Vancouver A RDA (CSD, BC)'
 
         # When users clicked region on the regional map after clicking province -> show subregion map
 
@@ -766,8 +769,9 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
 
 
             # print('map is created')
+            region_name = df_region_list.query("Geo_Code == " + f"{clicked_code}")['Geography'].tolist()[0]
 
-            return fig_msr, 'Greater Vancouver A RDA (CSD, BC)'
+            return fig_msr, region_name#'Greater Vancouver A RDA (CSD, BC)'
 
         # When users clicked subregion on the regional map after clicking province -> remains subregion map and send subregion code to area selection dropdown
 
@@ -1852,6 +1856,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
 )
 def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 
+
     hh_category_dict2 = {
                         'Percent of Women-led HH in core housing need' : 'Women-led HH', 
                         'Percent of Single Mother led HH in core housing need' : 'Single mother-led HH', 
@@ -2092,6 +2097,78 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 )
 def update_table3(geo, geo_c, selected_columns, selected_columns2):
 
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
+    print(clicked_code)
+    if geo_c != None:
+        clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
+    else:
+        clicked_code_c = 0
+    if len(str(clicked_code)) < 6:
+        print('it is not csd code')
+        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        table3_cd_r = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        
+        col_list_csd = []
+
+
+        for i in table3_csd.columns:
+            col_list_csd.append({"name": [i],
+                                    "id": i, })
+
+        col_list_cd_r = []
+
+        for i in table3_cd_r.columns:
+            col_list_cd_r.append({"name": [ i],
+                                    "id": i, })
+
+        style_cell_conditional_csd=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_csd.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_csd.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+        style_cell_conditional_cd_r=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_cd_r.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_cd_r.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+
+        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+        fig_cd_r = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+
+        return col_list_csd, \
+                table3_csd.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns], \
+                style_cell_conditional_csd, \
+                col_list_cd_r, \
+                table3_cd_r.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns2], \
+                style_cell_conditional_cd_r, fig_csd, fig_cd_r
+    
+
+
+
     income_col_list = ['20% or under of area median household income (AMHI)', 
                         '21% to 50% of AMHI', 
                         '51% to 80% of AMHI', 
@@ -2108,7 +2185,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
 
     pp_list_r = ['1person', '2persons', '3persons', '4persons', '5ormorepersonshousehold']
 
-    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None) or len(str(clicked_code_c)) < 6:
 
         if geo == None and geo_c != None:
             geo = geo_c
@@ -2357,7 +2434,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
         table3_csd_c = table3_csd_c.reset_index()
         table3_csd_c = table3_csd_c.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
-        print(table3_csd_c)
+        # print(table3_csd_c)
 
         table3_cd_r_c = table3_c.pivot_table(values='Projection', index=['Income_Category'], columns=['HH_Category'], sort = False)
         table3_cd_r_c = table3_cd_r_c.reset_index()
@@ -2410,7 +2487,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             n += 1
             
         fig_csd.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
-        fig_csd.update_xaxes(range=[0, max(table3_csd_plot['value'].max(), table3_csd_c_plot['value'].max())])
+        fig_csd.update_yaxes(range=[0, max(table3_csd_plot['value'].max(), table3_csd_c_plot['value'].max())])
 
         fig_cd_r = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo_region_name}", f"{geo_region_name_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -2444,7 +2521,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             n += 1
             
         fig_cd_r.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
-        fig_cd_r.update_xaxes(range=[0, max(table3_cd_r_plot['value'].max(), table3_cd_r_c_plot['value'].max())])
+        fig_cd_r.update_yaxes(range=[0, max(table3_cd_r_plot['value'].max(), table3_cd_r_c_plot['value'].max())])
 
 
         table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
@@ -2495,7 +2572,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
         row_total_csd_c[0] = 'Total'
         table3_csd_c.loc[5, :] = row_total_csd_c
         table3_csd_c['Total '] = table3_csd_c.sum(axis=1)
-        print(table3_csd_c)
+        # print(table3_csd_c)
 
         table3_cd_r_c = table3_cd_r_c.replace([np.inf, -np.inf], 0)
         row_total_cd_r_c = table3_cd_r_c.sum(axis=0)
