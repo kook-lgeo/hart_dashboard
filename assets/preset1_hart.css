@@ -125,6 +125,10 @@
   /* background-color: #F3F4F5; */
 }
 
+.export{
+  margin-bottom: 5%;
+}
+
 .region_button {
   display: inline-block;
   padding-right: 1%;

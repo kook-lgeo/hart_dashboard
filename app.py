@@ -61,6 +61,10 @@ gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 not_avail = pd.read_csv('not_in_list.csv')
 not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
+# Configuration for plot icons
+
+config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
+
 # Preprocessing
 
 income_category = df_income.drop(['Geography'], axis=1)
@@ -120,6 +124,8 @@ hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
 map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
+modebar_color = '#099DD7'
+modebar_activecolor = '#044762'
 
 fig = go.Figure()
 for i, c in zip(plot_df['Income_Category'], colors):
@@ -196,7 +202,8 @@ app.layout = html.Div(children = [
                 html.Div(
                     dcc.Graph(
                         id='canada_map',
-                        figure=fig_m
+                        figure=fig_m,
+                        config = config,
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
@@ -272,7 +279,7 @@ app.layout = html.Div(children = [
                     page_current= 0,
                     page_size= 10,
                     merge_duplicate_headers=True,
-                    # export_format = "csv",
+                    export_format = "csv",
                     # style_data = {'font_size': '1.0rem', 'width': '100px'},
                     style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
                 ),
@@ -292,7 +299,8 @@ app.layout = html.Div(children = [
                 html.Div(
                     dcc.Graph(
                         id='graph',
-                        figure=fig
+                        figure=fig,
+                        config = config,
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
@@ -310,7 +318,8 @@ app.layout = html.Div(children = [
                 html.Div(
                     dcc.Graph(
                         id='graph2',
-                        figure=fig
+                        figure=fig,
+                        config = config,
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
@@ -347,7 +356,7 @@ app.layout = html.Div(children = [
                         merge_duplicate_headers=True,
                         style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
-                        # export_format = "csv"
+                        export_format = "csv"
                     ),
                     html.Div(id='datatable2-interactivity-container')
                 ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
@@ -367,7 +376,8 @@ app.layout = html.Div(children = [
                 html.Div(
                     dcc.Graph(
                         id='graph5',
-                        figure=fig5
+                        figure=fig5,
+                        config = config,
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
@@ -385,7 +395,8 @@ app.layout = html.Div(children = [
                 html.Div(
                     dcc.Graph(
                         id='graph6',
-                        figure=fig6
+                        figure=fig6,
+                        config = config,
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
@@ -422,6 +433,7 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        export_format="csv",
                         # style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
@@ -433,7 +445,8 @@ app.layout = html.Div(children = [
                         html.Div(
                             dcc.Graph(
                                 id='graph7',
-                                figure=fig5
+                                figure=fig5,
+                                config = config,
                             ),
                             style={'width': '100%', 'display': 'inline-block'}
                         ),
@@ -463,6 +476,7 @@ app.layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
+                        export_format="csv",
                         # style_table={'minWidth': '100%'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
@@ -475,7 +489,8 @@ app.layout = html.Div(children = [
                         html.Div(
                             dcc.Graph(
                                 id='graph8',
-                                figure=fig5
+                                figure=fig5,
+                                config = config,
                             ),
                             style={'width': '100%', 'display': 'inline-block'}
                         ),
@@ -559,9 +574,10 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                         width = 1000,
                         mapbox_zoom = 3.0,
                         margin=dict(b=0,t=10,l=0,r=10),
+                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                         autosize=True)
         # print('map is created')
-
+        
         return fig_mr, value
 
 
@@ -594,6 +610,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                         width = 1000,
                         mapbox_zoom = 2.0,
                         margin=dict(b=0,t=10,l=0,r=10),
+                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                         autosize=True)
 
         return fig_m, value
@@ -641,6 +658,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                         width = 1000,
                         mapbox_zoom = zoom,
                         margin=dict(b=0,t=10,l=0,r=10),
+                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                         autosize=True)
 
         return fig_msr, value
@@ -670,6 +688,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                         width = 1000,
                         mapbox_zoom = 2.0,
                         margin=dict(b=0,t=10,l=0,r=10),
+                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                         autosize=True)
 
         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
@@ -711,6 +730,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                             width = 1000,
                             mapbox_zoom = 3.0,
                             margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                             autosize=True)
             # print('map is created')
             # print(clicked_code)
@@ -765,6 +785,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                             width = 1000,
                             mapbox_zoom = zoom,
                             margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                             autosize=True)
 
 
@@ -823,6 +844,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                             width = 1000,
                             mapbox_zoom = zoom,
                             margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                             autosize=True)
 
             # print('map is created')
@@ -858,6 +880,7 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
                         width = 1000,
                         mapbox_zoom = 2.0,
                         margin=dict(b=0,t=10,l=0,r=10),
+                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
                         autosize=True)
 
         return fig_m, 'Greater Vancouver A RDA (CSD, BC)'
@@ -1099,11 +1122,12 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
             ))
 
-        fig.update_layout(yaxis=dict(autorange="reversed"), plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
+        fig.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
         fig.update_xaxes(range = [0, 1])
         fig.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs')
-            
+
         return fig
+
 
     else:
         # if geo == None:
@@ -1198,7 +1222,7 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
             n += 1
 
 
-        fig.update_layout(title = f'Percent HH By Income Category', plot_bgcolor='#F8F9F9', legend_title = "Income", legend = dict(font = dict(size = 9)))
+        fig.update_layout(title = f'Percent HH By Income Category', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income", legend = dict(font = dict(size = 9)))
         fig.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
         fig.update_xaxes(range = [0, 1])
 
@@ -1284,7 +1308,7 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig2.update_layout(legend_traceorder = 'normal', yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
+        fig2.update_layout(legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
         fig2.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs')
 
         return fig2
@@ -1406,7 +1430,7 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
             ), row = 1, col = 2)
             n += 1
 
-        fig2.update_layout(legend_traceorder = 'normal', barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
+        fig2.update_layout(legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
         fig2.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
 
         return fig2
@@ -1747,7 +1771,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
-        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
 
         return fig5
 
@@ -1836,7 +1860,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
-        fig5.update_layout(yaxis=dict(autorange="reversed"), showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
         fig5.update_xaxes(range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
 
         return fig5
@@ -1970,7 +1994,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
 
         return fig6
 
@@ -2072,7 +2096,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
             ), row = 1, col = 2)
             n += 1
             
-        fig6.update_layout(legend_traceorder="normal", yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
 
         return fig6
 
@@ -2253,7 +2277,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
 
 
         fig_cd_r = go.Figure()
@@ -2268,7 +2292,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
                 hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
-        fig_cd_r.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates) - {geo_region_name}', legend_title = "Income Category")
+        fig_cd_r.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates) - {geo_region_name}', legend_title = "Income Category")
 
 
         table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
@@ -2486,7 +2510,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             ), row = 1, col = 2)
             n += 1
             
-        fig_csd.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
         fig_csd.update_yaxes(range=[0, max(table3_csd_plot['value'].max(), table3_csd_c_plot['value'].max())])
 
         fig_cd_r = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo_region_name}", f"{geo_region_name_c}"), shared_yaxes=True, shared_xaxes=True)
@@ -2520,7 +2544,7 @@ def update_table3(geo, geo_c, selected_columns, selected_columns2):
             ), row = 1, col = 2)
             n += 1
             
-        fig_cd_r.update_layout(legend_traceorder="normal", barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
+        fig_cd_r.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
         fig_cd_r.update_yaxes(range=[0, max(table3_cd_r_plot['value'].max(), table3_cd_r_c_plot['value'].max())])
 
 
