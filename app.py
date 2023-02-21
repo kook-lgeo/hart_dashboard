@@ -534,12 +534,47 @@ app.layout = html.Div(children = [
     )
 def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
 
-    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Geo_Code'].tolist()[0]
+    clicked_code = str(clicked_code)
 
     if (len(clicked_code) == 4 and 'all-geo-dropdown-parent' == ctx.triggered_id) or "to-region-1" == ctx.triggered_id:
 
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
+
+        if len(clicked_code) == 2:
+
+            clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+            # print(gdf_p_code_added)
+            # gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
+            gdf_p_code_added['Geo_Code'] = gdf_p_code_added.index
+
+            gdf_p_code_added["rand"] = gdf_p_code_added['Geo_Code'].apply(lambda x: 0 if x == int(clicked_code) else 100)  
+
+            fig_m = go.Figure()
+
+            fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                            locations = gdf_p_code_added.index, 
+                                            z = gdf_p_code_added.rand, 
+                                            showscale = False, 
+                                            colorscale = map_colors_wo_black,
+                                            hovertext= gdf_p_code_added.NAME,
+                                            marker = dict(opacity = 0.4),
+                                            marker_line_width=.5))
+
+
+            fig_m.update_layout(mapbox_style="carto-positron",
+                            mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 2.0,
+                            margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
+                            autosize=True)
+
+            return fig_m, value
+
+
 
         clicked_province_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
         clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
@@ -616,52 +651,153 @@ def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
         return fig_m, value
 
     if (len(clicked_code) > 4 and 'all-geo-dropdown-parent' == ctx.triggered_id) or "to-geography-1" == ctx.triggered_id:
+
         if value == None:
             value = 'Greater Vancouver A RDA (CSD, BC)'
 
-        clicked_region_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
-        clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Geo_Code'].tolist()[0]
-        
-        # Importing Subregion Maps for selected Region
-        # print(clicked_code)
-        gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_region_code}.shp')
-        gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == str(clicked_code) else 100))           
-        gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
+        if len(clicked_code) == 4:
 
-        if 0 in gdf_sr_filtered["rand"].tolist():
-            colorlist = map_colors_w_black
-        else:
-            colorlist = map_colors_wo_black
+            # clicked_region_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+            # clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+            
+            # # Importing Subregion Maps for selected Region
+            # print(clicked_code)
+            # gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_code}.shp')
+            # print(gdf_sr_filtered.columns)
+            # gdf_sr_filtered["rand"] = gdf_sr_filtered['CDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == str(clicked_code) else 100))           
+            # gdf_sr_filtered = gdf_sr_filtered.set_index('CDUID')
+            # print('done0')
+            # # gdf_r_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_province_code}.shp')
+            # # # print(gdf_r_filtered['CDUID'])
+            # # gdf_r_filtered["rand"] = gdf_r_filtered['CDUID'].apply(lambda x: 0 if x == clicked_code else 100) 
+            # # gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
+            # index_name = 'CDNAME'
 
-        fig_msr = go.Figure()
+            clicked_province_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+            clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+            # print(value, clicked_code, type(clicked_code))
 
-        fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
-                                        locations = gdf_sr_filtered.index, 
-                                        z = gdf_sr_filtered.rand, 
-                                        showscale = False, 
-                                        hovertext= gdf_sr_filtered.CSDNAME,
-                                        colorscale = colorlist,
-                                        marker = dict(opacity = 0.4),
-                                        marker_line_width=.5))
+            gdf_r_filtered = gpd.read_file(f'./sources/mapdata_simplified/region_data/{clicked_province_code}.shp')
+            # print(gdf_r_filtered['CDUID'])
+            gdf_r_filtered["rand"] = gdf_r_filtered['CDUID'].apply(lambda x: 0 if x == clicked_code else 100) 
+            gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
 
-        max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
-                        abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+            # gdf_r_filtered["rand"] = np.random.randint(1, 100, len(gdf_r_filtered))
+            # gdf_r_filtered["rand"] = [i for i in range(0,len(gdf_r_filtered))]
+    
+            
+            # print(gdf_r_filtered.index)
 
-        zoom = 11.5 - np.log(max_bound)
+            fig_mr = go.Figure()
 
-        if len(gdf_sr_filtered) == 1:
-            zoom = 9
+            fig_mr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_r_filtered.geometry.to_json()), 
+                                            locations = gdf_r_filtered.index, 
+                                            z = gdf_r_filtered.rand, 
+                                            showscale = False,
+                                            colorscale = map_colors_wo_black,
+                                            hovertext= gdf_r_filtered.CDNAME,
+                                            marker = dict(opacity = 0.4),
+                                            marker_line_width=.5))
 
-        fig_msr.update_layout(mapbox_style="carto-positron",
-                        mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
-                        height = 500,
-                        width = 1000,
-                        mapbox_zoom = zoom,
-                        margin=dict(b=0,t=10,l=0,r=10),
-                        modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
-                        autosize=True)
 
-        return fig_msr, value
+            fig_mr.update_layout(mapbox_style="carto-positron",
+                            mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 3.0,
+                            margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
+                            autosize=True)
+            # print('map is created')
+            
+            return fig_mr, value
+
+        elif len(clicked_code) == 2:
+
+            clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
+            # print(gdf_p_code_added)
+            # gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
+            gdf_p_code_added['Geo_Code'] = gdf_p_code_added.index
+
+            gdf_p_code_added["rand"] = gdf_p_code_added['Geo_Code'].apply(lambda x: 0 if x == int(clicked_code) else 100)  
+
+            fig_m = go.Figure()
+
+            fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
+                                            locations = gdf_p_code_added.index, 
+                                            z = gdf_p_code_added.rand, 
+                                            showscale = False, 
+                                            colorscale = map_colors_wo_black,
+                                            hovertext= gdf_p_code_added.NAME,
+                                            marker = dict(opacity = 0.4),
+                                            marker_line_width=.5))
+
+
+            fig_m.update_layout(mapbox_style="carto-positron",
+                            mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = 2.0,
+                            margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
+                            autosize=True)
+
+            return fig_m, value
+
+        elif len(clicked_code) == 7:
+            
+            print(clicked_code)
+
+            clicked_region_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Region_Code'].tolist()[0]
+            clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Geo_Code'].tolist()[0]
+            
+            # Importing Subregion Maps for selected Region
+            # print(clicked_code)
+            gdf_sr_filtered = gpd.read_file(f'./sources/mapdata_simplified/subregion_data/{clicked_region_code}.shp')
+            gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == str(clicked_code) else 100))           
+            gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
+            index_name = 'CSDNAME'
+
+
+            if 0 in gdf_sr_filtered["rand"].tolist():
+                colorlist = map_colors_w_black
+            else:
+                colorlist = map_colors_wo_black
+
+            print('done1')
+
+            fig_msr = go.Figure()
+
+            fig_msr.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_sr_filtered.geometry.to_json()), 
+                                            locations = gdf_sr_filtered.index, 
+                                            z = gdf_sr_filtered.rand, 
+                                            showscale = False, 
+                                            hovertext= gdf_sr_filtered[index_name],
+                                            colorscale = colorlist,
+                                            marker = dict(opacity = 0.4),
+                                            marker_line_width=.5))
+
+            max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
+                            abs((gdf_sr_filtered['lon'].max() - gdf_sr_filtered['lon'].min()))) * 111
+
+            zoom = 11.5 - np.log(max_bound)
+
+            if len(gdf_sr_filtered) == 1:
+                zoom = 9
+
+            print('done2')
+
+            fig_msr.update_layout(mapbox_style="carto-positron",
+                            mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
+                            height = 500,
+                            width = 1000,
+                            mapbox_zoom = zoom,
+                            margin=dict(b=0,t=10,l=0,r=10),
+                            modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
+                            autosize=True)
+            print('done3')
+
+            return fig_msr, value
 
     # When Reset-Map button is clicked
 
@@ -2122,13 +2258,13 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
 def update_table3(geo, geo_c, selected_columns, selected_columns2):
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
-    print(clicked_code)
+    # print(clicked_code)
     if geo_c != None:
         clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
     else:
         clicked_code_c = 0
     if len(str(clicked_code)) < 6:
-        print('it is not csd code')
+        # print('it is not csd code')
         table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
         table3_cd_r = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
         
