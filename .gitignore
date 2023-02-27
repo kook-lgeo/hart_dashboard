@@ -2,6 +2,7 @@ venv
 *.pyc
 .DS_Store
 .env
+*.ipynb
 app_backup.py
 app_backup_230116.py
 app_backup_230117.py
@@ -12,6 +13,9 @@ app_backup_230131.py
 app_backup_230208.py
 app_backup_230213.py
 app_backup_230217.py
+app_backup_230223.py
+app_backup_230223_refactored.py
+app_backup_230227_page_split_test.py
 app_backup_230125_map.py
 app_backup_230118_2.py
 app_test.py
