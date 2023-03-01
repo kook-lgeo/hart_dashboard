@@ -1,3 +1,3 @@
 web: gunicorn app:server \
-   --workers 5 \
+   --workers 4 \
    --timeout 1200
