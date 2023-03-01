@@ -20,6 +20,7 @@ app.layout = html.Div([
     # nav, 
     html.Div(id='page-content', children=[]), 
 ])
+server = app.server
 
 # Create the callback to handle mutlipage inputs
 @app.callback(Output('page-content', 'children'),
