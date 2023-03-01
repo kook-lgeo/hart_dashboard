@@ -23,13 +23,20 @@ warnings.filterwarnings("ignore")
 
 engine = create_engine('sqlite:///sources//hart.db')
 
+
+
 df_income = pd.read_sql_table('income', engine.connect())
 # df_income = pd.read_csv("./sources/income.csv")
 
 # Importing partners data
 
 df_partners = pd.read_sql_table('partners', engine.connect())
-#df_partners = pd.read_csv("./sources/partners_small.csv")
+
+income_category = df_income.drop(['Geography'], axis=1)
+
+income_category = income_category.rename(columns = {'Formatted Name': 'Geography'})
+
+joined_df = income_category.merge(df_partners, how = 'left', on = 'Geography')
 
 # Importing Geo Code Information
 
@@ -39,20 +46,6 @@ df_region_list = pd.read_sql_table('regioncodes', engine.connect())
 df_region_list.columns = df_geo_list.columns
 df_province_list = pd.read_sql_table('provincecodes', engine.connect())
 df_province_list.columns = df_geo_list.columns
-
-# Importing Projection Data
-
-df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
-df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
-df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
-
-# Merging Projection data with Geography codes
-
-df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
-df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
-df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
-
-# Importing Province Boundaries shape data
 
 
 gdf_p_code_added = gpd.read_file('./sources/mapdata_simplified/province.shp')
@@ -67,56 +60,6 @@ not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
 
-# Preprocessing
-
-income_category = df_income.drop(['Geography'], axis=1)
-
-income_category = income_category.rename(columns = {'Formatted Name': 'Geography'})
-
-joined_df = income_category.merge(df_partners, how = 'left', on = 'Geography')
-
-joined_df_filtered = joined_df.query('Geography == "Fraser Valley (CD, BC)"')
-
-x_base =['Very Low Income',
-            'Low Income',
-            'Moderate Income',
-            'Median Income',
-            'High Income',
-            ]
-
-x_columns = ['Rent 20% of AMHI',
-             'Rent 50% of AMHI',
-             'Rent 80% of AMHI',
-             'Rent 120% of AMHI',
-             'Rent 120% of AMHI'
-            ]
-
-hh_p_num_list = [1,2,3,4,'5 or more']
-
-amhi_range = ['20% or under of AMHI', '21% to 50% of AMHI', '51% to 80% of AMHI', '81% to 120% of AMHI', '121% and more of AMHI']
-
-income_ct = [x + f" ({a})" for x, a in zip(x_base, amhi_range)]
-
-x_list = []
-
-i = 0
-for b, c in zip(x_base, x_columns):
-    if i < 4:
-        x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
-        x_list.append(x)
-    else:
-        x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
-        x_list.append(x)
-    i += 1
-
-columns = ['Percent HH with income 20% or under of AMHI in core housing need',
-            'Percent HH with income 21% to 50% of AMHI in core housing need',
-            'Percent HH with income 51% to 80% of AMHI in core housing need',
-            'Percent HH with income 81% to 120% of AMHI in core housing need',
-            'Percent HH with income 121% or more of AMHI in core housing need'
-            ]
-
-plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
 # colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
 # hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
@@ -129,23 +72,6 @@ map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#7
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
-fig = go.Figure()
-for i, c in zip(plot_df['Income_Category'], colors):
-    plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
-    fig.add_trace(go.Bar(
-        x = plot_df_frag['Income_Category'],
-        y = plot_df_frag['Percent HH'],
-        name = i,
-        marker_color = c,
-        hovertemplate= '%{x} - ' + '%{y:.3s}<extra></extra>'
-    ))
-fig.update_layout(plot_bgcolor='#F8F9F9', title = 'Percent HH By Geography', legend_title = "Income")
-
-table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
-table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
-fig5 = fig
-fig6 = fig
-fig7 = fig
 
 
 gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))

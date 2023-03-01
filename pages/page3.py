@@ -24,13 +24,6 @@ warnings.filterwarnings("ignore")
 
 engine = create_engine('sqlite:///sources//hart.db')
 
-df_income = pd.read_sql_table('income', engine.connect())
-# df_income = pd.read_csv("./sources/income.csv")
-
-# Importing partners data
-
-df_partners = pd.read_sql_table('partners', engine.connect())
-#df_partners = pd.read_csv("./sources/partners_small.csv")
 
 # Importing Geo Code Information
 
@@ -53,74 +46,16 @@ df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code
 df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
 df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
 
-# Importing Province Boundaries shape data
-
-
-gdf_p_code_added = gpd.read_file('./sources/mapdata_simplified/province.shp')
-gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
-
-# Importing subregions which don't have data
-
-not_avail = pd.read_csv('not_in_list.csv')
-not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Configuration for plot icons
 
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
 
 # Preprocessing
+fig = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
 
-income_category = df_income.drop(['Geography'], axis=1)
+table = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
 
-income_category = income_category.rename(columns = {'Formatted Name': 'Geography'})
-
-joined_df = income_category.merge(df_partners, how = 'left', on = 'Geography')
-
-joined_df_filtered = joined_df.query('Geography == "Fraser Valley (CD, BC)"')
-
-x_base =['Very Low Income',
-            'Low Income',
-            'Moderate Income',
-            'Median Income',
-            'High Income',
-            ]
-
-x_columns = ['Rent 20% of AMHI',
-             'Rent 50% of AMHI',
-             'Rent 80% of AMHI',
-             'Rent 120% of AMHI',
-             'Rent 120% of AMHI'
-            ]
-
-hh_p_num_list = [1,2,3,4,'5 or more']
-
-amhi_range = ['20% or under of AMHI', '21% to 50% of AMHI', '51% to 80% of AMHI', '81% to 120% of AMHI', '121% and more of AMHI']
-
-income_ct = [x + f" ({a})" for x, a in zip(x_base, amhi_range)]
-
-x_list = []
-
-i = 0
-for b, c in zip(x_base, x_columns):
-    if i < 4:
-        x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
-        x_list.append(x)
-    else:
-        x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
-        x_list.append(x)
-    i += 1
-
-columns = ['Percent HH with income 20% or under of AMHI in core housing need',
-            'Percent HH with income 21% to 50% of AMHI in core housing need',
-            'Percent HH with income 51% to 80% of AMHI in core housing need',
-            'Percent HH with income 81% to 120% of AMHI in core housing need',
-            'Percent HH with income 121% or more of AMHI in core housing need'
-            ]
-
-plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
-
-# colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
-# hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
 colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
@@ -129,47 +64,6 @@ map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#
 map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
-
-fig = go.Figure()
-for i, c in zip(plot_df['Income_Category'], colors):
-    plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
-    fig.add_trace(go.Bar(
-        x = plot_df_frag['Income_Category'],
-        y = plot_df_frag['Percent HH'],
-        name = i,
-        marker_color = c,
-        hovertemplate= '%{x} - ' + '%{y:.3s}<extra></extra>'
-    ))
-fig.update_layout(plot_bgcolor='#F8F9F9', title = 'Percent HH By Geography', legend_title = "Income")
-
-table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
-table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
-fig5 = fig
-fig6 = fig
-fig7 = fig
-
-
-gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
-
-fig_m = go.Figure()
-
-fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
-                                locations = gdf_p_code_added.index, 
-                                z = gdf_p_code_added.rand, 
-                                showscale = False, 
-                                hovertext= gdf_p_code_added.NAME,
-                                marker = dict(opacity = 0.4),
-                                marker_line_width=.5))
-
-
-fig_m.update_layout(mapbox_style="carto-positron",
-                mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
-                height = 500,
-                width = 1000,
-                mapbox_zoom = 1.4,
-                autosize=True)
-
-
 
 # Setting layout for dashboard
 
@@ -231,7 +125,7 @@ layout = html.Div(children = [
                         html.Div(
                             dcc.Graph(
                                 id='graph7',
-                                figure=fig5,
+                                figure=fig,
                                 config = config,
                             ),
                             style={'width': '100%', 'display': 'inline-block'}
@@ -277,7 +171,7 @@ layout = html.Div(children = [
                         html.Div(
                             dcc.Graph(
                                 id='graph8',
-                                figure=fig5,
+                                figure=fig,
                                 config = config,
                             ),
                             style={'width': '100%', 'display': 'inline-block'}

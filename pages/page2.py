@@ -40,28 +40,6 @@ df_region_list.columns = df_geo_list.columns
 df_province_list = pd.read_sql_table('provincecodes', engine.connect())
 df_province_list.columns = df_geo_list.columns
 
-# Importing Projection Data
-
-df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
-df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
-df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
-
-# Merging Projection data with Geography codes
-
-df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
-df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
-df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
-
-# Importing Province Boundaries shape data
-
-
-gdf_p_code_added = gpd.read_file('./sources/mapdata_simplified/province.shp')
-gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
-
-# Importing subregions which don't have data
-
-not_avail = pd.read_csv('not_in_list.csv')
-not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Configuration for plot icons
 
@@ -146,28 +124,6 @@ table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 fig5 = fig
 fig6 = fig
 fig7 = fig
-
-
-gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
-
-fig_m = go.Figure()
-
-fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geometry.to_json()), 
-                                locations = gdf_p_code_added.index, 
-                                z = gdf_p_code_added.rand, 
-                                showscale = False, 
-                                hovertext= gdf_p_code_added.NAME,
-                                marker = dict(opacity = 0.4),
-                                marker_line_width=.5))
-
-
-fig_m.update_layout(mapbox_style="carto-positron",
-                mapbox_center = {"lat": gdf_p_code_added.geometry.centroid.y.mean()+10, "lon": gdf_p_code_added.geometry.centroid.x.mean()},
-                height = 500,
-                width = 1000,
-                mapbox_zoom = 1.4,
-                autosize=True)
-
 
 
 # Setting layout for dashboard
