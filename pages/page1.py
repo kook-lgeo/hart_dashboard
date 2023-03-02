@@ -58,7 +58,7 @@ not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Configuration for plot icons
 
-config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
+config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'autoScale', 'resetScale', 'resetViewMapbox']}
 
 
 # colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
@@ -102,6 +102,7 @@ fig_m.update_layout(mapbox_style="carto-positron",
 # dash.register_page(__name__)
 
 layout = html.Div(children = [
+
         dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
@@ -109,8 +110,8 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("Area Selection"), id = 'home')
-            ]),
+                html.H2(children = html.Strong("Census Geography Area Selection"), id = 'home')
+            ], className = 'title-lgeo'),
 
             # Dropdown for sector selection
             # html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
@@ -122,9 +123,8 @@ layout = html.Div(children = [
                 children = [
                 html.Strong('Select Area'),
                 dcc.Dropdown(joined_df['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
-                # dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
-                style={'width': '40%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
+                className = 'dropdown-lgeo'
             ),
 
             html.Div(
@@ -132,11 +132,28 @@ layout = html.Div(children = [
                 children = [
                 html.Strong('Comparison Area'),
                 dcc.Dropdown(joined_df['Geography'].unique()[1:], id='comparison-geo-dropdown'),
-                # dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
                 ], 
-                style={'width': '40%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
+                className = 'dropdown-lgeo'
             ),
 
+            html.Div(children = [ 
+
+                html.Div(children = [                     
+                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
+                                    ], className = 'region-button-lgeo'
+                    ),           
+                html.Div(children = [ 
+                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
+                                    ], className = 'region-button-lgeo'
+                    ),         
+                html.Div(children = [ 
+                    html.Button('View Province', id='to-province-1', n_clicks=0),
+                                    ], className = 'region-button-lgeo'
+                    ),    
+
+                ], 
+                className = 'scale-button-lgeo'
+            ),
 
             # Map picker
 
@@ -147,7 +164,7 @@ layout = html.Div(children = [
                         figure=fig_m,
                         config = config,
                     ),
-                    style={'width': '100%', 'display': 'inline-block'}
+                    className = 'map-lgeo'
                 ),
  
             ]
@@ -158,85 +175,60 @@ layout = html.Div(children = [
 
                 html.Div(children = [                     
                     html.Button('Reset Map', id='reset-map', n_clicks=0),     
-                                    ], className = 'region_button'
+                                    ], className = 'region-button-lgeo'
                     ),
+   
                 ], 
-                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+                className = 'reset-button-lgeo'
             ),
 
-
-            # Area Scale Selection
-
-            html.H4(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
-
-            html.Div(children = [ 
-
-                html.Div(children = [                     
-                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-                                    ], className = 'region_button'
-                    ),           
-                html.Div(children = [ 
-                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                html.Div(children = [ 
-                    html.Button('View Province', id='to-province-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                ], 
-                style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
-            ),
-
-
-
-
-        ], className = 'dashboard'
+        ], className = 'dashboard-lgeo'
     ), 
-], className = 'background'#style = {'backgroud-color': '#fffced'}
+], className = 'background-lgeo'
 )
 
 
 @callback(
     Output('main-area', 'data'),
     Output('comparison-area', 'data'),
-    # Output('area-scale-store', 'data'),
+    Output('area-scale-store', 'data'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
-    # Input('all-geo-dropdown-parent', 'n_clicks'),
-    # Input('comparison-geo-dropdown-parent', 'n_clicks'),
-    # Input('to-geography-1', 'n_clicks'),
-    # Input('to-region-1', 'n_clicks'),
-    # Input('to-province-1', 'n_clicks')
-    )
-def store_geo(geo, geo_c):#, btn1, btn2, btn3, btn4, btn5):
-    id_name = str(ctx.triggered_id)
-    # print(id_name)
-    return geo, geo_c#, id_name
-
-
-@callback(
-    Output('area-scale-store', 'data'),
     Input('all-geo-dropdown-parent', 'n_clicks'),
     Input('comparison-geo-dropdown-parent', 'n_clicks'),
     Input('to-geography-1', 'n_clicks'),
     Input('to-region-1', 'n_clicks'),
     Input('to-province-1', 'n_clicks')
     )
-def store_area_scale(btn1, btn2, btn3, btn4, btn5):
-    # print(ctx.triggered_id)
-    # if 'all-geo-dropdown-parent' == ctx.triggered_id or 'comparison-geo-dropdown-parent' == ctx.triggered_id:
-    #     return 'reset'
+def store_geo(geo, geo_c, btn1, btn2, btn3, btn4, btn5):
+    id_name = str(ctx.triggered_id)
+    # print(id_name)
+    return geo, geo_c, id_name
 
-    # elif 'to-geography-1' == ctx.triggered_id:
-    #     return 'to-geography-1'
 
-    # elif 'to-region-1' == ctx.triggered_id:
-    #     return 'to-region-1'
+# @callback(
+#     Output('area-scale-store', 'data'),
+#     Input('all-geo-dropdown-parent', 'n_clicks'),
+#     Input('comparison-geo-dropdown-parent', 'n_clicks'),
+#     Input('to-geography-1', 'n_clicks'),
+#     Input('to-region-1', 'n_clicks'),
+#     Input('to-province-1', 'n_clicks')
+#     )
+# def store_area_scale(btn1, btn2, btn3, btn4, btn5):
+#     # print(ctx.triggered_id)
+#     # if 'all-geo-dropdown-parent' == ctx.triggered_id or 'comparison-geo-dropdown-parent' == ctx.triggered_id:
+#     #     return 'reset'
 
-    # elif 'to-province-1' == ctx.triggered_id:
-    #     return 'to-province-1'
+#     # elif 'to-geography-1' == ctx.triggered_id:
+#     #     return 'to-geography-1'
 
-    return ctx.triggered_id
+#     # elif 'to-region-1' == ctx.triggered_id:
+#     #     return 'to-region-1'
+
+#     # elif 'to-province-1' == ctx.triggered_id:
+#     #     return 'to-province-1'
+
+#     return ctx.triggered_id
 
 
 

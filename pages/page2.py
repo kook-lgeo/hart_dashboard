@@ -43,7 +43,7 @@ df_province_list.columns = df_geo_list.columns
 
 # Configuration for plot icons
 
-config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
+config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']}
 
 # Preprocessing
 
@@ -139,120 +139,23 @@ layout = html.Div(children = [
         children = [
             html.Div([
                 html.H2(children = html.Strong("Core Housing Need"), id = 'home')
-            ]),
-
-            # # Area Scale Selection
-
-            # html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
-
-            # html.Div(children = [ 
-
-            #     html.Div(children = [                     
-            #         html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-            #                         ], className = 'region_button'
-            #         ),           
-            #     html.Div(children = [ 
-            #         html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-            #                         ], className = 'region_button'
-            #         ),         
-            #     html.Div(children = [ 
-            #         html.Button('View Province', id='to-province-1', n_clicks=0),
-            #                         ], className = 'region_button'
-            #         ),         
-            #     ], 
-            #     style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
-            # ),
-
+            ], className = 'title-lgeo'),
 
         # Area Median Household Income (AMHI) Categories and Shelter Costs
 
-            html.H3(children = html.Strong('Area Median Household Income (AMHI) Categories and Shelter Costs'), id = 'overview-scenario3'),
-
-            # Table
-
             html.Div([
-                dash_table.DataTable(
-                    id='datatable-interactivity',
-                    columns=[
-                        {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                    ],
-                    data=table.to_dict('records'),
-                    editable=True,
-                    # filter_action="native",
-                    sort_action="native",
-                    sort_mode="multi",
-                    column_selectable=False,#"multi",
-                    row_selectable=False,#"multi",
-                    row_deletable=False,
-                    selected_columns=[],
-                    selected_rows=[],
-                    page_action="native",
-                    page_current= 0,
-                    page_size= 10,
-                    merge_duplicate_headers=True,
-                    export_format = "csv",
-                    style_cell = {'font-family': 'Bahnschrift'},
-                    # style_data = {'font_size': '1.0rem', 'width': '100px'},
-                    style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
-                ),
-                html.Div(id='datatable-interactivity-container')
-            ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px', 'display': 'block'}
-            ),
+                html.H3(children = html.Strong('Area Median Household Income (AMHI) Categories and Shelter Costs'), id = 'overview-scenario3'),
 
-
-
-        # Percent of Households (HHs) in Core Housing Need, by Household Income Category
-
-            html.H3(children = html.Strong('Percent of Households (HHs) in Core Housing Need, by Household Income Category'), id = 'overview-scenario'),
-
-            # Graph
-
-            html.Div(children = [ 
-                html.Div(
-                    dcc.Graph(
-                        id='graph',
-                        figure=fig,
-                        config = config,
-                    ),
-                    style={'width': '80%', 'display': 'inline-block'}
-                ),
-            ]
-            ),
-
-
-        # Percent of Household Size Categories in Core Housing Need, by AMHI
-
-            html.H3(children = html.Strong('Percent of Household Size Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
-
-            # Graph
-
-            html.Div(children = [ 
-                html.Div(
-                    dcc.Graph(
-                        id='graph2',
-                        figure=fig,
-                        config = config,
-                    ),
-                    style={'width': '80%', 'display': 'inline-block'}
-                ),
-            ]
-            ),
-
-        # 2016 Affordable Housing Deficit
-
-            html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
 
             # Table
-            
-            html.Div(children = [ 
 
                 html.Div([
                     dash_table.DataTable(
-                        id='datatable2-interactivity',
+                        id='datatable-interactivity',
                         columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table2.columns
+                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
                         ],
-                        data=table2.to_dict('records'),
+                        data=table.to_dict('records'),
                         editable=True,
                         # filter_action="native",
                         sort_action="native",
@@ -266,69 +169,165 @@ layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
-                        # style_table={'minWidth': '100%'},
+                        export_format = "csv",
                         style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
-                        export_format = "csv"
+                        # style_data = {'font_size': '1.0rem', 'width': '100px'},
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
                     ),
-                    html.Div(id='datatable2-interactivity-container')
-                ], style={'width': '80%', 'padding-top': '30px', 'padding-bottom': '30px'}
+                    html.Div(id='datatable-interactivity-container')
+                ], className = 'pg2-table-lgeo'
+
                 ),
 
-            ],style={'width': '80%'}
-            ),
+            ], className = 'pg2-table-plot-box-lgeo'),
 
+        # Percent of Households (HHs) in Core Housing Need, by Household Income Category
+
+
+            html.Div([
+
+                html.H3(children = html.Strong('Percent of Households in Core Housing Need, by Income Category'), id = 'overview-scenario'),
+
+            # Graph
+
+                html.Div(children = [ 
+                    html.Div(
+                        dcc.Graph(
+                            id='graph',
+                            figure=fig,
+                            config = config,
+                        ),
+                        className = 'pg2-plot-lgeo'
+                    ),
+                ]
+                ),
+
+            ], className = 'pg2-table-plot-box-lgeo'),
+
+        # Percent of Household Size Categories in Core Housing Need, by AMHI
+
+            html.Div([
+
+                html.H3(children = html.Strong('Percent of Household Size Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
+
+                # Graph
+
+                html.Div(children = [ 
+                    html.Div(
+                        dcc.Graph(
+                            id='graph2',
+                            figure=fig,
+                            config = config,
+                        ),
+                        className = 'pg2-plot-lgeo'
+                    ),
+                ]
+                ),
+
+            ], className = 'pg2-table-plot-box-lgeo'),
+
+        # 2016 Affordable Housing Deficit
+
+            html.Div([
+
+                html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
+
+                # Table
+                
+                html.Div(children = [ 
+
+                    html.Div([
+                        dash_table.DataTable(
+                            id='datatable2-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table2.columns
+                            ],
+                            data=table2.to_dict('records'),
+                            editable=True,
+                            # filter_action="native",
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,#"multi",
+                            row_selectable=False,#"multi",
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            merge_duplicate_headers=True,
+                            # style_table={'minWidth': '100%'},
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
+                            export_format = "csv"
+                        ),
+                        html.Div(id='datatable2-interactivity-container')
+                    ], className = 'pg2-table-lgeo'
+                    ),
+
+                ],style={'width': '80%'}
+                ),
+
+            ], className = 'pg2-table-plot-box-lgeo'),
 
         # Percentage of HHs in Core Housing Need by Priority Population
 
-            html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population'), id = 'overview-scenario5'),
+            html.Div([
 
-            # Graphs
+                html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population'), id = 'overview-scenario5'),
 
-            html.Div(children = [ 
-                html.Div(
-                    dcc.Graph(
-                        id='graph5',
-                        figure=fig5,
-                        config = config,
+                # Graphs
+
+                html.Div(children = [ 
+                    html.Div(
+                        dcc.Graph(
+                            id='graph5',
+                            figure=fig5,
+                            config = config,
+                        ),
+                        className = 'pg2-plot-lgeo'
                     ),
-                    style={'width': '80%', 'display': 'inline-block'}
+                ]
                 ),
-            ]
-            ),
 
+            ], className = 'pg2-table-plot-box-lgeo'),
 
         # Percentage of HHs in Core Housing Need by Priority Population and Income
 
-            html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and Income'), id = 'overview-scenario6'),
+            html.Div([
 
-            # Graphs
+                html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and Income'), id = 'overview-scenario6'),
 
-            html.Div(children = [ 
-                html.Div(
-                    dcc.Graph(
-                        id='graph6',
-                        figure=fig6,
-                        config = config,
+                # Graphs
+
+                html.Div(children = [ 
+                    html.Div(
+                        dcc.Graph(
+                            id='graph6',
+                            figure=fig6,
+                            config = config,
+                        ),
+                        className = 'pg2-plot-lgeo'
                     ),
-                    style={'width': '80%', 'display': 'inline-block'}
+                ]
                 ),
-            ]
-            ),
+
+            ], className = 'pg2-table-plot-box-lgeo'),
 
             # Raw data download
 
             html.Div([
-            html.Button("Download This Community", id="ov7-download-csv"),
-            dcc.Download(id="ov7-download-text")
-            ], 
-            style={'width': '12%', 'display': 'inline-block', 'padding-bottom': '50px'}
+                html.Button("Download This Community", id="ov7-download-csv"),
+                dcc.Download(id="ov7-download-text")
+                ],
+                className = 'region-button-lgeo'
             ),
 
 
-        ], className = 'dashboard'
+
+        ], className = 'dashboard-lgeo'
     ), 
-], className = 'background'#style = {'backgroud-color': '#fffced'}
+], className = 'background-lgeo'#style = {'backgroud-color': '#fffced'}
 )
 
 
@@ -542,8 +541,8 @@ def update_geo_figure(geo, geo_c, scale):
             ))
 
         fig.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
-        fig.update_xaxes(range = [0, 1])
-        fig.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs')
+        fig.update_xaxes(fixedrange = True, range = [0, 1])
+        fig.update_yaxes(fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
 
         return fig
 
@@ -602,8 +601,8 @@ def update_geo_figure(geo, geo_c, scale):
 
 
         fig.update_layout(title = f'Percent HH By Income Category', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income", legend = dict(font = dict(size = 9)))
-        fig.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
-        fig.update_xaxes(range = [0, 1])
+        fig.update_yaxes(fixedrange = True, tickfont = dict(size = 9.5), autorange = "reversed")
+        fig.update_xaxes(fixedrange = True, range = [0, 1])
 
         return fig
 
@@ -687,7 +686,8 @@ def update_geo_figure2(geo, geo_c, scale):
             ))
             
         fig2.update_layout(legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI - {geo}', legend_title = "Household Size")
-        fig2.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs')
+        fig2.update_yaxes(fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
+        fig2.update_xaxes(fixedrange = True)
 
         return fig2
 
@@ -744,7 +744,8 @@ def update_geo_figure2(geo, geo_c, scale):
             n += 1
 
         fig2.update_layout(legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
-        fig2.update_yaxes(tickfont = dict(size = 9.5), autorange = "reversed")
+        fig2.update_yaxes(fixedrange = True, tickfont = dict(size = 9.5), autorange = "reversed")
+        fig2.update_xaxes(fixedrange = True)
 
         return fig2
 
@@ -1039,6 +1040,8 @@ def update_geo_figure5(geo, geo_c, scale):
                 
             ))
         fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need - {geo}', legend_title = "HH Category")
+        fig5.update_xaxes(fixedrange = True)
+        fig5.update_yaxes(fixedrange = True)
 
         return fig5
 
@@ -1088,7 +1091,8 @@ def update_geo_figure5(geo, geo_c, scale):
                 
             ),row = 1, col = 2)
         fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "HH Category")
-        fig5.update_xaxes(range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
+        fig5.update_xaxes(fixedrange = True, range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
+        fig5.update_yaxes(fixedrange = True)
 
         return fig5
 
@@ -1213,6 +1217,8 @@ def update_geo_figure6(geo, geo_c, scale):
             ))
             
         fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need - {geo}', legend_title = "Income Category")
+        fig6.update_xaxes(fixedrange = True)
+        fig6.update_yaxes(fixedrange = True)
 
         return fig6
 
@@ -1266,6 +1272,8 @@ def update_geo_figure6(geo, geo_c, scale):
             n += 1
             
         fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "Income Category")
+        fig6.update_xaxes(fixedrange = True)
+        fig6.update_yaxes(fixedrange = True)
 
         return fig6
 

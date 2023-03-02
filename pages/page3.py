@@ -52,7 +52,7 @@ updated_cd = pd.read_csv('./sources/updated_cd.csv')
 
 # Configuration for plot icons
 
-config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale',]}
+config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']}
 
 # Preprocessing
 fig = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
@@ -85,35 +85,10 @@ layout = html.Div(children = [
         children = [
             html.Div([
                 html.H2(children = html.Strong("2026 Projections by HH Size and Income Level"), id = 'home')
-            ]),
-
-            # # Area Scale Selection
-
-            # html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
-
-            # html.Div(children = [ 
-
-            #     html.Div(children = [                     
-            #         html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-            #                         ], className = 'region_button'
-            #         ),           
-            #     html.Div(children = [ 
-            #         html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-            #                         ], className = 'region_button'
-            #         ),         
-            #     html.Div(children = [ 
-            #         html.Button('View Province', id='to-province-1', n_clicks=0),
-            #                         ], className = 'region_button'
-            #         ),         
-            #     ], 
-            #     style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
-            # ),
-
-
+            ], className = 'title-lgeo'),
 
         # 2026 Projections by HH Size and Income Level
 
-            # html.H3(children = html.Strong('2026 Projections by HH Size and Income Level'), id = 'overview-scenario8'),
 
             # Table
 
@@ -121,138 +96,152 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Population Projections by Income Category'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 Population Projections by Income Category'), className = 'subtitle-lgeo'),
 
-                    dash_table.DataTable(
-                        id='datatable5-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    html.Div(children = [ 
+
+                        dash_table.DataTable(
+                            id='datatable5-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+                    ], className = 'pg3-table-lgeo'
                     ),
+
                     html.Div(id='datatable5-interactivity-container'),
 
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph9',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
+
+                        dcc.Graph(
+                            id='graph9',
+                            figure=fig,
+                            config = config,
                         ),
-                    ]
+
+                    ], className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+
+                ], className = 'pg3-table-plot-box-lgeo'),
+
+
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Population Projections by Household Size'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 Population Projections by Household Size'), className = 'subtitle-lgeo'),
 
-                    dash_table.DataTable(
-                        id='datatable6-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+
+                    html.Div([
+                        dash_table.DataTable(
+                            id='datatable6-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+                    ], className = 'pg3-table-lgeo'
                     ),
+
                     html.Div(id='datatable6-interactivity-container'),
 
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph10',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
-                        ),
-                    ]
+                        dcc.Graph(
+                            id='graph10',
+                            figure=fig,
+                            config = config,
+                        ),                            
+                    ], className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'pg3-table-plot-box-lgeo'),
+
+
+
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('Community 2026 HH'), className = 'table-title'),
+                    html.H3(children = html.Strong('Community 2026 HH'), className = 'subtitle-lgeo'),
 
-                    dash_table.DataTable(
-                        id='datatable-h-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    html.Div([
+                        dash_table.DataTable(
+                            id='datatable-h-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+                    ], className = 'pg3-table-lgeo'
                     ),
-                    html.Div(id='datatable-h-interactivity-container'),
 
+                    html.Div(id='datatable-h-interactivity-container'),
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph-h',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
-                        ),
-                    ]
+
+                        dcc.Graph(
+                            id='graph-h',
+                            figure=fig,
+                            config = config,
+                        )
+
+                    ], className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'pg3-table-plot-box-lgeo'),
 
 
 
@@ -260,146 +249,155 @@ layout = html.Div(children = [
                    
                     html.H3(children = html.Strong('Community 2026 HH Deltas'), className = 'table-title'),
 
-                    dash_table.DataTable(
-                        id='datatable7-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    html.Div([
+                        dash_table.DataTable(
+                            id='datatable7-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+                    ], className = 'pg3-table-lgeo'
                     ),
+
+
                     html.Div(id='datatable7-interactivity-container'),
 
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph11',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
-                        ),
-                    ]
+
+                        dcc.Graph(
+                            id='graph11',
+                            figure=fig,
+                            config = config,
+                        )
+                    ], className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'pg3-table-plot-box-lgeo'),
 
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Income Category'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Income Category'), className = 'subtitle-lgeo'),
 
-                    dash_table.DataTable(
-                        id='datatable8-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    html.Div([
+
+                        dash_table.DataTable(
+                            id='datatable8-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+                    ], className = 'pg3-table-lgeo'
                     ),
+
                     html.Div(id='datatable8-interactivity-container'),
 
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph12',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
-                        ),
-                    ]
+                        dcc.Graph(
+                            id='graph12',
+                            figure=fig,
+                            config = config,
+                        )
+                    ],
+                    className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'pg3-table-plot-box-lgeo'),
 
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Household Size'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Household Size'), className = 'subtitle-lgeo'),
 
-                    dash_table.DataTable(
-                        id='datatable9-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                    html.Div([
+                        dash_table.DataTable(
+                            id='datatable9-interactivity',
+                            columns=[
+                                {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            ],
+                            data=table.to_dict('records'),
+                            editable=True,
+                            sort_action="native",
+                            sort_mode="multi",
+                            column_selectable=False,
+                            row_selectable=False,
+                            row_deletable=False,
+                            selected_columns=[],
+                            selected_rows=[],
+                            page_action="native",
+                            page_current= 0,
+                            page_size= 10,
+                            style_cell = {'font-family': 'Bahnschrift'},
+                            merge_duplicate_headers=True,
+                            export_format="csv",
+                            # style_table={'minWidth': '100%'},
+                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        ),
+
+                    ], className = 'pg3-table-lgeo'
                     ),
-                    html.Div(id='datatable9-interactivity-container'),
 
+                    html.Div(id='datatable9-interactivity-container'),
 
                     # Graphs
 
                     html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph13',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '90%', 'display': 'inline-block'}
-                        ),
-                    ]
+
+                        dcc.Graph(
+                            id='graph13',
+                            figure=fig,
+                            config = config,
+                            )
+                    ],
+                    className = 'pg3-plot-lgeo'
                     ),
-                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'pg3-table-plot-box-lgeo'),
 
 
         ]),
 
 
-        ], className = 'dashboard'
+        ], className = 'dashboard-lgeo'
     ), 
-], className = 'background'#style = {'backgroud-color': '#fffced'}
+], className = 'background-lgeo'#style = {'backgroud-color': '#fffced'}
 )
 
 
@@ -497,6 +495,8 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             ))
 
         fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
+        fig_new_proj_1.update_xaxes(fixedrange = True)
+        fig_new_proj_1.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -600,6 +600,8 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
+        fig_new_proj_1.update_xaxes(fixedrange = True)
+        fig_new_proj_1.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'Income Category')
 
@@ -716,6 +718,8 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             ))
 
         fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
+        fig_new_proj_1.update_xaxes(fixedrange = True)
+        fig_new_proj_1.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -819,6 +823,8 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
+        fig_new_proj_1.update_xaxes(fixedrange = True)
+        fig_new_proj_1.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
 
@@ -946,6 +952,8 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             ))
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        fig_csd.update_xaxes(fixedrange = True)
+        fig_csd.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -1006,8 +1014,6 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
 
-
-
         col_list = []
 
         for i in table1.columns:
@@ -1054,6 +1060,8 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Income Category")
         fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+10000])
+        fig_csd.update_xaxes(fixedrange = True)
+        fig_csd.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
 
@@ -1183,6 +1191,8 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             ))
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        fig_csd.update_xaxes(fixedrange = True)
+        fig_csd.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -1291,6 +1301,8 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Income Category")
         fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('HH Category')['value'].sum().min(), table1_csd_plot_c.groupby('HH Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+100])
+        fig_csd.update_xaxes(fixedrange = True)
+        fig_csd.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
 
@@ -1439,7 +1451,9 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 HH - Municipal and Regional Growth Rates - {geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
+        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -1558,8 +1572,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 HH - Municipal and Regional Growth Rates', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['Income Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Geo'])['value'].sum().max())+10000])
+        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'Income Category')
 
@@ -1703,7 +1719,9 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 HH - Municipal and Regional Growth Rates - {geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
+        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True)
 
         col_list = []
 
@@ -1822,8 +1840,10 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 HH - Municipal and Regional Growth Rates', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['HH Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Geo'])['value'].sum().max())+10000])
+        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
 
