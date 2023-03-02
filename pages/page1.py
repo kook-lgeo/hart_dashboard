@@ -107,23 +107,34 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("Main Page"), id = 'home')
+                html.H2(children = html.Strong("Area Selection"), id = 'home')
             ]),
 
             # Dropdown for sector selection
-            html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
+            # html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
 
-            # Reset Button for Map
 
-            html.Div(children = [ 
 
-                html.Div(children = [                     
-                    html.Button('Reset Map', id='reset-map', n_clicks=0),     
-                                    ], className = 'region_button'
-                    ),                
+            html.Div(
+                id = 'all-geo-dropdown-parent',
+                children = [
+                html.Strong('Select Area'),
+                dcc.Dropdown(joined_df['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                # dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
-                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+                style={'width': '40%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
             ),
+
+            html.Div(
+                id = 'comparison-geo-dropdown-parent',
+                children = [
+                html.Strong('Comparison Area'),
+                dcc.Dropdown(joined_df['Geography'].unique()[1:], id='comparison-geo-dropdown'),
+                # dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
+                ], 
+                style={'width': '40%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
+            ),
+
 
             # Map picker
 
@@ -136,32 +147,25 @@ layout = html.Div(children = [
                     ),
                     style={'width': '100%', 'display': 'inline-block'}
                 ),
+ 
             ]
             ),
+            # Reset Button for Map
 
-            html.Div(
-                id = 'all-geo-dropdown-parent',
-                children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
-                # dcc.Dropdown(df_geo_list['Geography'].unique(), 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+            html.Div(children = [ 
+
+                html.Div(children = [                     
+                    html.Button('Reset Map', id='reset-map', n_clicks=0),     
+                                    ], className = 'region_button'
+                    ),
                 ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '20px', 'padding-top': '20px'}
+                style={'width': '55%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
             ),
 
-            html.Div(
-                id = 'comparison-geo-dropdown-parent',
-                children = [
-                html.Strong('Comparison Area'),
-                dcc.Dropdown(joined_df['Geography'].unique()[1:], id='comparison-geo-dropdown'),
-                # dcc.Dropdown(df_geo_list['Geography'].unique(), id='comparison-geo-dropdown'),
-                ], 
-                style={'width': '20%', 'display': 'inline-block', 'padding-right': '30px', 'padding-bottom': '10px', 'padding-top': '20px'}
-            ),
 
             # Area Scale Selection
 
-            html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
+            html.H4(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
 
             html.Div(children = [ 
 

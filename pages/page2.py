@@ -137,7 +137,7 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("Main Page"), id = 'home')
+                html.H2(children = html.Strong("Core Housing Need"), id = 'home')
             ]),
 
             # Area Scale Selection

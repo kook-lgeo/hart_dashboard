@@ -12,12 +12,12 @@ from pages import page1, page2, page3
 from components import navbar
 
 # Define the navbar
-nav = navbar.Navbar()
+# nav = navbar.Navbar()
 
 # Define the index page layout
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    nav, 
+    # nav, 
     html.Div(id='page-content', children=[]), 
 ])
 server = app.server
