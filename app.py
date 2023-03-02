@@ -17,7 +17,7 @@ nav = navbar.Navbar()
 # Define the index page layout
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    # nav, 
+    nav, 
     html.Div(id='page-content', children=[]), 
 ])
 server = app.server
