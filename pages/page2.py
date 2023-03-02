@@ -132,6 +132,7 @@ fig7 = fig
 # dash.register_page(__name__)
 
 layout = html.Div(children = [
+        dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
         html.Div(
@@ -140,27 +141,27 @@ layout = html.Div(children = [
                 html.H2(children = html.Strong("Core Housing Need"), id = 'home')
             ]),
 
-            # Area Scale Selection
+            # # Area Scale Selection
 
-            html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
+            # html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
 
-            html.Div(children = [ 
+            # html.Div(children = [ 
 
-                html.Div(children = [                     
-                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-                                    ], className = 'region_button'
-                    ),           
-                html.Div(children = [ 
-                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                html.Div(children = [ 
-                    html.Button('View Province', id='to-province-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                ], 
-                style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
-            ),
+            #     html.Div(children = [                     
+            #         html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
+            #                         ], className = 'region_button'
+            #         ),           
+            #     html.Div(children = [ 
+            #         html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
+            #                         ], className = 'region_button'
+            #         ),         
+            #     html.Div(children = [ 
+            #         html.Button('View Province', id='to-province-1', n_clicks=0),
+            #                         ], className = 'region_button'
+            #         ),         
+            #     ], 
+            #     style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+            # ),
 
 
         # Area Median Household Income (AMHI) Categories and Shelter Costs
@@ -213,7 +214,7 @@ layout = html.Div(children = [
                         figure=fig,
                         config = config,
                     ),
-                    style={'width': '100%', 'display': 'inline-block'}
+                    style={'width': '80%', 'display': 'inline-block'}
                 ),
             ]
             ),
@@ -232,7 +233,7 @@ layout = html.Div(children = [
                         figure=fig,
                         config = config,
                     ),
-                    style={'width': '100%', 'display': 'inline-block'}
+                    style={'width': '80%', 'display': 'inline-block'}
                 ),
             ]
             ),
@@ -291,7 +292,7 @@ layout = html.Div(children = [
                         figure=fig5,
                         config = config,
                     ),
-                    style={'width': '100%', 'display': 'inline-block'}
+                    style={'width': '80%', 'display': 'inline-block'}
                 ),
             ]
             ),
@@ -310,7 +311,7 @@ layout = html.Div(children = [
                         figure=fig6,
                         config = config,
                     ),
-                    style={'width': '100%', 'display': 'inline-block'}
+                    style={'width': '80%', 'display': 'inline-block'}
                 ),
             ]
             ),
@@ -367,11 +368,9 @@ def table_amhi_shelter_cost(geo, IsComparison):
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('datatable-interactivity', 'selected_columns'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
+def update_table1(geo, geo_c, selected_columns, scale):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -381,12 +380,14 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
+        else:
+            geo = geo
 
         table = table_amhi_shelter_cost(geo, IsComparison = False)
     
@@ -416,13 +417,13 @@ def update_table1(geo, geo_c, selected_columns, btn1, btn2, btn3):
         
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -503,15 +504,13 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
 
 @callback(
     Output('graph', 'figure'),
-    # Input('all-geo-dropdown', 'value'),
+    # Input('all-geo-dropdown', 'value'),scale
     # Input('comparison-geo-dropdown', 'value'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
+def update_geo_figure(geo, geo_c, scale):
     # print(geo, geo_c)
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -521,11 +520,11 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df = plot_df_core_housing_need_by_income(geo, IsComparison = False)
@@ -551,13 +550,13 @@ def update_geo_figure(geo, geo_c, btn1, btn2, btn3):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -654,11 +653,9 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     Output('graph2', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
+def update_geo_figure2(geo, geo_c, scale):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -667,11 +664,11 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
         elif geo == None and geo_c == None:
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df = plot_df_core_housing_need_by_amhi(geo, False)
@@ -696,13 +693,13 @@ def update_geo_figure2(geo, geo_c, btn1, btn2, btn3):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -801,7 +798,15 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
                 table2[f'{h} People HH '] = h_hold_value
                 
             table2['Total '] = table2.sum(axis = 1)    
-    
+
+    table2['Area Median HH Income'] = [
+                                        'Very low Income',
+                                        'Low Income',
+                                        'Moderate Income',
+                                        'Median Income',
+                                        'High Income'
+                                        ]
+
     return table2
 
 
@@ -813,11 +818,9 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('datatable2-interactivity', 'selected_columns'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
+def update_table2(geo, geo_c, selected_columns, scale):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -827,11 +830,11 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table2 = table_core_affordable_housing_deficit(geo, False)
@@ -870,13 +873,13 @@ def update_table2(geo, geo_c, selected_columns, btn1, btn2, btn3):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1001,11 +1004,9 @@ def color_dict_core_housing_need_by_priority_population(plot_df):
     Output('graph5', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
+def update_geo_figure5(geo, geo_c, scale):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1015,11 +1016,11 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df = plot_df_core_housing_need_by_priority_population(geo)
@@ -1037,19 +1038,19 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
-        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population - {geo}', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need - {geo}', legend_title = "HH Category")
 
         return fig5
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1086,7 +1087,7 @@ def update_geo_figure5(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
-        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population', legend_title = "HH Category")
+        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "HH Category")
         fig5.update_xaxes(range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
 
         return fig5
@@ -1177,11 +1178,9 @@ def plot_df_core_housing_need_by_priority_population_income(geo):
     Output('graph6', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks')
+    Input('area-scale-store', 'data'),
 )
-def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
+def update_geo_figure6(geo, geo_c, scale):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1191,11 +1190,11 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df = plot_df_core_housing_need_by_priority_population_income(geo)
@@ -1213,19 +1212,19 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
                 hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income - {geo}', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need - {geo}', legend_title = "Income Category")
 
         return fig6
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1266,7 +1265,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3):
             ), row = 1, col = 2)
             n += 1
             
-        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need by Priority Population and Income', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "Income Category")
 
         return fig6
 

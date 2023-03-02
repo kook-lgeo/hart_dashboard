@@ -102,8 +102,10 @@ fig_m.update_layout(mapbox_style="carto-positron",
 # dash.register_page(__name__)
 
 layout = html.Div(children = [
+        dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
+
         html.Div(
         children = [
             html.Div([
@@ -197,11 +199,45 @@ layout = html.Div(children = [
 @callback(
     Output('main-area', 'data'),
     Output('comparison-area', 'data'),
+    # Output('area-scale-store', 'data'),
     Input('all-geo-dropdown', 'value'),
     Input('comparison-geo-dropdown', 'value'),
+    # Input('all-geo-dropdown-parent', 'n_clicks'),
+    # Input('comparison-geo-dropdown-parent', 'n_clicks'),
+    # Input('to-geography-1', 'n_clicks'),
+    # Input('to-region-1', 'n_clicks'),
+    # Input('to-province-1', 'n_clicks')
     )
-def store_geo(geo, geo_c):
-    return geo, geo_c
+def store_geo(geo, geo_c):#, btn1, btn2, btn3, btn4, btn5):
+    id_name = str(ctx.triggered_id)
+    # print(id_name)
+    return geo, geo_c#, id_name
+
+
+@callback(
+    Output('area-scale-store', 'data'),
+    Input('all-geo-dropdown-parent', 'n_clicks'),
+    Input('comparison-geo-dropdown-parent', 'n_clicks'),
+    Input('to-geography-1', 'n_clicks'),
+    Input('to-region-1', 'n_clicks'),
+    Input('to-province-1', 'n_clicks')
+    )
+def store_area_scale(btn1, btn2, btn3, btn4, btn5):
+    # print(ctx.triggered_id)
+    # if 'all-geo-dropdown-parent' == ctx.triggered_id or 'comparison-geo-dropdown-parent' == ctx.triggered_id:
+    #     return 'reset'
+
+    # elif 'to-geography-1' == ctx.triggered_id:
+    #     return 'to-geography-1'
+
+    # elif 'to-region-1' == ctx.triggered_id:
+    #     return 'to-region-1'
+
+    # elif 'to-province-1' == ctx.triggered_id:
+    #     return 'to-province-1'
+
+    return ctx.triggered_id
+
 
 
 # Area Selection Map

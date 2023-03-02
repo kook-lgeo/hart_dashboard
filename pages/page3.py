@@ -77,6 +77,7 @@ modebar_activecolor = '#044762'
 # dash.register_page(__name__)
 
 layout = html.Div(children = [
+        dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
 
@@ -86,27 +87,27 @@ layout = html.Div(children = [
                 html.H2(children = html.Strong("2026 Projections by HH Size and Income Level"), id = 'home')
             ]),
 
-            # Area Scale Selection
+            # # Area Scale Selection
 
-            html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
+            # html.H3(children = html.Strong('Census Geography Area Selection'), id = 'area-scale'),
 
-            html.Div(children = [ 
+            # html.Div(children = [ 
 
-                html.Div(children = [                     
-                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-                                    ], className = 'region_button'
-                    ),           
-                html.Div(children = [ 
-                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                html.Div(children = [ 
-                    html.Button('View Province', id='to-province-1', n_clicks=0),
-                                    ], className = 'region_button'
-                    ),         
-                ], 
-                style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
-            ),
+            #     html.Div(children = [                     
+            #         html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
+            #                         ], className = 'region_button'
+            #         ),           
+            #     html.Div(children = [ 
+            #         html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
+            #                         ], className = 'region_button'
+            #         ),         
+            #     html.Div(children = [ 
+            #         html.Button('View Province', id='to-province-1', n_clicks=0),
+            #                         ], className = 'region_button'
+            #         ),         
+            #     ], 
+            #     style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '20px', 'padding-top': '10px'}
+            # ),
 
 
 
@@ -117,96 +118,6 @@ layout = html.Div(children = [
             # Table
 
             html.Div([
-                html.Div([
-
-                    html.H3(children = html.Strong('Community 2026 HH'), className = 'table-title'),
-
-                    dash_table.DataTable(
-                        id='datatable3-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        merge_duplicate_headers=True,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
-                    ),
-                    html.Div(id='datatable3-interactivity-container'),
-
-                    # Graphs
-
-                    html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph7',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '100%', 'display': 'inline-block'}
-                        ),
-                    ]
-                    ),
-
-                ], className = 'csd_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
-
-                html.Div([
-                   
-                    html.H3(children = html.Strong('Community 2026 HH (Regional Rates)'), className = 'table-title'),
-
-                    dash_table.DataTable(
-                        id='datatable4-interactivity',
-                        columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
-                        ],
-                        data=table.to_dict('records'),
-                        editable=True,
-                        sort_action="native",
-                        sort_mode="multi",
-                        column_selectable=False,
-                        row_selectable=False,
-                        row_deletable=False,
-                        selected_columns=[],
-                        selected_rows=[],
-                        page_action="native",
-                        page_current= 0,
-                        page_size= 10,
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        merge_duplicate_headers=True,
-                        export_format="csv",
-                        # style_table={'minWidth': '100%'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
-                    ),
-                    html.Div(id='datatable4-interactivity-container'),
-                # ], className = 'tables', style={'width': '70%', 'display': 'inline-block'}),
-
-                    # Graphs
-
-                    html.Div(children = [ 
-                        html.Div(
-                            dcc.Graph(
-                                id='graph8',
-                                figure=fig,
-                                config = config,
-                            ),
-                            style={'width': '100%', 'display': 'inline-block'}
-                        ),
-                    ]
-                    ),
-
-            ], className = 'cdr_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
                 html.Div([
                    
@@ -247,11 +158,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p3_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
                 html.Div([
                    
@@ -292,11 +203,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p4_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
                 html.Div([
                    
@@ -337,11 +248,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p-h_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
 
 
@@ -384,11 +295,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p5_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
 
                 html.Div([
@@ -430,11 +341,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p6_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
 
                 html.Div([
@@ -476,11 +387,11 @@ layout = html.Div(children = [
                                 figure=fig,
                                 config = config,
                             ),
-                            style={'width': '100%', 'display': 'inline-block'}
+                            style={'width': '90%', 'display': 'inline-block'}
                         ),
                     ]
                     ),
-                ], className = 'p7_table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
+                ], className = 'table_plot', style={'width': '65%', 'display': 'inline-block', 'padding-bottom': '1%'}),
 
 
         ]),
@@ -490,485 +401,6 @@ layout = html.Div(children = [
     ), 
 ], className = 'background'#style = {'backgroud-color': '#fffced'}
 )
-
-
-
-
-# 2026 Projections by HH Size and Income Level
-
-income_col_list = ['20% or under of area median household income (AMHI)', 
-                    '21% to 50% of AMHI', 
-                    '51% to 80% of AMHI', 
-                    '81% to 120% of AMHI', 
-                    '121% or over of AMHI']
-
-pp_list = ['1pp', '2pp', '3pp', '4pp', '5pp']
-
-income_col_list_r = ['20%orunderofareamedianhouseholdincome(AMHI)', 
-                    '21%to50%ofAMHI', 
-                    '51%to80%ofAMHI', 
-                    '81%to120%ofAMHI', 
-                    '121%oroverofAMHI']
-
-pp_list_r = ['1person', '2persons', '3persons', '4persons', '5ormorepersonshousehold']
-
-def projections_2026(geo, IsComparison):
-    
-    df_csd_proj_merged_filtered = df_csd_proj_merged.loc[df_csd_proj_merged['Geography'] == geo,:]
-    geo_region = int(mapped_geo_code.loc[mapped_geo_code['Geography'] == geo]['Region_Code'].values[0])
-    df_cd_grow_merged_filtered = df_cd_grow_merged.loc[df_cd_grow_merged['Geo_Code'] == geo_region,:]
-
-    geo_region_name = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-
-    income_l = []
-    pp_l = []
-    result_csd_l = []
-    result_g_l = []
-    result_t_l = []
-
-    for i, i_r in zip(income_col_list, income_col_list_r):
-        for p, p_r in zip(pp_list, pp_list_r):
-            col_format_r = f'TotalPrivatehouseholdsbyhouseholdtypeincludingcensusfamilystructure - Householdswithincome{i_r} - {p_r} - 2016'
-            col_format_p = f'2026 Projected {p} HH with income {i}'
-            col_format_g = f'2026 Projected Growth {p} HH with income {i}'
-            income_l.append(i)
-            pp_l.append(p)
-            result_csd_l.append(df_csd_proj_merged_filtered[col_format_p].tolist()[0])
-            result_t_l.append(df_csd_proj_merged_filtered[col_format_r].tolist()[0])
-            result_g_l.append(df_cd_grow_merged_filtered[col_format_g].tolist()[0])
-
-    income_l = ['Very Low Income'] * 5 + ['Low Income'] * 5 + ['Moderate Income'] * 5 + ['Median Income'] * 5 + ['High Income'] * 5
-
-    table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': pp_l, 'CSD_Projection': result_csd_l, 'CSD_Total': result_t_l, 'Growth': result_g_l})
-    table3 = table3.fillna(0)
-    table3['CSD_Total'] = table3['CSD_Total'].astype(float)
-    table3['Growth'] = table3['Growth'].astype(float)
-    table3['CSD_Projection'] = np.round(table3['CSD_Projection'].astype(float), -1)
-    table3['Projection'] = np.round((table3['CSD_Total'] * table3['Growth']) + table3['CSD_Total'], -1)
-
-    table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income Category'], columns=['HH Category'], sort = False)
-    table3_csd = table3_csd.reset_index()
-
-    table3_cd_r = table3.pivot_table(values='Projection', index=['Income Category'], columns=['HH Category'], sort = False)
-    table3_cd_r = table3_cd_r.reset_index()
-    
-    table3_csd = table3_csd.rename(columns = {'1pp': '1 person', '2pp': '2 people', '3pp': '3 people', '4pp': '4 people', '5pp': '5+ people'})
-    table3_cd_r = table3_cd_r.rename(columns = {'1pp': '1 person', '2pp': '2 people', '3pp': '3 people', '4pp': '4 people', '5pp': '5+ people'})
-
-    table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
-    table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1 person', '2 people', '3 people', '4 people', '5+ people'])
-
-    table3_cd_r_plot = table3_cd_r.replace([np.inf, -np.inf], 0)
-    table3_cd_r_plot = pd.melt(table3_cd_r_plot, id_vars = 'Income Category', value_vars = ['1 person', '2 people', '3 people', '4 people', '5+ people'])
-
-    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
-    row_total_csd = table3_csd.sum(axis=0)
-    row_total_csd[0] = 'Total'
-    table3_csd.loc[5, :] = row_total_csd
-
-    table3_cd_r = table3_cd_r.replace([np.inf, -np.inf], 0)
-    row_total_cd_r = table3_cd_r.sum(axis=0)
-    row_total_cd_r[0] = 'Total'
-    table3_cd_r.loc[5, :] = row_total_cd_r
-
-    if IsComparison != True:
-        table3_csd['Total'] = table3_csd.sum(axis=1)
-        table3_cd_r['Total'] = table3_cd_r.sum(axis=1)
-        
-    else:
-        table3_csd['Total '] = table3_csd.sum(axis=1)
-        table3_cd_r['Total '] = table3_cd_r.sum(axis=1) 
-        table3_csd = table3_csd.rename(columns = {'1 person': '1 person ', '2 people': '2 people ', '3 people': '3 people ', '4 people': '4 people ', '5+ people': '5+ people '})
-        table3_cd_r = table3_cd_r.rename(columns = {'1 person': '1 person ', '2 people': '2 people ', '3 people': '3 people ', '4 people': '4 people ', '5+ people': '5+ people '})
-               
-        
-    return table3_csd, table3_cd_r, table3_csd_plot, table3_cd_r_plot, geo_region_name
-
-
-@callback(
-    Output('datatable3-interactivity', 'columns'),
-    Output('datatable3-interactivity', 'data'),
-    Output('datatable3-interactivity', 'style_data_conditional'),
-    Output('datatable3-interactivity', 'style_cell_conditional'),
-    Output('datatable4-interactivity', 'columns'),
-    Output('datatable4-interactivity', 'data'),
-    Output('datatable4-interactivity', 'style_data_conditional'),
-    Output('datatable4-interactivity', 'style_cell_conditional'),
-    Output('graph7', 'figure'),
-    Output('graph8', 'figure'),
-    Input('main-area', 'data'),
-    Input('comparison-area', 'data'),
-    Input('datatable3-interactivity', 'selected_columns'),
-    Input('datatable4-interactivity', 'selected_columns'),
-)
-def update_table3(geo, geo_c, selected_columns, selected_columns2):
-    
-    # print(geo, geo_c)
-
-    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
-
-    if geo_c != None:
-        clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
-    else:
-        clicked_code_c = 0
-
-    # If Census Division or Province is selected
-
-    if len(str(clicked_code)) < 6:
-
-        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
-        table3_cd_r = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
-        
-        col_list_csd = []
-
-        for i in table3_csd.columns:
-            col_list_csd.append({"name": [i],
-                                    "id": i, })
-
-        col_list_cd_r = []
-
-        for i in table3_cd_r.columns:
-            col_list_cd_r.append({"name": [i],
-                                    "id": i, })
-
-        style_cell_conditional_csd=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_csd.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_csd.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-        style_cell_conditional_cd_r=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_cd_r.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_cd_r.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
-        fig_cd_r = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
-
-        return col_list_csd, \
-                table3_csd.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns], \
-                style_cell_conditional_csd, \
-                col_list_cd_r, \
-                table3_cd_r.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns2], \
-                style_cell_conditional_cd_r, fig_csd, fig_cd_r
-    
-
-    # If Census SubDivision is selected
-
-    if geo == geo_c or geo_c == None or (geo == None and geo_c != None) or len(str(clicked_code_c)) < 6:
-
-        if geo == None and geo_c != None:
-            geo = geo_c
-        elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
-
-        table3_csd, table3_cd_r, table3_csd_plot, table3_cd_r_plot, geo_region_name = projections_2026(geo, IsComparison = False)
-
-        fig_csd = go.Figure()
-        for i, c in zip(table3_csd_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_csd_plot.loc[table3_csd_plot['HH Category'] == i, :]
-            fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
-            ))
-
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
-
-
-        fig_cd_r = go.Figure()
-        for i, c in zip(table3_cd_r_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_cd_r_plot.loc[table3_cd_r_plot['HH Category'] == i, :]
-            fig_cd_r.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
-            ))
-
-        fig_cd_r.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates) - {geo_region_name}', legend_title = "Income Category")
-
-        col_list_csd = []
-
-        for i in table3_csd.columns:
-            col_list_csd.append({"name": [geo, i],
-                                    "id": i, 
-                                    "type": 'numeric', 
-                                    "format": Format(
-                                                    group=Group.yes,
-                                                    scheme=Scheme.fixed,
-                                                    precision=0
-                                                    )})
-
-        col_list_cd_r = []
-
-        for i in table3_cd_r.columns:
-            col_list_cd_r.append({"name": [geo_region_name, i],
-                                    "id": i, 
-                                    "type": 'numeric', 
-                                    "format": Format(
-                                                    group=Group.yes,
-                                                    scheme=Scheme.fixed,
-                                                    precision=0
-                                                    )})
-
-        style_cell_conditional_csd=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_csd.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_csd.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-        style_cell_conditional_cd_r=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_cd_r.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_cd_r.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-        return col_list_csd, \
-                table3_csd.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns], \
-                style_cell_conditional_csd, \
-                col_list_cd_r, \
-                table3_cd_r.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns2], \
-                style_cell_conditional_cd_r, fig_csd, fig_cd_r
-
-    else:
-
-
-        table3_csd, table3_cd_r, table3_csd_plot, table3_cd_r_plot, geo_region_name = projections_2026(geo, IsComparison = False)
-        
-        # Comparison Tables/Plots
-        
-        table3_csd_c, table3_cd_r_c, table3_csd_c_plot, table3_cd_r_c_plot, geo_region_name_c = projections_2026(geo_c, IsComparison = True)
-
-        fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
-
-        n = 0
-        for i, c in zip(table3_csd_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_csd_plot.loc[table3_csd_plot['HH Category'] == i, :]
-            fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
-                legendgroup = n,
-            ), row = 1, col = 1)
-            n += 1
-
-        n = 0
-        for i, c in zip(table3_csd_c_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_csd_c_plot.loc[table3_csd_c_plot['HH Category'] == i, :]
-            fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
-                legendgroup = n,
-                showlegend = False
-            ), row = 1, col = 2)
-            n += 1
-            
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026', legend_title = "HH Category")
-        fig_csd.update_yaxes(range=[0, max(table3_csd_plot.groupby('Income Category')['value'].sum().max(), table3_csd_c_plot.groupby('Income Category')['value'].sum().max())+5000])
-
-        fig_cd_r = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo_region_name}", f"{geo_region_name_c}"), shared_yaxes=True, shared_xaxes=True)
-
-        n = 0
-        for i, c in zip(table3_cd_r_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_cd_r_plot.loc[table3_cd_r_plot['HH Category'] == i, :]
-            fig_cd_r.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
-                legendgroup = n,
-            ), row = 1, col = 1)
-            n += 1
-
-        n = 0
-        for i, c in zip(table3_cd_r_c_plot['HH Category'].unique(), colors):
-            plot_df_frag = table3_cd_r_c_plot.loc[table3_cd_r_c_plot['HH Category'] == i, :]
-            fig_cd_r.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
-                legendgroup = n,
-                showlegend = False
-            ), row = 1, col = 2)
-            n += 1
-            
-        fig_cd_r.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH (Regional Rates)', legend_title = "HH Category")
-        fig_cd_r.update_yaxes(range=[0, max(table3_cd_r_plot.groupby('Income Category')['value'].sum().max(), table3_cd_r_c_plot.groupby('Income Category')['value'].sum().max())+5000])
-
-
-        col_list_csd = []
-
-        for i in table3_csd.columns:
-            if i == 'Income Category':
-                col_list_csd.append({"name": ["Subregions", i], "id": i})
-            else:
-                col_list_csd.append({"name": [geo, i],
-                                      "id": i, 
-                                      "type": 'numeric', 
-                                      "format": Format(
-                                                        group=Group.yes,
-                                                        scheme=Scheme.fixed,
-                                                        precision=0
-                                                        )})
-
-        col_list_cd_r = []
-
-        for i in table3_cd_r.columns:
-            if i == 'Income Category':
-                col_list_cd_r.append({"name": ["Regions", i], "id": i})
-            else:
-                col_list_cd_r.append({"name": [geo_region_name, i],
-                                      "id": i, 
-                                      "type": 'numeric', 
-                                      "format": Format(
-                                                        group=Group.yes,
-                                                        scheme=Scheme.fixed,
-                                                        precision=0
-                                                        )})
-
-        for i in table3_csd_c.columns[1:]:
-            if i == 'Income Category':
-                col_list_csd.append({"name": ["Subregions", i], "id": i})
-            else:
-                col_list_csd.append({"name": [geo_c, i], 
-                                      "id": i, 
-                                      "type": 'numeric', 
-                                      "format": Format(
-                                                        group=Group.yes,
-                                                        scheme=Scheme.fixed,
-                                                        precision=0
-                                                        )})
-
-        for i in table3_cd_r_c.columns[1:]:
-            if i == 'Income Category':
-                col_list_cd_r.append({"name": ["Regions", i], "id": i})
-            else:
-                col_list_cd_r.append({"name": [geo_region_name_c, i], 
-                                      "id": i, 
-                                      "type": 'numeric', 
-                                      "format": Format(
-                                                        group=Group.yes,
-                                                        scheme=Scheme.fixed,
-                                                        precision=0
-                                                        )})
-
-        table3_csd_j = table3_csd.merge(table3_csd_c, how = 'left', on = 'Income Category')
-        table3_cd_r_j = table3_cd_r.merge(table3_cd_r_c, how = 'left', on = 'Income Category')
-
-        style_cell_conditional_csd=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_csd.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[2]
-            } for c in table3_csd_c.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_csd.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-        style_cell_conditional_cd_r=[
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
-            } for c in table3_cd_r.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[2]
-            } for c in table3_cd_r_c.columns[1:]
-        ] + [
-            {
-                'if': {'column_id': table3_cd_r.columns[0]},
-                'backgroundColor': columns_color_fill[0],
-                'width': '130px'
-            }
-        ]
-
-
-        return col_list_csd, \
-                table3_csd_j.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns], \
-                style_cell_conditional_csd, \
-                col_list_cd_r, \
-                table3_cd_r_j.to_dict('record'), \
-                [{
-                    'if': { 'column_id': i },
-                    'background_color': '#D2F3FF'
-                } for i in selected_columns2], \
-                style_cell_conditional_cd_r, fig_csd, fig_cd_r
 
 
 
@@ -1029,12 +461,10 @@ def plot1_new_projection(geo, IsComparison):
     Output('graph9', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable5-interactivity', 'selected_columns'),
 )
-def update_geo_figure6(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1044,11 +474,11 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df, table1 = plot1_new_projection(geo, False)
@@ -1100,13 +530,13 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1129,7 +559,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'Income Category':
-                col_list.append({"name": ["Income", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -1157,7 +587,7 @@ def update_geo_figure6(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'Income Category':
-                col_list.append({"name": ["Income", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -1250,12 +680,10 @@ def plot2_new_projection(geo, IsComparison):
     Output('graph10', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable6-interactivity', 'selected_columns'),
 )
-def update_geo_figure7(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1265,11 +693,11 @@ def update_geo_figure7(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df, table1 = plot2_new_projection(geo, False)
@@ -1321,13 +749,13 @@ def update_geo_figure7(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1350,7 +778,7 @@ def update_geo_figure7(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -1378,7 +806,7 @@ def update_geo_figure7(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -1483,12 +911,10 @@ def projections_2026_hh_size(geo, IsComparison):
     Output('graph-h', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable-h-interactivity', 'selected_columns'),
 )
-def update_geo_figure_h(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1498,11 +924,11 @@ def update_geo_figure_h(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table1, table1_csd_plot = projections_2026_hh_size(geo, False)
@@ -1553,13 +979,13 @@ def update_geo_figure_h(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1586,7 +1012,7 @@ def update_geo_figure_h(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -1615,7 +1041,7 @@ def update_geo_figure_h(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -1722,12 +1148,10 @@ def projections_2026_deltas(geo, IsComparison):
     Output('graph11', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable7-interactivity', 'selected_columns'),
 )
-def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1737,11 +1161,11 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table1, table1_csd_plot = projections_2026_deltas(geo, False)
@@ -1792,13 +1216,13 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -1825,7 +1249,7 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -1854,7 +1278,7 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -1974,12 +1398,10 @@ def projections_2026_pop_income(geo, IsComparison):
     Output('graph12', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable8-interactivity', 'selected_columns'),
 )
-def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1989,11 +1411,11 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table1, plot_df = projections_2026_pop_income(geo, True)
@@ -2051,13 +1473,13 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -2089,7 +1511,7 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'Income Category':
-                col_list.append({"name": ["Income", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -2125,7 +1547,7 @@ def update_geo_figure8(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'HH Category':
-                col_list.append({"name": ["Income", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -2201,8 +1623,8 @@ def projections_2026_pop_hh(geo, IsComparison):
 
     table = pd.DataFrame({'HH Category':  h_l, '2016 Pop.': pop_2016, 'Muni. Growth (%)': gr_csd, 'Regional Growth (%)': gr_cd, 'Delta(Muni. GR)': np.round(delta, 0)})
     table['Delta(Regional GR)'] = np.round(table['2016 Pop.'] * table['Regional Growth (%)'], 0)
-    table['2026 Pop.(Muni. GR)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Muni. Growth (%)']), 0)
-    table['2026 Pop.(Regional GR)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Regional Growth (%)']), 0)
+    table['2026 Pop.(Muni.)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Muni. Growth (%)']), 0)
+    table['2026 Pop.(Regional)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Regional Growth (%)']), 0)
 
     table
 
@@ -2240,12 +1662,10 @@ def projections_2026_pop_hh(geo, IsComparison):
     Output('graph13', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
-    Input('to-geography-1', 'n_clicks'),
-    Input('to-region-1', 'n_clicks'),
-    Input('to-province-1', 'n_clicks'),
+    Input('area-scale-store', 'data'),
     Input('datatable9-interactivity', 'selected_columns'),
 )
-def update_geo_figure9(geo, geo_c, btn1, btn2, btn3, selected_columns):
+def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -2255,11 +1675,11 @@ def update_geo_figure9(geo, geo_c, btn1, btn2, btn3, selected_columns):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table1, plot_df = projections_2026_pop_hh(geo, True)
@@ -2317,13 +1737,13 @@ def update_geo_figure9(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
     else:
 
-        if "to-geography-1" == ctx.triggered_id:
+        if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
-        elif "to-region-1" == ctx.triggered_id:
+        elif "to-region-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Region'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Region'].tolist()[0]
-        elif "to-province-1" == ctx.triggered_id:
+        elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
@@ -2355,7 +1775,7 @@ def update_geo_figure9(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1.columns:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -2391,7 +1811,7 @@ def update_geo_figure9(geo, geo_c, btn1, btn2, btn3, selected_columns):
 
         for i in table1_c.columns[1:]:
             if i == 'HH Category':
-                col_list.append({"name": ["Household", i], "id": i})
+                col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
