@@ -393,7 +393,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Income Category'), className = 'table-title'),
 
                     dash_table.DataTable(
                         id='datatable8-interactivity',
@@ -439,7 +439,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Household Size'), className = 'table-title'),
 
                     dash_table.DataTable(
                         id='datatable9-interactivity',
