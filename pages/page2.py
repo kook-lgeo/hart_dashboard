@@ -253,7 +253,7 @@ layout = html.Div(children = [
                     ], className = 'pg2-table-lgeo'
                     ),
 
-                ],style={'width': '80%'}
+                ]
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
