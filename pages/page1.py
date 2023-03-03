@@ -152,7 +152,7 @@ layout = html.Div(children = [
                                     ], className = 'region-button-lgeo'
                     ),         
                 html.Div(children = [ 
-                    html.Button('View Province', id='to-province-1', n_clicks=0),
+                    html.Button('View Province / Territory', id='to-province-1', n_clicks=0),
                                     ], className = 'region-button-lgeo'
                     ),    
 
