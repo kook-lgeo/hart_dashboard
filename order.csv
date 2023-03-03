@@ -1,0 +1,3685 @@
+Geography,Geo_Code,Region_Code,Province_Code,len
+Canada,1,1,1,1
+Newfoundland and Labrador (Province),10,10,10,2
+"Division No. 1 (CD, NL)",1001,1001,10,4
+"Trepassey T (CSD, NL)",1001113,1001,10,7
+"Division No. 1, Subd. U SNO (CSD, NL)",1001124,1001,10,7
+"Cape Broyle T (CSD, NL)",1001126,1001,10,7
+"Renews-Cappahayden T (CSD, NL)",1001131,1001,10,7
+"Fermeuse T (CSD, NL)",1001136,1001,10,7
+"Ferryland T (CSD, NL)",1001149,1001,10,7
+"Division No. 1, Subd. W SNO (CSD, NL)",1001155,1001,10,7
+"St. Vincent's-St. Stephen's-Peter's River T (CSD, NL)",1001169,1001,10,7
+"St. Mary's T (CSD, NL)",1001178,1001,10,7
+"Mount Carmel-Mitchells Brook-St. Catherine's T (CSD, NL)",1001197,1001,10,7
+"Division No. 1, Subd. X SNO (CSD, NL)",1001203,1001,10,7
+"Division No. 1, Subd. B SNO (CSD, NL)",1001234,1001,10,7
+"Placentia T (CSD, NL)",1001240,1001,10,7
+"Division No. 1, Subd. A SNO (CSD, NL)",1001259,1001,10,7
+"Southern Harbour T (CSD, NL)",1001267,1001,10,7
+"Arnold's Cove T (CSD, NL)",1001270,1001,10,7
+"Sunnyside T (CSD, NL)",1001277,1001,10,7
+"Chance Cove T (CSD, NL)",1001281,1001,10,7
+"Norman's Cove-Long Cove T (CSD, NL)",1001285,1001,10,7
+"Chapel Arm T (CSD, NL)",1001289,1001,10,7
+"Division No. 1, Subd. Y SNO (CSD, NL)",1001293,1001,10,7
+"Whitbourne T (CSD, NL)",1001298,1001,10,7
+"Division No. 1, Subd. E SNO (CSD, NL)",1001304,1001,10,7
+"Whiteway T (CSD, NL)",1001308,1001,10,7
+"Heart's Delight-Islington T (CSD, NL)",1001312,1001,10,7
+"Division No. 1, Subd. F SNO (CSD, NL)",1001321,1001,10,7
+"Heart's Content T (CSD, NL)",1001325,1001,10,7
+"Winterton T (CSD, NL)",1001332,1001,10,7
+"Hant's Harbour T (CSD, NL)",1001335,1001,10,7
+"Division No. 1, Subd. G SNO (CSD, NL)",1001339,1001,10,7
+"Old Perlican T (CSD, NL)",1001343,1001,10,7
+"Bay de Verde T (CSD, NL)",1001347,1001,10,7
+"Small Point-Adam's Cove-Blackhead-Broad Cove T (CSD, NL)",1001352,1001,10,7
+"Division No. 1, Subd. H SNO (CSD, NL)",1001357,1001,10,7
+"Salmon Cove T (CSD, NL)",1001361,1001,10,7
+"Victoria T (CSD, NL)",1001365,1001,10,7
+"Carbonear T (CSD, NL)",1001370,1001,10,7
+"Division No. 1, Subd. I SNO (CSD, NL)",1001374,1001,10,7
+"Bryant's Cove T (CSD, NL)",1001375,1001,10,7
+"Harbour Grace T (CSD, NL)",1001379,1001,10,7
+"Upper Island Cove T (CSD, NL)",1001385,1001,10,7
+"Bishop's Cove T (CSD, NL)",1001394,1001,10,7
+"Spaniard's Bay T (CSD, NL)",1001396,1001,10,7
+"Bay Roberts T (CSD, NL)",1001409,1001,10,7
+"Division No. 1, Subd. L SNO (CSD, NL)",1001415,1001,10,7
+"Division No. 1, Subd. M SNO (CSD, NL)",1001421,1001,10,7
+"North River T (CSD, NL)",1001426,1001,10,7
+"Clarke's Beach T (CSD, NL)",1001429,1001,10,7
+"South River T (CSD, NL)",1001434,1001,10,7
+"Cupids T (CSD, NL)",1001437,1001,10,7
+"Division No. 1, Subd. N SNO (CSD, NL)",1001441,1001,10,7
+"Brigus T (CSD, NL)",1001446,1001,10,7
+"Division No. 1, Subd. O SNO (CSD, NL)",1001452,1001,10,7
+"Colliers T (CSD, NL)",1001456,1001,10,7
+"Conception Harbour T (CSD, NL)",1001461,1001,10,7
+"Avondale T (CSD, NL)",1001464,1001,10,7
+"Harbour Main-Chapel's Cove-Lakeview T (CSD, NL)",1001469,1001,10,7
+"Holyrood T (CSD, NL)",1001472,1001,10,7
+"Conception Bay South T (CSD, NL)",1001485,1001,10,7
+"Division No. 1, Subd. R SNO (CSD, NL)",1001490,1001,10,7
+"Wabana T (CSD, NL)",1001494,1001,10,7
+"Portugal Cove-St. Philip's T (CSD, NL)",1001504,1001,10,7
+"Pouch Cove T (CSD, NL)",1001505,1001,10,7
+"Flatrock T (CSD, NL)",1001507,1001,10,7
+"Torbay T (CSD, NL)",1001509,1001,10,7
+"Logy Bay-Middle Cove-Outer Cove T (CSD, NL)",1001511,1001,10,7
+"Bauline T (CSD, NL)",1001512,1001,10,7
+"Paradise T (CSD, NL)",1001517,1001,10,7
+"St. John's CY (CSD, NL)",1001519,1001,10,7
+"Mount Pearl CY (CSD, NL)",1001542,1001,10,7
+"Petty Harbour-Maddox Cove T (CSD, NL)",1001551,1001,10,7
+"Bay Bulls T (CSD, NL)",1001557,1001,10,7
+"Witless Bay T (CSD, NL)",1001559,1001,10,7
+"Division No. 2 (CD, NL)",1002,1002,10,4
+"Lewin's Cove T (CSD, NL)",1002002,1002,10,7
+"Burin T (CSD, NL)",1002005,1002,10,7
+"St. Lawrence T (CSD, NL)",1002008,1002,10,7
+"Lawn T (CSD, NL)",1002011,1002,10,7
+"Lamaline T (CSD, NL)",1002012,1002,10,7
+"Fortune T (CSD, NL)",1002018,1002,10,7
+"Grand Bank T (CSD, NL)",1002019,1002,10,7
+"Garnish T (CSD, NL)",1002021,1002,10,7
+"Winterland T (CSD, NL)",1002023,1002,10,7
+"Marystown T (CSD, NL)",1002024,1002,10,7
+"Fox Cove-Mortier T (CSD, NL)",1002025,1002,10,7
+"Division No. 2, Subd. C SNO (CSD, NL)",1002031,1002,10,7
+"Terrenceville T (CSD, NL)",1002036,1002,10,7
+"St. Bernard's-Jacques Fontaine T (CSD, NL)",1002041,1002,10,7
+"Division No. 2, Subd. K SNO (CSD, NL)",1002048,1002,10,7
+"Division No. 3 (CD, NL)",1003,1003,10,4
+"St. Jacques-Coomb's Cove T (CSD, NL)",1003003,1003,10,7
+"Belleoram T (CSD, NL)",1003004,1003,10,7
+"Harbour Breton T (CSD, NL)",1003008,1003,10,7
+"Hermitage-Sandyville T (CSD, NL)",1003011,1003,10,7
+"Milltown-Head of Bay d'Espoir T (CSD, NL)",1003018,1003,10,7
+"St. Alban's T (CSD, NL)",1003019,1003,10,7
+"Ramea T (CSD, NL)",1003026,1003,10,7
+"Burgeo T (CSD, NL)",1003028,1003,10,7
+"Division No. 3, Subd. H SNO (CSD, NL)",1003031,1003,10,7
+"Isle aux Morts T (CSD, NL)",1003032,1003,10,7
+"Burnt Islands T (CSD, NL)",1003033,1003,10,7
+"Channel-Port aux Basques T (CSD, NL)",1003034,1003,10,7
+"Rose Blanche-Harbour le Cou T (CSD, NL)",1003045,1003,10,7
+"Division No. 4 (CD, NL)",1004,1004,10,4
+"Division No. 4, Subd. A SNO (CSD, NL)",1004001,1004,10,7
+"Division No. 4, Subd. B SNO (CSD, NL)",1004006,1004,10,7
+"Division No. 4, Subd. C SNO (CSD, NL)",1004011,1004,10,7
+"St. George's T (CSD, NL)",1004013,1004,10,7
+"Division No. 4, Subd. D SNO (CSD, NL)",1004016,1004,10,7
+"Stephenville Crossing T (CSD, NL)",1004018,1004,10,7
+"Stephenville T (CSD, NL)",1004019,1004,10,7
+"Kippens T (CSD, NL)",1004020,1004,10,7
+"Port au Port East T (CSD, NL)",1004021,1004,10,7
+"Division No. 4, Subd. E SNO (CSD, NL)",1004022,1004,10,7
+"Cape St. George T (CSD, NL)",1004033,1004,10,7
+"Lourdes T (CSD, NL)",1004037,1004,10,7
+"Port au Port West-Aguathuna-Felix Cove T (CSD, NL)",1004042,1004,10,7
+"Division No. 5 (CD, NL)",1005,1005,10,4
+"Division No. 5, Subd. G SNO (CSD, NL)",1005003,1005,10,7
+"Deer Lake T (CSD, NL)",1005004,1005,10,7
+"Jackson's Arm T (CSD, NL)",1005005,1005,10,7
+"Hampden T (CSD, NL)",1005008,1005,10,7
+"Reidville T (CSD, NL)",1005009,1005,10,7
+"Division No. 5, Subd. F SNO (CSD, NL)",1005010,1005,10,7
+"Steady Brook T (CSD, NL)",1005011,1005,10,7
+"Pasadena T (CSD, NL)",1005012,1005,10,7
+"Cormack T (CSD, NL)",1005014,1005,10,7
+"Gillams T (CSD, NL)",1005015,1005,10,7
+"Massey Drive T (CSD, NL)",1005017,1005,10,7
+"Corner Brook CY (CSD, NL)",1005018,1005,10,7
+"Humber Arm South T (CSD, NL)",1005020,1005,10,7
+"McIvers T (CSD, NL)",1005022,1005,10,7
+"Cox's Cove T (CSD, NL)",1005023,1005,10,7
+"Lark Harbour T (CSD, NL)",1005024,1005,10,7
+"Meadows T (CSD, NL)",1005025,1005,10,7
+"Irishtown-Summerside T (CSD, NL)",1005030,1005,10,7
+"Mount Moriah T (CSD, NL)",1005033,1005,10,7
+"York Harbour T (CSD, NL)",1005035,1005,10,7
+"Division No. 6 (CD, NL)",1006,1006,10,4
+"Division No. 6, Subd. D SNO (CSD, NL)",1006001,1006,10,7
+"Norris Arm T (CSD, NL)",1006003,1006,10,7
+"Gander T (CSD, NL)",1006009,1006,10,7
+"Appleton T (CSD, NL)",1006011,1006,10,7
+"Glenwood T (CSD, NL)",1006012,1006,10,7
+"Division No. 6, Subd. C SNO (CSD, NL)",1006014,1006,10,7
+"Northern Arm T (CSD, NL)",1006015,1006,10,7
+"Grand Falls-Windsor T (CSD, NL)",1006017,1006,10,7
+"Bishop's Falls T (CSD, NL)",1006019,1006,10,7
+"Peterview T (CSD, NL)",1006021,1006,10,7
+"Botwood T (CSD, NL)",1006022,1006,10,7
+"Badger T (CSD, NL)",1006026,1006,10,7
+"Buchans T (CSD, NL)",1006031,1006,10,7
+"Division No. 7 (CD, NL)",1007,1007,10,4
+"Division No. 7, Subd. M SNO (CSD, NL)",1007001,1007,10,7
+"Division No. 7, Subd. L SNO (CSD, NL)",1007006,1007,10,7
+"Division No. 7, Subd. K SNO (CSD, NL)",1007009,1007,10,7
+"Clarenville T (CSD, NL)",1007013,1007,10,7
+"Division No. 7, Subd. J SNO (CSD, NL)",1007014,1007,10,7
+"Port Rexton T (CSD, NL)",1007016,1007,10,7
+"Elliston T (CSD, NL)",1007020,1007,10,7
+"Trinity Bay North T (CSD, NL)",1007022,1007,10,7
+"Bonavista T (CSD, NL)",1007023,1007,10,7
+"Division No. 7, Subd. G SNO (CSD, NL)",1007024,1007,10,7
+"Division No. 7, Subd. F SNO (CSD, NL)",1007028,1007,10,7
+"Division No. 7, Subd. E SNO (CSD, NL)",1007031,1007,10,7
+"Musgravetown T (CSD, NL)",1007032,1007,10,7
+"Port Blandford T (CSD, NL)",1007036,1007,10,7
+"Traytown T (CSD, NL)",1007037,1007,10,7
+"Eastport T (CSD, NL)",1007042,1007,10,7
+"Glovertown T (CSD, NL)",1007044,1007,10,7
+"Gambo T (CSD, NL)",1007047,1007,10,7
+"Hare Bay T (CSD, NL)",1007049,1007,10,7
+"Centreville-Wareham-Trinity T (CSD, NL)",1007050,1007,10,7
+"Greenspond T (CSD, NL)",1007054,1007,10,7
+"Dover T (CSD, NL)",1007057,1007,10,7
+"New-Wes-Valley T (CSD, NL)",1007060,1007,10,7
+"Division No. 8 (CD, NL)",1008,1008,10,4
+"Lumsden T (CSD, NL)",1008004,1008,10,7
+"Musgrave Harbour T (CSD, NL)",1008006,1008,10,7
+"Division No. 8, Subd. L SNO (CSD, NL)",1008008,1008,10,7
+"Carmanville T (CSD, NL)",1008011,1008,10,7
+"Division No. 8, Subd. H SNO (CSD, NL)",1008031,1008,10,7
+"Summerford T (CSD, NL)",1008033,1008,10,7
+"Twillingate T (CSD, NL)",1008035,1008,10,7
+"Division No. 8, Subd. G SNO (CSD, NL)",1008036,1008,10,7
+"Campbellton T (CSD, NL)",1008037,1008,10,7
+"Birchy Bay T (CSD, NL)",1008038,1008,10,7
+"Comfort Cove-Newstead T (CSD, NL)",1008039,1008,10,7
+"Baytona T (CSD, NL)",1008040,1008,10,7
+"Division No. 8, Subd. F SNO (CSD, NL)",1008042,1008,10,7
+"Embree T (CSD, NL)",1008043,1008,10,7
+"Lewisporte T (CSD, NL)",1008044,1008,10,7
+"Division No. 8, Subd. E SNO (CSD, NL)",1008046,1008,10,7
+"Leading Tickles T (CSD, NL)",1008048,1008,10,7
+"Point Leamington T (CSD, NL)",1008049,1008,10,7
+"Pilley's Island T (CSD, NL)",1008053,1008,10,7
+"Triton T (CSD, NL)",1008054,1008,10,7
+"Division No. 8, Subd. C SNO (CSD, NL)",1008058,1008,10,7
+"South Brook T (CSD, NL)",1008059,1008,10,7
+"Robert's Arm T (CSD, NL)",1008060,1008,10,7
+"Springdale T (CSD, NL)",1008061,1008,10,7
+"Division No. 8, Subd. P SNO (CSD, NL)",1008065,1008,10,7
+"Division No. 8, Subd. O SNO (CSD, NL)",1008067,1008,10,7
+"King's Point T (CSD, NL)",1008069,1008,10,7
+"Burlington T (CSD, NL)",1008071,1008,10,7
+"Middle Arm T (CSD, NL)",1008072,1008,10,7
+"LaScie T (CSD, NL)",1008076,1008,10,7
+"Baie Verte T (CSD, NL)",1008079,1008,10,7
+"Seal Cove (CSD, NL)",1008091,1008,10,7
+"Ming's Bight T (CSD, NL)",1008095,1008,10,7
+"Fogo Island T (CSD, NL)",1008099,1008,10,7
+"Division No. 9 (CD, NL)",1009,1009,10,4
+"Englee T (CSD, NL)",1009004,1009,10,7
+"Roddickton-Bide Arm T (CSD, NL)",1009007,1009,10,7
+"Trout River T (CSD, NL)",1009010,1009,10,7
+"Woody Point, Bonne Bay T (CSD, NL)",1009011,1009,10,7
+"Norris Point T (CSD, NL)",1009012,1009,10,7
+"Rocky Harbour T (CSD, NL)",1009013,1009,10,7
+"Daniel's Harbour T (CSD, NL)",1009015,1009,10,7
+"Cow Head T (CSD, NL)",1009016,1009,10,7
+"Parson's Pond T (CSD, NL)",1009017,1009,10,7
+"Hawke's Bay T (CSD, NL)",1009018,1009,10,7
+"Port Saunders T (CSD, NL)",1009019,1009,10,7
+"Division No. 9, Subd. C SNO (CSD, NL)",1009021,1009,10,7
+"Port au Choix T (CSD, NL)",1009022,1009,10,7
+"Anchor Point T (CSD, NL)",1009023,1009,10,7
+"St. Anthony T (CSD, NL)",1009029,1009,10,7
+"Division No. 9, Subd. D SNO (CSD, NL)",1009031,1009,10,7
+"St. Lunaire-Griquet T (CSD, NL)",1009032,1009,10,7
+"Division No. 10 (CD, NL)",1010,1010,10,4
+"L'Anse au Loup T (CSD, NL)",1010002,1010,10,7
+"Forteau T (CSD, NL)",1010005,1010,10,7
+"Division No. 10, Subd. B SNO (CSD, NL)",1010008,1010,10,7
+"Port Hope Simpson T (CSD, NL)",1010009,1010,10,7
+"Mary's Harbour T (CSD, NL)",1010011,1010,10,7
+"Cartwright, Labrador T (CSD, NL)",1010012,1010,10,7
+"Charlottetown (CSD, NL)",1010013,1010,10,7
+"Division No. 10, Subd. C SNO (CSD, NL)",1010020,1010,10,7
+"North West River T (CSD, NL)",1010022,1010,10,7
+"Happy Valley-Goose Bay T (CSD, NL)",1010025,1010,10,7
+"Division No. 10, Subd. D SNO (CSD, NL)",1010029,1010,10,7
+"Labrador City T (CSD, NL)",1010032,1010,10,7
+"Wabush T (CSD, NL)",1010034,1010,10,7
+"Division No. 11 (CD, NL)",1011,1011,10,4
+"Rigolet T (CSD, NL)",1011010,1011,10,7
+"Makkovik T (CSD, NL)",1011020,1011,10,7
+"Hopedale T (CSD, NL)",1011030,1011,10,7
+"Nain T (CSD, NL)",1011035,1011,10,7
+Prince Edward Island (Province),11,11,11,2
+"Kings (CD, PE)",1101,1101,11,4
+"Lot 64 LOT (CSD, PEI)",1101001,1101,11,7
+"Murray Harbour COM (CSD, PEI)",1101002,1101,11,7
+"Murray River COM (CSD, PEI)",1101004,1101,11,7
+"Lot 63 LOT (CSD, PEI)",1101006,1101,11,7
+"Lot 61 LOT (CSD, PEI)",1101008,1101,11,7
+"Lot 59 LOT (CSD, PEI)",1101009,1101,11,7
+"Lot 51 LOT (CSD, PEI)",1101014,1101,11,7
+"Lot 52 LOT (CSD, PEI)",1101016,1101,11,7
+"Montague T (CSD, PEI)",1101018,1101,11,7
+"Lot 53 LOT (CSD, PEI)",1101019,1101,11,7
+"Cardigan COM (CSD, PEI)",1101021,1101,11,7
+"Kings, Royalty LOT (CSD, PEI)",1101022,1101,11,7
+"Georgetown T (CSD, PEI)",1101024,1101,11,7
+"Lot 54 LOT (CSD, PEI)",1101026,1101,11,7
+"Lot 55 LOT (CSD, PEI)",1101028,1101,11,7
+"Lot 56 LOT (CSD, PEI)",1101029,1101,11,7
+"Lot 43 LOT (CSD, PEI)",1101031,1101,11,7
+"Lot 44 LOT (CSD, PEI)",1101032,1101,11,7
+"Lot 45 LOT (CSD, PEI)",1101034,1101,11,7
+"Souris T (CSD, PEI)",1101036,1101,11,7
+"Lot 46 LOT (CSD, PEI)",1101038,1101,11,7
+"Lot 47 LOT (CSD, PEI)",1101039,1101,11,7
+"Lot 41 LOT (CSD, PEI)",1101042,1101,11,7
+"Lot 40 LOT (CSD, PEI)",1101046,1101,11,7
+"Morell COM (CSD, PEI)",1101048,1101,11,7
+"Lot 39 LOT (CSD, PEI)",1101049,1101,11,7
+"Lot 38 LOT (CSD, PEI)",1101051,1101,11,7
+"Queens (CD, PE)",1102,1102,11,4
+"Lot 62 LOT (CSD, PEI)",1102001,1102,11,7
+"Lot 60 LOT (CSD, PEI)",1102004,1102,11,7
+"Lot 58 LOT (CSD, PEI)",1102006,1102,11,7
+"Lot 57 LOT (CSD, PEI)",1102008,1102,11,7
+"Lot 50 LOT (CSD, PEI)",1102009,1102,11,7
+"Lot 49 LOT (CSD, PEI)",1102012,1102,11,7
+"Lot 48 LOT (CSD, PEI)",1102014,1102,11,7
+"Lot 31 LOT (CSD, PEI)",1102026,1102,11,7
+"Lot 65 LOT (CSD, PEI)",1102028,1102,11,7
+"Lot 30 LOT (CSD, PEI)",1102029,1102,11,7
+"Lot 29 LOT (CSD, PEI)",1102031,1102,11,7
+"Meadowbank COM (CSD, PEI)",1102033,1102,11,7
+"Lot 67 LOT (CSD, PEI)",1102036,1102,11,7
+"Clyde River COM (CSD, PEI)",1102037,1102,11,7
+"Lot 20 LOT (CSD, PEI)",1102038,1102,11,7
+"Lot 21 LOT (CSD, PEI)",1102039,1102,11,7
+"Miltonvale Park COM (CSD, PEI)",1102040,1102,11,7
+"Lot 22 LOT (CSD, PEI)",1102041,1102,11,7
+"Lot 23 LOT (CSD, PEI)",1102042,1102,11,7
+"Hunter River COM (CSD, PEI)",1102043,1102,11,7
+"Lot 24 LOT (CSD, PEI)",1102044,1102,11,7
+"Resort Mun. Stan.B.-Hope R.-Bayv.-Cavend.-N.Rust. COM (CSD, PEI)",1102045,1102,11,7
+"North Rustico COM (CSD, PEI)",1102046,1102,11,7
+"Brackley COM (CSD, PEI)",1102048,1102,11,7
+"Lot 33 LOT (CSD, PEI)",1102049,1102,11,7
+"Lot 34 LOT (CSD, PEI)",1102052,1102,11,7
+"Lot 35 LOT (CSD, PEI)",1102054,1102,11,7
+"Lot 36 LOT (CSD, PEI)",1102056,1102,11,7
+"Lot 37 LOT (CSD, PEI)",1102058,1102,11,7
+"Warren Grove COM (CSD, PEI)",1102070,1102,11,7
+"Charlottetown CY (CSD, PEI)",1102075,1102,11,7
+"Stratford T (CSD, PEI)",1102080,1102,11,7
+"Cornwall T (CSD, PEI)",1102085,1102,11,7
+"Prince (CD, PE)",1103,1103,11,4
+"Lot 28 LOT (CSD, PEI)",1103001,1103,11,7
+"Borden-Carleton T (CSD, PEI)",1103005,1103,11,7
+"Lot 27 LOT (CSD, PEI)",1103006,1103,11,7
+"Kinkora COM (CSD, PEI)",1103008,1103,11,7
+"Lot 26 LOT (CSD, PEI)",1103009,1103,11,7
+"Lot 25 LOT (CSD, PEI)",1103011,1103,11,7
+"Lot 19 LOT (CSD, PEI)",1103012,1103,11,7
+"Kensington T (CSD, PEI)",1103014,1103,11,7
+"Lot 18 LOT (CSD, PEI)",1103016,1103,11,7
+"Lot 17 LOT (CSD, PEI)",1103019,1103,11,7
+"Linkletter COM (CSD, PEI)",1103023,1103,11,7
+"Miscouche COM (CSD, PEI)",1103024,1103,11,7
+"Summerside CY (CSD, PEI)",1103025,1103,11,7
+"Lot 15 LOT (CSD, PEI)",1103026,1103,11,7
+"Abrams Village COM (CSD, PEI)",1103027,1103,11,7
+"Lot 16 LOT (CSD, PEI)",1103028,1103,11,7
+"Wellington COM (CSD, PEI)",1103029,1103,11,7
+"Lot 14 LOT (CSD, PEI)",1103031,1103,11,7
+"Lot 13 LOT (CSD, PEI)",1103032,1103,11,7
+"Lot 12 LOT (CSD, PEI)",1103034,1103,11,7
+"Lot 11 LOT (CSD, PEI)",1103036,1103,11,7
+"Lot 10 LOT (CSD, PEI)",1103038,1103,11,7
+"Lot 6 LOT (CSD, PEI)",1103041,1103,11,7
+"O'Leary COM (CSD, PEI)",1103042,1103,11,7
+"Lot 9 LOT (CSD, PEI)",1103044,1103,11,7
+"Lot 8 LOT (CSD, PEI)",1103046,1103,11,7
+"Lot 7 LOT (CSD, PEI)",1103048,1103,11,7
+"Lot 5 LOT (CSD, PEI)",1103049,1103,11,7
+"Lot 4 LOT (CSD, PEI)",1103051,1103,11,7
+"Alberton T (CSD, PEI)",1103052,1103,11,7
+"Lot 3 LOT (CSD, PEI)",1103054,1103,11,7
+"Lot 2 LOT (CSD, PEI)",1103056,1103,11,7
+"Lot 1 LOT (CSD, PEI)",1103058,1103,11,7
+"Tignish COM (CSD, PEI)",1103059,1103,11,7
+Nova Scotia (Province),12,12,12,2
+"Shelburne (CD, NS)",1201,1201,12,4
+"Barrington MD (CSD, NS)",1201001,1201,12,7
+"Clark's Harbour T (CSD, NS)",1201004,1201,12,7
+"Shelburne MD (CSD, NS)",1201006,1201,12,7
+"Shelburne T (CSD, NS)",1201008,1201,12,7
+"Lockeport T (CSD, NS)",1201009,1201,12,7
+"Yarmouth (CD, NS)",1202,1202,12,4
+"Argyle MD (CSD, NS)",1202001,1202,12,7
+"Yarmouth MD (CSD, NS)",1202004,1202,12,7
+"Yarmouth T (CSD, NS)",1202006,1202,12,7
+"Digby (CD, NS)",1203,1203,12,4
+"Clare MD (CSD, NS)",1203001,1203,12,7
+"Digby MD (CSD, NS)",1203004,1203,12,7
+"Digby T (CSD, NS)",1203006,1203,12,7
+"Queens (CD, NS)",1204,1204,12,4
+"Queens RGM (CSD, NS)",1204010,1204,12,7
+"Annapolis (CD, NS)",1205,1205,12,4
+"Annapolis, Subd. D SC (CSD, NS)",1205001,1205,12,7
+"Annapolis, Subd. A SC (CSD, NS)",1205004,1205,12,7
+"Annapolis Royal T (CSD, NS)",1205008,1205,12,7
+"Annapolis, Subd. B SC (CSD, NS)",1205009,1205,12,7
+"Annapolis, Subd. C SC (CSD, NS)",1205014,1205,12,7
+"Middleton T (CSD, NS)",1205016,1205,12,7
+"Lunenburg (CD, NS)",1206,1206,12,4
+"Lunenburg MD (CSD, NS)",1206001,1206,12,7
+"Bridgewater T (CSD, NS)",1206004,1206,12,7
+"Lunenburg T (CSD, NS)",1206006,1206,12,7
+"Mahone Bay T (CSD, NS)",1206008,1206,12,7
+"Chester MD (CSD, NS)",1206009,1206,12,7
+"Kings (CD, NS)",1207,1207,12,4
+"Kings, Subd. A SC (CSD, NS)",1207001,1207,12,7
+"Berwick T (CSD, NS)",1207004,1207,12,7
+"Kings, Subd. C SC (CSD, NS)",1207011,1207,12,7
+"Kentville T (CSD, NS)",1207012,1207,12,7
+"Kings, Subd. B SC (CSD, NS)",1207016,1207,12,7
+"Kings, Subd. D SC (CSD, NS)",1207021,1207,12,7
+"Wolfville T (CSD, NS)",1207024,1207,12,7
+"Hants (CD, NS)",1208,1208,12,4
+"West Hants MD (CSD, NS)",1208001,1208,12,7
+"Windsor T (CSD, NS)",1208002,1208,12,7
+"East Hants MD (CSD, NS)",1208008,1208,12,7
+"Halifax (CD, NS)",1209,1209,12,4
+"Halifax RGM (CSD, NS)",1209034,1209,12,7
+"Colchester (CD, NS)",1210,1210,12,4
+"Colchester, Subd. C SC (CSD, NS)",1210001,1210,12,7
+"Stewiacke T (CSD, NS)",1210002,1210,12,7
+"Truro T (CSD, NS)",1210006,1210,12,7
+"Colchester, Subd. B SC (CSD, NS)",1210008,1210,12,7
+"Colchester, Subd. A SC (CSD, NS)",1210012,1210,12,7
+"Cumberland (CD, NS)",1211,1211,12,4
+"Cumberland, Subd. A SC (CSD, NS)",1211001,1211,12,7
+"Parrsboro T (CSD, NS)",1211002,1211,12,7
+"Cumberland, Subd. B SC (CSD, NS)",1211006,1211,12,7
+"Cumberland, Subd. C SC (CSD, NS)",1211009,1211,12,7
+"Amherst T (CSD, NS)",1211011,1211,12,7
+"Oxford T (CSD, NS)",1211012,1211,12,7
+"Cumberland, Subd. D SC (CSD, NS)",1211014,1211,12,7
+"Pictou (CD, NS)",1212,1212,12,4
+"Pictou, Subd. A SC (CSD, NS)",1212001,1212,12,7
+"Pictou T (CSD, NS)",1212004,1212,12,7
+"Pictou, Subd. B SC (CSD, NS)",1212006,1212,12,7
+"Westville T (CSD, NS)",1212008,1212,12,7
+"Stellarton T (CSD, NS)",1212009,1212,12,7
+"Pictou, Subd. C SC (CSD, NS)",1212011,1212,12,7
+"New Glasgow T (CSD, NS)",1212014,1212,12,7
+"Trenton T (CSD, NS)",1212016,1212,12,7
+"Guysborough (CD, NS)",1213,1213,12,4
+"St. Mary's MD (CSD, NS)",1213001,1213,12,7
+"Guysborough MD (CSD, NS)",1213004,1213,12,7
+"Mulgrave T (CSD, NS)",1213008,1213,12,7
+"Antigonish (CD, NS)",1214,1214,12,4
+"Antigonish, Subd. A SC (CSD, NS)",1214001,1214,12,7
+"Antigonish T (CSD, NS)",1214002,1214,12,7
+"Antigonish, Subd. B SC (CSD, NS)",1214006,1214,12,7
+"Inverness (CD, NS)",1215,1215,12,4
+"Inverness, Subd. C SC (CSD, NS)",1215001,1215,12,7
+"Port Hawkesbury T (CSD, NS)",1215002,1215,12,7
+"Inverness, Subd. B SC (CSD, NS)",1215006,1215,12,7
+"Inverness, Subd. A SC (CSD, NS)",1215011,1215,12,7
+"Richmond (CD, NS)",1216,1216,12,4
+"Richmond, Subd. C SC (CSD, NS)",1216001,1216,12,7
+"Richmond, Subd. A SC (CSD, NS)",1216006,1216,12,7
+"Richmond, Subd. B SC (CSD, NS)",1216011,1216,12,7
+"Cape Breton (CD, NS)",1217,1217,12,4
+"Cape Breton RGM (CSD, NS)",1217030,1217,12,7
+"Victoria (CD, NS)",1218,1218,12,4
+"Victoria, Subd. B SC (CSD, NS)",1218001,1218,12,7
+"Victoria, Subd. A SC (CSD, NS)",1218006,1218,12,7
+New Brunswick (Province),13,13,13,2
+"Saint John (CD, NB)",1301,1301,13,4
+"Saint Martins P (CSD, NB)",1301001,1301,13,7
+"Simonds P (CSD, NB)",1301004,1301,13,7
+"Simonds P (CSD, NB)",1301004,1301,13,7
+"Simonds P (CSD, NB)",1301004,1301,13,7
+"Simonds P (CSD, NB)",1301004,1301,13,7
+"Saint John C (CSD, NB)",1301006,1301,13,7
+"Musquash P (CSD, NB)",1301016,1301,13,7
+"Charlotte (CD, NB)",1302,1302,13,4
+"Campobello Island RCR (CSD, NB)",1302004,1302,13,7
+"West Isles P (CSD, NB)",1302006,1302,13,7
+"Lepreau P (CSD, NB)",1302008,1302,13,7
+"Pennfield P (CSD, NB)",1302011,1302,13,7
+"Blacks Harbour VL (CSD, NB)",1302012,1302,13,7
+"Saint George P (CSD, NB)",1302016,1302,13,7
+"St. George TV (CSD, NB)",1302018,1302,13,7
+"Saint Patrick P (CSD, NB)",1302021,1302,13,7
+"Saint Andrews P (CSD, NB)",1302024,1302,13,7
+"Saint Andrews TV (CSD, NB)",1302026,1302,13,7
+"Saint Croix P (CSD, NB)",1302028,1302,13,7
+"Dufferin P (CSD, NB)",1302031,1302,13,7
+"Saint Stephen P (CSD, NB)",1302034,1302,13,7
+"St. Stephen TV (CSD, NB)",1302037,1302,13,7
+"Saint James P (CSD, NB)",1302039,1302,13,7
+"Saint David P (CSD, NB)",1302042,1302,13,7
+"Dumbarton P (CSD, NB)",1302044,1302,13,7
+"Grand Manan VL (CSD, NB)",1302052,1302,13,7
+"Sunbury (CD, NB)",1303,1303,13,4
+"Blissville P (CSD, NB)",1303001,1303,13,7
+"Gladstone P (CSD, NB)",1303004,1303,13,7
+"Tracy VL (CSD, NB)",1303005,1303,13,7
+"Fredericton Junction VL (CSD, NB)",1303006,1303,13,7
+"Lincoln P (CSD, NB)",1303008,1303,13,7
+"Burton P (CSD, NB)",1303011,1303,13,7
+"Oromocto TV (CSD, NB)",1303012,1303,13,7
+"Sheffield P (CSD, NB)",1303014,1303,13,7
+"Maugerville P (CSD, NB)",1303016,1303,13,7
+"Northfield P (CSD, NB)",1303018,1303,13,7
+"Queens (CD, NB)",1304,1304,13,4
+"Petersville P (CSD, NB)",1304001,1304,13,7
+"Gagetown P (CSD, NB)",1304004,1304,13,7
+"Gagetown VL (CSD, NB)",1304005,1304,13,7
+"Hampstead P (CSD, NB)",1304006,1304,13,7
+"Wickham P (CSD, NB)",1304008,1304,13,7
+"Cambridge P (CSD, NB)",1304011,1304,13,7
+"Cambridge-Narrows VL (CSD, NB)",1304013,1304,13,7
+"Johnston P (CSD, NB)",1304014,1304,13,7
+"Waterborough P (CSD, NB)",1304018,1304,13,7
+"Canning P (CSD, NB)",1304021,1304,13,7
+"Minto VL (CSD, NB)",1304022,1304,13,7
+"Chipman P (CSD, NB)",1304024,1304,13,7
+"Chipman VL (CSD, NB)",1304025,1304,13,7
+"Kings (CD, NB)",1305,1305,13,4
+"Upham P (CSD, NB)",1305004,1305,13,7
+"Hampton P (CSD, NB)",1305006,1305,13,7
+"Hampton TV (CSD, NB)",1305007,1305,13,7
+"Rothesay P (CSD, NB)",1305008,1305,13,7
+"Westfield P (CSD, NB)",1305011,1305,13,7
+"Kingston P (CSD, NB)",1305014,1305,13,7
+"Grand Bay-Westfield TV (CSD, NB)",1305015,1305,13,7
+"Norton P (CSD, NB)",1305016,1305,13,7
+"Norton VL (CSD, NB)",1305018,1305,13,7
+"Sussex P (CSD, NB)",1305021,1305,13,7
+"Sussex TV (CSD, NB)",1305022,1305,13,7
+"Sussex Corner VL (CSD, NB)",1305023,1305,13,7
+"Waterford P (CSD, NB)",1305024,1305,13,7
+"Cardwell P (CSD, NB)",1305026,1305,13,7
+"Havelock P (CSD, NB)",1305028,1305,13,7
+"Studholm P (CSD, NB)",1305031,1305,13,7
+"Springfield P (CSD, NB)",1305034,1305,13,7
+"Kars P (CSD, NB)",1305036,1305,13,7
+"Greenwich P (CSD, NB)",1305038,1305,13,7
+"Rothesay TV (CSD, NB)",1305045,1305,13,7
+"Quispamsis TV (CSD, NB)",1305057,1305,13,7
+"Albert (CD, NB)",1306,1306,13,4
+"Hopewell P (CSD, NB)",1306001,1306,13,7
+"Riverside-Albert VL (CSD, NB)",1306003,1306,13,7
+"Harvey P (CSD, NB)",1306004,1306,13,7
+"Elgin P (CSD, NB)",1306008,1306,13,7
+"Hillsborough P (CSD, NB)",1306011,1306,13,7
+"Coverdale P (CSD, NB)",1306014,1306,13,7
+"Riverview TV (CSD, NB)",1306020,1306,13,7
+"Hillsborough VL (CSD, NB)",1306025,1306,13,7
+"Westmorland (CD, NB)",1307,1307,13,4
+"Westmorland P (CSD, NB)",1307001,1307,13,7
+"Port Elgin VL (CSD, NB)",1307002,1307,13,7
+"Botsford P (CSD, NB)",1307004,1307,13,7
+"Beaubassin East / Beaubassin-est RCR (CSD, NB)",1307005,1307,13,7
+"Cap-Pelé VL (CSD, NB)",1307007,1307,13,7
+"Sackville P (CSD, NB)",1307008,1307,13,7
+"Sackville TV (CSD, NB)",1307009,1307,13,7
+"Dorchester P (CSD, NB)",1307011,1307,13,7
+"Dorchester VL (CSD, NB)",1307012,1307,13,7
+"Memramcook VL (CSD, NB)",1307013,1307,13,7
+"Shediac P (CSD, NB)",1307016,1307,13,7
+"Moncton P (CSD, NB)",1307019,1307,13,7
+"Moncton C (CSD, NB)",1307022,1307,13,7
+"Salisbury P (CSD, NB)",1307024,1307,13,7
+"Salisbury VL (CSD, NB)",1307028,1307,13,7
+"Petitcodiac VL (CSD, NB)",1307029,1307,13,7
+"Dieppe C (CSD, NB)",1307045,1307,13,7
+"Shediac TV (CSD, NB)",1307052,1307,13,7
+"Kent (CD, NB)",1308,1308,13,4
+"Dundas P (CSD, NB)",1308001,1308,13,7
+"Cocagne RCR (CSD, NB)",1308002,1308,13,7
+"Wellington P (CSD, NB)",1308004,1308,13,7
+"Bouctouche TV (CSD, NB)",1308005,1308,13,7
+"Saint Mary P (CSD, NB)",1308006,1308,13,7
+"Saint-Antoine VL (CSD, NB)",1308007,1308,13,7
+"Saint-Paul P (CSD, NB)",1308008,1308,13,7
+"Harcourt P (CSD, NB)",1308010,1308,13,7
+"Weldford P (CSD, NB)",1308014,1308,13,7
+"Richibucto P (CSD, NB)",1308016,1308,13,7
+"Rexton VL (CSD, NB)",1308017,1308,13,7
+"Richibucto TV (CSD, NB)",1308018,1308,13,7
+"Saint-Charles P (CSD, NB)",1308019,1308,13,7
+"Saint-Louis P (CSD, NB)",1308021,1308,13,7
+"Saint-Louis de Kent VL (CSD, NB)",1308022,1308,13,7
+"Acadieville P (CSD, NB)",1308024,1308,13,7
+"Carleton P (CSD, NB)",1308026,1308,13,7
+"Northumberland (CD, NB)",1309,1309,13,4
+"Hardwicke P (CSD, NB)",1309001,1309,13,7
+"Glenelg P (CSD, NB)",1309004,1309,13,7
+"Chatham P (CSD, NB)",1309006,1309,13,7
+"Derby P (CSD, NB)",1309011,1309,13,7
+"Nelson P (CSD, NB)",1309014,1309,13,7
+"Rogersville P (CSD, NB)",1309016,1309,13,7
+"Rogersville VL (CSD, NB)",1309017,1309,13,7
+"Blackville P (CSD, NB)",1309018,1309,13,7
+"Blackville VL (CSD, NB)",1309019,1309,13,7
+"Blissfield P (CSD, NB)",1309021,1309,13,7
+"Doaktown VL (CSD, NB)",1309022,1309,13,7
+"Southesk P (CSD, NB)",1309026,1309,13,7
+"Upper Miramichi RCR (CSD, NB)",1309027,1309,13,7
+"Northesk P (CSD, NB)",1309028,1309,13,7
+"Newcastle P (CSD, NB)",1309031,1309,13,7
+"Alnwick P (CSD, NB)",1309036,1309,13,7
+"Neguac VL (CSD, NB)",1309038,1309,13,7
+"Miramichi C (CSD, NB)",1309050,1309,13,7
+"York (CD, NB)",1310,1310,13,4
+"New Maryland P (CSD, NB)",1310001,1310,13,7
+"New Maryland VL (CSD, NB)",1310002,1310,13,7
+"Manners Sutton P (CSD, NB)",1310004,1310,13,7
+"Harvey VL (CSD, NB)",1310005,1310,13,7
+"McAdam VL (CSD, NB)",1310006,1310,13,7
+"Canterbury P (CSD, NB)",1310011,1310,13,7
+"Canterbury VL (CSD, NB)",1310012,1310,13,7
+"Dumfries P (CSD, NB)",1310014,1310,13,7
+"Prince William P (CSD, NB)",1310016,1310,13,7
+"Hanwell RCR (CSD, NB)",1310017,1310,13,7
+"Kingsclear P (CSD, NB)",1310018,1310,13,7
+"Queensbury P (CSD, NB)",1310021,1310,13,7
+"Southampton P (CSD, NB)",1310024,1310,13,7
+"Millville VL (CSD, NB)",1310025,1310,13,7
+"Bright P (CSD, NB)",1310026,1310,13,7
+"Douglas P (CSD, NB)",1310028,1310,13,7
+"Saint Marys P (CSD, NB)",1310031,1310,13,7
+"Fredericton C (CSD, NB)",1310032,1310,13,7
+"Stanley P (CSD, NB)",1310036,1310,13,7
+"Stanley VL (CSD, NB)",1310037,1310,13,7
+"Nackawic TV (CSD, NB)",1310054,1310,13,7
+"Carleton (CD, NB)",1311,1311,13,4
+"Richmond P (CSD, NB)",1311001,1311,13,7
+"Woodstock P (CSD, NB)",1311004,1311,13,7
+"Woodstock TV (CSD, NB)",1311006,1311,13,7
+"Northampton P (CSD, NB)",1311008,1311,13,7
+"Brighton P (CSD, NB)",1311011,1311,13,7
+"Hartland TV (CSD, NB)",1311012,1311,13,7
+"Wakefield P (CSD, NB)",1311014,1311,13,7
+"Wilmot P (CSD, NB)",1311018,1311,13,7
+"Centreville VL (CSD, NB)",1311019,1311,13,7
+"Simonds P (CSD, NB)",1311021,1311,13,7
+"Simonds P (CSD, NB)",1311021,1311,13,7
+"Simonds P (CSD, NB)",1311021,1311,13,7
+"Simonds P (CSD, NB)",1311021,1311,13,7
+"Peel P (CSD, NB)",1311024,1311,13,7
+"Aberdeen P (CSD, NB)",1311026,1311,13,7
+"Florenceville-Bristol TV (CSD, NB)",1311027,1311,13,7
+"Kent P (CSD, NB)",1311028,1311,13,7
+"Bath VL (CSD, NB)",1311030,1311,13,7
+"Wicklow P (CSD, NB)",1311031,1311,13,7
+"Victoria (CD, NB)",1312,1312,13,4
+"Andover P (CSD, NB)",1312001,1312,13,7
+"Aroostook VL (CSD, NB)",1312002,1312,13,7
+"Perth P (CSD, NB)",1312004,1312,13,7
+"Perth-Andover VL (CSD, NB)",1312006,1312,13,7
+"Gordon P (CSD, NB)",1312008,1312,13,7
+"Plaster Rock VL (CSD, NB)",1312009,1312,13,7
+"Lorne P (CSD, NB)",1312011,1312,13,7
+"Denmark P (CSD, NB)",1312014,1312,13,7
+"Grand Falls P (CSD, NB)",1312016,1312,13,7
+"Grand Falls / Grand-Sault TV (CSD, NB)",1312019,1312,13,7
+"Drummond P (CSD, NB)",1312021,1312,13,7
+"Drummond VL (CSD, NB)",1312023,1312,13,7
+"Madawaska (CD, NB)",1313,1313,13,4
+"Saint-André P (CSD, NB)",1313001,1313,13,7
+"Saint-André RCR (CSD, NB)",1313002,1313,13,7
+"Saint-Léonard P (CSD, NB)",1313004,1313,13,7
+"Saint-Léonard TV (CSD, NB)",1313006,1313,13,7
+"Saint-Léonard TV (CSD, NB)",1313006,1313,13,7
+"Notre-Dame-de-Lourdes P (CSD, NB)",1313008,1313,13,7
+"Sainte-Anne P (CSD, NB)",1313011,1313,13,7
+"Sainte-Anne-de-Madawaska VL (CSD, NB)",1313012,1313,13,7
+"Rivière-Verte VL (CSD, NB)",1313014,1313,13,7
+"Rivière-Verte P (CSD, NB)",1313015,1313,13,7
+"Saint-Basile P (CSD, NB)",1313018,1313,13,7
+"Saint-Joseph P (CSD, NB)",1313022,1313,13,7
+"Saint-Jacques P (CSD, NB)",1313024,1313,13,7
+"Edmundston C (CSD, NB)",1313027,1313,13,7
+"Saint-Hilaire P (CSD, NB)",1313032,1313,13,7
+"Baker Brook P (CSD, NB)",1313034,1313,13,7
+"Baker-Brook VL (CSD, NB)",1313035,1313,13,7
+"Lac Baker VL (CSD, NB)",1313037,1313,13,7
+"Clair P (CSD, NB)",1313038,1313,13,7
+"Clair VL (CSD, NB)",1313039,1313,13,7
+"Saint-François P (CSD, NB)",1313041,1313,13,7
+"Saint-François de Madawaska VL (CSD, NB)",1313042,1313,13,7
+"Restigouche (CD, NB)",1314,1314,13,4
+"Durham P (CSD, NB)",1314001,1314,13,7
+"Charlo VL (CSD, NB)",1314004,1314,13,7
+"Balmoral P (CSD, NB)",1314005,1314,13,7
+"Balmoral VL (CSD, NB)",1314006,1314,13,7
+"Dalhousie P (CSD, NB)",1314008,1314,13,7
+"Eel River Crossing VL (CSD, NB)",1314011,1314,13,7
+"Addington P (CSD, NB)",1314012,1314,13,7
+"Atholville VL (CSD, NB)",1314013,1314,13,7
+"Campbellton C (CSD, NB)",1314014,1314,13,7
+"Tide Head VL (CSD, NB)",1314015,1314,13,7
+"Eldon P (CSD, NB)",1314016,1314,13,7
+"Dalhousie TV (CSD, NB)",1314017,1314,13,7
+"Kedgwick RCR (CSD, NB)",1314020,1314,13,7
+"Saint-Quentin P (CSD, NB)",1314021,1314,13,7
+"Saint-Quentin TV (CSD, NB)",1314022,1314,13,7
+"Belledune VL (CSD, NB)",1314025,1314,13,7
+"Gloucester (CD, NB)",1315,1315,13,4
+"Tracadie RGM (CSD, NB)",1315002,1315,13,7
+"Allardville P (CSD, NB)",1315006,1315,13,7
+"Bathurst P (CSD, NB)",1315008,1315,13,7
+"Bathurst C (CSD, NB)",1315011,1315,13,7
+"Beresford P (CSD, NB)",1315012,1315,13,7
+"Pointe-Verte VL (CSD, NB)",1315013,1315,13,7
+"Petit-Rocher VL (CSD, NB)",1315014,1315,13,7
+"Beresford TV (CSD, NB)",1315015,1315,13,7
+"New Bandon P (CSD, NB)",1315016,1315,13,7
+"Saint-Léolin VL (CSD, NB)",1315017,1315,13,7
+"Paquetville P (CSD, NB)",1315019,1315,13,7
+"Paquetville VL (CSD, NB)",1315020,1315,13,7
+"Saint-Isidore P (CSD, NB)",1315021,1315,13,7
+"Saint-Isidore VL (CSD, NB)",1315022,1315,13,7
+"Inkerman P (CSD, NB)",1315024,1315,13,7
+"Caraquet P (CSD, NB)",1315026,1315,13,7
+"Bas-Caraquet VL (CSD, NB)",1315027,1315,13,7
+"Caraquet TV (CSD, NB)",1315028,1315,13,7
+"Shippagan P (CSD, NB)",1315029,1315,13,7
+"Le Goulet VL (CSD, NB)",1315030,1315,13,7
+"Shippagan TV (CSD, NB)",1315031,1315,13,7
+"Lamèque TV (CSD, NB)",1315032,1315,13,7
+"Sainte-Marie-Saint-Raphaël VL (CSD, NB)",1315033,1315,13,7
+"Bertrand VL (CSD, NB)",1315036,1315,13,7
+"Nigadoo VL (CSD, NB)",1315037,1315,13,7
+"Grande-Anse VL (CSD, NB)",1315038,1315,13,7
+"Maisonnette VL (CSD, NB)",1315040,1315,13,7
+Québec (Province),24,24,24,2
+"Les Îles-de-la-Madeleine (CD, QC)",2401,2401,24,4
+"Les Îles-de-la-Madeleine MÉ (CSD, QC)",2401023,2401,24,7
+"Grosse-Île MÉ (CSD, QC)",2401042,2401,24,7
+"Le Rocher-Percé (CD, QC)",2402,2402,24,4
+"Percé V (CSD, QC)",2402005,2402,24,7
+"Sainte-Thérèse-de-Gaspé MÉ (CSD, QC)",2402010,2402,24,7
+"Grande-Rivière V (CSD, QC)",2402015,2402,24,7
+"Chandler V (CSD, QC)",2402028,2402,24,7
+"Port-Daniel--Gascons MÉ (CSD, QC)",2402047,2402,24,7
+"La Côte-de-Gaspé (CD, QC)",2403,2403,24,4
+"Gaspé V (CSD, QC)",2403005,2403,24,7
+"Cloridorme CT (CSD, QC)",2403010,2403,24,7
+"Grande-Vallée MÉ (CSD, QC)",2403020,2403,24,7
+"Murdochville V (CSD, QC)",2403025,2403,24,7
+"La Haute-Gaspésie (CD, QC)",2404,2404,24,4
+"Sainte-Madeleine-de-la-Rivière-Madeleine MÉ (CSD, QC)",2404005,2404,24,7
+"Saint-Maxime-du-Mont-Louis MÉ (CSD, QC)",2404010,2404,24,7
+"Sainte-Anne-des-Monts V (CSD, QC)",2404037,2404,24,7
+"Cap-Chat V (CSD, QC)",2404047,2404,24,7
+"Bonaventure (CD, QC)",2405,2405,24,4
+"Shigawake MÉ (CSD, QC)",2405010,2405,24,7
+"Saint-Godefroi CT (CSD, QC)",2405015,2405,24,7
+"Hope Town MÉ (CSD, QC)",2405020,2405,24,7
+"Hope CT (CSD, QC)",2405025,2405,24,7
+"Paspébiac V (CSD, QC)",2405032,2405,24,7
+"New Carlisle MÉ (CSD, QC)",2405040,2405,24,7
+"Bonaventure V (CSD, QC)",2405045,2405,24,7
+"Saint-Elzéar MÉ 2405050 (CSD, QC)",2405050,2405,24,7
+"Saint-Siméon PE (CSD, QC)",2405055,2405,24,7
+"Caplan MÉ (CSD, QC)",2405060,2405,24,7
+"Saint-Alphonse MÉ (CSD, QC)",2405065,2405,24,7
+"New Richmond V (CSD, QC)",2405070,2405,24,7
+"Cascapédia--Saint-Jules MÉ (CSD, QC)",2405077,2405,24,7
+"Avignon (CD, QC)",2406,2406,24,4
+"Maria MÉ (CSD, QC)",2406005,2406,24,7
+"Carleton-sur-Mer V (CSD, QC)",2406013,2406,24,7
+"Nouvelle MÉ (CSD, QC)",2406020,2406,24,7
+"Escuminac MÉ (CSD, QC)",2406025,2406,24,7
+"Pointe-à-la-Croix MÉ (CSD, QC)",2406030,2406,24,7
+"Matapédia MÉ (CSD, QC)",2406045,2406,24,7
+"Saint-Alexis-de-Matapédia MÉ (CSD, QC)",2406050,2406,24,7
+"Saint-François-d'Assise MÉ (CSD, QC)",2406055,2406,24,7
+"La Matapédia (CD, QC)",2407,2407,24,4
+"Sainte-Florence MÉ (CSD, QC)",2407010,2407,24,7
+"Causapscal V (CSD, QC)",2407018,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2407030,2407,24,7
+"Saint-Zénon-du-Lac-Humqui PE (CSD, QC)",2407035,2407,24,7
+"Sainte-Irène PE (CSD, QC)",2407040,2407,24,7
+"Amqui V (CSD, QC)",2407047,2407,24,7
+"Lac-au-Saumon MÉ (CSD, QC)",2407057,2407,24,7
+"Saint-Alexandre-des-Lacs PE (CSD, QC)",2407065,2407,24,7
+"Saint-Tharcisius PE (CSD, QC)",2407070,2407,24,7
+"Saint-Vianney MÉ (CSD, QC)",2407075,2407,24,7
+"Val-Brillant MÉ (CSD, QC)",2407080,2407,24,7
+"Sayabec MÉ (CSD, QC)",2407085,2407,24,7
+"Saint-Cléophas PE (CSD, QC)",2407090,2407,24,7
+"Saint-Moïse PE (CSD, QC)",2407095,2407,24,7
+"Saint-Noël VL (CSD, QC)",2407100,2407,24,7
+"Saint-Damase PE (CSD, QC)",2407105,2407,24,7
+"Matane (CD, QC)",2408,2408,24,4
+"Les Méchins MÉ (CSD, QC)",2408005,2408,24,7
+"Grosses-Roches MÉ (CSD, QC)",2408015,2408,24,7
+"Sainte-Félicité MÉ 2408023 (CSD, QC)",2408023,2408,24,7
+"Saint-Adelme PE (CSD, QC)",2408030,2408,24,7
+"Saint-René-de-Matane MÉ (CSD, QC)",2408035,2408,24,7
+"Matane V (CSD, QC)",2408053,2408,24,7
+"Saint-Léandre PE (CSD, QC)",2408065,2408,24,7
+"Saint-Ulric MÉ (CSD, QC)",2408073,2408,24,7
+"Baie-des-Sables MÉ (CSD, QC)",2408080,2408,24,7
+"La Mitis (CD, QC)",2409,2409,24,4
+"La Rédemption PE (CSD, QC)",2409005,2409,24,7
+"Les Hauteurs MÉ (CSD, QC)",2409015,2409,24,7
+"Sainte-Jeanne-d'Arc PE (CSD, QC)",2409020,2409,24,7
+"Saint-Gabriel-de-Rimouski MÉ (CSD, QC)",2409025,2409,24,7
+"Saint-Donat PE (CSD, QC)",2409030,2409,24,7
+"Sainte-Angèle-de-Mérici MÉ (CSD, QC)",2409035,2409,24,7
+"Métis-sur-Mer V (CSD, QC)",2409048,2409,24,7
+"Saint-Octave-de-Métis PE (CSD, QC)",2409055,2409,24,7
+"Price VL (CSD, QC)",2409065,2409,24,7
+"Saint-Joseph-de-Lepage PE (CSD, QC)",2409070,2409,24,7
+"Mont-Joli V (CSD, QC)",2409077,2409,24,7
+"Sainte-Flavie PE (CSD, QC)",2409085,2409,24,7
+"Sainte-Luce MÉ (CSD, QC)",2409092,2409,24,7
+"Rimouski-Neigette (CD, QC)",2410,2410,24,4
+"Esprit-Saint MÉ (CSD, QC)",2410005,2410,24,7
+"Saint-Narcisse-de-Rimouski PE (CSD, QC)",2410015,2410,24,7
+"Saint-Marcellin PE (CSD, QC)",2410025,2410,24,7
+"Saint-Anaclet-de-Lessard PE (CSD, QC)",2410030,2410,24,7
+"Rimouski V (CSD, QC)",2410043,2410,24,7
+"Saint-Valérien PE (CSD, QC)",2410060,2410,24,7
+"Saint-Fabien PE (CSD, QC)",2410070,2410,24,7
+"Saint-Eugène-de-Ladrière PE (CSD, QC)",2410075,2410,24,7
+"Les Basques (CD, QC)",2411,2411,24,4
+"Saint-Clément PE (CSD, QC)",2411005,2411,24,7
+"Saint-Jean-de-Dieu MÉ (CSD, QC)",2411010,2411,24,7
+"Sainte-Rita MÉ (CSD, QC)",2411015,2411,24,7
+"Sainte-Françoise PE (CSD, QC)",2411030,2411,24,7
+"Saint-Éloi PE (CSD, QC)",2411035,2411,24,7
+"Trois-Pistoles V (CSD, QC)",2411040,2411,24,7
+"Notre-Dame-des-Neiges MÉ (CSD, QC)",2411045,2411,24,7
+"Saint-Mathieu-de-Rioux PE (CSD, QC)",2411050,2411,24,7
+"Saint-Simon PE (CSD, QC)",2411055,2411,24,7
+"Rivière-du-Loup (CD, QC)",2412,2412,24,4
+"Saint-Cyprien MÉ (CSD, QC)",2412005,2412,24,7
+"Saint-Hubert-de-Rivière-du-Loup MÉ (CSD, QC)",2412010,2412,24,7
+"Saint-Antonin MÉ (CSD, QC)",2412015,2412,24,7
+"Saint-Modeste MÉ (CSD, QC)",2412020,2412,24,7
+"Saint-Épiphane MÉ (CSD, QC)",2412030,2412,24,7
+"Saint-Paul-de-la-Croix PE (CSD, QC)",2412035,2412,24,7
+"L'Isle-Verte MÉ (CSD, QC)",2412043,2412,24,7
+"Cacouna MÉ (CSD, QC)",2412057,2412,24,7
+"Saint-Arsène PE (CSD, QC)",2412065,2412,24,7
+"Rivière-du-Loup V (CSD, QC)",2412072,2412,24,7
+"Notre-Dame-du-Portage MÉ (CSD, QC)",2412080,2412,24,7
+"Témiscouata (CD, QC)",2413,2413,24,4
+"Dégelis V (CSD, QC)",2413005,2413,24,7
+"Packington PE (CSD, QC)",2413015,2413,24,7
+"Saint-Marc-du-Lac-Long PE (CSD, QC)",2413020,2413,24,7
+"Rivière-Bleue MÉ (CSD, QC)",2413025,2413,24,7
+"Saint-Eusèbe PE (CSD, QC)",2413030,2413,24,7
+"Saint-Juste-du-Lac MÉ (CSD, QC)",2413040,2413,24,7
+"Auclair MÉ (CSD, QC)",2413045,2413,24,7
+"Biencourt MÉ (CSD, QC)",2413055,2413,24,7
+"Lac-des-Aigles MÉ (CSD, QC)",2413060,2413,24,7
+"Saint-Michel-du-Squatec MÉ (CSD, QC)",2413065,2413,24,7
+"Témiscouata-sur-le-Lac V (CSD, QC)",2413073,2413,24,7
+"Saint-Louis-du-Ha! Ha! PE (CSD, QC)",2413080,2413,24,7
+"Saint-Elzéar-de-Témiscouata MÉ (CSD, QC)",2413085,2413,24,7
+"Saint-Honoré-de-Témiscouata MÉ (CSD, QC)",2413090,2413,24,7
+"Pohénégamook V (CSD, QC)",2413095,2413,24,7
+"Saint-Athanase MÉ (CSD, QC)",2413100,2413,24,7
+"Kamouraska (CD, QC)",2414,2414,24,4
+"Mont-Carmel MÉ (CSD, QC)",2414005,2414,24,7
+"Saint-Bruno-de-Kamouraska MÉ (CSD, QC)",2414010,2414,24,7
+"Saint-Pascal V (CSD, QC)",2414018,2414,24,7
+"Sainte-Hélène-de-Kamouraska MÉ (CSD, QC)",2414025,2414,24,7
+"Saint-Joseph-de-Kamouraska PE (CSD, QC)",2414030,2414,24,7
+"Saint-Alexandre-de-Kamouraska MÉ (CSD, QC)",2414035,2414,24,7
+"Saint-André MÉ (CSD, QC)",2414040,2414,24,7
+"Saint-Germain PE (CSD, QC)",2414045,2414,24,7
+"Kamouraska MÉ (CSD, QC)",2414050,2414,24,7
+"Saint-Denis-De La Bouteillerie MÉ (CSD, QC)",2414055,2414,24,7
+"Saint-Philippe-de-Néri PE (CSD, QC)",2414060,2414,24,7
+"Rivière-Ouelle MÉ (CSD, QC)",2414065,2414,24,7
+"Saint-Pacôme MÉ (CSD, QC)",2414070,2414,24,7
+"Saint-Gabriel-Lalemant MÉ (CSD, QC)",2414075,2414,24,7
+"Saint-Onésime-d'Ixworth MÉ (CSD, QC)",2414080,2414,24,7
+"La Pocatière V (CSD, QC)",2414085,2414,24,7
+"Sainte-Anne-de-la-Pocatière PE (CSD, QC)",2414090,2414,24,7
+"Charlevoix-Est (CD, QC)",2415,2415,24,4
+"Saint-Irénée PE (CSD, QC)",2415005,2415,24,7
+"La Malbaie V (CSD, QC)",2415013,2415,24,7
+"Notre-Dame-des-Monts MÉ (CSD, QC)",2415025,2415,24,7
+"Saint-Aimé-des-Lacs MÉ (CSD, QC)",2415030,2415,24,7
+"Clermont V (CSD, QC)",2415035,2415,24,7
+"Saint-Siméon MÉ (CSD, QC)",2415058,2415,24,7
+"Charlevoix (CD, QC)",2416,2416,24,4
+"Petite-Rivière-Saint-François MÉ (CSD, QC)",2416005,2416,24,7
+"Baie-Saint-Paul V (CSD, QC)",2416013,2416,24,7
+"L'Isle-aux-Coudres MÉ (CSD, QC)",2416023,2416,24,7
+"Les Éboulements MÉ (CSD, QC)",2416048,2416,24,7
+"Saint-Hilarion PE (CSD, QC)",2416050,2416,24,7
+"Saint-Urbain PE (CSD, QC)",2416055,2416,24,7
+"L'Islet (CD, QC)",2417,2417,24,4
+"Saint-Omer MÉ (CSD, QC)",2417005,2417,24,7
+"Saint-Pamphile V (CSD, QC)",2417010,2417,24,7
+"Saint-Adalbert MÉ (CSD, QC)",2417015,2417,24,7
+"Saint-Marcel MÉ (CSD, QC)",2417020,2417,24,7
+"Sainte-Félicité MÉ (CSD, QC)",2417025,2417,24,7
+"Sainte-Perpétue MÉ (CSD, QC)",2417030,2417,24,7
+"Tourville MÉ (CSD, QC)",2417035,2417,24,7
+"Saint-Damase-de-L'Islet MÉ (CSD, QC)",2417040,2417,24,7
+"Saint-Cyrille-de-Lessard PE (CSD, QC)",2417045,2417,24,7
+"Saint-Aubert MÉ (CSD, QC)",2417055,2417,24,7
+"Sainte-Louise PE (CSD, QC)",2417060,2417,24,7
+"Saint-Roch-des-Aulnaies PE (CSD, QC)",2417065,2417,24,7
+"Saint-Jean-Port-Joli MÉ (CSD, QC)",2417070,2417,24,7
+"L'Islet MÉ (CSD, QC)",2417078,2417,24,7
+"Montmagny (CD, QC)",2418,2418,24,4
+"Saint-Just-de-Bretenières MÉ (CSD, QC)",2418005,2418,24,7
+"Saint-Fabien-de-Panet PE (CSD, QC)",2418015,2418,24,7
+"Sainte-Lucie-de-Beauregard MÉ (CSD, QC)",2418020,2418,24,7
+"Sainte-Apolline-de-Patton PE (CSD, QC)",2418025,2418,24,7
+"Saint-Paul-de-Montminy MÉ (CSD, QC)",2418030,2418,24,7
+"Sainte-Euphémie-sur-Rivière-du-Sud MÉ (CSD, QC)",2418035,2418,24,7
+"Notre-Dame-du-Rosaire MÉ (CSD, QC)",2418040,2418,24,7
+"Cap-Saint-Ignace MÉ (CSD, QC)",2418045,2418,24,7
+"Montmagny V (CSD, QC)",2418050,2418,24,7
+"Saint-Pierre-de-la-Rivière-du-Sud PE (CSD, QC)",2418055,2418,24,7
+"Saint-François-de-la-Rivière-du-Sud MÉ (CSD, QC)",2418060,2418,24,7
+"Berthier-sur-Mer MÉ (CSD, QC)",2418065,2418,24,7
+"Bellechasse (CD, QC)",2419,2419,24,4
+"Saint-Philémon PE (CSD, QC)",2419005,2419,24,7
+"Notre-Dame-Auxiliatrice-de-Buckland PE (CSD, QC)",2419010,2419,24,7
+"Saint-Nazaire-de-Dorchester PE (CSD, QC)",2419015,2419,24,7
+"Saint-Léon-de-Standon PE (CSD, QC)",2419020,2419,24,7
+"Saint-Malachie PE (CSD, QC)",2419025,2419,24,7
+"Saint-Damien-de-Buckland PE (CSD, QC)",2419030,2419,24,7
+"Armagh MÉ (CSD, QC)",2419037,2419,24,7
+"Saint-Nérée-de-Bellechasse MÉ (CSD, QC)",2419045,2419,24,7
+"Saint-Lazare-de-Bellechasse MÉ (CSD, QC)",2419050,2419,24,7
+"Sainte-Claire MÉ (CSD, QC)",2419055,2419,24,7
+"Saint-Anselme MÉ (CSD, QC)",2419062,2419,24,7
+"Saint-Henri MÉ (CSD, QC)",2419068,2419,24,7
+"Honfleur MÉ (CSD, QC)",2419070,2419,24,7
+"Saint-Gervais MÉ (CSD, QC)",2419075,2419,24,7
+"Saint-Raphaël MÉ (CSD, QC)",2419082,2419,24,7
+"La Durantaye PE (CSD, QC)",2419090,2419,24,7
+"Saint-Charles-de-Bellechasse MÉ (CSD, QC)",2419097,2419,24,7
+"Beaumont MÉ (CSD, QC)",2419105,2419,24,7
+"Saint-Michel-de-Bellechasse MÉ (CSD, QC)",2419110,2419,24,7
+"Saint-Vallier MÉ (CSD, QC)",2419117,2419,24,7
+"L'Île-d'Orléans (CD, QC)",2420,2420,24,4
+"Saint-François-de-l'Île-d'Orléans MÉ (CSD, QC)",2420005,2420,24,7
+"Sainte-Famille PE (CSD, QC)",2420010,2420,24,7
+"Saint-Jean-de-l'Île-d'Orléans MÉ (CSD, QC)",2420015,2420,24,7
+"Saint-Laurent-de-l'Île-d'Orléans MÉ (CSD, QC)",2420020,2420,24,7
+"Saint-Pierre-de-l'Île-d'Orléans MÉ (CSD, QC)",2420025,2420,24,7
+"Sainte-Pétronille VL (CSD, QC)",2420030,2420,24,7
+"La Côte-de-Beaupré (CD, QC)",2421,2421,24,4
+"Saint-Tite-des-Caps MÉ (CSD, QC)",2421005,2421,24,7
+"Saint-Ferréol-les-Neiges MÉ (CSD, QC)",2421010,2421,24,7
+"Saint-Joachim PE (CSD, QC)",2421020,2421,24,7
+"Beaupré V (CSD, QC)",2421025,2421,24,7
+"Sainte-Anne-de-Beaupré V (CSD, QC)",2421030,2421,24,7
+"Château-Richer V (CSD, QC)",2421035,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2421040,2421,24,7
+"Boischatel MÉ (CSD, QC)",2421045,2421,24,7
+"La Jacques-Cartier (CD, QC)",2422,2422,24,4
+"Sainte-Catherine-de-la-Jacques-Cartier V (CSD, QC)",2422005,2422,24,7
+"Fossambault-sur-le-Lac V (CSD, QC)",2422010,2422,24,7
+"Shannon MÉ (CSD, QC)",2422020,2422,24,7
+"Saint-Gabriel-de-Valcartier MÉ (CSD, QC)",2422025,2422,24,7
+"Lac-Delage V (CSD, QC)",2422030,2422,24,7
+"Stoneham-et-Tewkesbury CU (CSD, QC)",2422035,2422,24,7
+"Lac-Beauport MÉ (CSD, QC)",2422040,2422,24,7
+"Sainte-Brigitte-de-Laval V (CSD, QC)",2422045,2422,24,7
+"Québec (CD, QC)",2423,2423,24,4
+"Québec V (CSD, QC)",2423027,2423,24,7
+"L'Ancienne-Lorette V (CSD, QC)",2423057,2423,24,7
+"Saint-Augustin-de-Desmaures V (CSD, QC)",2423072,2423,24,7
+"Lévis (CD, QC)",2425,2425,24,4
+"Lévis V (CSD, QC)",2425213,2425,24,7
+"La Nouvelle-Beauce (CD, QC)",2426,2426,24,4
+"Frampton MÉ (CSD, QC)",2426005,2426,24,7
+"Saints-Anges PE (CSD, QC)",2426010,2426,24,7
+"Vallée-Jonction MÉ (CSD, QC)",2426015,2426,24,7
+"Saint-Elzéar MÉ 2426022 (CSD, QC)",2426022,2426,24,7
+"Sainte-Marie V (CSD, QC)",2426030,2426,24,7
+"Sainte-Marguerite PE (CSD, QC)",2426035,2426,24,7
+"Sainte-Hénédine PE (CSD, QC)",2426040,2426,24,7
+"Scott MÉ (CSD, QC)",2426048,2426,24,7
+"Saint-Bernard MÉ (CSD, QC)",2426055,2426,24,7
+"Saint-Isidore MÉ (CSD, QC)",2426063,2426,24,7
+"Saint-Lambert-de-Lauzon MÉ (CSD, QC)",2426070,2426,24,7
+"Robert-Cliche (CD, QC)",2427,2427,24,4
+"Saint-Victor MÉ (CSD, QC)",2427008,2427,24,7
+"Saint-Alfred MÉ (CSD, QC)",2427015,2427,24,7
+"Beauceville V (CSD, QC)",2427028,2427,24,7
+"Saint-Odilon-de-Cranbourne PE (CSD, QC)",2427035,2427,24,7
+"Saint-Joseph-de-Beauce V (CSD, QC)",2427043,2427,24,7
+"Saint-Joseph-des-Érables MÉ (CSD, QC)",2427050,2427,24,7
+"Saint-Jules PE (CSD, QC)",2427055,2427,24,7
+"Tring-Jonction VL (CSD, QC)",2427060,2427,24,7
+"Saint-Frédéric PE (CSD, QC)",2427065,2427,24,7
+"Saint-Séverin PE (CSD, QC)",2427070,2427,24,7
+"Saint-Séverin PE (CSD, QC)",2427070,2427,24,7
+"Les Etchemins (CD, QC)",2428,2428,24,4
+"Saint-Zacharie MÉ (CSD, QC)",2428005,2428,24,7
+"Sainte-Aurélie MÉ (CSD, QC)",2428015,2428,24,7
+"Saint-Prosper MÉ (CSD, QC)",2428020,2428,24,7
+"Saint-Benjamin MÉ (CSD, QC)",2428025,2428,24,7
+"Sainte-Rose-de-Watford MÉ (CSD, QC)",2428030,2428,24,7
+"Saint-Louis-de-Gonzague MÉ (CSD, QC)",2428035,2428,24,7
+"Saint-Cyprien PE (CSD, QC)",2428040,2428,24,7
+"Sainte-Justine MÉ (CSD, QC)",2428045,2428,24,7
+"Lac-Etchemin MÉ (CSD, QC)",2428053,2428,24,7
+"Saint-Luc-de-Bellechasse MÉ (CSD, QC)",2428060,2428,24,7
+"Sainte-Sabine PE (CSD, QC)",2428065,2428,24,7
+"Saint-Camille-de-Lellis PE (CSD, QC)",2428070,2428,24,7
+"Saint-Magloire MÉ (CSD, QC)",2428075,2428,24,7
+"Beauce-Sartigan (CD, QC)",2429,2429,24,4
+"Saint-Théophile MÉ (CSD, QC)",2429005,2429,24,7
+"Saint-Gédéon-de-Beauce MÉ (CSD, QC)",2429013,2429,24,7
+"Saint-Évariste-de-Forsyth MÉ (CSD, QC)",2429025,2429,24,7
+"La Guadeloupe VL (CSD, QC)",2429030,2429,24,7
+"Saint-Honoré-de-Shenley MÉ (CSD, QC)",2429038,2429,24,7
+"Saint-Martin PE (CSD, QC)",2429045,2429,24,7
+"Saint-René PE (CSD, QC)",2429050,2429,24,7
+"Saint-Côme--Linière MÉ (CSD, QC)",2429057,2429,24,7
+"Saint-Philibert MÉ (CSD, QC)",2429065,2429,24,7
+"Saint-Georges V (CSD, QC)",2429073,2429,24,7
+"Saint-Benoît-Labre MÉ (CSD, QC)",2429100,2429,24,7
+"Saint-Éphrem-de-Beauce MÉ (CSD, QC)",2429112,2429,24,7
+"Notre-Dame-des-Pins PE (CSD, QC)",2429120,2429,24,7
+"Saint-Simon-les-Mines MÉ (CSD, QC)",2429125,2429,24,7
+"Le Granit (CD, QC)",2430,2430,24,4
+"Saint-Augustin-de-Woburn PE (CSD, QC)",2430005,2430,24,7
+"Notre-Dame-des-Bois MÉ (CSD, QC)",2430010,2430,24,7
+"Piopolis MÉ (CSD, QC)",2430020,2430,24,7
+"Frontenac MÉ (CSD, QC)",2430025,2430,24,7
+"Lac-Mégantic V (CSD, QC)",2430030,2430,24,7
+"Marston CT (CSD, QC)",2430035,2430,24,7
+"Nantes MÉ (CSD, QC)",2430045,2430,24,7
+"Sainte-Cécile-de-Whitton MÉ (CSD, QC)",2430050,2430,24,7
+"Audet MÉ (CSD, QC)",2430055,2430,24,7
+"Saint-Robert-Bellarmin MÉ (CSD, QC)",2430070,2430,24,7
+"Saint-Ludger MÉ (CSD, QC)",2430072,2430,24,7
+"Lac-Drolet MÉ (CSD, QC)",2430080,2430,24,7
+"Saint-Sébastien MÉ 2430085 (CSD, QC)",2430085,2430,24,7
+"Courcelles MÉ (CSD, QC)",2430090,2430,24,7
+"Lambton MÉ (CSD, QC)",2430095,2430,24,7
+"Saint-Romain MÉ (CSD, QC)",2430100,2430,24,7
+"Stornoway MÉ (CSD, QC)",2430105,2430,24,7
+"Stratford CT (CSD, QC)",2430110,2430,24,7
+"Les Appalaches (CD, QC)",2431,2431,24,4
+"Beaulac-Garthby MÉ (CSD, QC)",2431008,2431,24,7
+"Disraeli V (CSD, QC)",2431015,2431,24,7
+"Disraeli PE (CSD, QC)",2431020,2431,24,7
+"Saint-Fortunat MÉ (CSD, QC)",2431030,2431,24,7
+"Saint-Julien MÉ (CSD, QC)",2431035,2431,24,7
+"Irlande MÉ (CSD, QC)",2431040,2431,24,7
+"Saint-Joseph-de-Coleraine MÉ (CSD, QC)",2431045,2431,24,7
+"Sainte-Praxède PE (CSD, QC)",2431050,2431,24,7
+"Adstock MÉ (CSD, QC)",2431056,2431,24,7
+"Sainte-Clotilde-de-Beauce MÉ (CSD, QC)",2431060,2431,24,7
+"Thetford Mines V (CSD, QC)",2431084,2431,24,7
+"Saint-Adrien-d'Irlande MÉ (CSD, QC)",2431095,2431,24,7
+"Saint-Jean-de-Brébeuf MÉ (CSD, QC)",2431100,2431,24,7
+"Kinnear's Mills MÉ (CSD, QC)",2431105,2431,24,7
+"East Broughton MÉ (CSD, QC)",2431122,2431,24,7
+"Sacré-Coeur-de-Jésus PE (CSD, QC)",2431130,2431,24,7
+"Saint-Pierre-de-Broughton MÉ (CSD, QC)",2431135,2431,24,7
+"Saint-Jacques-de-Leeds MÉ (CSD, QC)",2431140,2431,24,7
+"L'Érable (CD, QC)",2432,2432,24,4
+"Saint-Ferdinand MÉ (CSD, QC)",2432013,2432,24,7
+"Sainte-Sophie-d'Halifax MÉ (CSD, QC)",2432023,2432,24,7
+"Princeville V (CSD, QC)",2432033,2432,24,7
+"Plessisville V (CSD, QC)",2432040,2432,24,7
+"Plessisville PE (CSD, QC)",2432045,2432,24,7
+"Saint-Pierre-Baptiste PE (CSD, QC)",2432050,2432,24,7
+"Inverness MÉ (CSD, QC)",2432058,2432,24,7
+"Lyster MÉ (CSD, QC)",2432065,2432,24,7
+"Laurierville MÉ (CSD, QC)",2432072,2432,24,7
+"Notre-Dame-de-Lourdes PE (CSD, QC)",2432080,2432,24,7
+"Villeroy MÉ (CSD, QC)",2432085,2432,24,7
+"Lotbinière (CD, QC)",2433,2433,24,4
+"Saint-Sylvestre MÉ (CSD, QC)",2433007,2433,24,7
+"Sainte-Agathe-de-Lotbinière MÉ (CSD, QC)",2433017,2433,24,7
+"Saint-Patrice-de-Beaurivage MÉ (CSD, QC)",2433025,2433,24,7
+"Saint-Narcisse-de-Beaurivage PE (CSD, QC)",2433030,2433,24,7
+"Saint-Gilles PE (CSD, QC)",2433035,2433,24,7
+"Dosquet MÉ (CSD, QC)",2433040,2433,24,7
+"Saint-Agapit MÉ (CSD, QC)",2433045,2433,24,7
+"Saint-Flavien MÉ (CSD, QC)",2433052,2433,24,7
+"Laurier-Station VL (CSD, QC)",2433060,2433,24,7
+"Saint-Janvier-de-Joly MÉ (CSD, QC)",2433065,2433,24,7
+"Val-Alain MÉ (CSD, QC)",2433070,2433,24,7
+"Saint-Édouard-de-Lotbinière PE (CSD, QC)",2433080,2433,24,7
+"Notre-Dame-du-Sacré-Coeur-d'Issoudun PE (CSD, QC)",2433085,2433,24,7
+"Saint-Apollinaire MÉ (CSD, QC)",2433090,2433,24,7
+"Saint-Antoine-de-Tilly MÉ (CSD, QC)",2433095,2433,24,7
+"Sainte-Croix MÉ (CSD, QC)",2433102,2433,24,7
+"Lotbinière MÉ (CSD, QC)",2433115,2433,24,7
+"Leclercville MÉ (CSD, QC)",2433123,2433,24,7
+"Portneuf (CD, QC)",2434,2434,24,4
+"Neuville V (CSD, QC)",2434007,2434,24,7
+"Pont-Rouge V (CSD, QC)",2434017,2434,24,7
+"Donnacona V (CSD, QC)",2434025,2434,24,7
+"Cap-Santé V (CSD, QC)",2434030,2434,24,7
+"Saint-Basile V (CSD, QC)",2434038,2434,24,7
+"Portneuf V (CSD, QC)",2434048,2434,24,7
+"Deschambault-Grondines MÉ (CSD, QC)",2434058,2434,24,7
+"Saint-Gilbert PE (CSD, QC)",2434060,2434,24,7
+"Saint-Marc-des-Carrières V (CSD, QC)",2434065,2434,24,7
+"Saint-Casimir MÉ (CSD, QC)",2434078,2434,24,7
+"Saint-Thuribe PE (CSD, QC)",2434085,2434,24,7
+"Saint-Ubalde MÉ (CSD, QC)",2434090,2434,24,7
+"Saint-Alban MÉ (CSD, QC)",2434097,2434,24,7
+"Sainte-Christine-d'Auvergne MÉ (CSD, QC)",2434105,2434,24,7
+"Saint-Léonard-de-Portneuf MÉ (CSD, QC)",2434115,2434,24,7
+"Lac-Sergent V (CSD, QC)",2434120,2434,24,7
+"Saint-Raymond V (CSD, QC)",2434128,2434,24,7
+"Rivière-à-Pierre MÉ (CSD, QC)",2434135,2434,24,7
+"Mékinac (CD, QC)",2435,2435,24,4
+"Notre-Dame-de-Montauban MÉ (CSD, QC)",2435005,2435,24,7
+"Lac-aux-Sables PE (CSD, QC)",2435010,2435,24,7
+"Saint-Adelphe PE (CSD, QC)",2435015,2435,24,7
+"Saint-Séverin PE (CSD, QC)",2435020,2435,24,7
+"Saint-Séverin PE (CSD, QC)",2435020,2435,24,7
+"Saint-Tite V (CSD, QC)",2435027,2435,24,7
+"Hérouxville PE (CSD, QC)",2435035,2435,24,7
+"Grandes-Piles VL (CSD, QC)",2435040,2435,24,7
+"Saint-Roch-de-Mékinac PE (CSD, QC)",2435045,2435,24,7
+"Sainte-Thècle MÉ (CSD, QC)",2435050,2435,24,7
+"Trois-Rives MÉ (CSD, QC)",2435055,2435,24,7
+"Shawinigan (CD, QC)",2436,2436,24,4
+"Shawinigan V (CSD, QC)",2436033,2436,24,7
+"Francheville (CD, QC)",2437,2437,24,4
+"Trois-Rivières V (CSD, QC)",2437067,2437,24,7
+"Sainte-Anne-de-la-Pérade MÉ (CSD, QC)",2437205,2437,24,7
+"Batiscan MÉ (CSD, QC)",2437210,2437,24,7
+"Sainte-Geneviève-de-Batiscan PE (CSD, QC)",2437215,2437,24,7
+"Champlain MÉ (CSD, QC)",2437220,2437,24,7
+"Saint-Luc-de-Vincennes MÉ (CSD, QC)",2437225,2437,24,7
+"Saint-Maurice PE (CSD, QC)",2437230,2437,24,7
+"Notre-Dame-du-Mont-Carmel PE (CSD, QC)",2437235,2437,24,7
+"Saint-Narcisse PE (CSD, QC)",2437240,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2437245,2437,24,7
+"Saint-Prosper-de-Champlain MÉ (CSD, QC)",2437250,2437,24,7
+"Bécancour (CD, QC)",2438,2438,24,4
+"Saint-Sylvère MÉ (CSD, QC)",2438005,2438,24,7
+"Bécancour V (CSD, QC)",2438010,2438,24,7
+"Sainte-Marie-de-Blandford MÉ (CSD, QC)",2438015,2438,24,7
+"Lemieux MÉ (CSD, QC)",2438020,2438,24,7
+"Manseau MÉ (CSD, QC)",2438028,2438,24,7
+"Sainte-Françoise MÉ (CSD, QC)",2438035,2438,24,7
+"Sainte-Sophie-de-Lévrard PE (CSD, QC)",2438040,2438,24,7
+"Fortierville MÉ (CSD, QC)",2438047,2438,24,7
+"Parisville PE (CSD, QC)",2438055,2438,24,7
+"Sainte-Cécile-de-Lévrard PE (CSD, QC)",2438060,2438,24,7
+"Saint-Pierre-les-Becquets MÉ (CSD, QC)",2438065,2438,24,7
+"Deschaillons-sur-Saint-Laurent MÉ (CSD, QC)",2438070,2438,24,7
+"Arthabaska (CD, QC)",2439,2439,24,4
+"Ham-Nord CT (CSD, QC)",2439010,2439,24,7
+"Notre-Dame-de-Ham MÉ (CSD, QC)",2439015,2439,24,7
+"Saint-Rémi-de-Tingwick MÉ (CSD, QC)",2439020,2439,24,7
+"Tingwick MÉ (CSD, QC)",2439025,2439,24,7
+"Chesterville MÉ (CSD, QC)",2439030,2439,24,7
+"Sainte-Hélène-de-Chester MÉ (CSD, QC)",2439035,2439,24,7
+"Saint-Norbert-d'Arthabaska MÉ (CSD, QC)",2439043,2439,24,7
+"Saint-Christophe-d'Arthabaska PE (CSD, QC)",2439060,2439,24,7
+"Victoriaville V (CSD, QC)",2439062,2439,24,7
+"Warwick V (CSD, QC)",2439077,2439,24,7
+"Saint-Albert MÉ (CSD, QC)",2439085,2439,24,7
+"Sainte-Élizabeth-de-Warwick MÉ (CSD, QC)",2439090,2439,24,7
+"Kingsey Falls V (CSD, QC)",2439097,2439,24,7
+"Sainte-Séraphine PE (CSD, QC)",2439105,2439,24,7
+"Sainte-Clotilde-de-Horton MÉ (CSD, QC)",2439117,2439,24,7
+"Saint-Samuel MÉ (CSD, QC)",2439130,2439,24,7
+"Saint-Valère MÉ (CSD, QC)",2439135,2439,24,7
+"Saint-Rosaire PE (CSD, QC)",2439145,2439,24,7
+"Sainte-Anne-du-Sault MÉ (CSD, QC)",2439150,2439,24,7
+"Daveluyville V (CSD, QC)",2439155,2439,24,7
+"Maddington Falls MÉ (CSD, QC)",2439165,2439,24,7
+"Saint-Louis-de-Blandford MÉ (CSD, QC)",2439170,2439,24,7
+"Les Sources (CD, QC)",2440,2440,24,4
+"Saint-Adrien MÉ (CSD, QC)",2440010,2440,24,7
+"Wotton MÉ (CSD, QC)",2440017,2440,24,7
+"Saint-Camille CT (CSD, QC)",2440025,2440,24,7
+"Saint-Georges-de-Windsor MÉ (CSD, QC)",2440032,2440,24,7
+"Asbestos V (CSD, QC)",2440043,2440,24,7
+"Danville V (CSD, QC)",2440047,2440,24,7
+"Le Haut-Saint-François (CD, QC)",2441,2441,24,4
+"Saint-Isidore-de-Clifton MÉ (CSD, QC)",2441012,2441,24,7
+"Chartierville MÉ (CSD, QC)",2441020,2441,24,7
+"La Patrie MÉ (CSD, QC)",2441027,2441,24,7
+"Newport MÉ (CSD, QC)",2441037,2441,24,7
+"Cookshire-Eaton V (CSD, QC)",2441038,2441,24,7
+"Ascot Corner MÉ (CSD, QC)",2441055,2441,24,7
+"East Angus V (CSD, QC)",2441060,2441,24,7
+"Westbury CT (CSD, QC)",2441065,2441,24,7
+"Bury MÉ (CSD, QC)",2441070,2441,24,7
+"Scotstown V (CSD, QC)",2441080,2441,24,7
+"Lingwick CT (CSD, QC)",2441085,2441,24,7
+"Weedon MÉ (CSD, QC)",2441098,2441,24,7
+"Dudswell MÉ (CSD, QC)",2441117,2441,24,7
+"Le Val-Saint-François (CD, QC)",2442,2442,24,4
+"Stoke MÉ (CSD, QC)",2442005,2442,24,7
+"Saint-François-Xavier-de-Brompton MÉ (CSD, QC)",2442020,2442,24,7
+"Saint-Denis-de-Brompton MÉ (CSD, QC)",2442025,2442,24,7
+"Racine MÉ (CSD, QC)",2442032,2442,24,7
+"Bonsecours MÉ (CSD, QC)",2442040,2442,24,7
+"Lawrenceville VL (CSD, QC)",2442045,2442,24,7
+"Sainte-Anne-de-la-Rochelle MÉ (CSD, QC)",2442050,2442,24,7
+"Valcourt V (CSD, QC)",2442055,2442,24,7
+"Valcourt CT (CSD, QC)",2442060,2442,24,7
+"Maricourt MÉ (CSD, QC)",2442065,2442,24,7
+"Melbourne CT (CSD, QC)",2442075,2442,24,7
+"Ulverton MÉ (CSD, QC)",2442078,2442,24,7
+"Windsor V (CSD, QC)",2442088,2442,24,7
+"Val-Joli MÉ (CSD, QC)",2442095,2442,24,7
+"Richmond V (CSD, QC)",2442098,2442,24,7
+"Saint-Claude MÉ (CSD, QC)",2442100,2442,24,7
+"Cleveland CT (CSD, QC)",2442110,2442,24,7
+"Sherbrooke (CD, QC)",2443,2443,24,4
+"Sherbrooke V (CSD, QC)",2443027,2443,24,7
+"Coaticook (CD, QC)",2444,2444,24,4
+"Saint-Malo MÉ (CSD, QC)",2444003,2444,24,7
+"East Hereford MÉ (CSD, QC)",2444010,2444,24,7
+"Saint-Herménégilde MÉ (CSD, QC)",2444015,2444,24,7
+"Dixville MÉ (CSD, QC)",2444023,2444,24,7
+"Coaticook V (CSD, QC)",2444037,2444,24,7
+"Barnston-Ouest MÉ (CSD, QC)",2444045,2444,24,7
+"Stanstead-Est MÉ (CSD, QC)",2444050,2444,24,7
+"Sainte-Edwidge-de-Clifton CT (CSD, QC)",2444055,2444,24,7
+"Martinville MÉ (CSD, QC)",2444060,2444,24,7
+"Compton MÉ (CSD, QC)",2444071,2444,24,7
+"Waterville V (CSD, QC)",2444080,2444,24,7
+"Memphrémagog (CD, QC)",2445,2445,24,4
+"Stanstead V (CSD, QC)",2445008,2445,24,7
+"Ogden MÉ (CSD, QC)",2445020,2445,24,7
+"Stanstead CT (CSD, QC)",2445025,2445,24,7
+"Potton CT (CSD, QC)",2445030,2445,24,7
+"Ayer's Cliff VL (CSD, QC)",2445035,2445,24,7
+"Hatley MÉ (CSD, QC)",2445043,2445,24,7
+"North Hatley VL (CSD, QC)",2445050,2445,24,7
+"Hatley CT (CSD, QC)",2445055,2445,24,7
+"Sainte-Catherine-de-Hatley MÉ (CSD, QC)",2445060,2445,24,7
+"Magog V (CSD, QC)",2445072,2445,24,7
+"Austin MÉ (CSD, QC)",2445085,2445,24,7
+"Eastman MÉ (CSD, QC)",2445093,2445,24,7
+"Bolton-Est MÉ (CSD, QC)",2445095,2445,24,7
+"Saint-Étienne-de-Bolton MÉ (CSD, QC)",2445100,2445,24,7
+"Stukely-Sud VL (CSD, QC)",2445105,2445,24,7
+"Orford CT (CSD, QC)",2445115,2445,24,7
+"Brome-Missisquoi (CD, QC)",2446,2446,24,4
+"Abercorn VL (CSD, QC)",2446005,2446,24,7
+"Frelighsburg MÉ (CSD, QC)",2446010,2446,24,7
+"Saint-Armand MÉ (CSD, QC)",2446017,2446,24,7
+"Pike River MÉ (CSD, QC)",2446025,2446,24,7
+"Stanbridge Station MÉ (CSD, QC)",2446030,2446,24,7
+"Bedford V (CSD, QC)",2446035,2446,24,7
+"Bedford CT (CSD, QC)",2446040,2446,24,7
+"Stanbridge East MÉ (CSD, QC)",2446045,2446,24,7
+"Dunham V (CSD, QC)",2446050,2446,24,7
+"Sutton V (CSD, QC)",2446058,2446,24,7
+"Bolton-Ouest MÉ (CSD, QC)",2446065,2446,24,7
+"Brome VL (CSD, QC)",2446070,2446,24,7
+"Lac-Brome V (CSD, QC)",2446075,2446,24,7
+"Bromont V (CSD, QC)",2446078,2446,24,7
+"Cowansville V (CSD, QC)",2446080,2446,24,7
+"East Farnham MÉ (CSD, QC)",2446085,2446,24,7
+"Brigham MÉ (CSD, QC)",2446090,2446,24,7
+"Saint-Ignace-de-Stanbridge MÉ (CSD, QC)",2446095,2446,24,7
+"Notre-Dame-de-Stanbridge MÉ (CSD, QC)",2446100,2446,24,7
+"Sainte-Sabine MÉ (CSD, QC)",2446105,2446,24,7
+"Farnham V (CSD, QC)",2446112,2446,24,7
+"La Haute-Yamaska (CD, QC)",2447,2447,24,4
+"Saint-Alphonse-de-Granby MÉ (CSD, QC)",2447010,2447,24,7
+"Granby V (CSD, QC)",2447017,2447,24,7
+"Waterloo V (CSD, QC)",2447025,2447,24,7
+"Warden VL (CSD, QC)",2447030,2447,24,7
+"Shefford CT (CSD, QC)",2447035,2447,24,7
+"Saint-Joachim-de-Shefford MÉ (CSD, QC)",2447040,2447,24,7
+"Roxton Pond MÉ (CSD, QC)",2447047,2447,24,7
+"Sainte-Cécile-de-Milton MÉ (CSD, QC)",2447055,2447,24,7
+"Acton (CD, QC)",2448,2448,24,4
+"Béthanie MÉ (CSD, QC)",2448005,2448,24,7
+"Roxton Falls VL (CSD, QC)",2448010,2448,24,7
+"Roxton CT (CSD, QC)",2448015,2448,24,7
+"Sainte-Christine PE (CSD, QC)",2448020,2448,24,7
+"Acton Vale V (CSD, QC)",2448028,2448,24,7
+"Upton MÉ (CSD, QC)",2448038,2448,24,7
+"Saint-Théodore-d'Acton MÉ (CSD, QC)",2448045,2448,24,7
+"Saint-Nazaire-d'Acton PE (CSD, QC)",2448050,2448,24,7
+"Drummond (CD, QC)",2449,2449,24,4
+"Saint-Félix-de-Kingsey MÉ (CSD, QC)",2449005,2449,24,7
+"Durham-Sud MÉ (CSD, QC)",2449015,2449,24,7
+"Lefebvre MÉ (CSD, QC)",2449020,2449,24,7
+"L'Avenir MÉ (CSD, QC)",2449025,2449,24,7
+"Saint-Lucien MÉ (CSD, QC)",2449030,2449,24,7
+"Wickham MÉ (CSD, QC)",2449040,2449,24,7
+"Saint-Germain-de-Grantham MÉ (CSD, QC)",2449048,2449,24,7
+"Drummondville V (CSD, QC)",2449058,2449,24,7
+"Saint-Cyrille-de-Wendover MÉ (CSD, QC)",2449070,2449,24,7
+"Notre-Dame-du-Bon-Conseil VL (CSD, QC)",2449075,2449,24,7
+"Notre-Dame-du-Bon-Conseil PE (CSD, QC)",2449080,2449,24,7
+"Sainte-Brigitte-des-Saults PE (CSD, QC)",2449085,2449,24,7
+"Saint-Majorique-de-Grantham PE (CSD, QC)",2449095,2449,24,7
+"Saint-Edmond-de-Grantham PE (CSD, QC)",2449100,2449,24,7
+"Saint-Eugène MÉ (CSD, QC)",2449105,2449,24,7
+"Saint-Guillaume MÉ (CSD, QC)",2449113,2449,24,7
+"Saint-Bonaventure MÉ (CSD, QC)",2449125,2449,24,7
+"Saint-Pie-de-Guire PE (CSD, QC)",2449130,2449,24,7
+"Nicolet-Yamaska (CD, QC)",2450,2450,24,4
+"Sainte-Eulalie MÉ (CSD, QC)",2450005,2450,24,7
+"Aston-Jonction MÉ (CSD, QC)",2450013,2450,24,7
+"Saint-Wenceslas MÉ (CSD, QC)",2450023,2450,24,7
+"Saint-Célestin VL (CSD, QC)",2450030,2450,24,7
+"Saint-Célestin MÉ (CSD, QC)",2450035,2450,24,7
+"Saint-Léonard-d'Aston MÉ (CSD, QC)",2450042,2450,24,7
+"Sainte-Perpétue PE (CSD, QC)",2450050,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Sainte-Monique MÉ (CSD, QC)",2450057,2450,24,7
+"Grand-Saint-Esprit MÉ (CSD, QC)",2450065,2450,24,7
+"Nicolet V (CSD, QC)",2450072,2450,24,7
+"La Visitation-de-Yamaska MÉ (CSD, QC)",2450085,2450,24,7
+"Saint-Zéphirin-de-Courval PE (CSD, QC)",2450090,2450,24,7
+"Baie-du-Febvre MÉ (CSD, QC)",2450100,2450,24,7
+"Pierreville MÉ (CSD, QC)",2450113,2450,24,7
+"Saint-François-du-Lac MÉ (CSD, QC)",2450128,2450,24,7
+"Maskinongé (CD, QC)",2451,2451,24,4
+"Maskinongé MÉ (CSD, QC)",2451008,2451,24,7
+"Louiseville V (CSD, QC)",2451015,2451,24,7
+"Yamachiche MÉ (CSD, QC)",2451020,2451,24,7
+"Saint-Barnabé PE (CSD, QC)",2451025,2451,24,7
+"Saint-Sévère PE (CSD, QC)",2451030,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Saint-Léon-le-Grand PE (CSD, QC)",2451035,2451,24,7
+"Sainte-Ursule PE (CSD, QC)",2451040,2451,24,7
+"Saint-Justin MÉ (CSD, QC)",2451045,2451,24,7
+"Saint-Édouard-de-Maskinongé MÉ (CSD, QC)",2451050,2451,24,7
+"Sainte-Angèle-de-Prémont MÉ (CSD, QC)",2451055,2451,24,7
+"Saint-Paulin MÉ (CSD, QC)",2451060,2451,24,7
+"Saint-Alexis-des-Monts PE (CSD, QC)",2451065,2451,24,7
+"Saint-Mathieu-du-Parc MÉ (CSD, QC)",2451070,2451,24,7
+"Saint-Élie-de-Caxton MÉ (CSD, QC)",2451075,2451,24,7
+"Charette MÉ (CSD, QC)",2451080,2451,24,7
+"Saint-Boniface MÉ (CSD, QC)",2451085,2451,24,7
+"Saint-Étienne-des-Grès PE (CSD, QC)",2451090,2451,24,7
+"D'Autray (CD, QC)",2452,2452,24,4
+"Lavaltrie V (CSD, QC)",2452007,2452,24,7
+"Lanoraie MÉ (CSD, QC)",2452017,2452,24,7
+"Sainte-Élisabeth MÉ (CSD, QC)",2452030,2452,24,7
+"Berthierville V (CSD, QC)",2452035,2452,24,7
+"Sainte-Geneviève-de-Berthier MÉ (CSD, QC)",2452040,2452,24,7
+"Saint-Ignace-de-Loyola MÉ (CSD, QC)",2452045,2452,24,7
+"La Visitation-de-l'Île-Dupas MÉ (CSD, QC)",2452050,2452,24,7
+"Saint-Barthélemy PE (CSD, QC)",2452055,2452,24,7
+"Saint-Cuthbert MÉ (CSD, QC)",2452062,2452,24,7
+"Saint-Norbert PE (CSD, QC)",2452070,2452,24,7
+"Saint-Gabriel V (CSD, QC)",2452080,2452,24,7
+"Saint-Gabriel-de-Brandon MÉ (CSD, QC)",2452085,2452,24,7
+"Saint-Didace PE (CSD, QC)",2452090,2452,24,7
+"Mandeville MÉ (CSD, QC)",2452095,2452,24,7
+"Pierre-De Saurel (CD, QC)",2453,2453,24,4
+"Saint-David MÉ (CSD, QC)",2453005,2453,24,7
+"Massueville VL (CSD, QC)",2453010,2453,24,7
+"Saint-Aimé MÉ (CSD, QC)",2453015,2453,24,7
+"Saint-Robert MÉ (CSD, QC)",2453020,2453,24,7
+"Sainte-Victoire-de-Sorel MÉ (CSD, QC)",2453025,2453,24,7
+"Saint-Ours V (CSD, QC)",2453032,2453,24,7
+"Saint-Roch-de-Richelieu MÉ (CSD, QC)",2453040,2453,24,7
+"Saint-Joseph-de-Sorel V (CSD, QC)",2453050,2453,24,7
+"Sorel-Tracy V (CSD, QC)",2453052,2453,24,7
+"Sainte-Anne-de-Sorel MÉ (CSD, QC)",2453065,2453,24,7
+"Yamaska MÉ (CSD, QC)",2453072,2453,24,7
+"Les Maskoutains (CD, QC)",2454,2454,24,4
+"Saint-Pie V (CSD, QC)",2454008,2454,24,7
+"Saint-Damase MÉ (CSD, QC)",2454017,2454,24,7
+"Sainte-Madeleine VL (CSD, QC)",2454025,2454,24,7
+"Sainte-Marie-Madeleine PE (CSD, QC)",2454030,2454,24,7
+"La Présentation MÉ (CSD, QC)",2454035,2454,24,7
+"Saint-Hyacinthe V (CSD, QC)",2454048,2454,24,7
+"Saint-Dominique MÉ (CSD, QC)",2454060,2454,24,7
+"Saint-Valérien-de-Milton MÉ (CSD, QC)",2454065,2454,24,7
+"Saint-Liboire MÉ (CSD, QC)",2454072,2454,24,7
+"Saint-Simon MÉ (CSD, QC)",2454090,2454,24,7
+"Saint-Simon MÉ (CSD, QC)",2454090,2454,24,7
+"Sainte-Hélène-de-Bagot MÉ (CSD, QC)",2454095,2454,24,7
+"Saint-Hugues MÉ (CSD, QC)",2454100,2454,24,7
+"Saint-Barnabé-Sud MÉ (CSD, QC)",2454105,2454,24,7
+"Saint-Jude MÉ (CSD, QC)",2454110,2454,24,7
+"Saint-Bernard-de-Michaudville MÉ (CSD, QC)",2454115,2454,24,7
+"Saint-Louis MÉ (CSD, QC)",2454120,2454,24,7
+"Saint-Marcel-de-Richelieu MÉ (CSD, QC)",2454125,2454,24,7
+"Rouville (CD, QC)",2455,2455,24,4
+"Ange-Gardien MÉ (CSD, QC)",2455008,2455,24,7
+"Saint-Paul-d'Abbotsford MÉ (CSD, QC)",2455015,2455,24,7
+"Saint-Césaire V (CSD, QC)",2455023,2455,24,7
+"Sainte-Angèle-de-Monnoir MÉ (CSD, QC)",2455030,2455,24,7
+"Rougemont MÉ (CSD, QC)",2455037,2455,24,7
+"Marieville V (CSD, QC)",2455048,2455,24,7
+"Richelieu V (CSD, QC)",2455057,2455,24,7
+"Saint-Mathias-sur-Richelieu MÉ (CSD, QC)",2455065,2455,24,7
+"Le Haut-Richelieu (CD, QC)",2456,2456,24,4
+"Venise-en-Québec MÉ (CSD, QC)",2456005,2456,24,7
+"Saint-Georges-de-Clarenceville MÉ (CSD, QC)",2456010,2456,24,7
+"Noyan MÉ (CSD, QC)",2456015,2456,24,7
+"Lacolle MÉ (CSD, QC)",2456023,2456,24,7
+"Saint-Valentin MÉ (CSD, QC)",2456030,2456,24,7
+"Saint-Paul-de-l'Île-aux-Noix MÉ (CSD, QC)",2456035,2456,24,7
+"Henryville MÉ (CSD, QC)",2456042,2456,24,7
+"Saint-Sébastien MÉ 2456042 (CSD, QC)",2456050,2456,24,7
+"Saint-Alexandre MÉ (CSD, QC)",2456055,2456,24,7
+"Sainte-Anne-de-Sabrevois PE (CSD, QC)",2456060,2456,24,7
+"Saint-Blaise-sur-Richelieu MÉ (CSD, QC)",2456065,2456,24,7
+"Saint-Jean-sur-Richelieu V (CSD, QC)",2456083,2456,24,7
+"Mont-Saint-Grégoire MÉ (CSD, QC)",2456097,2456,24,7
+"Sainte-Brigide-d'Iberville MÉ (CSD, QC)",2456105,2456,24,7
+"La Vallée-du-Richelieu (CD, QC)",2457,2457,24,4
+"Chambly V (CSD, QC)",2457005,2457,24,7
+"Carignan V (CSD, QC)",2457010,2457,24,7
+"Saint-Basile-le-Grand V (CSD, QC)",2457020,2457,24,7
+"McMasterville MÉ (CSD, QC)",2457025,2457,24,7
+"Otterburn Park V (CSD, QC)",2457030,2457,24,7
+"Saint-Jean-Baptiste MÉ (CSD, QC)",2457033,2457,24,7
+"Mont-Saint-Hilaire V (CSD, QC)",2457035,2457,24,7
+"Beloeil V (CSD, QC)",2457040,2457,24,7
+"Saint-Mathieu-de-Beloeil MÉ (CSD, QC)",2457045,2457,24,7
+"Saint-Marc-sur-Richelieu MÉ (CSD, QC)",2457050,2457,24,7
+"Saint-Charles-sur-Richelieu MÉ (CSD, QC)",2457057,2457,24,7
+"Saint-Denis-sur-Richelieu MÉ (CSD, QC)",2457068,2457,24,7
+"Saint-Antoine-sur-Richelieu MÉ (CSD, QC)",2457075,2457,24,7
+"Longueuil (CD, QC)",2458,2458,24,4
+"Brossard V (CSD, QC)",2458007,2458,24,7
+"Saint-Lambert V (CSD, QC)",2458012,2458,24,7
+"Boucherville V (CSD, QC)",2458033,2458,24,7
+"Saint-Bruno-de-Montarville V (CSD, QC)",2458037,2458,24,7
+"Longueuil V (CSD, QC)",2458227,2458,24,7
+"Marguerite-D'Youville (CD, QC)",2459,2459,24,4
+"Sainte-Julie V (CSD, QC)",2459010,2459,24,7
+"Saint-Amable MÉ (CSD, QC)",2459015,2459,24,7
+"Varennes V (CSD, QC)",2459020,2459,24,7
+"Verchères MÉ (CSD, QC)",2459025,2459,24,7
+"Calixa-Lavallée MÉ (CSD, QC)",2459030,2459,24,7
+"Contrecoeur V (CSD, QC)",2459035,2459,24,7
+"L'Assomption (CD, QC)",2460,2460,24,4
+"Charlemagne V (CSD, QC)",2460005,2460,24,7
+"Repentigny V (CSD, QC)",2460013,2460,24,7
+"Saint-Sulpice PE (CSD, QC)",2460020,2460,24,7
+"L'Assomption V (CSD, QC)",2460028,2460,24,7
+"L'Épiphanie V (CSD, QC)",2460035,2460,24,7
+"L'Épiphanie PE (CSD, QC)",2460040,2460,24,7
+"Joliette (CD, QC)",2461,2461,24,4
+"Saint-Paul MÉ (CSD, QC)",2461005,2461,24,7
+"Crabtree MÉ (CSD, QC)",2461013,2461,24,7
+"Saint-Pierre VL (CSD, QC)",2461020,2461,24,7
+"Joliette V (CSD, QC)",2461025,2461,24,7
+"Saint-Thomas MÉ (CSD, QC)",2461027,2461,24,7
+"Notre-Dame-des-Prairies V (CSD, QC)",2461030,2461,24,7
+"Saint-Charles-Borromée MÉ (CSD, QC)",2461035,2461,24,7
+"Saint-Ambroise-de-Kildare MÉ (CSD, QC)",2461040,2461,24,7
+"Notre-Dame-de-Lourdes MÉ (CSD, QC)",2461045,2461,24,7
+"Sainte-Mélanie MÉ (CSD, QC)",2461050,2461,24,7
+"Matawinie (CD, QC)",2462,2462,24,4
+"Saint-Félix-de-Valois MÉ (CSD, QC)",2462007,2462,24,7
+"Saint-Jean-de-Matha MÉ (CSD, QC)",2462015,2462,24,7
+"Sainte-Béatrix MÉ (CSD, QC)",2462020,2462,24,7
+"Saint-Alphonse-Rodriguez MÉ (CSD, QC)",2462025,2462,24,7
+"Sainte-Marcelline-de-Kildare MÉ (CSD, QC)",2462030,2462,24,7
+"Rawdon MÉ (CSD, QC)",2462037,2462,24,7
+"Chertsey MÉ (CSD, QC)",2462047,2462,24,7
+"Entrelacs MÉ (CSD, QC)",2462053,2462,24,7
+"Notre-Dame-de-la-Merci MÉ (CSD, QC)",2462055,2462,24,7
+"Saint-Donat MÉ (CSD, QC)",2462060,2462,24,7
+"Saint-Côme PE (CSD, QC)",2462065,2462,24,7
+"Sainte-Émélie-de-l'Énergie MÉ (CSD, QC)",2462070,2462,24,7
+"Saint-Damien PE (CSD, QC)",2462075,2462,24,7
+"Saint-Zénon MÉ (CSD, QC)",2462080,2462,24,7
+"Saint-Michel-des-Saints MÉ (CSD, QC)",2462085,2462,24,7
+"Montcalm (CD, QC)",2463,2463,24,4
+"Sainte-Marie-Salomé PE (CSD, QC)",2463005,2463,24,7
+"Saint-Jacques MÉ (CSD, QC)",2463013,2463,24,7
+"Saint-Alexis MÉ (CSD, QC)",2463023,2463,24,7
+"Saint-Esprit MÉ (CSD, QC)",2463030,2463,24,7
+"Saint-Roch-de-l'Achigan MÉ (CSD, QC)",2463035,2463,24,7
+"Saint-Roch-Ouest MÉ (CSD, QC)",2463040,2463,24,7
+"Saint-Lin--Laurentides V (CSD, QC)",2463048,2463,24,7
+"Saint-Calixte MÉ (CSD, QC)",2463055,2463,24,7
+"Sainte-Julienne MÉ (CSD, QC)",2463060,2463,24,7
+"Saint-Liguori PE (CSD, QC)",2463065,2463,24,7
+"Les Moulins (CD, QC)",2464,2464,24,4
+"Terrebonne V (CSD, QC)",2464008,2464,24,7
+"Mascouche V (CSD, QC)",2464015,2464,24,7
+"Laval (CD, QC)",2465,2465,24,4
+"Laval V (CSD, QC)",2465005,2465,24,7
+"Montréal (CD, QC)",2466,2466,24,4
+"Montréal-Est V (CSD, QC)",2466007,2466,24,7
+"Montréal V (CSD, QC)",2466023,2466,24,7
+"Westmount V (CSD, QC)",2466032,2466,24,7
+"Montréal-Ouest V (CSD, QC)",2466047,2466,24,7
+"Côte-Saint-Luc V (CSD, QC)",2466058,2466,24,7
+"Hampstead V (CSD, QC)",2466062,2466,24,7
+"Mont-Royal V (CSD, QC)",2466072,2466,24,7
+"Dorval V (CSD, QC)",2466087,2466,24,7
+"Pointe-Claire V (CSD, QC)",2466097,2466,24,7
+"Kirkland V (CSD, QC)",2466102,2466,24,7
+"Beaconsfield V (CSD, QC)",2466107,2466,24,7
+"Baie-D'Urfé V (CSD, QC)",2466112,2466,24,7
+"Sainte-Anne-de-Bellevue V (CSD, QC)",2466117,2466,24,7
+"Senneville VL (CSD, QC)",2466127,2466,24,7
+"Dollard-Des Ormeaux V (CSD, QC)",2466142,2466,24,7
+"Roussillon (CD, QC)",2467,2467,24,4
+"Saint-Mathieu MÉ (CSD, QC)",2467005,2467,24,7
+"Saint-Philippe MÉ (CSD, QC)",2467010,2467,24,7
+"La Prairie V (CSD, QC)",2467015,2467,24,7
+"Candiac V (CSD, QC)",2467020,2467,24,7
+"Delson V (CSD, QC)",2467025,2467,24,7
+"Sainte-Catherine V (CSD, QC)",2467030,2467,24,7
+"Saint-Constant V (CSD, QC)",2467035,2467,24,7
+"Saint-Isidore PE (CSD, QC)",2467040,2467,24,7
+"Mercier V (CSD, QC)",2467045,2467,24,7
+"Châteauguay V (CSD, QC)",2467050,2467,24,7
+"Léry V (CSD, QC)",2467055,2467,24,7
+"Les Jardins-de-Napierville (CD, QC)",2468,2468,24,4
+"Saint-Bernard-de-Lacolle PE (CSD, QC)",2468005,2468,24,7
+"Hemmingford VL (CSD, QC)",2468010,2468,24,7
+"Hemmingford CT (CSD, QC)",2468015,2468,24,7
+"Sainte-Clotilde MÉ (CSD, QC)",2468020,2468,24,7
+"Saint-Patrice-de-Sherrington MÉ (CSD, QC)",2468025,2468,24,7
+"Napierville MÉ (CSD, QC)",2468030,2468,24,7
+"Saint-Cyprien-de-Napierville MÉ (CSD, QC)",2468035,2468,24,7
+"Saint-Jacques-le-Mineur MÉ (CSD, QC)",2468040,2468,24,7
+"Saint-Édouard MÉ (CSD, QC)",2468045,2468,24,7
+"Saint-Michel MÉ (CSD, QC)",2468050,2468,24,7
+"Saint-Rémi V (CSD, QC)",2468055,2468,24,7
+"Le Haut-Saint-Laurent (CD, QC)",2469,2469,24,4
+"Havelock CT (CSD, QC)",2469005,2469,24,7
+"Franklin MÉ (CSD, QC)",2469010,2469,24,7
+"Saint-Chrysostome MÉ (CSD, QC)",2469017,2469,24,7
+"Howick MÉ (CSD, QC)",2469025,2469,24,7
+"Très-Saint-Sacrement PE (CSD, QC)",2469030,2469,24,7
+"Ormstown MÉ (CSD, QC)",2469037,2469,24,7
+"Hinchinbrooke MÉ (CSD, QC)",2469045,2469,24,7
+"Elgin MÉ (CSD, QC)",2469050,2469,24,7
+"Huntingdon V (CSD, QC)",2469055,2469,24,7
+"Godmanchester CT (CSD, QC)",2469060,2469,24,7
+"Sainte-Barbe MÉ (CSD, QC)",2469065,2469,24,7
+"Saint-Anicet MÉ (CSD, QC)",2469070,2469,24,7
+"Dundee CT (CSD, QC)",2469075,2469,24,7
+"Beauharnois-Salaberry (CD, QC)",2470,2470,24,4
+"Saint-Urbain-Premier MÉ (CSD, QC)",2470005,2470,24,7
+"Sainte-Martine MÉ (CSD, QC)",2470012,2470,24,7
+"Beauharnois V (CSD, QC)",2470022,2470,24,7
+"Saint-Étienne-de-Beauharnois MÉ (CSD, QC)",2470030,2470,24,7
+"Saint-Louis-de-Gonzague PE (CSD, QC)",2470035,2470,24,7
+"Saint-Stanislas-de-Kostka MÉ (CSD, QC)",2470040,2470,24,7
+"Salaberry-de-Valleyfield V (CSD, QC)",2470052,2470,24,7
+"Vaudreuil-Soulanges (CD, QC)",2471,2471,24,4
+"Rivière-Beaudette MÉ (CSD, QC)",2471005,2471,24,7
+"Saint-Télesphore MÉ (CSD, QC)",2471015,2471,24,7
+"Saint-Polycarpe MÉ (CSD, QC)",2471020,2471,24,7
+"Saint-Zotique MÉ (CSD, QC)",2471025,2471,24,7
+"Les Coteaux MÉ (CSD, QC)",2471033,2471,24,7
+"Coteau-du-Lac V (CSD, QC)",2471040,2471,24,7
+"Saint-Clet MÉ (CSD, QC)",2471045,2471,24,7
+"Les Cèdres MÉ (CSD, QC)",2471050,2471,24,7
+"Pointe-des-Cascades VL (CSD, QC)",2471055,2471,24,7
+"L'Île-Perrot V (CSD, QC)",2471060,2471,24,7
+"Notre-Dame-de-l'Île-Perrot V (CSD, QC)",2471065,2471,24,7
+"Pincourt V (CSD, QC)",2471070,2471,24,7
+"Terrasse-Vaudreuil MÉ (CSD, QC)",2471075,2471,24,7
+"Vaudreuil-Dorion V (CSD, QC)",2471083,2471,24,7
+"Vaudreuil-sur-le-Lac VL (CSD, QC)",2471090,2471,24,7
+"Hudson V (CSD, QC)",2471100,2471,24,7
+"Saint-Lazare V (CSD, QC)",2471105,2471,24,7
+"Sainte-Marthe MÉ (CSD, QC)",2471110,2471,24,7
+"Sainte-Justine-de-Newton MÉ (CSD, QC)",2471115,2471,24,7
+"Très-Saint-Rédempteur MÉ (CSD, QC)",2471125,2471,24,7
+"Rigaud V (CSD, QC)",2471133,2471,24,7
+"Pointe-Fortune VL (CSD, QC)",2471140,2471,24,7
+"Deux-Montagnes (CD, QC)",2472,2472,24,4
+"Saint-Eustache V (CSD, QC)",2472005,2472,24,7
+"Deux-Montagnes V (CSD, QC)",2472010,2472,24,7
+"Sainte-Marthe-sur-le-Lac V (CSD, QC)",2472015,2472,24,7
+"Pointe-Calumet MÉ (CSD, QC)",2472020,2472,24,7
+"Saint-Joseph-du-Lac MÉ (CSD, QC)",2472025,2472,24,7
+"Oka MÉ (CSD, QC)",2472032,2472,24,7
+"Saint-Placide MÉ (CSD, QC)",2472043,2472,24,7
+"Thérèse-De Blainville (CD, QC)",2473,2473,24,4
+"Boisbriand V (CSD, QC)",2473005,2473,24,7
+"Sainte-Thérèse V (CSD, QC)",2473010,2473,24,7
+"Blainville V (CSD, QC)",2473015,2473,24,7
+"Rosemère V (CSD, QC)",2473020,2473,24,7
+"Lorraine V (CSD, QC)",2473025,2473,24,7
+"Bois-des-Filion V (CSD, QC)",2473030,2473,24,7
+"Sainte-Anne-des-Plaines V (CSD, QC)",2473035,2473,24,7
+"Mirabel (CD, QC)",2474,2474,24,4
+"Mirabel V (CSD, QC)",2474005,2474,24,7
+"La Rivière-du-Nord (CD, QC)",2475,2475,24,4
+"Saint-Colomban V (CSD, QC)",2475005,2475,24,7
+"Saint-Jérôme V (CSD, QC)",2475017,2475,24,7
+"Sainte-Sophie MÉ (CSD, QC)",2475028,2475,24,7
+"Prévost V (CSD, QC)",2475040,2475,24,7
+"Saint-Hippolyte MÉ (CSD, QC)",2475045,2475,24,7
+"Argenteuil (CD, QC)",2476,2476,24,4
+"Saint-André-d'Argenteuil MÉ (CSD, QC)",2476008,2476,24,7
+"Lachute V (CSD, QC)",2476020,2476,24,7
+"Gore CT (CSD, QC)",2476025,2476,24,7
+"Mille-Isles MÉ (CSD, QC)",2476030,2476,24,7
+"Wentworth CT (CSD, QC)",2476035,2476,24,7
+"Brownsburg-Chatham V (CSD, QC)",2476043,2476,24,7
+"Grenville-sur-la-Rouge MÉ (CSD, QC)",2476052,2476,24,7
+"Grenville VL (CSD, QC)",2476055,2476,24,7
+"Harrington CT (CSD, QC)",2476065,2476,24,7
+"Les Pays-d'en-Haut (CD, QC)",2477,2477,24,4
+"Sainte-Marguerite-du-Lac-Masson V (CSD, QC)",2477012,2477,24,7
+"Sainte-Adèle V (CSD, QC)",2477022,2477,24,7
+"Piedmont MÉ (CSD, QC)",2477030,2477,24,7
+"Sainte-Anne-des-Lacs PE (CSD, QC)",2477035,2477,24,7
+"Saint-Sauveur V (CSD, QC)",2477043,2477,24,7
+"Morin-Heights MÉ (CSD, QC)",2477050,2477,24,7
+"Wentworth-Nord MÉ (CSD, QC)",2477060,2477,24,7
+"Saint-Adolphe-d'Howard MÉ (CSD, QC)",2477065,2477,24,7
+"Les Laurentides (CD, QC)",2478,2478,24,4
+"Val-Morin MÉ (CSD, QC)",2478005,2478,24,7
+"Val-David VL (CSD, QC)",2478010,2478,24,7
+"Lantier MÉ (CSD, QC)",2478015,2478,24,7
+"Sainte-Lucie-des-Laurentides MÉ (CSD, QC)",2478020,2478,24,7
+"Sainte-Agathe-des-Monts V (CSD, QC)",2478032,2478,24,7
+"Ivry-sur-le-Lac MÉ (CSD, QC)",2478042,2478,24,7
+"Saint-Faustin--Lac-Carré MÉ (CSD, QC)",2478047,2478,24,7
+"Montcalm MÉ (CSD, QC)",2478055,2478,24,7
+"Arundel CT (CSD, QC)",2478060,2478,24,7
+"Huberdeau MÉ (CSD, QC)",2478065,2478,24,7
+"Amherst CT (CSD, QC)",2478070,2478,24,7
+"Brébeuf PE (CSD, QC)",2478075,2478,24,7
+"Lac-Supérieur MÉ (CSD, QC)",2478095,2478,24,7
+"Val-des-Lacs MÉ (CSD, QC)",2478100,2478,24,7
+"Mont-Tremblant V (CSD, QC)",2478102,2478,24,7
+"La Conception MÉ (CSD, QC)",2478115,2478,24,7
+"Labelle MÉ (CSD, QC)",2478120,2478,24,7
+"La Minerve MÉ (CSD, QC)",2478130,2478,24,7
+"Antoine-Labelle (CD, QC)",2479,2479,24,4
+"Notre-Dame-du-Laus MÉ (CSD, QC)",2479005,2479,24,7
+"Notre-Dame-de-Pontmain MÉ (CSD, QC)",2479010,2479,24,7
+"Lac-du-Cerf MÉ (CSD, QC)",2479015,2479,24,7
+"Saint-Aimé-du-Lac-des-Îles MÉ (CSD, QC)",2479022,2479,24,7
+"Kiamika MÉ (CSD, QC)",2479025,2479,24,7
+"Nominingue MÉ (CSD, QC)",2479030,2479,24,7
+"Rivière-Rouge V (CSD, QC)",2479037,2479,24,7
+"La Macaza MÉ (CSD, QC)",2479047,2479,24,7
+"L'Ascension MÉ (CSD, QC)",2479050,2479,24,7
+"Lac-Saguay VL (CSD, QC)",2479060,2479,24,7
+"Chute-Saint-Philippe MÉ (CSD, QC)",2479065,2479,24,7
+"Lac-des-Écorces MÉ (CSD, QC)",2479078,2479,24,7
+"Mont-Laurier V (CSD, QC)",2479088,2479,24,7
+"Ferme-Neuve MÉ (CSD, QC)",2479097,2479,24,7
+"Lac-Saint-Paul MÉ (CSD, QC)",2479105,2479,24,7
+"Mont-Saint-Michel MÉ (CSD, QC)",2479110,2479,24,7
+"Sainte-Anne-du-Lac MÉ (CSD, QC)",2479115,2479,24,7
+"Papineau (CD, QC)",2480,2480,24,4
+"Fassett MÉ (CSD, QC)",2480005,2480,24,7
+"Montebello MÉ (CSD, QC)",2480010,2480,24,7
+"Notre-Dame-de-Bonsecours MÉ (CSD, QC)",2480015,2480,24,7
+"Notre-Dame-de-la-Paix MÉ (CSD, QC)",2480020,2480,24,7
+"Saint-André-Avellin MÉ (CSD, QC)",2480027,2480,24,7
+"Papineauville MÉ (CSD, QC)",2480037,2480,24,7
+"Plaisance MÉ (CSD, QC)",2480045,2480,24,7
+"Thurso V (CSD, QC)",2480050,2480,24,7
+"Lochaber CT (CSD, QC)",2480055,2480,24,7
+"Lochaber-Partie-Ouest CT (CSD, QC)",2480060,2480,24,7
+"Mayo MÉ (CSD, QC)",2480065,2480,24,7
+"Saint-Sixte MÉ (CSD, QC)",2480070,2480,24,7
+"Ripon MÉ (CSD, QC)",2480078,2480,24,7
+"Mulgrave-et-Derry MÉ (CSD, QC)",2480085,2480,24,7
+"Montpellier MÉ (CSD, QC)",2480090,2480,24,7
+"Lac-Simon MÉ (CSD, QC)",2480095,2480,24,7
+"Chénéville MÉ (CSD, QC)",2480103,2480,24,7
+"Namur MÉ (CSD, QC)",2480110,2480,24,7
+"Boileau MÉ (CSD, QC)",2480115,2480,24,7
+"Saint-Émile-de-Suffolk MÉ (CSD, QC)",2480125,2480,24,7
+"Lac-des-Plages MÉ (CSD, QC)",2480130,2480,24,7
+"Duhamel MÉ (CSD, QC)",2480135,2480,24,7
+"Val-des-Bois MÉ (CSD, QC)",2480140,2480,24,7
+"Bowman MÉ (CSD, QC)",2480145,2480,24,7
+"Gatineau (CD, QC)",2481,2481,24,4
+"Gatineau V (CSD, QC)",2481017,2481,24,7
+"Les Collines-de-l'Outaouais (CD, QC)",2482,2482,24,4
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"L'Ange-Gardien MÉ (CSD, QC)",2482005,2482,24,7
+"Notre-Dame-de-la-Salette MÉ (CSD, QC)",2482010,2482,24,7
+"Val-des-Monts MÉ (CSD, QC)",2482015,2482,24,7
+"Cantley MÉ (CSD, QC)",2482020,2482,24,7
+"Chelsea MÉ (CSD, QC)",2482025,2482,24,7
+"Pontiac MÉ (CSD, QC)",2482030,2482,24,7
+"La Pêche MÉ (CSD, QC)",2482035,2482,24,7
+"La Vallée-de-la-Gatineau (CD, QC)",2483,2483,24,4
+"Denholm MÉ (CSD, QC)",2483005,2483,24,7
+"Low CT (CSD, QC)",2483010,2483,24,7
+"Kazabazua MÉ (CSD, QC)",2483015,2483,24,7
+"Lac-Sainte-Marie MÉ (CSD, QC)",2483020,2483,24,7
+"Gracefield V (CSD, QC)",2483032,2483,24,7
+"Cayamant MÉ (CSD, QC)",2483040,2483,24,7
+"Blue Sea MÉ (CSD, QC)",2483045,2483,24,7
+"Bouchette MÉ (CSD, QC)",2483050,2483,24,7
+"Sainte-Thérèse-de-la-Gatineau MÉ (CSD, QC)",2483055,2483,24,7
+"Messines MÉ (CSD, QC)",2483060,2483,24,7
+"Maniwaki V (CSD, QC)",2483065,2483,24,7
+"Déléage MÉ (CSD, QC)",2483070,2483,24,7
+"Egan-Sud MÉ (CSD, QC)",2483075,2483,24,7
+"Bois-Franc MÉ (CSD, QC)",2483085,2483,24,7
+"Montcerf-Lytton MÉ (CSD, QC)",2483088,2483,24,7
+"Aumond CT (CSD, QC)",2483090,2483,24,7
+"Grand-Remous MÉ (CSD, QC)",2483095,2483,24,7
+"Pontiac (CD, QC)",2484,2484,24,4
+"Bristol MÉ (CSD, QC)",2484005,2484,24,7
+"Shawville MÉ (CSD, QC)",2484010,2484,24,7
+"Clarendon MÉ (CSD, QC)",2484015,2484,24,7
+"Bryson MÉ (CSD, QC)",2484025,2484,24,7
+"Campbell's Bay MÉ (CSD, QC)",2484030,2484,24,7
+"L'Île-du-Grand-Calumet MÉ (CSD, QC)",2484035,2484,24,7
+"Litchfield MÉ (CSD, QC)",2484040,2484,24,7
+"Thorne MÉ (CSD, QC)",2484045,2484,24,7
+"Otter Lake MÉ (CSD, QC)",2484055,2484,24,7
+"Fort-Coulonge VL (CSD, QC)",2484060,2484,24,7
+"Mansfield-et-Pontefract MÉ (CSD, QC)",2484065,2484,24,7
+"Waltham MÉ (CSD, QC)",2484070,2484,24,7
+"L'Isle-aux-Allumettes MÉ (CSD, QC)",2484082,2484,24,7
+"Chichester CT (CSD, QC)",2484090,2484,24,7
+"Témiscamingue (CD, QC)",2485,2485,24,4
+"Témiscaming V (CSD, QC)",2485005,2485,24,7
+"Kipawa MÉ (CSD, QC)",2485010,2485,24,7
+"Saint-Édouard-de-Fabre PE (CSD, QC)",2485015,2485,24,7
+"Béarn MÉ (CSD, QC)",2485020,2485,24,7
+"Ville-Marie V (CSD, QC)",2485025,2485,24,7
+"Duhamel-Ouest MÉ (CSD, QC)",2485030,2485,24,7
+"Lorrainville MÉ (CSD, QC)",2485037,2485,24,7
+"Saint-Bruno-de-Guigues MÉ (CSD, QC)",2485045,2485,24,7
+"Laverlochère MÉ (CSD, QC)",2485050,2485,24,7
+"Fugèreville MÉ (CSD, QC)",2485055,2485,24,7
+"Latulipe-et-Gaboury CU (CSD, QC)",2485060,2485,24,7
+"Belleterre V (CSD, QC)",2485065,2485,24,7
+"Angliers VL (CSD, QC)",2485080,2485,24,7
+"Saint-Eugène-de-Guigues MÉ (CSD, QC)",2485085,2485,24,7
+"Notre-Dame-du-Nord MÉ (CSD, QC)",2485090,2485,24,7
+"Guérin CT (CSD, QC)",2485095,2485,24,7
+"Nédélec CT (CSD, QC)",2485100,2485,24,7
+"Rémigny MÉ (CSD, QC)",2485105,2485,24,7
+"Rouyn-Noranda (CD, QC)",2486,2486,24,4
+"Rouyn-Noranda V (CSD, QC)",2486042,2486,24,7
+"Abitibi-Ouest (CD, QC)",2487,2487,24,4
+"Duparquet V (CSD, QC)",2487005,2487,24,7
+"Rapide-Danseur MÉ (CSD, QC)",2487010,2487,24,7
+"Roquemaure MÉ (CSD, QC)",2487015,2487,24,7
+"Gallichan MÉ (CSD, QC)",2487020,2487,24,7
+"Palmarolle MÉ (CSD, QC)",2487025,2487,24,7
+"Sainte-Germaine-Boulé MÉ (CSD, QC)",2487030,2487,24,7
+"Poularies MÉ (CSD, QC)",2487035,2487,24,7
+"Taschereau MÉ (CSD, QC)",2487042,2487,24,7
+"Authier MÉ (CSD, QC)",2487050,2487,24,7
+"Macamic V (CSD, QC)",2487058,2487,24,7
+"Sainte-Hélène-de-Mancebourg PE (CSD, QC)",2487070,2487,24,7
+"Clerval MÉ (CSD, QC)",2487075,2487,24,7
+"La Reine MÉ (CSD, QC)",2487080,2487,24,7
+"Dupuy MÉ (CSD, QC)",2487085,2487,24,7
+"La Sarre V (CSD, QC)",2487090,2487,24,7
+"Chazel MÉ (CSD, QC)",2487095,2487,24,7
+"Authier-Nord MÉ (CSD, QC)",2487100,2487,24,7
+"Clermont CT (CSD, QC)",2487110,2487,24,7
+"Normétal MÉ (CSD, QC)",2487115,2487,24,7
+"Abitibi (CD, QC)",2488,2488,24,4
+"Barraute MÉ (CSD, QC)",2488022,2488,24,7
+"La Corne MÉ (CSD, QC)",2488030,2488,24,7
+"Landrienne CT (CSD, QC)",2488035,2488,24,7
+"Saint-Marc-de-Figuery PE (CSD, QC)",2488040,2488,24,7
+"La Motte MÉ (CSD, QC)",2488045,2488,24,7
+"Saint-Mathieu-d'Harricana MÉ (CSD, QC)",2488050,2488,24,7
+"Amos V (CSD, QC)",2488055,2488,24,7
+"Saint-Félix-de-Dalquier MÉ (CSD, QC)",2488060,2488,24,7
+"Saint-Dominique-du-Rosaire MÉ (CSD, QC)",2488065,2488,24,7
+"Berry MÉ (CSD, QC)",2488070,2488,24,7
+"Trécesson CT (CSD, QC)",2488075,2488,24,7
+"Sainte-Gertrude-Manneville MÉ (CSD, QC)",2488085,2488,24,7
+"Preissac MÉ (CSD, QC)",2488090,2488,24,7
+"La Vallée-de-l'Or (CD, QC)",2489,2489,24,4
+"Val-d'Or V (CSD, QC)",2489008,2489,24,7
+"Rivière-Héva MÉ (CSD, QC)",2489010,2489,24,7
+"Malartic V (CSD, QC)",2489015,2489,24,7
+"Senneterre V (CSD, QC)",2489040,2489,24,7
+"Senneterre PE (CSD, QC)",2489045,2489,24,7
+"La Tuque (CD, QC)",2490,2490,24,4
+"La Tuque V (CSD, QC)",2490012,2490,24,7
+"La Bostonnais MÉ (CSD, QC)",2490017,2490,24,7
+"Le Domaine-du-Roy (CD, QC)",2491,2491,24,4
+"Lac-Bouchette MÉ (CSD, QC)",2491005,2491,24,7
+"Saint-André-du-Lac-Saint-Jean VL (CSD, QC)",2491010,2491,24,7
+"Saint-François-de-Sales MÉ (CSD, QC)",2491015,2491,24,7
+"Chambord MÉ (CSD, QC)",2491020,2491,24,7
+"Roberval V (CSD, QC)",2491025,2491,24,7
+"Sainte-Hedwidge MÉ (CSD, QC)",2491030,2491,24,7
+"Saint-Prime MÉ (CSD, QC)",2491035,2491,24,7
+"Saint-Félicien V (CSD, QC)",2491042,2491,24,7
+"La Doré PE (CSD, QC)",2491050,2491,24,7
+"Maria-Chapdelaine (CD, QC)",2492,2492,24,4
+"Saint-Augustin PE (CSD, QC)",2492005,2492,24,7
+"Péribonka MÉ (CSD, QC)",2492010,2492,24,7
+"Sainte-Jeanne-d'Arc VL (CSD, QC)",2492015,2492,24,7
+"Dolbeau-Mistassini V (CSD, QC)",2492022,2492,24,7
+"Albanel MÉ (CSD, QC)",2492030,2492,24,7
+"Normandin V (CSD, QC)",2492040,2492,24,7
+"Saint-Thomas-Didyme MÉ (CSD, QC)",2492045,2492,24,7
+"Saint-Edmond-les-Plaines MÉ (CSD, QC)",2492050,2492,24,7
+"Girardville MÉ (CSD, QC)",2492055,2492,24,7
+"Saint-Eugène-d'Argentenay MÉ (CSD, QC)",2492065,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Saint-Stanislas MÉ (CSD, QC)",2492070,2492,24,7
+"Lac-Saint-Jean-Est (CD, QC)",2493,2493,24,4
+"Desbiens V (CSD, QC)",2493005,2493,24,7
+"Métabetchouan--Lac-à-la-Croix V (CSD, QC)",2493012,2493,24,7
+"Hébertville MÉ (CSD, QC)",2493020,2493,24,7
+"Hébertville-Station VL (CSD, QC)",2493025,2493,24,7
+"Saint-Bruno MÉ (CSD, QC)",2493030,2493,24,7
+"Saint-Gédéon MÉ (CSD, QC)",2493035,2493,24,7
+"Alma V (CSD, QC)",2493042,2493,24,7
+"Saint-Nazaire MÉ (CSD, QC)",2493045,2493,24,7
+"Labrecque MÉ (CSD, QC)",2493055,2493,24,7
+"Lamarche MÉ (CSD, QC)",2493060,2493,24,7
+"L'Ascension-de-Notre-Seigneur PE (CSD, QC)",2493065,2493,24,7
+"Saint-Henri-de-Taillon MÉ (CSD, QC)",2493070,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Sainte-Monique MÉ (CSD, QC)",2493075,2493,24,7
+"Saint-Ludger-de-Milot MÉ (CSD, QC)",2493080,2493,24,7
+"Le Saguenay-et-son-Fjord (CD, QC)",2494,2494,24,4
+"Saguenay V (CSD, QC)",2494068,2494,24,7
+"Petit-Saguenay MÉ (CSD, QC)",2494205,2494,24,7
+"L'Anse-Saint-Jean MÉ (CSD, QC)",2494210,2494,24,7
+"Rivière-Éternité MÉ (CSD, QC)",2494215,2494,24,7
+"Ferland-et-Boilleau MÉ (CSD, QC)",2494220,2494,24,7
+"Saint-Félix-d'Otis MÉ (CSD, QC)",2494225,2494,24,7
+"Sainte-Rose-du-Nord PE (CSD, QC)",2494230,2494,24,7
+"Saint-Fulgence MÉ (CSD, QC)",2494235,2494,24,7
+"Saint-Honoré MÉ (CSD, QC)",2494240,2494,24,7
+"Saint-David-de-Falardeau MÉ (CSD, QC)",2494245,2494,24,7
+"Bégin MÉ (CSD, QC)",2494250,2494,24,7
+"Saint-Ambroise MÉ (CSD, QC)",2494255,2494,24,7
+"Saint-Charles-de-Bourget MÉ (CSD, QC)",2494260,2494,24,7
+"Larouche MÉ (CSD, QC)",2494265,2494,24,7
+"La Haute-Côte-Nord (CD, QC)",2495,2495,24,4
+"Tadoussac VL (CSD, QC)",2495005,2495,24,7
+"Sacré-Coeur MÉ (CSD, QC)",2495010,2495,24,7
+"Les Bergeronnes MÉ (CSD, QC)",2495018,2495,24,7
+"Les Escoumins MÉ (CSD, QC)",2495025,2495,24,7
+"Longue-Rive MÉ (CSD, QC)",2495032,2495,24,7
+"Portneuf-sur-Mer MÉ (CSD, QC)",2495040,2495,24,7
+"Forestville V (CSD, QC)",2495045,2495,24,7
+"Colombier MÉ (CSD, QC)",2495050,2495,24,7
+"Manicouagan (CD, QC)",2496,2496,24,4
+"Baie-Trinité VL (CSD, QC)",2496005,2496,24,7
+"Godbout VL (CSD, QC)",2496010,2496,24,7
+"Franquelin MÉ (CSD, QC)",2496015,2496,24,7
+"Baie-Comeau V (CSD, QC)",2496020,2496,24,7
+"Pointe-Lebel VL (CSD, QC)",2496025,2496,24,7
+"Pointe-aux-Outardes VL (CSD, QC)",2496030,2496,24,7
+"Chute-aux-Outardes VL (CSD, QC)",2496035,2496,24,7
+"Ragueneau PE (CSD, QC)",2496040,2496,24,7
+"Sept-Rivières--Caniapiscau (CD, QC)",2497,2497,24,4
+"Sept-Îles V (CSD, QC)",2497007,2497,24,7
+"Port-Cartier V (CSD, QC)",2497022,2497,24,7
+"Fermont V (CSD, QC)",2497035,2497,24,7
+"Minganie--Le Golfe-du-Saint-Laurent (CD, QC)",2498,2498,24,4
+"Blanc-Sablon MÉ (CSD, QC)",2498005,2498,24,7
+"Bonne-Espérance MÉ (CSD, QC)",2498010,2498,24,7
+"Saint-Augustin MÉ (CSD, QC)",2498012,2498,24,7
+"Gros-Mécatina MÉ (CSD, QC)",2498014,2498,24,7
+"Côte-Nord-du-Golfe-du-Saint-Laurent MÉ (CSD, QC)",2498015,2498,24,7
+"Havre-Saint-Pierre MÉ (CSD, QC)",2498040,2498,24,7
+"Longue-Pointe-de-Mingan MÉ (CSD, QC)",2498045,2498,24,7
+"Rivière-au-Tonnerre MÉ (CSD, QC)",2498055,2498,24,7
+"Nord-du-Québec (CD, QC)",2499,2499,24,4
+"Lebel-sur-Quévillon V (CSD, QC)",2499005,2499,24,7
+"Matagami V (CSD, QC)",2499015,2499,24,7
+"Chapais V (CSD, QC)",2499020,2499,24,7
+"Chibougamau V (CSD, QC)",2499025,2499,24,7
+"Eeyou Istchee Baie-James MÉ (CSD, QC)",2499060,2499,24,7
+"Kuujjuarapik VN (CSD, QC)",2499075,2499,24,7
+"Umiujaq VN (CSD, QC)",2499080,2499,24,7
+"Inukjuak VN (CSD, QC)",2499085,2499,24,7
+"Kangiqsualujjuaq VN (CSD, QC)",2499090,2499,24,7
+"Kuujjuaq VN (CSD, QC)",2499095,2499,24,7
+"Tasiujaq VN (CSD, QC)",2499100,2499,24,7
+"Kangirsuk VN (CSD, QC)",2499110,2499,24,7
+"Quaqtaq VN (CSD, QC)",2499115,2499,24,7
+"Puvirnituq VN (CSD, QC)",2499120,2499,24,7
+"Akulivik VN (CSD, QC)",2499125,2499,24,7
+"Kangiqsujuaq VN (CSD, QC)",2499130,2499,24,7
+"Salluit VN (CSD, QC)",2499135,2499,24,7
+"Ivujivik VN (CSD, QC)",2499140,2499,24,7
+Ontario (Province),35,35,35,2
+"Stormont, Dundas and Glengarry (CD, ON)",3501,3501,35,4
+"South Glengarry TP (CSD, ON)",3501005,3501,35,7
+"South Stormont TP (CSD, ON)",3501011,3501,35,7
+"Cornwall CY (CSD, ON)",3501012,3501,35,7
+"South Dundas MU (CSD, ON)",3501020,3501,35,7
+"North Dundas TP (CSD, ON)",3501030,3501,35,7
+"North Stormont TP (CSD, ON)",3501042,3501,35,7
+"North Glengarry TP (CSD, ON)",3501050,3501,35,7
+"Prescott and Russell (CD, ON)",3502,3502,35,4
+"East Hawkesbury TP (CSD, ON)",3502001,3502,35,7
+"Hawkesbury T (CSD, ON)",3502008,3502,35,7
+"Champlain TP (CSD, ON)",3502010,3502,35,7
+"Alfred and Plantagenet TP (CSD, ON)",3502023,3502,35,7
+"The Nation / La Nation M (CSD, ON)",3502025,3502,35,7
+"Clarence-Rockland C (CSD, ON)",3502036,3502,35,7
+"Casselman VL (CSD, ON)",3502044,3502,35,7
+"Russell TP (CSD, ON)",3502048,3502,35,7
+"Ottawa (CD, ON)",3506,3506,35,4
+"Ottawa CV (CSD, ON)",3506008,3506,35,7
+"Leeds and Grenville (CD, ON)",3507,3507,35,4
+"Edwardsburgh/Cardinal TP (CSD, ON)",3507004,3507,35,7
+"Augusta TP (CSD, ON)",3507006,3507,35,7
+"Prescott T (CSD, ON)",3507008,3507,35,7
+"Elizabethtown-Kitley TP (CSD, ON)",3507014,3507,35,7
+"Brockville CY (CSD, ON)",3507015,3507,35,7
+"Front of Yonge TP (CSD, ON)",3507017,3507,35,7
+"Leeds and the Thousand Islands TP (CSD, ON)",3507021,3507,35,7
+"Gananoque T (CSD, ON)",3507024,3507,35,7
+"Westport VL (CSD, ON)",3507033,3507,35,7
+"Rideau Lakes TP (CSD, ON)",3507040,3507,35,7
+"Athens TP (CSD, ON)",3507042,3507,35,7
+"Merrickville-Wolford VL (CSD, ON)",3507052,3507,35,7
+"North Grenville MU (CSD, ON)",3507065,3507,35,7
+"Lanark (CD, ON)",3509,3509,35,4
+"Montague TP (CSD, ON)",3509001,3509,35,7
+"Smiths Falls T (CSD, ON)",3509004,3509,35,7
+"Drummond/North Elmsley TP (CSD, ON)",3509010,3509,35,7
+"Tay Valley TP (CSD, ON)",3509015,3509,35,7
+"Perth T (CSD, ON)",3509021,3509,35,7
+"Beckwith TP (CSD, ON)",3509024,3509,35,7
+"Carleton Place T (CSD, ON)",3509028,3509,35,7
+"Mississippi Mills T (CSD, ON)",3509030,3509,35,7
+"Lanark Highlands TP (CSD, ON)",3509039,3509,35,7
+"Frontenac (CD, ON)",3510,3510,35,4
+"Frontenac Islands TP (CSD, ON)",3510005,3510,35,7
+"Kingston CY (CSD, ON)",3510010,3510,35,7
+"South Frontenac TP (CSD, ON)",3510020,3510,35,7
+"Central Frontenac TP (CSD, ON)",3510035,3510,35,7
+"North Frontenac TP (CSD, ON)",3510045,3510,35,7
+"Lennox and Addington (CD, ON)",3511,3511,35,4
+"Loyalist TP (CSD, ON)",3511005,3511,35,7
+"Greater Napanee T (CSD, ON)",3511015,3511,35,7
+"Stone Mills TP (CSD, ON)",3511030,3511,35,7
+"Addington Highlands TP (CSD, ON)",3511035,3511,35,7
+"Hastings (CD, ON)",3512,3512,35,4
+"Tyendinaga TP (CSD, ON)",3512001,3512,35,7
+"Deseronto T (CSD, ON)",3512002,3512,35,7
+"Belleville CY (CSD, ON)",3512005,3512,35,7
+"Quinte West CY (CSD, ON)",3512015,3512,35,7
+"Stirling-Rawdon TP (CSD, ON)",3512020,3512,35,7
+"Centre Hastings MU (CSD, ON)",3512026,3512,35,7
+"Tweed MU (CSD, ON)",3512030,3512,35,7
+"Madoc TP (CSD, ON)",3512036,3512,35,7
+"Marmora and Lake MU (CSD, ON)",3512046,3512,35,7
+"Tudor and Cashel TP (CSD, ON)",3512048,3512,35,7
+"Limerick TP (CSD, ON)",3512051,3512,35,7
+"Wollaston TP (CSD, ON)",3512054,3512,35,7
+"Faraday TP (CSD, ON)",3512058,3512,35,7
+"Bancroft T (CSD, ON)",3512061,3512,35,7
+"Carlow/Mayo TP (CSD, ON)",3512065,3512,35,7
+"Hastings Highlands MU (CSD, ON)",3512076,3512,35,7
+"Prince Edward (CD, ON)",3513,3513,35,4
+"Prince Edward County CY (CSD, ON)",3513020,3513,35,7
+"Northumberland (CD, ON)",3514,3514,35,4
+"Brighton MU (CSD, ON)",3514004,3514,35,7
+"Cramahe TP (CSD, ON)",3514014,3514,35,7
+"Hamilton TP (CSD, ON)",3514019,3514,35,7
+"Port Hope MU (CSD, ON)",3514020,3514,35,7
+"Cobourg T (CSD, ON)",3514021,3514,35,7
+"Alnwick/Haldimand TP (CSD, ON)",3514024,3514,35,7
+"Trent Hills MU (CSD, ON)",3514045,3514,35,7
+"Peterborough (CD, ON)",3515,3515,35,4
+"Asphodel-Norwood TP (CSD, ON)",3515003,3515,35,7
+"Otonabee-South Monaghan TP (CSD, ON)",3515005,3515,35,7
+"Cavan Monaghan TP (CSD, ON)",3515013,3515,35,7
+"Peterborough CY (CSD, ON)",3515014,3515,35,7
+"Selwyn TP (CSD, ON)",3515015,3515,35,7
+"Douro-Dummer TP (CSD, ON)",3515023,3515,35,7
+"Havelock-Belmont-Methuen TP (CSD, ON)",3515030,3515,35,7
+"North Kawartha TP (CSD, ON)",3515037,3515,35,7
+"Trent Lakes MU (CSD, ON)",3515044,3515,35,7
+"Kawartha Lakes (CD, ON)",3516,3516,35,4
+"Kawartha Lakes CY (CSD, ON)",3516010,3516,35,7
+"Durham (CD, ON)",3518,3518,35,4
+"Pickering CY (CSD, ON)",3518001,3518,35,7
+"Ajax T (CSD, ON)",3518005,3518,35,7
+"Whitby T (CSD, ON)",3518009,3518,35,7
+"Oshawa CY (CSD, ON)",3518013,3518,35,7
+"Clarington MU (CSD, ON)",3518017,3518,35,7
+"Scugog TP (CSD, ON)",3518020,3518,35,7
+"Uxbridge TP (CSD, ON)",3518029,3518,35,7
+"Brock TP (CSD, ON)",3518039,3518,35,7
+"York (CD, ON)",3519,3519,35,4
+"Vaughan CY (CSD, ON)",3519028,3519,35,7
+"Markham CY (CSD, ON)",3519036,3519,35,7
+"Richmond Hill T (CSD, ON)",3519038,3519,35,7
+"Whitchurch-Stouffville T (CSD, ON)",3519044,3519,35,7
+"Aurora T (CSD, ON)",3519046,3519,35,7
+"Newmarket T (CSD, ON)",3519048,3519,35,7
+"King TP (CSD, ON)",3519049,3519,35,7
+"East Gwillimbury T (CSD, ON)",3519054,3519,35,7
+"Georgina T (CSD, ON)",3519070,3519,35,7
+"Toronto (CD, ON)",3520,3520,35,4
+"Toronto C (CSD, ON)",3520005,3520,35,7
+"Peel (CD, ON)",3521,3521,35,4
+"Mississauga CY (CSD, ON)",3521005,3521,35,7
+"Brampton CY (CSD, ON)",3521010,3521,35,7
+"Caledon T (CSD, ON)",3521024,3521,35,7
+"Dufferin (CD, ON)",3522,3522,35,4
+"East Garafraxa TP (CSD, ON)",3522001,3522,35,7
+"Amaranth TP (CSD, ON)",3522008,3522,35,7
+"Grand Valley T (CSD, ON)",3522010,3522,35,7
+"Mono T (CSD, ON)",3522012,3522,35,7
+"Orangeville T (CSD, ON)",3522014,3522,35,7
+"Mulmur TP (CSD, ON)",3522016,3522,35,7
+"Melancthon TP (CSD, ON)",3522019,3522,35,7
+"Shelburne T (CSD, ON)",3522021,3522,35,7
+"Wellington (CD, ON)",3523,3523,35,4
+"Puslinch TP (CSD, ON)",3523001,3523,35,7
+"Guelph CY (CSD, ON)",3523008,3523,35,7
+"Guelph/Eramosa TP (CSD, ON)",3523009,3523,35,7
+"Erin T (CSD, ON)",3523017,3523,35,7
+"Centre Wellington TP (CSD, ON)",3523025,3523,35,7
+"Mapleton TP (CSD, ON)",3523033,3523,35,7
+"Minto T (CSD, ON)",3523043,3523,35,7
+"Wellington North TP (CSD, ON)",3523050,3523,35,7
+"Halton (CD, ON)",3524,3524,35,4
+"Oakville T (CSD, ON)",3524001,3524,35,7
+"Burlington CY (CSD, ON)",3524002,3524,35,7
+"Milton T (CSD, ON)",3524009,3524,35,7
+"Halton Hills T (CSD, ON)",3524015,3524,35,7
+"Hamilton (CD, ON)",3525,3525,35,4
+"Hamilton C (CSD, ON)",3525005,3525,35,7
+"Niagara (CD, ON)",3526,3526,35,4
+"Fort Erie T (CSD, ON)",3526003,3526,35,7
+"Port Colborne CY (CSD, ON)",3526011,3526,35,7
+"Wainfleet TP (CSD, ON)",3526014,3526,35,7
+"West Lincoln TP (CSD, ON)",3526021,3526,35,7
+"Pelham T (CSD, ON)",3526028,3526,35,7
+"Welland CY (CSD, ON)",3526032,3526,35,7
+"Thorold CY (CSD, ON)",3526037,3526,35,7
+"Niagara Falls CY (CSD, ON)",3526043,3526,35,7
+"Niagara-on-the-Lake T (CSD, ON)",3526047,3526,35,7
+"St. Catharines CY (CSD, ON)",3526053,3526,35,7
+"Lincoln T (CSD, ON)",3526057,3526,35,7
+"Grimsby T (CSD, ON)",3526065,3526,35,7
+"Haldimand-Norfolk (CD, ON)",3528,3528,35,4
+"Haldimand County CY (CSD, ON)",3528018,3528,35,7
+"Norfolk County CY (CSD, ON)",3528052,3528,35,7
+"Brant (CD, ON)",3529,3529,35,4
+"Brant CY (CSD, ON)",3529005,3529,35,7
+"Brantford CY (CSD, ON)",3529006,3529,35,7
+"Waterloo (CD, ON)",3530,3530,35,4
+"North Dumfries TP (CSD, ON)",3530004,3530,35,7
+"Cambridge CY (CSD, ON)",3530010,3530,35,7
+"Kitchener CY (CSD, ON)",3530013,3530,35,7
+"Waterloo CY (CSD, ON)",3530016,3530,35,7
+"Wilmot TP (CSD, ON)",3530020,3530,35,7
+"Wellesley TP (CSD, ON)",3530027,3530,35,7
+"Woolwich TP (CSD, ON)",3530035,3530,35,7
+"Perth (CD, ON)",3531,3531,35,4
+"Stratford CY (CSD, ON)",3531011,3531,35,7
+"Perth South TP (CSD, ON)",3531013,3531,35,7
+"St. Marys T (CSD, ON)",3531016,3531,35,7
+"West Perth MU (CSD, ON)",3531025,3531,35,7
+"Perth East TP (CSD, ON)",3531030,3531,35,7
+"North Perth MU (CSD, ON)",3531040,3531,35,7
+"Oxford (CD, ON)",3532,3532,35,4
+"Norwich TP (CSD, ON)",3532002,3532,35,7
+"Tillsonburg T (CSD, ON)",3532004,3532,35,7
+"South-West Oxford TP (CSD, ON)",3532012,3532,35,7
+"Ingersoll T (CSD, ON)",3532018,3532,35,7
+"Zorra TP (CSD, ON)",3532027,3532,35,7
+"East Zorra-Tavistock TP (CSD, ON)",3532038,3532,35,7
+"Woodstock CY (CSD, ON)",3532042,3532,35,7
+"Blandford-Blenheim TP (CSD, ON)",3532045,3532,35,7
+"Elgin (CD, ON)",3534,3534,35,4
+"Bayham MU (CSD, ON)",3534005,3534,35,7
+"Malahide TP (CSD, ON)",3534010,3534,35,7
+"Aylmer T (CSD, ON)",3534011,3534,35,7
+"Central Elgin MU (CSD, ON)",3534020,3534,35,7
+"St. Thomas CY (CSD, ON)",3534021,3534,35,7
+"Southwold TP (CSD, ON)",3534024,3534,35,7
+"Dutton/Dunwich MU (CSD, ON)",3534030,3534,35,7
+"West Elgin MU (CSD, ON)",3534042,3534,35,7
+"Chatham-Kent (CD, ON)",3536,3536,35,4
+"Chatham-Kent MU (CSD, ON)",3536020,3536,35,7
+"Essex (CD, ON)",3537,3537,35,4
+"Leamington MU (CSD, ON)",3537003,3537,35,7
+"Kingsville T (CSD, ON)",3537013,3537,35,7
+"Essex T (CSD, ON)",3537016,3537,35,7
+"Amherstburg T (CSD, ON)",3537028,3537,35,7
+"LaSalle T (CSD, ON)",3537034,3537,35,7
+"Windsor CY (CSD, ON)",3537039,3537,35,7
+"Tecumseh T (CSD, ON)",3537048,3537,35,7
+"Lakeshore T (CSD, ON)",3537064,3537,35,7
+"Lambton (CD, ON)",3538,3538,35,4
+"St. Clair TP (CSD, ON)",3538003,3538,35,7
+"Dawn-Euphemia TP (CSD, ON)",3538007,3538,35,7
+"Brooke-Alvinston MU (CSD, ON)",3538015,3538,35,7
+"Enniskillen TP (CSD, ON)",3538016,3538,35,7
+"Oil Springs VL (CSD, ON)",3538018,3538,35,7
+"Petrolia T (CSD, ON)",3538019,3538,35,7
+"Sarnia CY (CSD, ON)",3538030,3538,35,7
+"Point Edward VL (CSD, ON)",3538031,3538,35,7
+"Plympton-Wyoming T (CSD, ON)",3538035,3538,35,7
+"Lambton Shores MU (CSD, ON)",3538040,3538,35,7
+"Warwick TP (CSD, ON)",3538043,3538,35,7
+"Middlesex (CD, ON)",3539,3539,35,4
+"Newbury VL (CSD, ON)",3539002,3539,35,7
+"Southwest Middlesex MU (CSD, ON)",3539005,3539,35,7
+"Strathroy-Caradoc MU (CSD, ON)",3539015,3539,35,7
+"Thames Centre MU (CSD, ON)",3539027,3539,35,7
+"Middlesex Centre MU (CSD, ON)",3539033,3539,35,7
+"London CY (CSD, ON)",3539036,3539,35,7
+"North Middlesex MU (CSD, ON)",3539041,3539,35,7
+"Adelaide-Metcalfe TP (CSD, ON)",3539047,3539,35,7
+"Lucan Biddulph TP (CSD, ON)",3539060,3539,35,7
+"Huron (CD, ON)",3540,3540,35,4
+"South Huron MU (CSD, ON)",3540005,3540,35,7
+"Bluewater MU (CSD, ON)",3540010,3540,35,7
+"Central Huron MU (CSD, ON)",3540025,3540,35,7
+"Goderich T (CSD, ON)",3540028,3540,35,7
+"Huron East MU (CSD, ON)",3540040,3540,35,7
+"Howick TP (CSD, ON)",3540046,3540,35,7
+"Morris-Turnberry MU (CSD, ON)",3540050,3540,35,7
+"North Huron TP (CSD, ON)",3540055,3540,35,7
+"Ashfield-Colborne-Wawanosh TP (CSD, ON)",3540063,3540,35,7
+"Bruce (CD, ON)",3541,3541,35,4
+"South Bruce MU (CSD, ON)",3541004,3541,35,7
+"Huron-Kinloss TP (CSD, ON)",3541015,3541,35,7
+"Kincardine MU (CSD, ON)",3541024,3541,35,7
+"Brockton MU (CSD, ON)",3541032,3541,35,7
+"Arran-Elderslie MU (CSD, ON)",3541043,3541,35,7
+"Saugeen Shores T (CSD, ON)",3541045,3541,35,7
+"South Bruce Peninsula T (CSD, ON)",3541055,3541,35,7
+"Northern Bruce Peninsula MU (CSD, ON)",3541069,3541,35,7
+"Grey (CD, ON)",3542,3542,35,4
+"West Grey MU (CSD, ON)",3542004,3542,35,7
+"Southgate TP (CSD, ON)",3542005,3542,35,7
+"Grey Highlands MU (CSD, ON)",3542015,3542,35,7
+"Hanover T (CSD, ON)",3542029,3542,35,7
+"Chatsworth TP (CSD, ON)",3542037,3542,35,7
+"The Blue Mountains T (CSD, ON)",3542045,3542,35,7
+"Meaford MU (CSD, ON)",3542047,3542,35,7
+"Georgian Bluffs TP (CSD, ON)",3542053,3542,35,7
+"Owen Sound CY (CSD, ON)",3542059,3542,35,7
+"Simcoe (CD, ON)",3543,3543,35,4
+"Adjala-Tosorontio TP (CSD, ON)",3543003,3543,35,7
+"Clearview TP (CSD, ON)",3543005,3543,35,7
+"New Tecumseth T (CSD, ON)",3543007,3543,35,7
+"Springwater TP (CSD, ON)",3543009,3543,35,7
+"Bradford West Gwillimbury T (CSD, ON)",3543014,3543,35,7
+"Severn TP (CSD, ON)",3543015,3543,35,7
+"Innisfil T (CSD, ON)",3543017,3543,35,7
+"Ramara TP (CSD, ON)",3543019,3543,35,7
+"Essa TP (CSD, ON)",3543021,3543,35,7
+"Oro-Medonte TP (CSD, ON)",3543023,3543,35,7
+"Collingwood T (CSD, ON)",3543031,3543,35,7
+"Barrie CY (CSD, ON)",3543042,3543,35,7
+"Orillia CY (CSD, ON)",3543052,3543,35,7
+"Wasaga Beach T (CSD, ON)",3543064,3543,35,7
+"Tiny TP (CSD, ON)",3543068,3543,35,7
+"Tay TP (CSD, ON)",3543071,3543,35,7
+"Penetanguishene T (CSD, ON)",3543072,3543,35,7
+"Midland T (CSD, ON)",3543074,3543,35,7
+"Muskoka (CD, ON)",3544,3544,35,4
+"Gravenhurst T (CSD, ON)",3544002,3544,35,7
+"Bracebridge T (CSD, ON)",3544018,3544,35,7
+"Lake of Bays TP (CSD, ON)",3544027,3544,35,7
+"Huntsville T (CSD, ON)",3544042,3544,35,7
+"Muskoka Lakes TP (CSD, ON)",3544053,3544,35,7
+"Georgian Bay TP (CSD, ON)",3544065,3544,35,7
+"Haliburton (CD, ON)",3546,3546,35,4
+"Highlands East MU (CSD, ON)",3546005,3546,35,7
+"Minden Hills TP (CSD, ON)",3546015,3546,35,7
+"Algonquin Highlands TP (CSD, ON)",3546018,3546,35,7
+"Dysart et al MU (CSD, ON)",3546024,3546,35,7
+"Renfrew (CD, ON)",3547,3547,35,4
+"Arnprior T (CSD, ON)",3547002,3547,35,7
+"McNab/Braeside TP (CSD, ON)",3547003,3547,35,7
+"Greater Madawaska TP (CSD, ON)",3547008,3547,35,7
+"Brudenell, Lyndoch and Raglan TP (CSD, ON)",3547020,3547,35,7
+"Madawaska Valley TP (CSD, ON)",3547030,3547,35,7
+"Killaloe, Hagarty and Richards TP (CSD, ON)",3547033,3547,35,7
+"Bonnechere Valley TP (CSD, ON)",3547035,3547,35,7
+"Admaston/Bromley TP (CSD, ON)",3547043,3547,35,7
+"Horton TP (CSD, ON)",3547046,3547,35,7
+"Renfrew T (CSD, ON)",3547048,3547,35,7
+"Whitewater Region TP (CSD, ON)",3547056,3547,35,7
+"Pembroke CY (CSD, ON)",3547064,3547,35,7
+"North Algona Wilberforce TP (CSD, ON)",3547070,3547,35,7
+"Laurentian Valley TP (CSD, ON)",3547075,3547,35,7
+"Petawawa T (CSD, ON)",3547076,3547,35,7
+"Laurentian Hills T (CSD, ON)",3547090,3547,35,7
+"Deep River T (CSD, ON)",3547096,3547,35,7
+"Nipissing (CD, ON)",3548,3548,35,4
+"South Algonquin TP (CSD, ON)",3548001,3548,35,7
+"Papineau-Cameron TP (CSD, ON)",3548013,3548,35,7
+"Mattawa T (CSD, ON)",3548021,3548,35,7
+"Calvin MU (CSD, ON)",3548022,3548,35,7
+"Bonfield TP (CSD, ON)",3548027,3548,35,7
+"Chisholm TP (CSD, ON)",3548031,3548,35,7
+"East Ferris MU (CSD, ON)",3548034,3548,35,7
+"North Bay CY (CSD, ON)",3548044,3548,35,7
+"West Nipissing / Nipissing Ouest M (CSD, ON)",3548055,3548,35,7
+"Temagami MU (CSD, ON)",3548069,3548,35,7
+"Nipissing, Unorganized, North Part NO (CSD, ON)",3548094,3548,35,7
+"Parry Sound (CD, ON)",3549,3549,35,4
+"Seguin TP (CSD, ON)",3549003,3549,35,7
+"The Archipelago TP (CSD, ON)",3549005,3549,35,7
+"McMurrich/Monteith TP (CSD, ON)",3549012,3549,35,7
+"Perry TP (CSD, ON)",3549014,3549,35,7
+"Kearney T (CSD, ON)",3549018,3549,35,7
+"Armour TP (CSD, ON)",3549019,3549,35,7
+"Burk's Falls VL (CSD, ON)",3549022,3549,35,7
+"Ryerson TP (CSD, ON)",3549024,3549,35,7
+"McKellar TP (CSD, ON)",3549028,3549,35,7
+"McDougall MU (CSD, ON)",3549031,3549,35,7
+"Parry Sound T (CSD, ON)",3549032,3549,35,7
+"Carling TP (CSD, ON)",3549036,3549,35,7
+"Whitestone MU (CSD, ON)",3549039,3549,35,7
+"Magnetawan MU (CSD, ON)",3549043,3549,35,7
+"Strong TP (CSD, ON)",3549046,3549,35,7
+"Sundridge VL (CSD, ON)",3549048,3549,35,7
+"Joly TP (CSD, ON)",3549051,3549,35,7
+"Machar TP (CSD, ON)",3549054,3549,35,7
+"South River VL (CSD, ON)",3549056,3549,35,7
+"Powassan MU (CSD, ON)",3549060,3549,35,7
+"Callander MU (CSD, ON)",3549066,3549,35,7
+"Nipissing TP (CSD, ON)",3549071,3549,35,7
+"Parry Sound, Unorganized, Centre Part NO (CSD, ON)",3549096,3549,35,7
+"Manitoulin (CD, ON)",3551,3551,35,4
+"Tehkummah TP (CSD, ON)",3551001,3551,35,7
+"Central Manitoulin MU (CSD, ON)",3551006,3551,35,7
+"Assiginack TP (CSD, ON)",3551011,3551,35,7
+"Northeastern Manitoulin and the Islands MU (CSD, ON)",3551017,3551,35,7
+"Billings TP (CSD, ON)",3551021,3551,35,7
+"Gore Bay T (CSD, ON)",3551026,3551,35,7
+"Gordon/Barrie Island MU (CSD, ON)",3551027,3551,35,7
+"Burpee and Mills TP (CSD, ON)",3551028,3551,35,7
+"Sudbury (CD, ON)",3552,3552,35,4
+"French River / Rivière des Français M (CSD, ON)",3552001,3552,35,7
+"St.-Charles MU (CSD, ON)",3552004,3552,35,7
+"Markstay-Warren MU (CSD, ON)",3552013,3552,35,7
+"Sables-Spanish Rivers TP (CSD, ON)",3552023,3552,35,7
+"Espanola T (CSD, ON)",3552026,3552,35,7
+"Baldwin TP (CSD, ON)",3552028,3552,35,7
+"Nairn and Hyman TP (CSD, ON)",3552031,3552,35,7
+"Killarney MU (CSD, ON)",3552036,3552,35,7
+"Chapleau TP (CSD, ON)",3552092,3552,35,7
+"Sudbury, Unorganized, North Part NO (CSD, ON)",3552093,3552,35,7
+"Greater Sudbury (CD, ON)",3553,3553,35,4
+"Greater Sudbury / Grand Sudbury CV (CSD, ON)",3553005,3553,35,7
+"Timiskaming (CD, ON)",3554,3554,35,4
+"Coleman TP (CSD, ON)",3554001,3554,35,7
+"Latchford T (CSD, ON)",3554006,3554,35,7
+"Cobalt T (CSD, ON)",3554008,3554,35,7
+"Harris TP (CSD, ON)",3554014,3554,35,7
+"Temiskaming Shores CY (CSD, ON)",3554020,3554,35,7
+"Hudson TP (CSD, ON)",3554021,3554,35,7
+"Kerns TP (CSD, ON)",3554024,3554,35,7
+"Harley TP (CSD, ON)",3554026,3554,35,7
+"Casey TP (CSD, ON)",3554029,3554,35,7
+"Armstrong TP (CSD, ON)",3554036,3554,35,7
+"James TP (CSD, ON)",3554042,3554,35,7
+"Charlton and Dack MU (CSD, ON)",3554044,3554,35,7
+"Evanturel TP (CSD, ON)",3554049,3554,35,7
+"Englehart T (CSD, ON)",3554052,3554,35,7
+"Chamberlain TP (CSD, ON)",3554054,3554,35,7
+"McGarry TP (CSD, ON)",3554058,3554,35,7
+"Larder Lake TP (CSD, ON)",3554062,3554,35,7
+"Kirkland Lake T (CSD, ON)",3554068,3554,35,7
+"Timiskaming, Unorganized, West Part NO (CSD, ON)",3554094,3554,35,7
+"Cochrane (CD, ON)",3556,3556,35,4
+"Black River-Matheson TP (CSD, ON)",3556014,3556,35,7
+"Timmins CY (CSD, ON)",3556027,3556,35,7
+"Iroquois Falls T (CSD, ON)",3556031,3556,35,7
+"Cochrane T (CSD, ON)",3556042,3556,35,7
+"Smooth Rock Falls T (CSD, ON)",3556048,3556,35,7
+"Fauquier-Strickland TP (CSD, ON)",3556052,3556,35,7
+"Moonbeam TP (CSD, ON)",3556056,3556,35,7
+"Kapuskasing T (CSD, ON)",3556066,3556,35,7
+"Val Rita-Harty TP (CSD, ON)",3556070,3556,35,7
+"Hearst T (CSD, ON)",3556076,3556,35,7
+"Mattice-Val Côté TP (CSD, ON)",3556077,3556,35,7
+"Cochrane, Unorganized, North Part NO (CSD, ON)",3556092,3556,35,7
+"Moosonee TV (CSD, ON)",3556106,3556,35,7
+"Algoma (CD, ON)",3557,3557,35,4
+"Jocelyn TP (CSD, ON)",3557001,3557,35,7
+"Hilton TP (CSD, ON)",3557004,3557,35,7
+"St. Joseph TP (CSD, ON)",3557008,3557,35,7
+"Laird TP (CSD, ON)",3557011,3557,35,7
+"Tarbutt and Tarbutt Additional TP (CSD, ON)",3557014,3557,35,7
+"Johnson TP (CSD, ON)",3557016,3557,35,7
+"Plummer Additional TP (CSD, ON)",3557019,3557,35,7
+"Bruce Mines T (CSD, ON)",3557021,3557,35,7
+"Thessalon T (CSD, ON)",3557028,3557,35,7
+"Huron Shores MU (CSD, ON)",3557035,3557,35,7
+"Blind River T (CSD, ON)",3557038,3557,35,7
+"Spanish T (CSD, ON)",3557039,3557,35,7
+"The North Shore TP (CSD, ON)",3557040,3557,35,7
+"Elliot Lake CY (CSD, ON)",3557041,3557,35,7
+"Macdonald, Meredith and Aberdeen Additional TP (CSD, ON)",3557051,3557,35,7
+"Sault Ste. Marie CY (CSD, ON)",3557061,3557,35,7
+"Prince TP (CSD, ON)",3557066,3557,35,7
+"Wawa MU (CSD, ON)",3557076,3557,35,7
+"Dubreuilville TP (CSD, ON)",3557079,3557,35,7
+"White River TP (CSD, ON)",3557091,3557,35,7
+"Algoma, Unorganized, North Part NO (CSD, ON)",3557095,3557,35,7
+"Hornepayne TP (CSD, ON)",3557096,3557,35,7
+"Thunder Bay (CD, ON)",3558,3558,35,4
+"Neebing MU (CSD, ON)",3558001,3558,35,7
+"Thunder Bay CY (CSD, ON)",3558004,3558,35,7
+"Oliver Paipoonge MU (CSD, ON)",3558011,3558,35,7
+"Gillies TP (CSD, ON)",3558012,3558,35,7
+"O'Connor TP (CSD, ON)",3558016,3558,35,7
+"Conmee TP (CSD, ON)",3558019,3558,35,7
+"Shuniah MU (CSD, ON)",3558028,3558,35,7
+"Dorion TP (CSD, ON)",3558034,3558,35,7
+"Red Rock TP (CSD, ON)",3558041,3558,35,7
+"Nipigon TP (CSD, ON)",3558044,3558,35,7
+"Schreiber TP (CSD, ON)",3558051,3558,35,7
+"Terrace Bay TP (CSD, ON)",3558054,3558,35,7
+"Marathon T (CSD, ON)",3558059,3558,35,7
+"Manitouwadge TP (CSD, ON)",3558066,3558,35,7
+"Greenstone MU (CSD, ON)",3558075,3558,35,7
+"Thunder Bay, Unorganized NO (CSD, ON)",3558090,3558,35,7
+"Rainy River (CD, ON)",3559,3559,35,4
+"Atikokan T (CSD, ON)",3559001,3559,35,7
+"Alberton TP (CSD, ON)",3559011,3559,35,7
+"Fort Frances T (CSD, ON)",3559012,3559,35,7
+"La Vallee TP (CSD, ON)",3559016,3559,35,7
+"Emo TP (CSD, ON)",3559019,3559,35,7
+"Chapple TP (CSD, ON)",3559024,3559,35,7
+"Morley TP (CSD, ON)",3559031,3559,35,7
+"Dawson TP (CSD, ON)",3559040,3559,35,7
+"Rainy River T (CSD, ON)",3559042,3559,35,7
+"Rainy River, Unorganized NO (CSD, ON)",3559090,3559,35,7
+"Kenora (CD, ON)",3560,3560,35,4
+"Ignace TP (CSD, ON)",3560001,3560,35,7
+"Sioux Narrows-Nestor Falls TP (CSD, ON)",3560008,3560,35,7
+"Kenora CY (CSD, ON)",3560010,3560,35,7
+"Machin MU (CSD, ON)",3560021,3560,35,7
+"Dryden CY (CSD, ON)",3560027,3560,35,7
+"Ear Falls TP (CSD, ON)",3560032,3560,35,7
+"Sioux Lookout MU (CSD, ON)",3560034,3560,35,7
+"Red Lake MU (CSD, ON)",3560042,3560,35,7
+"Pickle Lake TP (CSD, ON)",3560049,3560,35,7
+"Kenora, Unorganized NO (CSD, ON)",3560090,3560,35,7
+Manitoba (Province),46,46,46,2
+"Division No. 1 (CD, MB)",4601,4601,46,4
+"Stuartburn RM (CSD, MB)",4601035,4601,46,7
+"Piney RM (CSD, MB)",4601039,4601,46,7
+"Reynolds RM (CSD, MB)",4601043,4601,46,7
+"Whitemouth RM (CSD, MB)",4601046,4601,46,7
+"Pinawa LGD (CSD, MB)",4601051,4601,46,7
+"Lac du Bonnet RM (CSD, MB)",4601057,4601,46,7
+"Lac du Bonnet T (CSD, MB)",4601060,4601,46,7
+"Alexander RM (CSD, MB)",4601071,4601,46,7
+"Powerview-Pine Falls T (CSD, MB)",4601075,4601,46,7
+"Victoria Beach RM (CSD, MB)",4601078,4601,46,7
+"Division No. 1, Unorganized NO (CSD, MB)",4601094,4601,46,7
+"Division No. 2 (CD, MB)",4602,4602,46,4
+"Emerson-Franklin MU (CSD, MB)",4602024,4602,46,7
+"De Salaberry RM (CSD, MB)",4602032,4602,46,7
+"St-Pierre-Jolys VL (CSD, MB)",4602037,4602,46,7
+"Hanover RM (CSD, MB)",4602041,4602,46,7
+"Steinbach CY (CSD, MB)",4602044,4602,46,7
+"Niverville T (CSD, MB)",4602046,4602,46,7
+"La Broquerie RM (CSD, MB)",4602053,4602,46,7
+"Ste. Anne RM (CSD, MB)",4602057,4602,46,7
+"Ste. Anne T (CSD, MB)",4602061,4602,46,7
+"Taché RM (CSD, MB)",4602069,4602,46,7
+"Ritchot RM (CSD, MB)",4602075,4602,46,7
+"Division No. 3 (CD, MB)",4603,4603,46,4
+"Montcalm RM (CSD, MB)",4603030,4603,46,7
+"Altona T (CSD, MB)",4603040,4603,46,7
+"Rhineland MU (CSD, MB)",4603041,4603,46,7
+"Stanley RM (CSD, MB)",4603047,4603,46,7
+"Winkler CY (CSD, MB)",4603050,4603,46,7
+"Morden CY (CSD, MB)",4603053,4603,46,7
+"Thompson RM (CSD, MB)",4603058,4603,46,7
+"Roland RM (CSD, MB)",4603062,4603,46,7
+"Morris RM (CSD, MB)",4603065,4603,46,7
+"Morris T (CSD, MB)",4603067,4603,46,7
+"Dufferin RM (CSD, MB)",4603072,4603,46,7
+"Carman T (CSD, MB)",4603074,4603,46,7
+"Division No. 4 (CD, MB)",4604,4604,46,4
+"Pembina MU (CSD, MB)",4604034,4604,46,7
+"Louise MU (CSD, MB)",4604040,4604,46,7
+"Cartwright-Roblin MU (CSD, MB)",4604052,4604,46,7
+"Argyle RM (CSD, MB)",4604057,4604,46,7
+"Lorne MU (CSD, MB)",4604064,4604,46,7
+"Division No. 5 (CD, MB)",4605,4605,46,4
+"Killarney - Turtle Mountain RM (CSD, MB)",4605025,4605,46,7
+"Boissevain-Morton MU (CSD, MB)",4605032,4605,46,7
+"Deloraine-Winchester MU (CSD, MB)",4605038,4605,46,7
+"Brenda-Waskada MU (CSD, MB)",4605044,4605,46,7
+"Melita T (CSD, MB)",4605052,4605,46,7
+"Two Borders MU (CSD, MB)",4605056,4605,46,7
+"Grassland MU (CSD, MB)",4605062,4605,46,7
+"Prairie Lakes RM (CSD, MB)",4605071,4605,46,7
+"Division No. 6 (CD, MB)",4606,4606,46,4
+"Sifton RM (CSD, MB)",4606016,4606,46,7
+"Pipestone RM (CSD, MB)",4606023,4606,46,7
+"Wallace-Woodworth RM (CSD, MB)",4606031,4606,46,7
+"Virden T (CSD, MB)",4606034,4606,46,7
+"Division No. 7 (CD, MB)",4607,4607,46,4
+"Glenboro-South Cypress MU (CSD, MB)",4607039,4607,46,7
+"Oakland-Wawanesa MU (CSD, MB)",4607046,4607,46,7
+"Souris-Glenwood MU (CSD, MB)",4607052,4607,46,7
+"Whitehead RM (CSD, MB)",4607057,4607,46,7
+"Cornwallis RM (CSD, MB)",4607060,4607,46,7
+"Brandon CY (CSD, MB)",4607062,4607,46,7
+"North Cypress-Langford MU (CSD, MB)",4607066,4607,46,7
+"Carberry T (CSD, MB)",4607068,4607,46,7
+"Elton RM (CSD, MB)",4607071,4607,46,7
+"Riverdale MU (CSD, MB)",4607076,4607,46,7
+"Division No. 8 (CD, MB)",4608,4608,46,4
+"Norfolk-Treherne MU (CSD, MB)",4608032,4608,46,7
+"Victoria RM (CSD, MB)",4608042,4608,46,7
+"North Norfolk MU (CSD, MB)",4608046,4608,46,7
+"Glenella-Lansdowne MU (CSD, MB)",4608055,4608,46,7
+"WestLake-Gladstone MU (CSD, MB)",4608060,4608,46,7
+"Division No. 9 (CD, MB)",4609,4609,46,4
+"Grey RM (CSD, MB)",4609018,4609,46,7
+"Portage la Prairie RM (CSD, MB)",4609024,4609,46,7
+"Portage la Prairie CY (CSD, MB)",4609029,4609,46,7
+"Division No. 10 (CD, MB)",4610,4610,46,4
+"Macdonald RM (CSD, MB)",4610035,4610,46,7
+"Cartier RM (CSD, MB)",4610043,4610,46,7
+"St. François Xavier RM (CSD, MB)",4610052,4610,46,7
+"Division No. 11 (CD, MB)",4611,4611,46,4
+"Winnipeg CY (CSD, MB)",4611040,4611,46,7
+"Headingley RM (CSD, MB)",4611042,4611,46,7
+"Division No. 12 (CD, MB)",4612,4612,46,4
+"Springfield RM (CSD, MB)",4612047,4612,46,7
+"Brokenhead RM (CSD, MB)",4612054,4612,46,7
+"Beausejour T (CSD, MB)",4612056,4612,46,7
+"Division No. 13 (CD, MB)",4613,4613,46,4
+"East St. Paul RM (CSD, MB)",4613032,4613,46,7
+"West St. Paul RM (CSD, MB)",4613037,4613,46,7
+"St. Andrews RM (CSD, MB)",4613043,4613,46,7
+"Selkirk CY (CSD, MB)",4613047,4613,46,7
+"Dunnottar VL (CSD, MB)",4613049,4613,46,7
+"St. Clements RM (CSD, MB)",4613056,4613,46,7
+"Division No. 14 (CD, MB)",4614,4614,46,4
+"Rosser RM (CSD, MB)",4614015,4614,46,7
+"Woodlands RM (CSD, MB)",4614031,4614,46,7
+"Rockwood RM (CSD, MB)",4614036,4614,46,7
+"Stonewall T (CSD, MB)",4614039,4614,46,7
+"Teulon T (CSD, MB)",4614042,4614,46,7
+"Division No. 15 (CD, MB)",4615,4615,46,4
+"Neepawa T (CSD, MB)",4615020,4615,46,7
+"Oakview RM (CSD, MB)",4615032,4615,46,7
+"Hamiota MU (CSD, MB)",4615037,4615,46,7
+"Ellice-Archie RM (CSD, MB)",4615047,4615,46,7
+"Prairie View MU (CSD, MB)",4615056,4615,46,7
+"Yellowhead RM (CSD, MB)",4615063,4615,46,7
+"Harrison Park MU (CSD, MB)",4615070,4615,46,7
+"Minto-Odanah MU (CSD, MB)",4615074,4615,46,7
+"Minnedosa T (CSD, MB)",4615075,4615,46,7
+"Rosedale RM (CSD, MB)",4615078,4615,46,7
+"Clanwilliam-Erickson MU (CSD, MB)",4615092,4615,46,7
+"Division No. 16 (CD, MB)",4616,4616,46,4
+"Rossburn MU (CSD, MB)",4616005,4616,46,7
+"Riding Mountain West RM (CSD, MB)",4616020,4616,46,7
+"Russell-Binscarth MU (CSD, MB)",4616030,4616,46,7
+"Hillsburg-Roblin-Shell River MU (CSD, MB)",4616048,4616,46,7
+"Division No. 17 (CD, MB)",4617,4617,46,4
+"Alonsa RM (CSD, MB)",4617026,4617,46,7
+"McCreary MU (CSD, MB)",4617035,4617,46,7
+"Ste. Rose MU (CSD, MB)",4617041,4617,46,7
+"Dauphin RM (CSD, MB)",4617048,4617,46,7
+"Dauphin CY (CSD, MB)",4617050,4617,46,7
+"Gilbert Plains MU (CSD, MB)",4617054,4617,46,7
+"Grandview MU (CSD, MB)",4617058,4617,46,7
+"Ethelbert MU (CSD, MB)",4617064,4617,46,7
+"Mossey River RM (CSD, MB)",4617072,4617,46,7
+"Lakeshore RM (CSD, MB)",4617075,4617,46,7
+"Division No. 18 (CD, MB)",4618,4618,46,4
+"Gimli RM (CSD, MB)",4618031,4618,46,7
+"Winnipeg Beach T (CSD, MB)",4618034,4618,46,7
+"Armstrong RM (CSD, MB)",4618037,4618,46,7
+"St. Laurent RM (CSD, MB)",4618040,4618,46,7
+"Coldwell RM (CSD, MB)",4618044,4618,46,7
+"West Interlake MU (CSD, MB)",4618056,4618,46,7
+"Grahamdale RM (CSD, MB)",4618060,4618,46,7
+"Fisher RM (CSD, MB)",4618068,4618,46,7
+"Arborg T (CSD, MB)",4618074,4618,46,7
+"Bifrost-Riverton MU (CSD, MB)",4618076,4618,46,7
+"Division No. 19 (CD, MB)",4619,4619,46,4
+"Division No. 19, Unorganized NO (CSD, MB)",4619045,4619,46,7
+"Division No. 20 (CD, MB)",4620,4620,46,4
+"Mountain South (CSD, MB)",4620032,4620,46,7
+"Swan Valley West MU (CSD, MB)",4620042,4620,46,7
+"Swan River T (CSD, MB)",4620048,4620,46,7
+"Minitonas-Bowsman MU (CSD, MB)",4620051,4620,46,7
+"Mountain North (CSD, MB)",4620055,4620,46,7
+"Division No. 21 (CD, MB)",4621,4621,46,4
+"Grand Rapids T (CSD, MB)",4621025,4621,46,7
+"The Pas T (CSD, MB)",4621045,4621,46,7
+"Kelsey RM (CSD, MB)",4621052,4621,46,7
+"Flin Flon (CSD, MB)",4621064,4621,46,7
+"Snow Lake T (CSD, MB)",4621071,4621,46,7
+"Division No. 21, Unorganized NO (CSD, MB)",4621078,4621,46,7
+"Division No. 22 (CD, MB)",4622,4622,46,4
+"Thompson CY (CSD, MB)",4622026,4622,46,7
+"Division No. 22, Unorganized NO (CSD, MB)",4622046,4622,46,7
+"Division No. 23 (CD, MB)",4623,4623,46,4
+"Gillam T (CSD, MB)",4623022,4623,46,7
+"Leaf Rapids T (CSD, MB)",4623034,4623,46,7
+"Lynn Lake T (CSD, MB)",4623047,4623,46,7
+"Churchill T (CSD, MB)",4623056,4623,46,7
+"Division No. 23, Unorganized NO (CSD, MB)",4623062,4623,46,7
+Saskatchewan (Province),47,47,47,2
+"Division No. 1 (CD, SK)",4701,4701,47,4
+"Argyle No. 1 RM (CSD, SK)",4701001,4701,47,7
+"Mount Pleasant No. 2 RM (CSD, SK)",4701006,4701,47,7
+"Carnduff T (CSD, SK)",4701008,4701,47,7
+"Enniskillen No. 3 RM (CSD, SK)",4701011,4701,47,7
+"Oxbow T (CSD, SK)",4701014,4701,47,7
+"Coalfields No. 4 RM (CSD, SK)",4701016,4701,47,7
+"Bienfait T (CSD, SK)",4701021,4701,47,7
+"Estevan No. 5 RM (CSD, SK)",4701022,4701,47,7
+"Estevan CY (CSD, SK)",4701024,4701,47,7
+"Benson No. 35 RM (CSD, SK)",4701027,4701,47,7
+"Browning No. 34 RM (CSD, SK)",4701031,4701,47,7
+"Lampman T (CSD, SK)",4701032,4701,47,7
+"Moose Creek No. 33 RM (CSD, SK)",4701036,4701,47,7
+"Alameda T (CSD, SK)",4701037,4701,47,7
+"Reciprocity No. 32 RM (CSD, SK)",4701039,4701,47,7
+"Storthoaks No. 31 RM (CSD, SK)",4701043,4701,47,7
+"Antler No. 61 RM (CSD, SK)",4701047,4701,47,7
+"Redvers T (CSD, SK)",4701049,4701,47,7
+"Moose Mountain No. 63 RM (CSD, SK)",4701053,4701,47,7
+"Manor VL (CSD, SK)",4701054,4701,47,7
+"Carlyle T (CSD, SK)",4701056,4701,47,7
+"Arcola T (CSD, SK)",4701059,4701,47,7
+"Tecumseh No. 65 RM (CSD, SK)",4701063,4701,47,7
+"Stoughton T (CSD, SK)",4701066,4701,47,7
+"Wawken No. 93 RM (CSD, SK)",4701076,4701,47,7
+"Wawota T (CSD, SK)",4701078,4701,47,7
+"Walpole No. 92 RM (CSD, SK)",4701091,4701,47,7
+"Maryfield No. 91 RM (CSD, SK)",4701094,4701,47,7
+"Maryfield VL (CSD, SK)",4701096,4701,47,7
+"Division No. 2 (CD, SK)",4702,4702,47,4
+"Cambria No. 6 RM (CSD, SK)",4702001,4702,47,7
+"Bengough T (CSD, SK)",4702023,4702,47,7
+"Bengough No. 40 RM (CSD, SK)",4702024,4702,47,7
+"Laurier No. 38 RM (CSD, SK)",4702029,4702,47,7
+"Radville T (CSD, SK)",4702031,4702,47,7
+"Lomond No. 37 RM (CSD, SK)",4702033,4702,47,7
+"Cymri No. 36 RM (CSD, SK)",4702037,4702,47,7
+"Midale T (CSD, SK)",4702039,4702,47,7
+"Macoun VL (CSD, SK)",4702041,4702,47,7
+"Griffin No. 66 RM (CSD, SK)",4702042,4702,47,7
+"Weyburn No. 67 RM (CSD, SK)",4702044,4702,47,7
+"Weyburn CY (CSD, SK)",4702047,4702,47,7
+"Brokenshell No. 68 RM (CSD, SK)",4702051,4702,47,7
+"Key West No. 70 RM (CSD, SK)",4702057,4702,47,7
+"Ogema T (CSD, SK)",4702058,4702,47,7
+"Avonlea VL (CSD, SK)",4702062,4702,47,7
+"Milestone T (CSD, SK)",4702067,4702,47,7
+"Yellow Grass T (CSD, SK)",4702072,4702,47,7
+"Wellington No. 97 RM (CSD, SK)",4702073,4702,47,7
+"Fillmore VL (CSD, SK)",4702078,4702,47,7
+"Division No. 3 (CD, SK)",4703,4703,47,4
+"Coronach T (CSD, SK)",4703004,4703,47,7
+"Rockglen T (CSD, SK)",4703009,4703,47,7
+"Old Post No. 43 RM (CSD, SK)",4703011,4703,47,7
+"Mankota No. 45 RM (CSD, SK)",4703018,4703,47,7
+"Waverley No. 44 RM (CSD, SK)",4703022,4703,47,7
+"Willow Bunch No. 42 RM (CSD, SK)",4703026,4703,47,7
+"Willow Bunch T (CSD, SK)",4703028,4703,47,7
+"Excel No. 71 RM (CSD, SK)",4703029,4703,47,7
+"Lake of the Rivers No. 72 RM (CSD, SK)",4703034,4703,47,7
+"Assiniboia T (CSD, SK)",4703036,4703,47,7
+"Stonehenge No. 73 RM (CSD, SK)",4703038,4703,47,7
+"Wood River No. 74 RM (CSD, SK)",4703042,4703,47,7
+"Lafleche T (CSD, SK)",4703044,4703,47,7
+"Auvergne No. 76 RM (CSD, SK)",4703054,4703,47,7
+"Ponteix T (CSD, SK)",4703058,4703,47,7
+"Whiska Creek No. 106 RM (CSD, SK)",4703059,4703,47,7
+"Gravelbourg No. 104 RM (CSD, SK)",4703068,4703,47,7
+"Gravelbourg T (CSD, SK)",4703071,4703,47,7
+"Mossbank T (CSD, SK)",4703092,4703,47,7
+"Division No. 4 (CD, SK)",4704,4704,47,4
+"Frontier VL (CSD, SK)",4704012,4704,47,7
+"Reno No. 51 RM (CSD, SK)",4704019,4704,47,7
+"White Valley No. 49 RM (CSD, SK)",4704024,4704,47,7
+"Eastend T (CSD, SK)",4704026,4704,47,7
+"Grassy Creek No. 78 RM (CSD, SK)",4704034,4704,47,7
+"Shaunavon T (CSD, SK)",4704036,4704,47,7
+"Maple Creek No. 111 RM (CSD, SK)",4704045,4704,47,7
+"Maple Creek T (CSD, SK)",4704048,4704,47,7
+"Piapot No. 110 RM (CSD, SK)",4704050,4704,47,7
+"Bone Creek No. 108 RM (CSD, SK)",4704058,4704,47,7
+"Lac Pelletier No. 107 RM (CSD, SK)",4704061,4704,47,7
+"Division No. 5 (CD, SK)",4705,4705,47,4
+"Moosomin No. 121 RM (CSD, SK)",4705001,4705,47,7
+"Moosomin T (CSD, SK)",4705004,4705,47,7
+"Martin No. 122 RM (CSD, SK)",4705007,4705,47,7
+"Wapella T (CSD, SK)",4705009,4705,47,7
+"Silverwood No. 123 RM (CSD, SK)",4705011,4705,47,7
+"Kingsley No. 124 RM (CSD, SK)",4705014,4705,47,7
+"Kipling T (CSD, SK)",4705016,4705,47,7
+"Chester No. 125 RM (CSD, SK)",4705018,4705,47,7
+"Wolseley T (CSD, SK)",4705024,4705,47,7
+"Wolseley No. 155 RM (CSD, SK)",4705027,4705,47,7
+"Elcapo No. 154 RM (CSD, SK)",4705028,4705,47,7
+"Grenfell T (CSD, SK)",4705029,4705,47,7
+"Broadview T (CSD, SK)",4705031,4705,47,7
+"Willowdale No. 153 RM (CSD, SK)",4705033,4705,47,7
+"Whitewood T (CSD, SK)",4705034,4705,47,7
+"Rocanville No. 151 RM (CSD, SK)",4705037,4705,47,7
+"Rocanville T (CSD, SK)",4705038,4705,47,7
+"Spy Hill No. 152 RM (CSD, SK)",4705041,4705,47,7
+"Langenburg No. 181 RM (CSD, SK)",4705047,4705,47,7
+"Langenburg T (CSD, SK)",4705048,4705,47,7
+"Fertile Belt No. 183 RM (CSD, SK)",4705051,4705,47,7
+"Esterhazy T (CSD, SK)",4705052,4705,47,7
+"Stockholm VL (CSD, SK)",4705056,4705,47,7
+"Grayson No. 184 RM (CSD, SK)",4705057,4705,47,7
+"McLeod No. 185 RM (CSD, SK)",4705063,4705,47,7
+"Neudorf VL (CSD, SK)",4705064,4705,47,7
+"Lemberg T (CSD, SK)",4705066,4705,47,7
+"Stanley No. 215 RM (CSD, SK)",4705067,4705,47,7
+"Cana No. 214 RM (CSD, SK)",4705073,4705,47,7
+"Melville CY (CSD, SK)",4705074,4705,47,7
+"Saltcoats No. 213 RM (CSD, SK)",4705077,4705,47,7
+"Saltcoats T (CSD, SK)",4705078,4705,47,7
+"Bredenbury T (CSD, SK)",4705079,4705,47,7
+"Churchbridge No. 211 RM (CSD, SK)",4705093,4705,47,7
+"Churchbridge T (CSD, SK)",4705094,4705,47,7
+"Division No. 6 (CD, SK)",4706,4706,47,4
+"Montmartre No. 126 RM (CSD, SK)",4706001,4706,47,7
+"Montmartre VL (CSD, SK)",4706002,4706,47,7
+"Francis No. 127 RM (CSD, SK)",4706004,4706,47,7
+"Vibank VL (CSD, SK)",4706007,4706,47,7
+"Sedley VL (CSD, SK)",4706008,4706,47,7
+"Lajord No. 128 RM (CSD, SK)",4706011,4706,47,7
+"Bratt's Lake No. 129 RM (CSD, SK)",4706013,4706,47,7
+"Rouleau T (CSD, SK)",4706017,4706,47,7
+"Pense No. 160 RM (CSD, SK)",4706021,4706,47,7
+"Pense T (CSD, SK)",4706023,4706,47,7
+"Sherwood No. 159 RM (CSD, SK)",4706026,4706,47,7
+"Regina CY (CSD, SK)",4706027,4706,47,7
+"Grand Coulee VL (CSD, SK)",4706028,4706,47,7
+"Edenwold No. 158 RM (CSD, SK)",4706029,4706,47,7
+"White City T (CSD, SK)",4706030,4706,47,7
+"Pilot Butte T (CSD, SK)",4706031,4706,47,7
+"Balgonie T (CSD, SK)",4706032,4706,47,7
+"South Qu'Appelle No. 157 RM (CSD, SK)",4706034,4706,47,7
+"Qu'Appelle T (CSD, SK)",4706036,4706,47,7
+"McLean VL (CSD, SK)",4706037,4706,47,7
+"Indian Head No. 156 RM (CSD, SK)",4706038,4706,47,7
+"Indian Head T (CSD, SK)",4706039,4706,47,7
+"Abernethy No. 186 RM (CSD, SK)",4706042,4706,47,7
+"Balcarres T (CSD, SK)",4706047,4706,47,7
+"North Qu'Appelle No. 187 RM (CSD, SK)",4706048,4706,47,7
+"Katepwa RV (CSD, SK)",4706050,4706,47,7
+"Fort Qu'Appelle T (CSD, SK)",4706051,4706,47,7
+"Lumsden No. 189 RM (CSD, SK)",4706053,4706,47,7
+"Buena Vista VL (CSD, SK)",4706055,4706,47,7
+"Lumsden T (CSD, SK)",4706056,4706,47,7
+"Regina Beach T (CSD, SK)",4706058,4706,47,7
+"Dufferin No. 190 RM (CSD, SK)",4706059,4706,47,7
+"Bethune VL (CSD, SK)",4706061,4706,47,7
+"Sarnia No. 221 RM (CSD, SK)",4706063,4706,47,7
+"Longlaketon No. 219 RM (CSD, SK)",4706070,4706,47,7
+"McKillop No. 220 RM (CSD, SK)",4706071,4706,47,7
+"Saskatchewan Beach RV (CSD, SK)",4706072,4706,47,7
+"Strasbourg T (CSD, SK)",4706074,4706,47,7
+"Cupar No. 218 RM (CSD, SK)",4706091,4706,47,7
+"Southey T (CSD, SK)",4706092,4706,47,7
+"Cupar T (CSD, SK)",4706094,4706,47,7
+"Lipton No. 217 RM (CSD, SK)",4706096,4706,47,7
+"Lipton VL (CSD, SK)",4706098,4706,47,7
+"Division No. 7 (CD, SK)",4707,4707,47,4
+"Baildon No. 131 RM (CSD, SK)",4707001,4707,47,7
+"Coulee No. 136 RM (CSD, SK)",4707018,4707,47,7
+"Excelsior No. 166 RM (CSD, SK)",4707021,4707,47,7
+"Waldeck VL (CSD, SK)",4707022,4707,47,7
+"Morse No. 165 RM (CSD, SK)",4707024,4707,47,7
+"Herbert T (CSD, SK)",4707026,4707,47,7
+"Mortlach VL (CSD, SK)",4707034,4707,47,7
+"Caron No. 162 RM (CSD, SK)",4707036,4707,47,7
+"Caronport VL (CSD, SK)",4707037,4707,47,7
+"Moose Jaw No. 161 RM (CSD, SK)",4707038,4707,47,7
+"Moose Jaw CY (CSD, SK)",4707039,4707,47,7
+"Marquis No. 191 RM (CSD, SK)",4707042,4707,47,7
+"Central Butte T (CSD, SK)",4707054,4707,47,7
+"Victory No. 226 RM (CSD, SK)",4707063,4707,47,7
+"Coteau No. 255 RM (CSD, SK)",4707067,4707,47,7
+"Craik T (CSD, SK)",4707092,4707,47,7
+"Division No. 8 (CD, SK)",4708,4708,47,4
+"Swift Current No. 137 RM (CSD, SK)",4708001,4708,47,7
+"Swift Current CY (CSD, SK)",4708004,4708,47,7
+"Webb No. 138 RM (CSD, SK)",4708006,4708,47,7
+"Gull Lake T (CSD, SK)",4708011,4708,47,7
+"Riverside No. 168 RM (CSD, SK)",4708031,4708,47,7
+"Cabri T (CSD, SK)",4708032,4708,47,7
+"Saskatchewan Landing No. 167 RM (CSD, SK)",4708038,4708,47,7
+"Lacadena No. 228 RM (CSD, SK)",4708042,4708,47,7
+"Kyle T (CSD, SK)",4708044,4708,47,7
+"Leader T (CSD, SK)",4708058,4708,47,7
+"Burstall T (CSD, SK)",4708062,4708,47,7
+"Chesterfield No. 261 RM (CSD, SK)",4708065,4708,47,7
+"Eatonia T (CSD, SK)",4708068,4708,47,7
+"Newcombe No. 260 RM (CSD, SK)",4708071,4708,47,7
+"Snipe Lake No. 259 RM (CSD, SK)",4708074,4708,47,7
+"Eston T (CSD, SK)",4708076,4708,47,7
+"Elrose T (CSD, SK)",4708094,4708,47,7
+"Division No. 9 (CD, SK)",4709,4709,47,4
+"Calder No. 241 RM (CSD, SK)",4709001,4709,47,7
+"Wallace No. 243 RM (CSD, SK)",4709006,4709,47,7
+"Orkney No. 244 RM (CSD, SK)",4709011,4709,47,7
+"Yorkton CY (CSD, SK)",4709012,4709,47,7
+"Springside T (CSD, SK)",4709016,4709,47,7
+"Garry No. 245 RM (CSD, SK)",4709019,4709,47,7
+"Insinger No. 275 RM (CSD, SK)",4709023,4709,47,7
+"Theodore VL (CSD, SK)",4709028,4709,47,7
+"Good Lake No. 274 RM (CSD, SK)",4709029,4709,47,7
+"Canora T (CSD, SK)",4709032,4709,47,7
+"Sliding Hills No. 273 RM (CSD, SK)",4709033,4709,47,7
+"Cote No. 271 RM (CSD, SK)",4709037,4709,47,7
+"Kamsack T (CSD, SK)",4709039,4709,47,7
+"Keys No. 303 RM (CSD, SK)",4709046,4709,47,7
+"Invermay No. 305 RM (CSD, SK)",4709054,4709,47,7
+"Hazel Dell No. 335 RM (CSD, SK)",4709060,4709,47,7
+"Preeceville No. 334 RM (CSD, SK)",4709062,4709,47,7
+"Preeceville T (CSD, SK)",4709064,4709,47,7
+"Sturgis T (CSD, SK)",4709066,4709,47,7
+"Clayton No. 333 RM (CSD, SK)",4709067,4709,47,7
+"Norquay T (CSD, SK)",4709072,4709,47,7
+"Livingston No. 331 RM (CSD, SK)",4709075,4709,47,7
+"Division No. 10 (CD, SK)",4710,4710,47,4
+"Ituna Bon Accord No. 246 RM (CSD, SK)",4710003,4710,47,7
+"Ituna T (CSD, SK)",4710004,4710,47,7
+"Kellross No. 247 RM (CSD, SK)",4710008,4710,47,7
+"Touchwood No. 248 RM (CSD, SK)",4710014,4710,47,7
+"Mount Hope No. 279 RM (CSD, SK)",4710024,4710,47,7
+"Raymore T (CSD, SK)",4710027,4710,47,7
+"Emerald No. 277 RM (CSD, SK)",4710031,4710,47,7
+"Foam Lake No. 276 RM (CSD, SK)",4710036,4710,47,7
+"Foam Lake T (CSD, SK)",4710038,4710,47,7
+"Elfros No. 307 RM (CSD, SK)",4710041,4710,47,7
+"Big Quill No. 308 RM (CSD, SK)",4710046,4710,47,7
+"Wynyard T (CSD, SK)",4710047,4710,47,7
+"Leroy No. 339 RM (CSD, SK)",4710056,4710,47,7
+"Leroy T (CSD, SK)",4710058,4710,47,7
+"Lakeside No. 338 RM (CSD, SK)",4710061,4710,47,7
+"Watson T (CSD, SK)",4710062,4710,47,7
+"Quill Lake VL (CSD, SK)",4710064,4710,47,7
+"Lakeview No. 337 RM (CSD, SK)",4710066,4710,47,7
+"Wadena T (CSD, SK)",4710068,4710,47,7
+"Sasman No. 336 RM (CSD, SK)",4710071,4710,47,7
+"Division No. 11 (CD, SK)",4711,4711,47,4
+"Last Mountain Valley No. 250 RM (CSD, SK)",4711003,4711,47,7
+"Imperial T (CSD, SK)",4711008,4711,47,7
+"Arm River No. 252 RM (CSD, SK)",4711011,4711,47,7
+"Davidson T (CSD, SK)",4711014,4711,47,7
+"Willner No. 253 RM (CSD, SK)",4711016,4711,47,7
+"Loreburn No. 254 RM (CSD, SK)",4711018,4711,47,7
+"Elbow VL (CSD, SK)",4711019,4711,47,7
+"Rudy No. 284 RM (CSD, SK)",4711026,4711,47,7
+"Outlook T (CSD, SK)",4711027,4711,47,7
+"Rosedale No. 283 RM (CSD, SK)",4711031,4711,47,7
+"Hanley T (CSD, SK)",4711032,4711,47,7
+"McCraney No. 282 RM (CSD, SK)",4711034,4711,47,7
+"Kenaston VL (CSD, SK)",4711036,4711,47,7
+"Nokomis T (CSD, SK)",4711044,4711,47,7
+"Usborne No. 310 RM (CSD, SK)",4711046,4711,47,7
+"Lanigan T (CSD, SK)",4711049,4711,47,7
+"Morris No. 312 RM (CSD, SK)",4711052,4711,47,7
+"Watrous T (CSD, SK)",4711053,4711,47,7
+"Manitou Beach RV (CSD, SK)",4711054,4711,47,7
+"Dundurn No. 314 RM (CSD, SK)",4711061,4711,47,7
+"Dundurn T (CSD, SK)",4711063,4711,47,7
+"Shields RV (CSD, SK)",4711064,4711,47,7
+"Corman Park No. 344 RM (CSD, SK)",4711065,4711,47,7
+"Saskatoon CY (CSD, SK)",4711066,4711,47,7
+"Langham T (CSD, SK)",4711067,4711,47,7
+"Warman CY (CSD, SK)",4711068,4711,47,7
+"Blucher No. 343 RM (CSD, SK)",4711069,4711,47,7
+"Martensville CY (CSD, SK)",4711070,4711,47,7
+"Allan T (CSD, SK)",4711072,4711,47,7
+"Dalmeny T (CSD, SK)",4711073,4711,47,7
+"Osler T (CSD, SK)",4711075,4711,47,7
+"Clavet VL (CSD, SK)",4711077,4711,47,7
+"Colonsay T (CSD, SK)",4711079,4711,47,7
+"Viscount No. 341 RM (CSD, SK)",4711091,4711,47,7
+"Wolverine No. 340 RM (CSD, SK)",4711096,4711,47,7
+"Division No. 12 (CD, SK)",4712,4712,47,4
+"Pleasant Valley No. 288 RM (CSD, SK)",4712001,4712,47,7
+"St. Andrews No. 287 RM (CSD, SK)",4712004,4712,47,7
+"Rosetown T (CSD, SK)",4712006,4712,47,7
+"Fertile Valley No. 285 RM (CSD, SK)",4712020,4712,47,7
+"Montrose No. 315 RM (CSD, SK)",4712026,4712,47,7
+"Marriott No. 317 RM (CSD, SK)",4712034,4712,47,7
+"Mountain View No. 318 RM (CSD, SK)",4712038,4712,47,7
+"Biggar No. 347 RM (CSD, SK)",4712042,4712,47,7
+"Biggar T (CSD, SK)",4712046,4712,47,7
+"Perdue No. 346 RM (CSD, SK)",4712050,4712,47,7
+"Perdue VL (CSD, SK)",4712051,4712,47,7
+"Vanscoy No. 345 RM (CSD, SK)",4712054,4712,47,7
+"Delisle T (CSD, SK)",4712056,4712,47,7
+"Vanscoy VL (CSD, SK)",4712058,4712,47,7
+"Asquith T (CSD, SK)",4712059,4712,47,7
+"Eagle Creek No. 376 RM (CSD, SK)",4712064,4712,47,7
+"Battle River No. 438 RM (CSD, SK)",4712078,4712,47,7
+"Battleford T (CSD, SK)",4712079,4712,47,7
+"Division No. 13 (CD, SK)",4713,4713,47,4
+"Kindersley No. 290 RM (CSD, SK)",4713006,4713,47,7
+"Kindersley T (CSD, SK)",4713008,4713,47,7
+"Coleville VL (CSD, SK)",4713026,4713,47,7
+"Winslow No. 319 RM (CSD, SK)",4713028,4713,47,7
+"Progress No. 351 RM (CSD, SK)",4713041,4713,47,7
+"Kerrobert T (CSD, SK)",4713042,4713,47,7
+"Luseland T (CSD, SK)",4713044,4713,47,7
+"Eye Hill No. 382 RM (CSD, SK)",4713049,4713,47,7
+"Macklin T (CSD, SK)",4713051,4713,47,7
+"Grass Lake No. 381 RM (CSD, SK)",4713056,4713,47,7
+"Buffalo No. 409 RM (CSD, SK)",4713068,4713,47,7
+"Wilkie T (CSD, SK)",4713069,4713,47,7
+"Round Valley No. 410 RM (CSD, SK)",4713072,4713,47,7
+"Unity T (CSD, SK)",4713074,4713,47,7
+"Manitou Lake No. 442 RM (CSD, SK)",4713079,4713,47,7
+"Hillsdale No. 440 RM (CSD, SK)",4713092,4713,47,7
+"Neilburg VL (CSD, SK)",4713094,4713,47,7
+"Cut Knife No. 439 RM (CSD, SK)",4713096,4713,47,7
+"Cut Knife T (CSD, SK)",4713098,4713,47,7
+"Division No. 14 (CD, SK)",4714,4714,47,4
+"Hudson Bay No. 394 RM (CSD, SK)",4714001,4714,47,7
+"Hudson Bay T (CSD, SK)",4714004,4714,47,7
+"Porcupine No. 395 RM (CSD, SK)",4714006,4714,47,7
+"Porcupine Plain T (CSD, SK)",4714007,4714,47,7
+"Kelvington No. 366 RM (CSD, SK)",4714021,4714,47,7
+"Kelvington T (CSD, SK)",4714022,4714,47,7
+"Ponass Lake No. 367 RM (CSD, SK)",4714023,4714,47,7
+"Rose Valley T (CSD, SK)",4714024,4714,47,7
+"Spalding No. 368 RM (CSD, SK)",4714026,4714,47,7
+"Naicam T (CSD, SK)",4714032,4714,47,7
+"Barrier Valley No. 397 RM (CSD, SK)",4714034,4714,47,7
+"Pleasantdale No. 398 RM (CSD, SK)",4714035,4714,47,7
+"Bjorkdale No. 426 RM (CSD, SK)",4714038,4714,47,7
+"Tisdale No. 427 RM (CSD, SK)",4714043,4714,47,7
+"Tisdale T (CSD, SK)",4714044,4714,47,7
+"Star City No. 428 RM (CSD, SK)",4714047,4714,47,7
+"Star City T (CSD, SK)",4714049,4714,47,7
+"Melfort CY (CSD, SK)",4714051,4714,47,7
+"Willow Creek No. 458 RM (CSD, SK)",4714053,4714,47,7
+"Connaught No. 457 RM (CSD, SK)",4714056,4714,47,7
+"Arborfield No. 456 RM (CSD, SK)",4714059,4714,47,7
+"Arborfield T (CSD, SK)",4714062,4714,47,7
+"Moose Range No. 486 RM (CSD, SK)",4714067,4714,47,7
+"Carrot River T (CSD, SK)",4714069,4714,47,7
+"Nipawin No. 487 RM (CSD, SK)",4714072,4714,47,7
+"Nipawin T (CSD, SK)",4714076,4714,47,7
+"Torch River No. 488 RM (CSD, SK)",4714077,4714,47,7
+"White Fox VL (CSD, SK)",4714079,4714,47,7
+"Choiceland T (CSD, SK)",4714092,4714,47,7
+"Division No. 15 (CD, SK)",4715,4715,47,4
+"St. Peter No. 369 RM (CSD, SK)",4715001,4715,47,7
+"Englefeld VL (CSD, SK)",4715002,4715,47,7
+"Muenster VL (CSD, SK)",4715004,4715,47,7
+"Lake Lenore VL (CSD, SK)",4715006,4715,47,7
+"Humboldt No. 370 RM (CSD, SK)",4715007,4715,47,7
+"Humboldt CY (CSD, SK)",4715008,4715,47,7
+"Bayne No. 371 RM (CSD, SK)",4715011,4715,47,7
+"Bruno T (CSD, SK)",4715012,4715,47,7
+"Grant No. 372 RM (CSD, SK)",4715014,4715,47,7
+"Vonda T (CSD, SK)",4715017,4715,47,7
+"Aberdeen No. 373 RM (CSD, SK)",4715018,4715,47,7
+"Aberdeen T (CSD, SK)",4715019,4715,47,7
+"Laird No. 404 RM (CSD, SK)",4715026,4715,47,7
+"Hepburn T (CSD, SK)",4715027,4715,47,7
+"Waldheim T (CSD, SK)",4715028,4715,47,7
+"Laird VL (CSD, SK)",4715029,4715,47,7
+"Rosthern No. 403 RM (CSD, SK)",4715031,4715,47,7
+"Rosthern T (CSD, SK)",4715032,4715,47,7
+"Hague T (CSD, SK)",4715034,4715,47,7
+"Fish Creek No. 402 RM (CSD, SK)",4715036,4715,47,7
+"Hoodoo No. 401 RM (CSD, SK)",4715039,4715,47,7
+"Cudworth T (CSD, SK)",4715041,4715,47,7
+"Wakaw T (CSD, SK)",4715042,4715,47,7
+"Three Lakes No. 400 RM (CSD, SK)",4715044,4715,47,7
+"Lake Lenore No. 399 RM (CSD, SK)",4715048,4715,47,7
+"St. Brieux T (CSD, SK)",4715049,4715,47,7
+"Flett's Springs No. 429 RM (CSD, SK)",4715051,4715,47,7
+"Invergordon No. 430 RM (CSD, SK)",4715054,4715,47,7
+"St. Louis No. 431 RM (CSD, SK)",4715057,4715,47,7
+"St. Louis VL (CSD, SK)",4715059,4715,47,7
+"Duck Lake No. 463 RM (CSD, SK)",4715061,4715,47,7
+"Duck Lake T (CSD, SK)",4715062,4715,47,7
+"Prince Albert No. 461 RM (CSD, SK)",4715064,4715,47,7
+"Prince Albert CY (CSD, SK)",4715066,4715,47,7
+"Birch Hills No. 460 RM (CSD, SK)",4715067,4715,47,7
+"Birch Hills T (CSD, SK)",4715068,4715,47,7
+"Candle Lake RV (CSD, SK)",4715070,4715,47,7
+"Kinistino No. 459 RM (CSD, SK)",4715071,4715,47,7
+"Kinistino T (CSD, SK)",4715074,4715,47,7
+"Lakeland No. 521 RM (CSD, SK)",4715075,4715,47,7
+"Christopher Lake VL (CSD, SK)",4715076,4715,47,7
+"Garden River No. 490 RM (CSD, SK)",4715079,4715,47,7
+"Buckland No. 491 RM (CSD, SK)",4715094,4715,47,7
+"Paddockwood No. 520 RM (CSD, SK)",4715099,4715,47,7
+"Division No. 16 (CD, SK)",4716,4716,47,4
+"Mayfield No. 406 RM (CSD, SK)",4716005,4716,47,7
+"Great Bend No. 405 RM (CSD, SK)",4716008,4716,47,7
+"Radisson T (CSD, SK)",4716009,4716,47,7
+"Borden VL (CSD, SK)",4716011,4716,47,7
+"Blaine Lake No. 434 RM (CSD, SK)",4716013,4716,47,7
+"Blaine Lake T (CSD, SK)",4716016,4716,47,7
+"Redberry No. 435 RM (CSD, SK)",4716018,4716,47,7
+"Hafford T (CSD, SK)",4716022,4716,47,7
+"Douglas No. 436 RM (CSD, SK)",4716023,4716,47,7
+"North Battleford No. 437 RM (CSD, SK)",4716028,4716,47,7
+"North Battleford CY (CSD, SK)",4716029,4716,47,7
+"Round Hill No. 467 RM (CSD, SK)",4716033,4716,47,7
+"Meeting Lake No. 466 RM (CSD, SK)",4716038,4716,47,7
+"Leask No. 464 RM (CSD, SK)",4716041,4716,47,7
+"Leask VL (CSD, SK)",4716042,4716,47,7
+"Shellbrook No. 493 RM (CSD, SK)",4716046,4716,47,7
+"Shellbrook T (CSD, SK)",4716047,4716,47,7
+"Canwood No. 494 RM (CSD, SK)",4716051,4716,47,7
+"Canwood VL (CSD, SK)",4716052,4716,47,7
+"Debden VL (CSD, SK)",4716054,4716,47,7
+"Spiritwood No. 496 RM (CSD, SK)",4716056,4716,47,7
+"Spiritwood T (CSD, SK)",4716058,4716,47,7
+"Leoville VL (CSD, SK)",4716061,4716,47,7
+"Medstead No. 497 RM (CSD, SK)",4716062,4716,47,7
+"Big River T (CSD, SK)",4716072,4716,47,7
+"Big River No. 555 RM (CSD, SK)",4716075,4716,47,7
+"Division No. 17 (CD, SK)",4717,4717,47,4
+"Meota No. 468 RM (CSD, SK)",4717001,4717,47,7
+"Meota VL (CSD, SK)",4717006,4717,47,7
+"Turtle River No. 469 RM (CSD, SK)",4717008,4717,47,7
+"Edam VL (CSD, SK)",4717011,4717,47,7
+"Paynton No. 470 RM (CSD, SK)",4717013,4717,47,7
+"Eldon No. 471 RM (CSD, SK)",4717017,4717,47,7
+"Maidstone T (CSD, SK)",4717018,4717,47,7
+"Wilton No. 472 RM (CSD, SK)",4717022,4717,47,7
+"Lashburn T (CSD, SK)",4717024,4717,47,7
+"Marshall T (CSD, SK)",4717026,4717,47,7
+"Britannia No. 502 RM (CSD, SK)",4717028,4717,47,7
+"Lloydminster (CSD, SK)",4717029,4717,47,7
+"Frenchman Butte No. 501 RM (CSD, SK)",4717032,4717,47,7
+"Paradise Hill VL (CSD, SK)",4717034,4717,47,7
+"St. Walburg T (CSD, SK)",4717036,4717,47,7
+"Turtleford T (CSD, SK)",4717041,4717,47,7
+"Mervin No. 499 RM (CSD, SK)",4717045,4717,47,7
+"Parkdale No. 498 RM (CSD, SK)",4717047,4717,47,7
+"Glaslyn VL (CSD, SK)",4717048,4717,47,7
+"Meadow Lake CY (CSD, SK)",4717052,4717,47,7
+"Meadow Lake No. 588 RM (CSD, SK)",4717054,4717,47,7
+"Loon Lake No. 561 RM (CSD, SK)",4717056,4717,47,7
+"Beaver River No. 622 RM (CSD, SK)",4717062,4717,47,7
+"Goodsoil VL (CSD, SK)",4717066,4717,47,7
+"Pierceland VL (CSD, SK)",4717067,4717,47,7
+"Division No. 18 (CD, SK)",4718,4718,47,4
+"Cumberland House NV (CSD, SK)",4718005,4718,47,7
+"Green Lake NV (CSD, SK)",4718021,4718,47,7
+"Beauval NV (CSD, SK)",4718033,4718,47,7
+"La Ronge T (CSD, SK)",4718041,4718,47,7
+"Air Ronge NV (CSD, SK)",4718042,4718,47,7
+,4718049,4718,47,7
+,4718049,4718,47,7
+,4718049,4718,47,7
+"Creighton T (CSD, SK)",4718051,4718,47,7
+"Pelican Narrows NV (CSD, SK)",4718055,4718,47,7
+,4718058,4718,47,7
+,4718058,4718,47,7
+,4718058,4718,47,7
+"Pinehouse NV (CSD, SK)",4718065,4718,47,7
+"Île-à-la-Crosse NV (CSD, SK)",4718067,4718,47,7
+"Buffalo Narrows NV (CSD, SK)",4718070,4718,47,7
+"La Loche NV (CSD, SK)",4718074,4718,47,7
+"Division No. 18, Unorganized NO (CSD, SK)",4718090,4718,47,7
+"Stony Rapids NH (CSD, SK)",4718100,4718,47,7
+Alberta (Province),48,48,48,2
+"Division No. 1 (CD, AB)",4801,4801,48,4
+"Cypress County MD (CSD, AB)",4801003,4801,48,7
+"Medicine Hat CY (CSD, AB)",4801006,4801,48,7
+"Forty Mile County No. 8 MD (CSD, AB)",4801008,4801,48,7
+"Foremost VL (CSD, AB)",4801009,4801,48,7
+"Bow Island T (CSD, AB)",4801014,4801,48,7
+"Redcliff T (CSD, AB)",4801018,4801,48,7
+"Division No. 2 (CD, AB)",4802,4802,48,4
+"Warner County No. 5 MD (CSD, AB)",4802001,4802,48,7
+"Milk River T (CSD, AB)",4802004,4802,48,7
+"Warner VL (CSD, AB)",4802006,4802,48,7
+"Raymond T (CSD, AB)",4802008,4802,48,7
+"Stirling VL (CSD, AB)",4802009,4802,48,7
+"Lethbridge County MD (CSD, AB)",4802011,4802,48,7
+"Lethbridge CY (CSD, AB)",4802012,4802,48,7
+"Coalhurst T (CSD, AB)",4802013,4802,48,7
+"Nobleford VL (CSD, AB)",4802014,4802,48,7
+"Barons VL (CSD, AB)",4802016,4802,48,7
+"Picture Butte T (CSD, AB)",4802018,4802,48,7
+"Coaldale T (CSD, AB)",4802019,4802,48,7
+"Taber MD (CSD, AB)",4802021,4802,48,7
+"Taber T (CSD, AB)",4802022,4802,48,7
+"Barnwell VL (CSD, AB)",4802023,4802,48,7
+"Vauxhall T (CSD, AB)",4802029,4802,48,7
+"Newell County MD (CSD, AB)",4802031,4802,48,7
+"Brooks CY (CSD, AB)",4802034,4802,48,7
+"Duchess VL (CSD, AB)",4802036,4802,48,7
+"Rosemary VL (CSD, AB)",4802038,4802,48,7
+"Bassano T (CSD, AB)",4802039,4802,48,7
+"Division No. 3 (CD, AB)",4803,4803,48,4
+"Cardston County MD (CSD, AB)",4803001,4803,48,7
+"Magrath T (CSD, AB)",4803002,4803,48,7
+"Cardston T (CSD, AB)",4803004,4803,48,7
+"Glenwood VL (CSD, AB)",4803006,4803,48,7
+"Pincher Creek No. 9 MD (CSD, AB)",4803011,4803,48,7
+"Pincher Creek T (CSD, AB)",4803014,4803,48,7
+"Willow Creek No. 26 MD (CSD, AB)",4803018,4803,48,7
+"Fort Macleod T (CSD, AB)",4803019,4803,48,7
+"Granum T (CSD, AB)",4803021,4803,48,7
+"Claresholm T (CSD, AB)",4803022,4803,48,7
+"Stavely T (CSD, AB)",4803024,4803,48,7
+"Nanton T (CSD, AB)",4803026,4803,48,7
+"Division No. 4 (CD, AB)",4804,4804,48,4
+"Acadia No. 34 MD (CSD, AB)",4804001,4804,48,7
+"Special Area No. 2 SA (CSD, AB)",4804004,4804,48,7
+"Hanna T (CSD, AB)",4804011,4804,48,7
+"Special Area No. 3 SA (CSD, AB)",4804012,4804,48,7
+"Oyen T (CSD, AB)",4804014,4804,48,7
+"Special Area No. 4 SA (CSD, AB)",4804020,4804,48,7
+"Consort VL (CSD, AB)",4804022,4804,48,7
+"Division No. 5 (CD, AB)",4805,4805,48,4
+"Vulcan County MD (CSD, AB)",4805001,4805,48,7
+"Champion VL (CSD, AB)",4805004,4805,48,7
+"Vulcan T (CSD, AB)",4805006,4805,48,7
+"Wheatland County MD (CSD, AB)",4805012,4805,48,7
+"Strathmore T (CSD, AB)",4805018,4805,48,7
+"Standard VL (CSD, AB)",4805021,4805,48,7
+"Rockyford VL (CSD, AB)",4805022,4805,48,7
+"Drumheller T (CSD, AB)",4805026,4805,48,7
+"Starland County MD (CSD, AB)",4805031,4805,48,7
+"Kneehill County MD (CSD, AB)",4805041,4805,48,7
+"Carbon VL (CSD, AB)",4805042,4805,48,7
+"Acme VL (CSD, AB)",4805044,4805,48,7
+"Linden VL (CSD, AB)",4805046,4805,48,7
+"Three Hills T (CSD, AB)",4805048,4805,48,7
+"Trochu T (CSD, AB)",4805049,4805,48,7
+"Division No. 6 (CD, AB)",4806,4806,48,4
+"Foothills No. 31 MD (CSD, AB)",4806001,4806,48,7
+"High River T (CSD, AB)",4806006,4806,48,7
+"Longview VL (CSD, AB)",4806008,4806,48,7
+"Turner Valley T (CSD, AB)",4806009,4806,48,7
+"Black Diamond T (CSD, AB)",4806011,4806,48,7
+"Okotoks T (CSD, AB)",4806012,4806,48,7
+"Rocky View County MD (CSD, AB)",4806014,4806,48,7
+"Calgary CY (CSD, AB)",4806016,4806,48,7
+"Chestermere CY (CSD, AB)",4806017,4806,48,7
+"Cochrane T (CSD, AB)",4806019,4806,48,7
+"Airdrie CY (CSD, AB)",4806021,4806,48,7
+"Irricana T (CSD, AB)",4806022,4806,48,7
+"Beiseker VL (CSD, AB)",4806024,4806,48,7
+"Crossfield T (CSD, AB)",4806026,4806,48,7
+"Mountain View County MD (CSD, AB)",4806028,4806,48,7
+"Carstairs T (CSD, AB)",4806029,4806,48,7
+"Cremona VL (CSD, AB)",4806031,4806,48,7
+"Didsbury T (CSD, AB)",4806032,4806,48,7
+"Olds T (CSD, AB)",4806034,4806,48,7
+"Sundre T (CSD, AB)",4806036,4806,48,7
+"Division No. 7 (CD, AB)",4807,4807,48,4
+"Provost No. 52 MD (CSD, AB)",4807001,4807,48,7
+"Provost T (CSD, AB)",4807002,4807,48,7
+"Paintearth County No. 18 MD (CSD, AB)",4807011,4807,48,7
+"Coronation T (CSD, AB)",4807012,4807,48,7
+"Castor T (CSD, AB)",4807014,4807,48,7
+"Stettler County No. 6 MD (CSD, AB)",4807019,4807,48,7
+"Big Valley VL (CSD, AB)",4807021,4807,48,7
+"Stettler T (CSD, AB)",4807026,4807,48,7
+"Flagstaff County MD (CSD, AB)",4807031,4807,48,7
+"Forestburg VL (CSD, AB)",4807036,4807,48,7
+"Daysland T (CSD, AB)",4807039,4807,48,7
+"Killam T (CSD, AB)",4807042,4807,48,7
+"Sedgewick T (CSD, AB)",4807044,4807,48,7
+"Hardisty T (CSD, AB)",4807048,4807,48,7
+"Wainwright No. 61 MD (CSD, AB)",4807049,4807,48,7
+"Chauvin VL (CSD, AB)",4807051,4807,48,7
+"Edgerton VL (CSD, AB)",4807052,4807,48,7
+"Wainwright T (CSD, AB)",4807054,4807,48,7
+"Irma VL (CSD, AB)",4807056,4807,48,7
+"Division No. 8 (CD, AB)",4808,4808,48,4
+"Red Deer County MD (CSD, AB)",4808001,4808,48,7
+"Elnora VL (CSD, AB)",4808002,4808,48,7
+"Delburne VL (CSD, AB)",4808004,4808,48,7
+"Bowden T (CSD, AB)",4808006,4808,48,7
+"Innisfail T (CSD, AB)",4808008,4808,48,7
+"Penhold T (CSD, AB)",4808009,4808,48,7
+"Red Deer CY (CSD, AB)",4808011,4808,48,7
+"Sylvan Lake T (CSD, AB)",4808012,4808,48,7
+"Lacombe County MD (CSD, AB)",4808022,4808,48,7
+"Eckville T (CSD, AB)",4808024,4808,48,7
+"Bentley T (CSD, AB)",4808026,4808,48,7
+"Blackfalds T (CSD, AB)",4808029,4808,48,7
+"Lacombe CY (CSD, AB)",4808031,4808,48,7
+"Clive VL (CSD, AB)",4808032,4808,48,7
+"Alix VL (CSD, AB)",4808034,4808,48,7
+"Ponoka County MD (CSD, AB)",4808038,4808,48,7
+"Ponoka T (CSD, AB)",4808039,4808,48,7
+"Rimbey T (CSD, AB)",4808044,4808,48,7
+"Division No. 9 (CD, AB)",4809,4809,48,4
+"Clearwater County MD (CSD, AB)",4809002,4809,48,7
+"Caroline VL (CSD, AB)",4809010,4809,48,7
+"Rocky Mountain House T (CSD, AB)",4809015,4809,48,7
+"Division No. 10 (CD, AB)",4810,4810,48,4
+"Camrose County MD (CSD, AB)",4810001,4810,48,7
+"Bashaw T (CSD, AB)",4810002,4810,48,7
+"Bawlf VL (CSD, AB)",4810009,4810,48,7
+"Camrose CY (CSD, AB)",4810011,4810,48,7
+"Hay Lakes VL (CSD, AB)",4810014,4810,48,7
+"Beaver County MD (CSD, AB)",4810016,4810,48,7
+"Tofield T (CSD, AB)",4810018,4810,48,7
+"Ryley VL (CSD, AB)",4810019,4810,48,7
+"Holden VL (CSD, AB)",4810021,4810,48,7
+"Viking T (CSD, AB)",4810022,4810,48,7
+"Minburn County No. 27 MD (CSD, AB)",4810026,4810,48,7
+"Vegreville T (CSD, AB)",4810028,4810,48,7
+"Mannville VL (CSD, AB)",4810034,4810,48,7
+"Vermilion River County MD (CSD, AB)",4810036,4810,48,7
+"Lloydminster (CSD, AB)",4810039,4810,48,7
+"Kitscoty VL (CSD, AB)",4810041,4810,48,7
+"Vermilion T (CSD, AB)",4810042,4810,48,7
+"Marwayne VL (CSD, AB)",4810044,4810,48,7
+"Two Hills County No. 21 MD (CSD, AB)",4810048,4810,48,7
+"Myrnam VL (CSD, AB)",4810051,4810,48,7
+"Two Hills T (CSD, AB)",4810052,4810,48,7
+"Willingdon VL (CSD, AB)",4810056,4810,48,7
+"Lamont County MD (CSD, AB)",4810058,4810,48,7
+"Andrew VL (CSD, AB)",4810059,4810,48,7
+"Mundare T (CSD, AB)",4810061,4810,48,7
+"Chipman VL (CSD, AB)",4810062,4810,48,7
+"Lamont T (CSD, AB)",4810064,4810,48,7
+"Bruderheim T (CSD, AB)",4810066,4810,48,7
+"Division No. 11 (CD, AB)",4811,4811,48,4
+"Wetaskiwin County No. 10 MD (CSD, AB)",4811001,4811,48,7
+"Wetaskiwin CY (CSD, AB)",4811002,4811,48,7
+"Millet T (CSD, AB)",4811011,4811,48,7
+"Leduc County MD (CSD, AB)",4811012,4811,48,7
+"Beaumont T (CSD, AB)",4811013,4811,48,7
+"Leduc CY (CSD, AB)",4811016,4811,48,7
+"Devon T (CSD, AB)",4811018,4811,48,7
+"Calmar T (CSD, AB)",4811019,4811,48,7
+"Thorsby VL (CSD, AB)",4811021,4811,48,7
+"Warburg VL (CSD, AB)",4811024,4811,48,7
+"Breton VL (CSD, AB)",4811026,4811,48,7
+"Drayton Valley T (CSD, AB)",4811031,4811,48,7
+"Brazeau County MD (CSD, AB)",4811032,4811,48,7
+"Parkland County MD (CSD, AB)",4811034,4811,48,7
+"Wabamun VL (CSD, AB)",4811045,4811,48,7
+"Spring Lake VL (CSD, AB)",4811046,4811,48,7
+"Stony Plain T (CSD, AB)",4811048,4811,48,7
+"Spruce Grove CY (CSD, AB)",4811049,4811,48,7
+"Strathcona County SM (CSD, AB)",4811052,4811,48,7
+"Fort Saskatchewan CY (CSD, AB)",4811056,4811,48,7
+"Sturgeon County MD (CSD, AB)",4811059,4811,48,7
+"Edmonton CY (CSD, AB)",4811061,4811,48,7
+"St. Albert CY (CSD, AB)",4811062,4811,48,7
+"Gibbons T (CSD, AB)",4811064,4811,48,7
+"Redwater T (CSD, AB)",4811065,4811,48,7
+"Bon Accord T (CSD, AB)",4811066,4811,48,7
+"Morinville T (CSD, AB)",4811068,4811,48,7
+"Legal T (CSD, AB)",4811069,4811,48,7
+"Division No. 12 (CD, AB)",4812,4812,48,4
+"Cold Lake CY (CSD, AB)",4812002,4812,48,7
+"Bonnyville No. 87 MD (CSD, AB)",4812004,4812,48,7
+"Bonnyville T (CSD, AB)",4812009,4812,48,7
+"Glendon VL (CSD, AB)",4812012,4812,48,7
+"St. Paul County No. 19 MD (CSD, AB)",4812014,4812,48,7
+"Elk Point T (CSD, AB)",4812016,4812,48,7
+"St. Paul T (CSD, AB)",4812018,4812,48,7
+"Smoky Lake County MD (CSD, AB)",4812022,4812,48,7
+"Vilna VL (CSD, AB)",4812024,4812,48,7
+"Smoky Lake T (CSD, AB)",4812029,4812,48,7
+"Lac la Biche County MD (CSD, AB)",4812037,4812,48,7
+"Division No. 13 (CD, AB)",4813,4813,48,4
+"Lac Ste. Anne County MD (CSD, AB)",4813001,4813,48,7
+"Mayerthorpe T (CSD, AB)",4813002,4813,48,7
+"Alberta Beach VL (CSD, AB)",4813012,4813,48,7
+"Onoway T (CSD, AB)",4813014,4813,48,7
+"Sandy Beach SV (CSD, AB)",4813016,4813,48,7
+"Barrhead County No. 11 MD (CSD, AB)",4813018,4813,48,7
+"Barrhead T (CSD, AB)",4813019,4813,48,7
+"Westlock County MD (CSD, AB)",4813028,4813,48,7
+"Woodlands County MD (CSD, AB)",4813029,4813,48,7
+"Whitecourt T (CSD, AB)",4813030,4813,48,7
+"Westlock T (CSD, AB)",4813031,4813,48,7
+"Clyde VL (CSD, AB)",4813032,4813,48,7
+"Thorhild County MD (CSD, AB)",4813036,4813,48,7
+"Athabasca County MD (CSD, AB)",4813044,4813,48,7
+"Boyle VL (CSD, AB)",4813046,4813,48,7
+"Athabasca T (CSD, AB)",4813048,4813,48,7
+"Division No. 14 (CD, AB)",4814,4814,48,4
+"Yellowhead County MD (CSD, AB)",4814003,4814,48,7
+"Hinton T (CSD, AB)",4814019,4814,48,7
+"Edson T (CSD, AB)",4814024,4814,48,7
+"Division No. 15 (CD, AB)",4815,4815,48,4
+"Crowsnest Pass SM (CSD, AB)",4815007,4815,48,7
+"Bighorn No. 8 MD (CSD, AB)",4815015,4815,48,7
+"Canmore T (CSD, AB)",4815023,4815,48,7
+"Jasper SM (CSD, AB)",4815033,4815,48,7
+"Banff T (CSD, AB)",4815035,4815,48,7
+"Division No. 16 (CD, AB)",4816,4816,48,4
+"Wood Buffalo SM (CSD, AB)",4816037,4816,48,7
+"Improvement District No. 24 Wood Buffalo ID (CSD, AB)",4816051,4816,48,7
+"Division No. 17 (CD, AB)",4817,4817,48,4
+"High Prairie T (CSD, AB)",4817021,4817,48,7
+"Swan Hills T (CSD, AB)",4817024,4817,48,7
+"Northern Sunrise County MD (CSD, AB)",4817026,4817,48,7
+"Big Lakes County MD (CSD, AB)",4817027,4817,48,7
+"Slave Lake T (CSD, AB)",4817029,4817,48,7
+"Opportunity No. 17 MD (CSD, AB)",4817031,4817,48,7
+"Lesser Slave River No.124 MD (CSD, AB)",4817033,4817,48,7
+"Nampa VL (CSD, AB)",4817039,4817,48,7
+"Clear Hills MD (CSD, AB)",4817062,4817,48,7
+"Hines Creek VL (CSD, AB)",4817064,4817,48,7
+"Northern Lights County MD (CSD, AB)",4817076,4817,48,7
+"Manning T (CSD, AB)",4817078,4817,48,7
+"High Level T (CSD, AB)",4817093,4817,48,7
+"Mackenzie County SM (CSD, AB)",4817095,4817,48,7
+"Rainbow Lake T (CSD, AB)",4817097,4817,48,7
+"Division No. 18 (CD, AB)",4818,4818,48,4
+"Fox Creek T (CSD, AB)",4818002,4818,48,7
+"Grande Cache T (CSD, AB)",4818005,4818,48,7
+"Greenview No. 16 MD (CSD, AB)",4818015,4818,48,7
+"Valleyview T (CSD, AB)",4818018,4818,48,7
+"Division No. 19 (CD, AB)",4819,4819,48,4
+"Grande Prairie County No. 1 MD (CSD, AB)",4819006,4819,48,7
+"Hythe VL (CSD, AB)",4819008,4819,48,7
+"Beaverlodge T (CSD, AB)",4819009,4819,48,7
+"Wembley T (CSD, AB)",4819011,4819,48,7
+"Grande Prairie CY (CSD, AB)",4819012,4819,48,7
+"Sexsmith T (CSD, AB)",4819014,4819,48,7
+"Peace River T (CSD, AB)",4819038,4819,48,7
+"Smoky River No. 130 MD (CSD, AB)",4819041,4819,48,7
+"McLennan T (CSD, AB)",4819042,4819,48,7
+"Donnelly VL (CSD, AB)",4819044,4819,48,7
+"Falher T (CSD, AB)",4819046,4819,48,7
+"Birch Hills County MD (CSD, AB)",4819049,4819,48,7
+"Spirit River No. 133 MD (CSD, AB)",4819054,4819,48,7
+"Rycroft VL (CSD, AB)",4819056,4819,48,7
+"Spirit River T (CSD, AB)",4819058,4819,48,7
+"Saddle Hills County MD (CSD, AB)",4819059,4819,48,7
+"Fairview No. 136 MD (CSD, AB)",4819066,4819,48,7
+"Fairview T (CSD, AB)",4819068,4819,48,7
+"Peace No. 135 MD (CSD, AB)",4819071,4819,48,7
+"Berwyn VL (CSD, AB)",4819072,4819,48,7
+"Grimshaw T (CSD, AB)",4819074,4819,48,7
+British Columbia (Province),59,59,59,2
+"East Kootenay (CD, BC)",5901,5901,59,4
+,5901003,5901,59,7
+,5901003,5901,59,7
+,5901003,5901,59,7
+"Sparwood DM (CSD, BC)",5901006,5901,59,7
+"Fernie CY (CSD, BC)",5901012,5901,59,7
+"East Kootenay A RDA (CSD, BC)",5901017,5901,59,7
+"East Kootenay B RDA (CSD, BC)",5901019,5901,59,7
+"Cranbrook CY (CSD, BC)",5901022,5901,59,7
+"Kimberley CY (CSD, BC)",5901028,5901,59,7
+"East Kootenay C RDA (CSD, BC)",5901035,5901,59,7
+"East Kootenay E RDA (CSD, BC)",5901037,5901,59,7
+"Invermere DM (CSD, BC)",5901039,5901,59,7
+"Radium Hot Springs VL (CSD, BC)",5901040,5901,59,7
+"Canal Flats VL (CSD, BC)",5901043,5901,59,7
+"East Kootenay F RDA (CSD, BC)",5901046,5901,59,7
+"East Kootenay G RDA (CSD, BC)",5901048,5901,59,7
+"Central Kootenay (CD, BC)",5903,5903,59,4
+"Creston T (CSD, BC)",5903004,5903,59,7
+"Central Kootenay A RDA (CSD, BC)",5903010,5903,59,7
+"Salmo VL (CSD, BC)",5903011,5903,59,7
+"Central Kootenay B RDA (CSD, BC)",5903013,5903,59,7
+"Nelson CY (CSD, BC)",5903015,5903,59,7
+"Central Kootenay C RDA (CSD, BC)",5903017,5903,59,7
+"Kaslo VL (CSD, BC)",5903023,5903,59,7
+"New Denver VL (CSD, BC)",5903032,5903,59,7
+"Central Kootenay D RDA (CSD, BC)",5903039,5903,59,7
+"Central Kootenay E RDA (CSD, BC)",5903041,5903,59,7
+"Central Kootenay F RDA (CSD, BC)",5903043,5903,59,7
+"Castlegar CY (CSD, BC)",5903045,5903,59,7
+"Central Kootenay G RDA (CSD, BC)",5903047,5903,59,7
+"Nakusp VL (CSD, BC)",5903050,5903,59,7
+"Central Kootenay H RDA (CSD, BC)",5903052,5903,59,7
+"Central Kootenay I RDA (CSD, BC)",5903056,5903,59,7
+"Central Kootenay J RDA (CSD, BC)",5903058,5903,59,7
+"Central Kootenay K RDA (CSD, BC)",5903060,5903,59,7
+"Kootenay Boundary (CD, BC)",5905,5905,59,4
+"Fruitvale VL (CSD, BC)",5905005,5905,59,7
+"Montrose VL (CSD, BC)",5905009,5905,59,7
+"Trail CY (CSD, BC)",5905014,5905,59,7
+"Warfield VL (CSD, BC)",5905018,5905,59,7
+"Rossland CY (CSD, BC)",5905023,5905,59,7
+"Kootenay Boundary A RDA (CSD, BC)",5905026,5905,59,7
+"Kootenay Boundary B / Lower Columbia-Old-Glory RDA (CSD, BC)",5905030,5905,59,7
+"Grand Forks CY (CSD, BC)",5905032,5905,59,7
+"Midway VL (CSD, BC)",5905037,5905,59,7
+"Greenwood CY (CSD, BC)",5905042,5905,59,7
+"Kootenay Boundary C / Christina Lake RDA (CSD, BC)",5905050,5905,59,7
+"Kootenay Boundary D / Rural Grand Forks RDA (CSD, BC)",5905052,5905,59,7
+"Kootenay Boundary E / West Boundary RDA (CSD, BC)",5905054,5905,59,7
+"Okanagan-Similkameen (CD, BC)",5907,5907,59,4
+"Osoyoos T (CSD, BC)",5907005,5907,59,7
+"Keremeos VL (CSD, BC)",5907009,5907,59,7
+"Oliver T (CSD, BC)",5907014,5907,59,7
+"Okanagan-Similkameen A RDA (CSD, BC)",5907022,5907,59,7
+"Princeton T (CSD, BC)",5907024,5907,59,7
+"Okanagan-Similkameen B RDA (CSD, BC)",5907026,5907,59,7
+"Okanagan-Similkameen C RDA (CSD, BC)",5907028,5907,59,7
+"Summerland DM (CSD, BC)",5907035,5907,59,7
+"Penticton CY (CSD, BC)",5907041,5907,59,7
+"Okanagan-Similkameen D RDA (CSD, BC)",5907047,5907,59,7
+"Okanagan-Similkameen E RDA (CSD, BC)",5907049,5907,59,7
+"Okanagan-Similkameen F RDA (CSD, BC)",5907051,5907,59,7
+"Okanagan-Similkameen G RDA (CSD, BC)",5907053,5907,59,7
+"Okanagan-Similkameen H RDA (CSD, BC)",5907055,5907,59,7
+"Fraser Valley (CD, BC)",5909,5909,59,4
+"Hope DM (CSD, BC)",5909009,5909,59,7
+"Fraser Valley A RDA (CSD, BC)",5909014,5909,59,7
+"Fraser Valley B RDA (CSD, BC)",5909016,5909,59,7
+"Chilliwack CY (CSD, BC)",5909020,5909,59,7
+"Harrison Hot Springs VL (CSD, BC)",5909027,5909,59,7
+"Kent DM (CSD, BC)",5909032,5909,59,7
+"Fraser Valley D RDA (CSD, BC)",5909034,5909,59,7
+"Fraser Valley H RDA (CSD, BC)",5909035,5909,59,7
+"Fraser Valley E RDA (CSD, BC)",5909036,5909,59,7
+"Fraser Valley C RDA (CSD, BC)",5909048,5909,59,7
+"Abbotsford CY (CSD, BC)",5909052,5909,59,7
+"Mission DM (CSD, BC)",5909056,5909,59,7
+"Fraser Valley F RDA (CSD, BC)",5909060,5909,59,7
+"Fraser Valley G RDA (CSD, BC)",5909062,5909,59,7
+"Greater Vancouver (CD, BC)",5915,5915,59,4
+"Langley DM (CSD, BC)",5915001,5915,59,7
+"Langley CY (CSD, BC)",5915002,5915,59,7
+"Surrey CY (CSD, BC)",5915004,5915,59,7
+"White Rock CY (CSD, BC)",5915007,5915,59,7
+"Delta DM (CSD, BC)",5915011,5915,59,7
+"Richmond CY (CSD, BC)",5915015,5915,59,7
+"Greater Vancouver A RDA (CSD, BC)",5915020,5915,59,7
+"Vancouver CY (CSD, BC)",5915022,5915,59,7
+"Burnaby CY (CSD, BC)",5915025,5915,59,7
+"New Westminster CY (CSD, BC)",5915029,5915,59,7
+"Coquitlam CY (CSD, BC)",5915034,5915,59,7
+"Belcarra VL (CSD, BC)",5915036,5915,59,7
+"Anmore VL (CSD, BC)",5915038,5915,59,7
+"Port Coquitlam CY (CSD, BC)",5915039,5915,59,7
+"Port Moody CY (CSD, BC)",5915043,5915,59,7
+"North Vancouver DM (CSD, BC)",5915046,5915,59,7
+"North Vancouver CY (CSD, BC)",5915051,5915,59,7
+"West Vancouver DM (CSD, BC)",5915055,5915,59,7
+"Bowen Island IM (CSD, BC)",5915062,5915,59,7
+"Lions Bay VL (CSD, BC)",5915065,5915,59,7
+"Pitt Meadows CY (CSD, BC)",5915070,5915,59,7
+"Maple Ridge CY (CSD, BC)",5915075,5915,59,7
+"Capital (CD, BC)",5917,5917,59,4
+"North Saanich DM (CSD, BC)",5917005,5917,59,7
+"Sidney T (CSD, BC)",5917010,5917,59,7
+"Central Saanich DM (CSD, BC)",5917015,5917,59,7
+"Saanich DM (CSD, BC)",5917021,5917,59,7
+"Saltspring Island RDA (CSD, BC)",5917027,5917,59,7
+"Southern Gulf Islands RDA (CSD, BC)",5917029,5917,59,7
+"Oak Bay DM (CSD, BC)",5917030,5917,59,7
+"Victoria CY (CSD, BC)",5917034,5917,59,7
+"Esquimalt DM (CSD, BC)",5917040,5917,59,7
+"Colwood CY (CSD, BC)",5917041,5917,59,7
+"Metchosin DM (CSD, BC)",5917042,5917,59,7
+"Langford CY (CSD, BC)",5917044,5917,59,7
+"View Royal T (CSD, BC)",5917047,5917,59,7
+"Highlands DM (CSD, BC)",5917049,5917,59,7
+"Sooke DM (CSD, BC)",5917052,5917,59,7
+"Juan de Fuca (CSD, BC)",5917054,5917,59,7
+"Cowichan Valley (CD, BC)",5919,5919,59,4
+"North Cowichan DM (CSD, BC)",5919008,5919,59,7
+"Duncan CY (CSD, BC)",5919012,5919,59,7
+"Cowichan Valley D RDA (CSD, BC)",5919013,5919,59,7
+"Cowichan Valley G RDA (CSD, BC)",5919015,5919,59,7
+"Lake Cowichan T (CSD, BC)",5919016,5919,59,7
+"Cowichan Valley H RDA (CSD, BC)",5919017,5919,59,7
+"Ladysmith T (CSD, BC)",5919021,5919,59,7
+"Cowichan Valley F RDA (CSD, BC)",5919033,5919,59,7
+"Cowichan Valley I RDA (CSD, BC)",5919035,5919,59,7
+"Cowichan Valley A RDA (CSD, BC)",5919043,5919,59,7
+"Cowichan Valley B RDA (CSD, BC)",5919046,5919,59,7
+"Cowichan Valley C RDA (CSD, BC)",5919049,5919,59,7
+"Cowichan Valley E RDA (CSD, BC)",5919051,5919,59,7
+"Nanaimo (CD, BC)",5921,5921,59,4
+"Nanaimo CY (CSD, BC)",5921007,5921,59,7
+"Lantzville DM (CSD, BC)",5921008,5921,59,7
+"Nanaimo A RDA (CSD, BC)",5921010,5921,59,7
+"Nanaimo B RDA (CSD, BC)",5921014,5921,59,7
+"Nanaimo C RDA (CSD, BC)",5921016,5921,59,7
+"Parksville CY (CSD, BC)",5921018,5921,59,7
+"Qualicum Beach T (CSD, BC)",5921023,5921,59,7
+"Nanaimo E RDA (CSD, BC)",5921030,5921,59,7
+"Nanaimo F RDA (CSD, BC)",5921032,5921,59,7
+"Nanaimo G RDA (CSD, BC)",5921034,5921,59,7
+"Nanaimo H RDA (CSD, BC)",5921036,5921,59,7
+"Alberni-Clayoquot (CD, BC)",5923,5923,59,4
+"Port Alberni CY (CSD, BC)",5923008,5923,59,7
+"Ucluelet DM (CSD, BC)",5923019,5923,59,7
+"Tofino DM (CSD, BC)",5923025,5923,59,7
+"Alberni-Clayoquot B RDA (CSD, BC)",5923033,5923,59,7
+"Alberni-Clayoquot D RDA (CSD, BC)",5923035,5923,59,7
+"Alberni-Clayoquot E RDA (CSD, BC)",5923037,5923,59,7
+"Alberni-Clayoquot F RDA (CSD, BC)",5923039,5923,59,7
+"Alberni-Clayoquot C RDA (CSD, BC)",5923049,5923,59,7
+"Strathcona (CD, BC)",5924,5924,59,4
+"Gold River VL (CSD, BC)",5924025,5924,59,7
+"Campbell River CY (CSD, BC)",5924034,5924,59,7
+"Sayward VL (CSD, BC)",5924039,5924,59,7
+"Strathcona D (CSD, BC)",5924042,5924,59,7
+"Strathcona A RDA (CSD, BC)",5924048,5924,59,7
+"Strathcona B RDA (CSD, BC)",5924052,5924,59,7
+"Strathcona C RDA (CSD, BC)",5924054,5924,59,7
+"Comox Valley (CD, BC)",5926,5926,59,4
+"Comox T (CSD, BC)",5926005,5926,59,7
+"Courtenay CY (CSD, BC)",5926010,5926,59,7
+"Cumberland VL (CSD, BC)",5926014,5926,59,7
+"Comox Valley A RDA (CSD, BC)",5926021,5926,59,7
+"Comox Valley B (CSD, BC)",5926022,5926,59,7
+"Comox Valley C (CSD, BC)",5926024,5926,59,7
+"Powell River (CD, BC)",5927,5927,59,4
+"Powell River CY (CSD, BC)",5927008,5927,59,7
+"Powell River A RDA (CSD, BC)",5927010,5927,59,7
+"Powell River B RDA (CSD, BC)",5927012,5927,59,7
+"Powell River C RDA (CSD, BC)",5927016,5927,59,7
+"Powell River D RDA (CSD, BC)",5927018,5927,59,7
+"Powell River E RDA (CSD, BC)",5927020,5927,59,7
+"Sunshine Coast (CD, BC)",5929,5929,59,4
+"Gibsons T (CSD, BC)",5929005,5929,59,7
+"Sechelt DM (CSD, BC)",5929011,5929,59,7
+"Sunshine Coast A RDA (CSD, BC)",5929018,5929,59,7
+"Sunshine Coast B RDA (CSD, BC)",5929022,5929,59,7
+"Sunshine Coast D RDA (CSD, BC)",5929024,5929,59,7
+"Sunshine Coast E RDA (CSD, BC)",5929026,5929,59,7
+"Sunshine Coast F RDA (CSD, BC)",5929028,5929,59,7
+"Squamish-Lillooet (CD, BC)",5931,5931,59,4
+"Squamish DM (CSD, BC)",5931006,5931,59,7
+"Pemberton VL (CSD, BC)",5931012,5931,59,7
+"Squamish-Lillooet C RDA (CSD, BC)",5931017,5931,59,7
+"Whistler DM (CSD, BC)",5931020,5931,59,7
+"Squamish-Lillooet D RDA (CSD, BC)",5931021,5931,59,7
+"Lillooet DM (CSD, BC)",5931026,5931,59,7
+"Squamish-Lillooet B RDA (CSD, BC)",5931034,5931,59,7
+"Thompson-Nicola (CD, BC)",5933,5933,59,4
+"Merritt CY (CSD, BC)",5933006,5933,59,7
+"Thompson-Nicola M (CSD, BC)",5933008,5933,59,7
+"Thompson-Nicola N (CSD, BC)",5933012,5933,59,7
+"Ashcroft VL (CSD, BC)",5933019,5933,59,7
+"Cache Creek VL (CSD, BC)",5933024,5933,59,7
+"Clinton VL (CSD, BC)",5933028,5933,59,7
+"Thompson-Nicola E (CSD, BC)",5933032,5933,59,7
+"Logan Lake DM (CSD, BC)",5933035,5933,59,7
+"Thompson-Nicola I (CSD, BC)",5933037,5933,59,7
+"Thompson-Nicola J (CSD, BC)",5933039,5933,59,7
+"Kamloops CY (CSD, BC)",5933042,5933,59,7
+"Thompson-Nicola P (CSD, BC)",5933044,5933,59,7
+"Sun Peaks Mountain VL (CSD, BC)",5933045,5933,59,7
+"Chase VL (CSD, BC)",5933054,5933,59,7
+"Thompson-Nicola L (CSD, BC)",5933060,5933,59,7
+"Clearwater DM (CSD, BC)",5933067,5933,59,7
+"Thompson-Nicola A (CSD, BC)",5933068,5933,59,7
+"Thompson-Nicola O (CSD, BC)",5933072,5933,59,7
+"Barriere DM (CSD, BC)",5933074,5933,59,7
+"Central Okanagan (CD, BC)",5935,5935,59,4
+"Kelowna CY (CSD, BC)",5935010,5935,59,7
+"Central Okanagan RDA (CSD, BC)",5935012,5935,59,7
+"Lake Country DM (CSD, BC)",5935016,5935,59,7
+"Peachland DM (CSD, BC)",5935018,5935,59,7
+"Central Okanagan J RDA (CSD, BC)",5935020,5935,59,7
+"West Kelowna DM (CSD, BC)",5935029,5935,59,7
+"North Okanagan (CD, BC)",5937,5937,59,4
+"Lumby VL (CSD, BC)",5937005,5937,59,7
+"Coldstream DM (CSD, BC)",5937010,5937,59,7
+"Vernon CY (CSD, BC)",5937014,5937,59,7
+"North Okanagan B RDA (CSD, BC)",5937017,5937,59,7
+"North Okanagan C RDA (CSD, BC)",5937021,5937,59,7
+"North Okanagan D RDA (CSD, BC)",5937022,5937,59,7
+"North Okanagan E RDA (CSD, BC)",5937023,5937,59,7
+"Spallumcheen DM (CSD, BC)",5937024,5937,59,7
+"Armstrong CY (CSD, BC)",5937028,5937,59,7
+"Enderby CY (CSD, BC)",5937033,5937,59,7
+"North Okanagan F RDA (CSD, BC)",5937041,5937,59,7
+"Columbia-Shuswap (CD, BC)",5939,5939,59,4
+"Golden T (CSD, BC)",5939007,5939,59,7
+"Columbia-Shuswap A RDA (CSD, BC)",5939011,5939,59,7
+"Revelstoke CY (CSD, BC)",5939019,5939,59,7
+"Columbia-Shuswap B RDA (CSD, BC)",5939023,5939,59,7
+"Salmon Arm CY (CSD, BC)",5939032,5939,59,7
+"Columbia-Shuswap C RDA (CSD, BC)",5939037,5939,59,7
+"Columbia-Shuswap D RDA (CSD, BC)",5939039,5939,59,7
+"Columbia-Shuswap E RDA (CSD, BC)",5939043,5939,59,7
+"Columbia-Shuswap F RDA (CSD, BC)",5939044,5939,59,7
+"Sicamous DM (CSD, BC)",5939045,5939,59,7
+"Cariboo (CD, BC)",5941,5941,59,4
+"One Hundred Mile House DM (CSD, BC)",5941005,5941,59,7
+"Williams Lake CY (CSD, BC)",5941009,5941,59,7
+"Cariboo D RDA (CSD, BC)",5941010,5941,59,7
+"Cariboo E RDA (CSD, BC)",5941012,5941,59,7
+"Quesnel CY (CSD, BC)",5941013,5941,59,7
+"Cariboo F RDA (CSD, BC)",5941014,5941,59,7
+"Cariboo G RDA (CSD, BC)",5941015,5941,59,7
+"Cariboo H RDA (CSD, BC)",5941016,5941,59,7
+"Cariboo L RDA (CSD, BC)",5941017,5941,59,7
+"Cariboo A RDA (CSD, BC)",5941019,5941,59,7
+"Cariboo B RDA (CSD, BC)",5941021,5941,59,7
+"Cariboo C RDA (CSD, BC)",5941026,5941,59,7
+"Cariboo I RDA (CSD, BC)",5941027,5941,59,7
+"Cariboo J RDA (CSD, BC)",5941039,5941,59,7
+"Cariboo K RDA (CSD, BC)",5941041,5941,59,7
+"Mount Waddington (CD, BC)",5943,5943,59,4
+"Alert Bay VL (CSD, BC)",5943008,5943,59,7
+"Port McNeill T (CSD, BC)",5943012,5943,59,7
+"Port Alice VL (CSD, BC)",5943017,5943,59,7
+"Port Hardy DM (CSD, BC)",5943023,5943,59,7
+"Mount Waddington C RDA (CSD, BC)",5943031,5943,59,7
+"Mount Waddington A RDA (CSD, BC)",5943037,5943,59,7
+"Central Coast (CD, BC)",5945,5945,59,4
+"Central Coast C RDA (CSD, BC)",5945010,5945,59,7
+"Central Coast D RDA (CSD, BC)",5945012,5945,59,7
+"Skeena-Queen Charlotte (CD, BC)",5947,5947,59,4
+"Port Edward DM (CSD, BC)",5947007,5947,59,7
+"Prince Rupert CY (CSD, BC)",5947012,5947,59,7
+"Masset VL (CSD, BC)",5947023,5947,59,7
+"Queen Charlotte VL (CSD, BC)",5947026,5947,59,7
+"Skeena-Queen Charlotte D RDA (CSD, BC)",5947027,5947,59,7
+"Port Clements VL (CSD, BC)",5947030,5947,59,7
+"Skeena-Queen Charlotte E RDA (CSD, BC)",5947032,5947,59,7
+"Kitimat-Stikine (CD, BC)",5949,5949,59,4
+"Kitimat DM (CSD, BC)",5949005,5949,59,7
+"Terrace CY (CSD, BC)",5949011,5949,59,7
+"Kitimat-Stikine C (CSD, BC)",5949013,5949,59,7
+"Kitimat-Stikine E RDA (CSD, BC)",5949018,5949,59,7
+"New Hazelton DM (CSD, BC)",5949024,5949,59,7
+"Kitimat-Stikine B RDA (CSD, BC)",5949028,5949,59,7
+"Stewart DM (CSD, BC)",5949032,5949,59,7
+"Kitimat-Stikine F RDA (CSD, BC)",5949038,5949,59,7
+"Bulkley-Nechako (CD, BC)",5951,5951,59,4
+"Vanderhoof DM (CSD, BC)",5951007,5951,59,7
+"Fraser Lake VL (CSD, BC)",5951009,5951,59,7
+"Fort St. James DM (CSD, BC)",5951013,5951,59,7
+"Bulkley-Nechako C RDA (CSD, BC)",5951015,5951,59,7
+"Bulkley-Nechako D RDA (CSD, BC)",5951017,5951,59,7
+"Bulkley-Nechako F RDA (CSD, BC)",5951019,5951,59,7
+"Burns Lake VL (CSD, BC)",5951022,5951,59,7
+"Bulkley-Nechako B RDA (CSD, BC)",5951028,5951,59,7
+"Bulkley-Nechako E RDA (CSD, BC)",5951031,5951,59,7
+"Granisle VL (CSD, BC)",5951032,5951,59,7
+"Houston DM (CSD, BC)",5951034,5951,59,7
+"Telkwa VL (CSD, BC)",5951038,5951,59,7
+"Smithers T (CSD, BC)",5951043,5951,59,7
+"Bulkley-Nechako A RDA (CSD, BC)",5951051,5951,59,7
+"Bulkley-Nechako G RDA (CSD, BC)",5951053,5951,59,7
+"Fraser-Fort George (CD, BC)",5953,5953,59,4
+"Valemount VL (CSD, BC)",5953007,5953,59,7
+"McBride VL (CSD, BC)",5953012,5953,59,7
+"Fraser-Fort George H RDA (CSD, BC)",5953019,5953,59,7
+"Prince George CY (CSD, BC)",5953023,5953,59,7
+"Mackenzie DM (CSD, BC)",5953033,5953,59,7
+"Fraser-Fort George A RDA (CSD, BC)",5953038,5953,59,7
+"Fraser-Fort George C RDA (CSD, BC)",5953042,5953,59,7
+"Fraser-Fort George D RDA (CSD, BC)",5953044,5953,59,7
+"Fraser-Fort George E RDA (CSD, BC)",5953046,5953,59,7
+"Fraser-Fort George F RDA (CSD, BC)",5953048,5953,59,7
+"Fraser-Fort George G RDA (CSD, BC)",5953050,5953,59,7
+"Peace River (CD, BC)",5955,5955,59,4
+"Tumbler Ridge DM (CSD, BC)",5955003,5955,59,7
+"Pouce Coupe VL (CSD, BC)",5955005,5955,59,7
+"Chetwynd DM (CSD, BC)",5955010,5955,59,7
+"Dawson Creek CY (CSD, BC)",5955014,5955,59,7
+"Peace River D RDA (CSD, BC)",5955021,5955,59,7
+"Peace River E RDA (CSD, BC)",5955023,5955,59,7
+"Hudson's Hope DM (CSD, BC)",5955025,5955,59,7
+"Taylor DM (CSD, BC)",5955030,5955,59,7
+"Fort St. John CY (CSD, BC)",5955034,5955,59,7
+"Peace River B RDA (CSD, BC)",5955040,5955,59,7
+"Peace River C RDA (CSD, BC)",5955042,5955,59,7
+"Stikine (CD, BC)",5957,5957,59,4
+"Stikine Region RDA (CSD, BC)",5957022,5957,59,7
+"Northern Rockies (CD, BC)",5959,5959,59,4
+"Northern Rockies RGM (CSD, BC)",5959007,5959,59,7
+Yukon (Province),60,60,60,2
+"Yukon (CD, YT)",6001,6001,60,4
+"Watson Lake T (CSD, YT)",6001003,6001,60,7
+"Faro T (CSD, YT)",6001004,6001,60,7
+"Whitehorse CY (CSD, YT)",6001009,6001,60,7
+"Carmacks VL (CSD, YT)",6001012,6001,60,7
+"Haines Junction VL (CSD, YT)",6001018,6001,60,7
+"Dawson T (CSD, YT)",6001029,6001,60,7
+"Ross River SÉ (CSD, YT)",6001037,6001,60,7
+"Pelly Crossing SÉ (CSD, YT)",6001041,6001,60,7
+"Mt. Lorne HAM (CSD, YT)",6001044,6001,60,7
+"Yukon, Unorganized NO (CSD, YT)",6001045,6001,60,7
+"Carcross SÉ (CSD, YT)",6001048,6001,60,7
+"Ibex Valley HAM (CSD, YT)",6001055,6001,60,7
+"Marsh Lake NO (CSD, YT)",6001058,6001,60,7
+"Macpherson-Grizzly Valley NO (CSD, YT)",6001059,6001,60,7
+"Whitehorse, Unorganized NO (CSD, YT)",6001060,6001,60,7
+Northwest Territories (Province),61,61,61,2
+"Region 1 (CD, NT)",6101,6101,61,4
+"Paulatuk HAM (CSD, NT)",6101014,6101,61,7
+"Fort McPherson HAM (CSD, NT)",6101015,6101,61,7
+"Inuvik T (CSD, NT)",6101017,6101,61,7
+"Aklavik HAM (CSD, NT)",6101025,6101,61,7
+"Tuktoyaktuk HAM (CSD, NT)",6101036,6101,61,7
+"Ulukhaktok HAM (CSD, NT)",6101095,6101,61,7
+"Region 2 (CD, NT)",6102,6102,61,4
+"Déline CC (CSD, NT)",6102003,6102,61,7
+"Tulita HAM (CSD, NT)",6102005,6102,61,7
+"Norman Wells T (CSD, NT)",6102007,6102,61,7
+"Fort Good Hope CC (CSD, NT)",6102009,6102,61,7
+"Region 3 (CD, NT)",6103,6103,61,4
+"Behchokò CG (CSD, NT)",6103031,6103,61,7
+"Whatì CG (CSD, NT)",6103034,6103,61,7
+"Gamètì CG (CSD, NT)",6103049,6103,61,7
+"Region 4 (CD, NT)",6104,6104,61,4
+"Fort Liard HAM (CSD, NT)",6104009,6104,61,7
+"Fort Providence HAM (CSD, NT)",6104014,6104,61,7
+"Fort Simpson VL (CSD, NT)",6104038,6104,61,7
+"Region 5 (CD, NT)",6105,6105,61,4
+"Fort Smith T (CSD, NT)",6105001,6105,61,7
+"Hay River T (CSD, NT)",6105016,6105,61,7
+"Fort Resolution HAM (CSD, NT)",6105018,6105,61,7
+"Lutselk'e SET (CSD, NT)",6105020,6105,61,7
+"Region 6 (CD, NT)",6106,6106,61,4
+"Yellowknife CY (CSD, NT)",6106023,6106,61,7
+"Region 6, Unorganized NO (CSD, NT)",6106097,6106,61,7
+Nunavut (Province),62,62,62,2
+"Baffin (CD, NU)",6204,6204,62,4
+"Sanikiluaq HAM (CSD, NU)",6204001,6204,62,7
+"Iqaluit CY (CSD, NU)",6204003,6204,62,7
+"Kimmirut HAM (CSD, NU)",6204005,6204,62,7
+"Cape Dorset HAM (CSD, NU)",6204007,6204,62,7
+"Pangnirtung HAM (CSD, NU)",6204009,6204,62,7
+"Qikiqtarjuaq HAM (CSD, NU)",6204010,6204,62,7
+"Hall Beach HAM (CSD, NU)",6204011,6204,62,7
+"Igloolik HAM (CSD, NU)",6204012,6204,62,7
+"Clyde River HAM (CSD, NU)",6204015,6204,62,7
+"Arctic Bay HAM (CSD, NU)",6204018,6204,62,7
+"Pond Inlet HAM (CSD, NU)",6204020,6204,62,7
+"Keewatin (CD, NU)",6205,6205,62,4
+"Coral Harbour HAM (CSD, NU)",6205014,6205,62,7
+"Arviat HAM (CSD, NU)",6205015,6205,62,7
+"Whale Cove HAM (CSD, NU)",6205016,6205,62,7
+"Rankin Inlet HAM (CSD, NU)",6205017,6205,62,7
+"Chesterfield Inlet HAM (CSD, NU)",6205019,6205,62,7
+"Baker Lake HAM (CSD, NU)",6205023,6205,62,7
+"Naujaat HAM (CSD, NU)",6205027,6205,62,7
+"Kitikmeot (CD, NU)",6208,6208,62,4
+"Kugaaruk HAM (CSD, NU)",6208047,6208,62,7
+"Kugluktuk HAM (CSD, NU)",6208059,6208,62,7
+"Cambridge Bay HAM (CSD, NU)",6208073,6208,62,7
+"Gjoa Haven HAM (CSD, NU)",6208081,6208,62,7
+"Taloyoak HAM (CSD, NU)",6208087,6208,62,7

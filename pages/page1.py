@@ -74,7 +74,10 @@ map_colors_w_black = ['#000000', '#F4F739', '#fa6464', '#3EB549', '#EE39F7', '#7
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
-
+mapped_geo_code2 = mapped_geo_code.copy()
+mapped_geo_code2['Geo_Code'] = mapped_geo_code2['Geo_Code'].astype(str)
+order = pd.DataFrame(joined_df['Geography']).merge(mapped_geo_code2[['Geography','Geo_Code','Region_Code', 'Province_Code']], how = 'left', on = 'Geography')
+order = order.sort_values(by = ['Province_Code','Region_Code','Geo_Code'])
 
 gdf_p_code_added["rand"] = np.random.randint(1, 100, len(gdf_p_code_added))
 
@@ -124,7 +127,7 @@ layout = html.Div(children = [
                 id = 'all-geo-dropdown-parent',
                 children = [
                 html.Strong('Select Area'),
-                dcc.Dropdown(joined_df['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                dcc.Dropdown(order['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                 ], 
                 className = 'dropdown-lgeo'
             ),
@@ -133,7 +136,7 @@ layout = html.Div(children = [
                 id = 'comparison-geo-dropdown-parent',
                 children = [
                 html.Strong('Comparison Area'),
-                dcc.Dropdown(joined_df['Geography'].unique()[1:], id='comparison-geo-dropdown'),
+                dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
                 ], 
                 className = 'dropdown-lgeo'
             ),

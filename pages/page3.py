@@ -491,7 +491,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
         fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
@@ -552,7 +552,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
         col_list = []
@@ -582,7 +582,8 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                showlegend = False, 
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
@@ -598,7 +599,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -714,7 +715,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
         fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
@@ -775,7 +776,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
         col_list = []
@@ -805,7 +806,8 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
@@ -948,7 +950,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
@@ -1009,7 +1011,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
@@ -1042,7 +1044,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 marker_color = c,
                 # orientation = 'h', 
                 showlegend = False,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
@@ -1187,7 +1189,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
@@ -1248,7 +1250,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
         fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
@@ -1283,7 +1285,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 marker_color = c,
                 # orientation = 'h', 
                 showlegend = False,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
@@ -1448,7 +1450,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
@@ -1517,7 +1519,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
 
             ),row = 1, col = 1)
 
@@ -1555,7 +1557,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>',
                 showlegend = False
             ),row = 1, col = 2)
 
@@ -1716,7 +1718,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>'
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
@@ -1785,7 +1787,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
 
             ),row = 1, col = 1)
 
@@ -1823,7 +1825,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{y} - ' + '%{x}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>',
                 showlegend = False
             ),row = 1, col = 2)
 

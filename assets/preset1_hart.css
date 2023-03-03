@@ -115,7 +115,7 @@
 }
 
 .dashboard-lgeo {
-  /*width: 100%;*/
+  width: 100%;
   display: inline-block;
   padding-left: 2%;
   /* padding-right: 10%; */
@@ -213,6 +213,10 @@
 .tables {
   padding-bottom: 1%;
   padding-top: 1%;
+}
+
+span.column-header--sort {
+  display: none;
 }
 
 /* 
