@@ -135,7 +135,7 @@ layout = html.Div(children = [
             html.Div(
                 id = 'comparison-geo-dropdown-parent',
                 children = [
-                html.Strong('Comparison Area'),
+                html.Strong('Comparison Area (Optional)'),
                 dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
                 ], 
                 className = 'dropdown-lgeo'

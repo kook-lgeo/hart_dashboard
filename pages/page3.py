@@ -84,7 +84,7 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("2026 Projections by HH Size and Income Level"), id = 'home')
+                html.H2(children = html.Strong("2026 Household Projections by Household Size and Income Category"), id = 'home')
             ], className = 'title-lgeo'),
 
         # 2026 Projections by HH Size and Income Level
@@ -96,7 +96,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Population Projections by Income Category'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 Household Projections by Income Category'), className = 'subtitle-lgeo'),
 
                     html.Div(children = [ 
 
@@ -148,7 +148,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Population Projections by Household Size'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 Household Projections by Household Size'), className = 'subtitle-lgeo'),
 
 
                     html.Div([
@@ -198,7 +198,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('Community 2026 HH'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 Projected Households'), className = 'subtitle-lgeo'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -247,7 +247,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('Community 2026 HH Deltas'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 Projected Household Change (Delta)'), className = 'table-title'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -296,7 +296,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by Income'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by HH Income'), className = 'subtitle-lgeo'),
 
                     html.Div([
 
@@ -438,9 +438,9 @@ def plot1_new_projection(geo, IsComparison):
     table1 = table1.drop(columns = ['Category'])
 
     if IsComparison != True:
-        table1.columns = ['Income Category', '2016 Population', '2026 Delta']
+        table1.columns = ['HH Income Category', '2016 HHs', '2026 Change in HH']
     else:
-        table1.columns = ['Income Category', '2016 Population ', '2026 Delta ']
+        table1.columns = ['HH Income Category', '2016 HHs ', '2026 Change in HH ']
 
     plot_df = pd.concat([table1_2016,
                         pd.DataFrame({'Income Category': income_category,
@@ -494,7 +494,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
+        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
@@ -599,7 +599,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -664,9 +664,9 @@ def plot2_new_projection(geo, IsComparison):
     table2 = table2.drop(columns = ['Category'])
 
     if IsComparison != True:
-        table2.columns = ['HH Category', '2016 Population', '2026 Delta']
+        table2.columns = ['HH Size', '2016 HHs', '2026 Change in HH']
     else:
-        table2.columns = ['HH Category', '2016 Population ', '2026 Delta ']
+        table2.columns = ['HH Size', '2016 HHs ', '2026 Change in HH ']
 
     plot_df = pd.concat([table2_2016,
                         pd.DataFrame({'HH Category': hh_category,
@@ -718,7 +718,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections - {geo}', legend_title = "Category")
+        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
@@ -823,7 +823,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -902,12 +902,15 @@ def projections_2026_hh_size(geo, IsComparison):
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
+        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
+       'Median Income ', 'High Income ']
         table3_csd['Total'] = table3_csd.sum(axis=1)
+
     else:
-        table3_csd.columns = ['HH Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
+        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
        'Median Income ', 'High Income ']
         table3_csd['Total '] = table3_csd.sum(axis=1)
-        table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
+        # table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
     return table3_csd, table3_csd_plot
 
@@ -953,7 +956,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1014,7 +1017,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        # fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
 
         col_list = []
 
@@ -1060,7 +1063,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Income Category")
+        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "Income Category")
         fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+10000])
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
@@ -1141,12 +1144,15 @@ def projections_2026_deltas(geo, IsComparison):
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
+        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
+       'Median Income ', 'High Income ']
         table3_csd['Total'] = table3_csd.sum(axis=1)
+
     else:
-        table3_csd.columns = ['HH Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
+        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
        'Median Income ', 'High Income ']
         table3_csd['Total '] = table3_csd.sum(axis=1)
-        table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
+        # table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
     return table3_csd, table3_csd_plot
 
@@ -1192,7 +1198,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1253,7 +1259,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH - {geo}', legend_title = "Income Category")
+        # fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH -<br>{geo}', legend_title = "Income Category")
 
 
 
@@ -1301,7 +1307,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Population Projections', legend_title = "Income Category")
+        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "Income Category")
         fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('HH Category')['value'].sum().min(), table1_csd_plot_c.groupby('HH Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+100])
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
@@ -1399,8 +1405,12 @@ def projections_2026_pop_income(geo, IsComparison):
         #    'Regional Growth (%) ', 'Delta(Muni. GR) ', 'Delta(Regional GR) ',
         #    '2026 Pop.(Muni. GR) ', '2026 Pop.(Regional GR) ']
     
-        table.columns = ['Income Category', '2016 Pop. ', 'Muni. Growth (%) ',
-           'Regional Growth (%) ', '2026 Pop.(Muni.) ', '2026 Pop.(Regional) ']
+        table.columns = ['HH Income Category', '2016 HHs ', 'Muni. Growth Rate (%) ',
+           'Regional Growth Rate (%) ', '2026 HHs (Muni. Rate) ', '2026 HHs (Region. Rate) ']
+        
+    else:
+        table.columns = ['HH Income Category', '2016 HHs', 'Muni. Growth Rate (%)',
+           'Regional Growth Rate (%)', '2026 HHs (Muni. Rate)', '2026 HHs (Region. Rate)']
 
     return table, plot_df
 
@@ -1453,7 +1463,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Population")
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
@@ -1574,7 +1584,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['Income Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Geo'])['value'].sum().max())+10000])
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
@@ -1667,8 +1677,12 @@ def projections_2026_pop_hh(geo, IsComparison):
         #    'Regional Growth (%) ', 'Delta(Muni. GR) ', 'Delta(Regional GR) ',
         #    '2026 Pop.(Muni. GR) ', '2026 Pop.(Regional GR) ']
     
-        table.columns = ['HH Category', '2016 Pop. ', 'Muni. Growth (%) ',
-           'Regional Growth (%) ', '2026 Pop.(Muni.) ', '2026 Pop.(Regional) ']
+        table.columns = ['HH Size', '2016 HHs ', 'Muni. Growth Rate (%) ',
+           'Regional Growth Rate (%) ', '2026 HHs (Muni. Rate) ', '2026 HHs (Region. Rate) ']
+
+    else:
+        table.columns = ['HH Size', '2016 HHs', 'Muni. Growth Rate (%)',
+           'Regional Growth Rate (%)', '2026 HHs (Muni. Rate)', '2026 HHs (Region. Rate)']
 
     return table, plot_df
 
@@ -1721,7 +1735,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth - {geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Population")
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
@@ -1842,7 +1856,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Population Growth', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['HH Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Geo'])['value'].sum().max())+10000])
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
