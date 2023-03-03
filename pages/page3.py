@@ -604,7 +604,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'Income Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -828,7 +828,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
         style_cell_conditional=[
             {
@@ -887,9 +887,11 @@ def projections_2026_hh_size(geo, IsComparison):
     income_l = ['Very Low Income'] * 5 + ['Low Income'] * 5 + ['Moderate Income'] * 5 + ['Median Income'] * 5 + ['High Income'] * 5
 
     table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': pp_l, 'CSD_Projection': np.round(result_csd_l,0)})
+    table3 = table3.fillna(0)
     # table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income Category'], columns=['HH Category'], sort = False)
     table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
     table3_csd = table3_csd.reset_index()
+    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
     table3_csd['HH Category'] = ['1 person', '2 people', '3 people', '4 people', '5+ people']
 
     table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
@@ -902,8 +904,8 @@ def projections_2026_hh_size(geo, IsComparison):
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
-       'Median Income ', 'High Income ']
+        table3_csd.columns = ['HH Income Category', 'Very Low Income', 'Low Income', 'Moderate Income',
+       'Median Income', 'High Income']
         table3_csd['Total'] = table3_csd.sum(axis=1)
 
     else:
@@ -1068,7 +1070,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1129,23 +1131,26 @@ def projections_2026_deltas(geo, IsComparison):
     income_l = ['Very Low Income'] * 5 + ['Low Income'] * 5 + ['Moderate Income'] * 5 + ['Median Income'] * 5 + ['High Income'] * 5
 
     table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': pp_l, 'CSD_Projection': np.round(result_csd_l,0)})
+    table3 = table3.fillna(0)
     # table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income Category'], columns=['HH Category'], sort = False)
     table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
     table3_csd = table3_csd.reset_index()
-    table3_csd['HH Category'] = ['1 person', '2 people', '3 people', '4 people', '5+ people']
+    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
+    table3_csd['HH Category'] = ['1 person', '2 people', '3 people', '4 people', '5+ people'][:len(table3_csd['HH Category'])]
+    # print(table3_csd['HH Category'])
 
     table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
 #     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'HH Category', value_vars = ['Very Low Income', 'Low Income', 'Moderate Income',
            'Median Income', 'High Income'])
-    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
+    # table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
     row_total_csd = table3_csd.sum(axis=0)
     row_total_csd[0] = 'Total'
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
-       'Median Income ', 'High Income ']
+        table3_csd.columns = ['HH Income Category', 'Very Low Income', 'Low Income', 'Moderate Income',
+       'Median Income', 'High Income']
         table3_csd['Total'] = table3_csd.sum(axis=1)
 
     else:
@@ -1312,7 +1317,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1589,7 +1594,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'Income Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1861,7 +1866,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         fig_pgr.update_xaxes(fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Category')
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
         style_cell_conditional=[
             {
