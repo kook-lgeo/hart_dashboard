@@ -196,7 +196,7 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percent of HH Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
+                html.H3(children = html.Strong('Percent of Household Income Categories in Core Housing Need, by Household Size'), id = 'overview-scenario2'),
 
                 # Graph
 
