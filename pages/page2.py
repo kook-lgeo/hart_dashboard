@@ -107,23 +107,10 @@ map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#7
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
-fig = go.Figure()
-for i, c in zip(plot_df['Income_Category'], colors):
-    plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
-    fig.add_trace(go.Bar(
-        x = plot_df_frag['Income_Category'],
-        y = plot_df_frag['Percent HH'],
-        name = i,
-        marker_color = c,
-        hovertemplate= '%{x} - ' + '%{y:.3s}<extra></extra>'
-    ))
-fig.update_layout(plot_bgcolor='#F8F9F9', title = 'Percent HH By Geography', legend_title = "Income")
+fig = px.line(x = ['Not Available'], y = ['Not Available'])
 
 table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
-fig5 = fig
-fig6 = fig
-fig7 = fig
 
 
 # Setting layout for dashboard
@@ -135,6 +122,7 @@ layout = html.Div(children = [
         dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
+
         html.Div(
         children = [
             html.Div([
@@ -191,15 +179,15 @@ layout = html.Div(children = [
             # Graph
 
                 html.Div(children = [ 
-                    html.Div(
-                        dcc.Graph(
-                            id='graph',
-                            figure=fig,
-                            config = config,
-                        ),
-                        className = 'pg2-plot-lgeo'
-                    ),
-                ]
+
+                    dcc.Graph(
+                        id='graph',
+                        figure=fig,
+                        config = config,
+                    )
+                ],
+                    className = 'pg2-plot-lgeo'
+
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
@@ -208,20 +196,20 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percent of Household Size Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
+                html.H3(children = html.Strong('Percent of HH Categories in Core Housing Need, by AMHI'), id = 'overview-scenario2'),
 
                 # Graph
 
                 html.Div(children = [ 
-                    html.Div(
-                        dcc.Graph(
-                            id='graph2',
-                            figure=fig,
-                            config = config,
-                        ),
-                        className = 'pg2-plot-lgeo'
-                    ),
-                ]
+
+                    dcc.Graph(
+                        id='graph2',
+                        figure=fig,
+                        config = config,
+                    )
+
+                ],
+                    className = 'pg2-plot-lgeo'
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
@@ -274,20 +262,20 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population'), id = 'overview-scenario5'),
+                html.H3(children = html.Strong('Percentage of HHs in CHN by Priority Population'), id = 'overview-scenario5'),
 
                 # Graphs
 
                 html.Div(children = [ 
-                    html.Div(
-                        dcc.Graph(
-                            id='graph5',
-                            figure=fig5,
-                            config = config,
-                        ),
+
+                    dcc.Graph(
+                        id='graph5',
+                        figure=fig,
+                        config = config,
+                    )
+
+                ],
                         className = 'pg2-plot-lgeo'
-                    ),
-                ]
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
@@ -296,20 +284,20 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percentage of HHs in Core Housing Need by Priority Population and Income'), id = 'overview-scenario6'),
+                html.H3(children = html.Strong('Percentage of HHs in CHN by Priority Population and Income'), id = 'overview-scenario6'),
 
                 # Graphs
 
                 html.Div(children = [ 
-                    html.Div(
-                        dcc.Graph(
-                            id='graph6',
-                            figure=fig6,
-                            config = config,
-                        ),
+
+                    dcc.Graph(
+                        id='graph6',
+                        figure=fig,
+                        config = config,
+                    )
+
+                ],
                         className = 'pg2-plot-lgeo'
-                    ),
-                ]
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
@@ -370,7 +358,7 @@ def table_amhi_shelter_cost(geo, IsComparison):
     Input('area-scale-store', 'data'),
 )
 def update_table1(geo, geo_c, selected_columns, scale):
-
+    print(geo, 't')
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -503,14 +491,13 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
 
 @callback(
     Output('graph', 'figure'),
-    # Input('all-geo-dropdown', 'value'),scale
-    # Input('comparison-geo-dropdown', 'value'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('area-scale-store', 'data'),
+    Input('datatable-interactivity', 'selected_columns'),
 )
-def update_geo_figure(geo, geo_c, scale):
-    # print(geo, geo_c)
+def update_geo_figure(geo, geo_c, scale, refresh):
+    print(geo, 'f')
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -540,7 +527,7 @@ def update_geo_figure(geo, geo_c, scale):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
             ))
 
-        fig.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
+        fig.update_layout(legend=dict(font = dict(size = 9)), yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category - {geo}', legend_title = "Income")
         fig.update_xaxes(fixedrange = True, range = [0, 1])
         fig.update_yaxes(fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
 
@@ -600,7 +587,7 @@ def update_geo_figure(geo, geo_c, scale):
             n += 1
 
 
-        fig.update_layout(title = f'Percent HH By Income Category', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income", legend = dict(font = dict(size = 9)))
+        fig.update_layout(legend=dict(font = dict(size = 9)), title = f'Percent HH By Income Category', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income")
         fig.update_yaxes(fixedrange = True, tickfont = dict(size = 9.5), autorange = "reversed")
         fig.update_xaxes(fixedrange = True, range = [0, 1])
 
@@ -653,9 +640,10 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('area-scale-store', 'data'),
+    Input('datatable-interactivity', 'selected_columns'),
 )
-def update_geo_figure2(geo, geo_c, scale):
-
+def update_geo_figure2(geo, geo_c, scale, refresh):
+    
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -1006,8 +994,9 @@ def color_dict_core_housing_need_by_priority_population(plot_df):
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('area-scale-store', 'data'),
+    Input('datatable-interactivity', 'selected_columns'),
 )
-def update_geo_figure5(geo, geo_c, scale):
+def update_geo_figure5(geo, geo_c, scale, refresh):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
@@ -1183,8 +1172,9 @@ def plot_df_core_housing_need_by_priority_population_income(geo):
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('area-scale-store', 'data'),
+    Input('datatable-interactivity', 'selected_columns'),
 )
-def update_geo_figure6(geo, geo_c, scale):
+def update_geo_figure6(geo, geo_c, scale, refresh):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 

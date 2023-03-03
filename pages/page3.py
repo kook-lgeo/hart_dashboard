@@ -296,7 +296,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Income Category'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by Income'), className = 'subtitle-lgeo'),
 
                     html.Div([
 
@@ -345,7 +345,7 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates - Household Size'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by HH Size'), className = 'subtitle-lgeo'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -1437,7 +1437,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         for s, c in zip(plot_df['variable'].unique(), colors[3:]):
             
             plot_df_frag = plot_df.loc[plot_df['variable'] == s, :]
-
+            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] * 2
             x = [
                 plot_df_frag['Income Category'],
                 plot_df_frag['Geo']
