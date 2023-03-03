@@ -262,8 +262,8 @@ def province_map(value, random_color):
                                     marker_line_width=.5))
     fig_m.update_layout(mapbox_style="carto-positron",
                 mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
-                height = 500,
-                width = 1000,
+                # height = 500,
+                # width = 1000,
                 mapbox_zoom = 2.0,
                 margin=dict(b=0,t=10,l=0,r=10),
                 modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
@@ -308,8 +308,8 @@ def region_map(value, random_color, clicked_code):
 
     fig_mr.update_layout(mapbox_style="carto-positron",
                     mapbox_center = {"lat": gdf_r_filtered['lat'].mean(), "lon": gdf_r_filtered['lon'].mean()},
-                    height = 500,
-                    width = 1000,
+                    # height = 500,
+                    # width = 1000,
                     mapbox_zoom = 3.0,
                     margin=dict(b=0,t=10,l=0,r=10),
                     modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
@@ -366,8 +366,8 @@ def subregion_map(value, random_color, clicked_code):
 
     fig_msr.update_layout(mapbox_style="carto-positron",
                     mapbox_center = {"lat": gdf_sr_filtered['lat'].mean(), "lon": gdf_sr_filtered['lon'].mean()},
-                    height = 500,
-                    width = 1000,
+                    # height = 500,
+                    # width = 1000,
                     mapbox_zoom = zoom,
                     margin=dict(b=0,t=10,l=0,r=10),
                     modebar_color = modebar_color, modebar_activecolor = modebar_activecolor,
