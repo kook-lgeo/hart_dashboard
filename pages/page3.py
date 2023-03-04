@@ -564,7 +564,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'Income Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -593,7 +593,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'Income Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -791,7 +791,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'HH Category':
+            if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -820,7 +820,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'HH Category':
+            if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -882,7 +882,6 @@ def projections_2026_hh_size(geo, IsComparison):
     
     geo_code_clicked = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, 'Geo_Code'].tolist()[0]
     updated_csd_filtered = updated_csd.query('Geo_Code ==' +  f"{geo_code_clicked}")
-
 
     income_l = []
     pp_l = []
@@ -1036,7 +1035,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'HH Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -1065,7 +1064,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'HH Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -1286,7 +1285,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'HH Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -1315,7 +1314,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'HH Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -1450,6 +1449,53 @@ def projections_2026_pop_income(geo, IsComparison):
 )
 def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
+    
+
+    print(clicked_code)
+
+    if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
+
+        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        
+        col_list_csd = []
+
+        for i in table3_csd.columns:
+            col_list_csd.append({"name": [i],
+                                    "id": i, })
+
+
+        style_cell_conditional_csd=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_csd.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_csd.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+
+        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+
+        return col_list_csd, \
+                table3_csd.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns], \
+                style_cell_conditional_csd, fig_csd
+
+    if len(str(clicked_code)) >= 7 and geo_c != None:
+       
+        clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
+        
+        if len(str(clicked_code_c)) < 7:
+            geo_c = None
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -1559,7 +1605,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'Income Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -1595,7 +1641,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'HH Category':
+            if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -1609,7 +1655,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['Income Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Geo'])['value'].sum().max())+10000])
-        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_xaxes(tickfont = dict(size = 8), fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
@@ -1725,6 +1771,53 @@ def projections_2026_pop_hh(geo, IsComparison):
 )
 def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
+    clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
+    
+
+    print(clicked_code)
+
+    if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
+
+        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        
+        col_list_csd = []
+
+        for i in table3_csd.columns:
+            col_list_csd.append({"name": [i],
+                                    "id": i, })
+
+
+        style_cell_conditional_csd=[
+            {
+                'if': {'column_id': c},
+                'backgroundColor': columns_color_fill[1]
+            } for c in table3_csd.columns[1:]
+        ] + [
+            {
+                'if': {'column_id': table3_csd.columns[0]},
+                'backgroundColor': columns_color_fill[0],
+                'width': '130px'
+            }
+        ]
+
+
+        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+
+        return col_list_csd, \
+                table3_csd.to_dict('record'), \
+                [{
+                    'if': { 'column_id': i },
+                    'background_color': '#D2F3FF'
+                } for i in selected_columns], \
+                style_cell_conditional_csd, fig_csd
+
+    if len(str(clicked_code)) >= 7 and geo_c != None:
+       
+        clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
+
+        if len(str(clicked_code_c)) < 7:
+            geo_c = None
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -1834,7 +1927,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         col_list = []
 
         for i in table1.columns:
-            if i == 'HH Category':
+            if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -1870,7 +1963,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
             ),row = 1, col = 2)
 
         for i in table1_c.columns[1:]:
-            if i == 'HH Category':
+            if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -1884,7 +1977,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
         fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['HH Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Geo'])['value'].sum().max())+10000])
-        fig_pgr.update_xaxes(fixedrange = True)
+        fig_pgr.update_xaxes(tickfont = dict(size = 8), fixedrange = True)
         fig_pgr.update_yaxes(fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')

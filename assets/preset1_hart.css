@@ -351,7 +351,90 @@ span.column-header--sort {
 /* Fonts
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-@import url('https://fonts.cdnfonts.com/css/bahnschrift');
+/* @import url('https://fonts.cdnfonts.com/css/bahnschrift'); */
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 1.woff') format('woff')}
+  
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 10.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 11.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 12.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 13.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 14.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 2.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;
+  font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 3.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 4.woff') format('woff')}
+  
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 5.woff') format('woff')}
+  
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 6.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 7.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 8.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 9.woff') format('woff')}
+
+@font-face{
+  font-family:bahnschrift;
+  font-style:normal;font-weight:400;
+  src:local('Bahnschrift'),url(https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT.woff) format('woff')}
 
 @font-face {
 	font-family: 'proxima_nova_rgregular';
