@@ -135,7 +135,7 @@
 }
 
 .dropdown-lgeo {
-  width: 400px;
+  width: 430px;
   display: inline-block;
   padding-right: 30px;
   padding-bottom: 10px;
@@ -175,8 +175,8 @@
 
 
 .reset-button-lgeo {
-  width: 100%;
-  display: inline;
+  /* width: 100%; */
+  display: block;
   /* padding-bottom: 20px; */
   padding-top: 10px;
 
@@ -187,12 +187,17 @@
 
 .map-lgeo {
   /* width: 100%;  */
+  display: inline;
+}
+
+.map-area-box-lgeo {
   display: inline-block;
+
 }
 
 @media (max-width: 500px) {
-  .map-lgeo  {
-    width: 300px;
+  .map-area-box-lgeo  {
+    width: 430px;
     height: 200px;
     display: inline-block;
   }
@@ -200,7 +205,7 @@
 
 
 @media (min-width: 500px) {
-  .map-lgeo  {
+  .map-area-box-lgeo  {
     width: 1000px;
     height: 500px;
     display: inline-block;

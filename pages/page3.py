@@ -296,7 +296,7 @@ layout = html.Div(children = [
                 ], className = 'pg3-table-plot-box-lgeo'),
 
                 html.Div([
-                    html.H3(children = html.Strong('Municipan vs Regional Rate'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('Municipal vs Regional Rate'), className = 'subtitle-lgeo'),
                     html.Strong('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. A significantly lower growth rate in a community compared to its region could be caused by artificially suppressed growth due to low housing supply. A significantly higher growth rate in a community compared to its region could be caused by spillover in interconnected urban communities. The following graphs and tables illustrate 2026 household growth using both the community and regional growth rates.')
                 ], className = 'muni-reg-text-lgeo'),
 

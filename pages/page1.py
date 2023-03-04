@@ -175,22 +175,25 @@ layout = html.Div(children = [
                         config = config,
                     ),
                     className = 'map-lgeo'
+
+                ),
+
+                html.Div(children = [                     
+                    html.Button('Reset Map', id='reset-map', n_clicks=0),                   
+                    ], className = 'reset-button-lgeo'
                 ),
  
-            ]
+             ], className = 'map-area-box-lgeo'
             ),
             # Reset Button for Map
 
-            html.Div(children = [ 
+            # html.Div(children = [ 
 
-                html.Div(children = [                     
-                    html.Button('Reset Map', id='reset-map', n_clicks=0),     
-                                    ], className = 'region-button-lgeo'
-                    ),
+
    
-                ], 
-                className = 'reset-button-lgeo'
-            ),
+            #     ], 
+            #     className = 'reset-button-lgeo'
+            # ),
 
         ], className = 'dashboard-lgeo'
     ), 
