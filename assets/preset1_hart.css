@@ -213,7 +213,7 @@
 }
 
 .pg2-table-lgeo {
-  width: 80%;
+  /* width: 80%; */
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -405,7 +405,7 @@ span.column-header--sort {
   font-family:bahnschrift;
   font-style:normal;font-weight:400;
   src:local('Bahnschrift'),url('https://fonts.cdnfonts.com/s/21353/BAHNSCHRIFT 4.woff') format('woff')}
-  
+
 @font-face{
   font-family:bahnschrift;
   font-style:normal;font-weight:400;
