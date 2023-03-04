@@ -68,6 +68,8 @@ map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#7
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
+comparison_font_size = '0.7em'
+
 # Setting layout for dashboard
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -613,16 +615,19 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -837,16 +842,19 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -1079,16 +1087,19 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -1326,16 +1337,19 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -1603,16 +1617,19 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -1875,16 +1892,19 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]

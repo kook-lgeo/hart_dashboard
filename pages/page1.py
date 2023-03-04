@@ -122,42 +122,47 @@ layout = html.Div(children = [
             # html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
 
 
+            html.Div(children = [ 
+                html.Div(
+                    id = 'all-geo-dropdown-parent',
+                    children = [
+                    html.Strong('Select Area'),
+                    dcc.Dropdown(order['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                    ], 
+                    className = 'dropdown-lgeo'
+                ),
 
-            html.Div(
-                id = 'all-geo-dropdown-parent',
-                children = [
-                html.Strong('Select Area'),
-                dcc.Dropdown(order['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
-                ], 
-                className = 'dropdown-lgeo'
-            ),
-
-            html.Div(
-                id = 'comparison-geo-dropdown-parent',
-                children = [
-                html.Strong('Comparison Area (Optional)'),
-                dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
-                ], 
-                className = 'dropdown-lgeo'
+                html.Div(
+                    id = 'comparison-geo-dropdown-parent',
+                    children = [
+                    html.Strong('Comparison Area (Optional)'),
+                    dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
+                    ], 
+                    className = 'dropdown-lgeo'
+                ),
+            ], 
+                className = 'dropdown-box-lgeo'
             ),
 
             html.Div(children = [ 
-
-                html.Div(children = [                     
-                    html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0),     
-                                    ], className = 'region-button-lgeo'
-                    ),           
-                html.Div(children = [ 
-                    html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0),
-                                    ], className = 'region-button-lgeo'
-                    ),         
-                html.Div(children = [ 
-                    html.Button('View Province / Territory', id='to-province-1', n_clicks=0),
-                                    ], className = 'region-button-lgeo'
-                    ),    
-
+                # html.Div(children = [ 
+                    html.Div(children = [                     
+                        html.Button('View Census Subdivision (CSD)', id='to-geography-1', n_clicks=0, className = 'region-button-lgeo'),     
+                                        ], className = 'region-button-box-lgeo'
+                        ),           
+                    html.Div(children = [ 
+                        html.Button('View Census Division (CD)', id='to-region-1', n_clicks=0, className = 'region-button-lgeo'),
+                                        ], className = 'region-button-box-lgeo'
+                        ),         
+                    html.Div(children = [ 
+                        html.Button('View Province / Territory', id='to-province-1', n_clicks=0, className = 'region-button-lgeo'),
+                                        ], className = 'region-button-box-lgeo'
+                        ),    
+                #     ], 
+                #     className = 'scale-buttons-lgeo'
+                # ),
                 ], 
-                className = 'scale-button-lgeo'
+                className = 'scale-button-box-lgeo'
             ),
 
             # Map picker

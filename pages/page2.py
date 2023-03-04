@@ -113,6 +113,8 @@ table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 
 
+comparison_font_size = '0.7em'
+
 # Setting layout for dashboard
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -439,16 +441,19 @@ def update_table1(geo, geo_c, selected_columns, scale):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -918,16 +923,19 @@ def update_table2(geo, geo_c, selected_columns, scale):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[1]
             } for c in table2.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[2]
             } for c in table2_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table2.columns[0]},
+                'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
         ]

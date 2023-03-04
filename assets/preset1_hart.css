@@ -125,36 +125,87 @@
   /* background-color: #F3F4F5; */
 }
 
+.dropdown-box-lgeo {
+  /* width: 70%; */
+  display: inline;
+  /* padding-right: 30px;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  */
+}
+
 .dropdown-lgeo {
-  width: 25%;
+  width: 400px;
   display: inline-block;
   padding-right: 30px;
   padding-bottom: 10px;
   padding-top: 20px;
 }
 
-.map-lgeo {
-  /* width: 100%;  */
-  display: inline-block;
-
-}
-
-.scale-button-lgeo {
+/* .scale-buttons-lgeo {
   width: 100%;
-  display: inline-block;
+  display: inline;
   padding-bottom: 5px;
   padding-top: 5px;
 
+} */
+
+.scale-button-box-lgeo {
+  /* width: 100%; */
+  display: block;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  float: left;
+
 }
+
+.region-button-box-lgeo {
+  /* width: 280px; */
+  display: inline-block;
+  padding-right: 10px;
+  padding-top: 1%;
+}
+
+.region-button-lgeo {
+  width: 250px;
+  /* display: inline-block;
+  padding-right: 10px;
+  padding-top: 1%; */
+}
+
 
 .reset-button-lgeo {
   width: 100%;
-  display: inline-block;
+  display: inline;
   /* padding-bottom: 20px; */
   padding-top: 10px;
 
 }
 
+
+
+
+.map-lgeo {
+  /* width: 100%;  */
+  display: inline-block;
+}
+
+@media (max-width: 500px) {
+  .map-lgeo  {
+    width: 300px;
+    height: 200px;
+    display: inline-block;
+  }
+}
+
+
+@media (min-width: 500px) {
+  .map-lgeo  {
+    width: 1000px;
+    height: 500px;
+    display: inline-block;
+  }
+}
 
 .pg2-table-lgeo {
   width: 80%;
@@ -207,11 +258,7 @@
   margin-bottom: 5%;
 }
 
-.region-button-lgeo {
-  display: inline-block;
-  padding-right: 1%;
-  padding-top: 1%;
-}
+
 
 .tables {
   padding-bottom: 1%;
