@@ -1184,6 +1184,8 @@ def plot_df_core_housing_need_by_priority_population_income(geo):
 )
 def update_geo_figure6(geo, geo_c, scale, refresh):
 
+    income_category_override = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
+    
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -1200,18 +1202,18 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         plot_df = plot_df_core_housing_need_by_priority_population_income(geo)
-        
+
         fig6 = go.Figure()
 
-        for i, c in zip(plot_df['Income_Category'].unique(), colors):
+        for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
                 y = plot_df_frag['HH_Category'],
                 x = plot_df_frag['Percent'],
-                name = i,
+                name = o,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
             ))
             
         fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "Income Category")
@@ -1237,15 +1239,15 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         fig6 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
         n = 0
-        for i, c in zip(plot_df['Income_Category'].unique(), colors):
+        for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
                 y = plot_df_frag['HH_Category'],
                 x = plot_df_frag['Percent'],
-                name = i,
+                name = o,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
                 legendgroup= f'{n}'
             ), row = 1, col = 1)
             n += 1
@@ -1255,15 +1257,15 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         plot_df_c = plot_df_core_housing_need_by_priority_population_income(geo_c)
 
         n = 0
-        for i, c in zip(plot_df_c['Income_Category'].unique(), colors):
+        for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag_c = plot_df_c.loc[plot_df_c['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
                 y = plot_df_frag_c['HH_Category'],
                 x = plot_df_frag_c['Percent'],
-                name = i,
+                name = o,
                 marker_color = c,
                 orientation = 'h', 
-                hovertemplate = '%{y}, ' + f'Income Level: {i} - ' + '%{x: .2%}<extra></extra>',
+                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
                 legendgroup = f'{n}',
                 showlegend = False
             ), row = 1, col = 2)
