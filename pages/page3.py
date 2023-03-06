@@ -500,7 +500,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
+        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
@@ -604,8 +604,8 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
+        # barmode='stack'
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -727,7 +727,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
+        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
 
@@ -832,7 +832,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[0, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -1449,6 +1449,9 @@ def projections_2026_pop_income(geo, IsComparison):
 )
 def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
+    if geo == None:
+        geo = 'Greater Vancouver A RDA (CSD, BC)'
+
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
     
 
@@ -1770,6 +1773,10 @@ def projections_2026_pop_hh(geo, IsComparison):
     Input('datatable9-interactivity', 'selected_columns'),
 )
 def update_geo_figure9(geo, geo_c, scale, selected_columns):
+
+    if geo == None:
+        geo = 'Greater Vancouver A RDA (CSD, BC)'
+
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
     

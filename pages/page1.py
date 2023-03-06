@@ -195,7 +195,7 @@ layout = html.Div(children = [
             #     className = 'reset-button-lgeo'
             # ),
 
-        ], className = 'dashboard-lgeo'
+        ], className = 'dashboard-pg1-lgeo'
     ), 
 ], className = 'background-lgeo'
 )
