@@ -1156,7 +1156,6 @@ def projections_2026_deltas(geo, IsComparison):
     table3_csd = table3_csd.reset_index()
     table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
     table3_csd['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person'][:len(table3_csd['HH Category'])]
-    # print(table3_csd['HH Category'])
 
     table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
 #     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
@@ -1452,9 +1451,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
-    
-
-    print(clicked_code)
 
     if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
 
@@ -1761,11 +1757,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
     if geo == None:
         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
-
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
-    
-
-    print(clicked_code)
 
     if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
 

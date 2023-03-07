@@ -361,7 +361,7 @@ def table_amhi_shelter_cost(geo, IsComparison):
     Input('area-scale-store', 'data'),
 )
 def update_table1(geo, geo_c, selected_columns, scale):
-    print(geo, 't')
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -385,8 +385,6 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
         for i in table.columns:
             col_list.append({"name": [geo, i], "id": i})
-        
-        # print(col_list)
 
         style_cell_conditional=[
             {
@@ -503,7 +501,7 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
     Input('datatable-interactivity', 'selected_columns'),
 )
 def update_geo_figure(geo, geo_c, scale, refresh):
-    print(geo, 'f')
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
         if geo == None and geo_c != None:
@@ -781,8 +779,6 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
                 table2[f'5+ Person HH'] = h_hold_value
             else:
                 table2[f'{h} Person HH'] = h_hold_value
-                
-            table2['Total'] = table2.sum(axis = 1)
             
         else:
             if h == 1:        
@@ -790,9 +786,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
             elif h == '5 or more':
                 table2[f'5+ Person HH '] = h_hold_value
             else:
-                table2[f'{h} Person HH '] = h_hold_value
-                
-            table2['Total '] = table2.sum(axis = 1)    
+                table2[f'{h} Person HH '] = h_hold_value 
 
     table2['Area Median HH Income'] = [
                                         'Very low Income',
@@ -801,6 +795,14 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
                                         'Median Income',
                                         'High Income'
                                         ]
+    
+    table2['Total'] = table2.sum(axis = 1)
+    row_total_csd = table2.sum(axis=0)
+    row_total_csd[0] = 'Total'
+    table2.loc[len(table2['Area Median HH Income']), :] = row_total_csd
+    
+    if IsComparison == True:
+        table2 = table2.rename(columns = {'Total': 'Total '})
 
     return table2
 

@@ -217,7 +217,7 @@ layout = html.Div(children = [
     )
 def store_geo(geo, geo_c, btn1, btn2, btn3, btn4, btn5):
     id_name = str(ctx.triggered_id)
-    # print(id_name)
+
     return geo, geo_c, id_name
 
 
