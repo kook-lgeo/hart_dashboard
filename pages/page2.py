@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 import warnings
 import json
 import geopandas as gpd
+import math as math
 import fiona
 # from app import app
 # from pages import projection
@@ -159,7 +160,7 @@ layout = html.Div(children = [
                         page_current= 0,
                         page_size= 10,
                         merge_duplicate_headers=True,
-                        export_format = "csv",
+                        export_format = "xlsx",
                         style_cell = {'font-family': 'Bahnschrift'},
                         # style_data = {'font_size': '1.0rem', 'width': '100px'},
                         style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
@@ -249,7 +250,7 @@ layout = html.Div(children = [
                             # style_table={'minWidth': '100%'},
                             style_cell = {'font-family': 'Bahnschrift'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
-                            export_format = "csv"
+                            export_format = "xlsx"
                         ),
                         html.Div(id='datatable2-interactivity-container')
                     ], className = 'pg2-table-lgeo'
@@ -628,12 +629,12 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
 
     h_hold_value = []
     hh_p_num_list_full = []
-
-    for h in hh_p_num_list:
+    hh_column_name = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+    for h, hc in zip(hh_p_num_list, hh_column_name):
         for i in income_lv_list:
             column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
             h_hold_value.append(joined_df_filtered[column].tolist()[0])
-            hh_p_num_list_full.append(h)
+            hh_p_num_list_full.append(hc)
 
     plot_df = pd.DataFrame({'HH_Size': hh_p_num_list_full, 'Income_Category': x_list * 5, 'Percent': h_hold_value})
     
@@ -678,7 +679,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig2.update_layout(legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI -<br>{geo}', legend_title = "Household Size")
+        fig2.update_layout(legend_traceorder = 'normal', legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI -<br>{geo}', legend_title = "Household Size")
         fig2.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
         fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%')
 
@@ -777,9 +778,9 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
             if h == 1:        
                 table2[f'{h} Person HH'] = h_hold_value
             elif h == '5 or more':
-                table2[f'5 >= People HH'] = h_hold_value
+                table2[f'5+ Person HH'] = h_hold_value
             else:
-                table2[f'{h} People HH'] = h_hold_value
+                table2[f'{h} Person HH'] = h_hold_value
                 
             table2['Total'] = table2.sum(axis = 1)
             
@@ -787,9 +788,9 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
             if h == 1:        
                 table2[f'{h} Person HH '] = h_hold_value
             elif h == '5 or more':
-                table2[f'5 >= People HH '] = h_hold_value
+                table2[f'5+ Person HH '] = h_hold_value
             else:
-                table2[f'{h} People HH '] = h_hold_value
+                table2[f'{h} Person HH '] = h_hold_value
                 
             table2['Total '] = table2.sum(axis = 1)    
 
@@ -832,8 +833,8 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Area Median HH Income', '1 Person HH', '2 People HH',
-                        '3 People HH', '4 People HH', '5 >= People HH', 'Total']]
+        table2 = table2[['Area Median HH Income', '1 Person HH', '2 Person HH',
+                        '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
         col_list = []
 
@@ -878,8 +879,8 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Area Median HH Income', '1 Person HH', '2 People HH',
-                        '3 People HH', '4 People HH', '5 >= People HH', 'Total']]
+        table2 = table2[['Area Median HH Income', '1 Person HH', '2 Person HH',
+                        '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
         col_list = []
 
@@ -902,8 +903,8 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         table2_c = table_core_affordable_housing_deficit(geo_c, True)
-        table2_c = table2_c[['Area Median HH Income', '1 Person HH ', '2 People HH ',
-                        '3 People HH ', '4 People HH ', '5 >= People HH ', 'Total ']]
+        table2_c = table2_c[['Area Median HH Income', '1 Person HH ', '2 Person HH ',
+                        '3 Person HH ', '4 Person HH ', '5+ Person HH ', 'Total ']]
 
         for i in table2_c.columns[1:]:
             if i == 'Area Median HH Income':
@@ -950,8 +951,8 @@ def update_table2(geo, geo_c, selected_columns, scale):
 # Percentage of HHs in Core Housing Need by Priority Population
 
 hh_category_dict = {
-            'Percent Women-led HH in core housing need' : 'Women-led HH', 
             'Percent Single Mother led HH in core housing need' : 'Single mother-led HH', 
+            'Percent Women-led HH in core housing need' : 'Women-led HH', 
             'Percent Indigenous HH in core housing need' : 'Indigenous HH', 
             'Percent Visible minority HH in core housing need' : 'Visible minority HH', 
             'Percent Black-led HH in core housing need' : 'Black-led HH', 
@@ -1037,7 +1038,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 
             ))
         fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "HH Category")
-        fig5.update_xaxes(fixedrange = True, tickformat =  ',.0%')
+        fig5.update_xaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10])
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1088,7 +1089,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 
             ),row = 1, col = 2)
         fig5.update_layout(width = 1000, legend = dict(font = dict(size = 9)),yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "HH Category")
-        fig5.update_xaxes(tickformat =  ',.0%', fixedrange = True, range=[0, max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())])
+        fig5.update_xaxes(tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10])
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1097,8 +1098,8 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
 # Percentage of HHs in Core Housing Need by Priority Population and Income
 
 hh_category_dict2 = {
-                    'Percent of Women-led HH in core housing need' : 'Women-led HH', 
                     'Percent of Single Mother led HH in core housing need' : 'Single mother-led HH', 
+                    'Percent of Women-led HH in core housing need' : 'Women-led HH', 
                     'Percent of Indigenous HH in core housing need' : 'Indigenous HH', 
                     'Percent of Visible minority HH in core housing need' : 'Visible minority HH', 
                     'Percent of Black-led HH in core housing need' : 'Black-led HH', 
@@ -1112,8 +1113,8 @@ hh_category_dict2 = {
                     }
 
 hh_category_dict3 = {
-                    'Percent of Women-led HH core housing' : 'Women-led HH', 
                     'Percent of Single Mother led HH core housing' : 'Single mother-led HH', 
+                    'Percent of Women-led HH core housing' : 'Women-led HH', 
                     'Percent of Indigenous HH in core housing' : 'Indigenous HH', 
                     'Percent of Visible minority HH core housing' : 'Visible minority HH', 
                     'Percent of Black-led HH core housing' : 'Black-led HH', 
@@ -1127,8 +1128,8 @@ hh_category_dict3 = {
                     }
 
 hh_category_dict4 = {
-                    'Percent of Women-led HH in core housing' : 'Women-led HH', 
                     'Percent of Single Mother led HH in core housing' : 'Single mother-led HH', 
+                    'Percent of Women-led HH in core housing' : 'Women-led HH', 
                     'Percent of Indigenous HH in core housing' : 'Indigenous HH', 
                     'Percent of Visible minority HH in core housing' : 'Visible minority HH', 
                     'Percent of Black-led HH in core housing' : 'Black-led HH', 
@@ -1216,7 +1217,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "Income Category")
+        fig6.update_layout(legend_traceorder="normal", legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "Income Category")
         fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%')
         fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 

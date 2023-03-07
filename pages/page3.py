@@ -8,6 +8,7 @@ from plotly.graph_objs.scatter.marker import Line
 from dash.dash_table.Format import Format, Scheme, Sign, Symbol, Group
 from plotly.subplots import make_subplots
 from sqlalchemy import create_engine
+import math as math
 import warnings
 import json
 import geopandas as gpd
@@ -121,7 +122,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -173,7 +174,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -222,7 +223,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -271,7 +272,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -325,7 +326,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -373,7 +374,7 @@ layout = html.Div(children = [
                             page_size= 10,
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
-                            export_format="csv",
+                            export_format="xlsx",
                             # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
@@ -437,7 +438,8 @@ def plot1_new_projection(geo, IsComparison):
     table1 = pd.DataFrame({'Income Category': income_category, 
                             'Category': (['2016 Pop'] * len(income_category)),
                             'Pop': updated_csd_filtered_2016_plot1.iloc[:,0]})
-    
+    table1 = table1.replace([np.inf, -np.inf], 0)
+    table1 = table1.fillna(0)
     table1_2016 = table1.copy()
 
     table1['2026 Delta'] = np.round(updated_csd_filtered_2026_plot1.iloc[:,0],0)
@@ -660,13 +662,16 @@ def plot2_new_projection(geo, IsComparison):
     '2026 Population Delta 5pp HH'
         ]].T.reset_index().drop(columns = ['index'])
 
-    hh_category = ['1 Person', '2 People', '3 People', '4 People', '5+ People']
+    hh_category = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
 
 
     table2 = pd.DataFrame({'HH Category': hh_category, 
                             'Category': (['2016 Pop'] * len(hh_category)),
                             'Pop': updated_csd_filtered_2016_plot2.iloc[:,0]})
     
+    table2 = table2.replace([np.inf, -np.inf], 0)
+    table2 = table2.fillna(0)
+
     table2_2016 = table2.copy()
 
     table2['2026 Delta'] = np.round(updated_csd_filtered_2026_plot2.iloc[:,0],0)
@@ -903,7 +908,7 @@ def projections_2026_hh_size(geo, IsComparison):
     table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
     table3_csd = table3_csd.reset_index()
     table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
-    table3_csd['HH Category'] = ['1 person', '2 people', '3 people', '4 people', '5+ people']
+    table3_csd['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
 
     table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
 #     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
@@ -1077,7 +1082,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     )})
 
         fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "Income Category")
-        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+10000])
+        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())])
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1150,7 +1155,7 @@ def projections_2026_deltas(geo, IsComparison):
     table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
     table3_csd = table3_csd.reset_index()
     table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
-    table3_csd['HH Category'] = ['1 person', '2 people', '3 people', '4 people', '5+ people'][:len(table3_csd['HH Category'])]
+    table3_csd['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person'][:len(table3_csd['HH Category'])]
     # print(table3_csd['HH Category'])
 
     table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
@@ -1402,31 +1407,25 @@ def projections_2026_pop_income(geo, IsComparison):
         delta.append(d)
 
     table = pd.DataFrame({'Income Category':  i_l, '2016 Pop.': pop_2016, 'Muni. Growth (%)': gr_csd, 'Regional Growth (%)': gr_cd, 'Delta(Muni. GR)': np.round(delta, 0)})
+
+    table = table.replace([np.inf, -np.inf], 0)
+    table = table.fillna(0)
+
     table['Delta(Regional GR)'] = np.round(table['2016 Pop.'] * table['Regional Growth (%)'], 0)
     table['2026 Pop.(Muni.)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Muni. Growth (%)']), 0)
     table['2026 Pop.(Regional)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Regional Growth (%)']), 0)
 
-    plot_df1 = table[['Income Category', '2016 Pop.', 'Delta(Muni. GR)']]
-    plot_df1.columns = ['Income Category', '2016 Pop.', '2026 Delta']
-    plot_df1 = plot_df1.melt(id_vars = 'Income Category', value_vars = ['2016 Pop.', '2026 Delta'])
-    plot_df1['Geo'] = 'Muni'
-
-    plot_df2 = table[['Income Category', '2016 Pop.', 'Delta(Regional GR)']]
-    plot_df2.columns = ['Income Category', '2016 Pop.', '2026 Delta']
-    plot_df2 = plot_df2.melt(id_vars = 'Income Category', value_vars = ['2016 Pop.', '2026 Delta'])
-    plot_df2['Geo'] = 'Region'
-
-    plot_df = pd.concat([plot_df1, plot_df2])
+    table_for_plot = table[['Income Category', 'Muni. Growth (%)', 'Regional Growth (%)']]
+    table_for_plot.columns = ['Income Category', 'Municipal', 'Regional']
+    plot_df = table_for_plot.melt(id_vars = 'Income Category', value_vars = ['Municipal', 'Regional'])
+    plot_df.columns = ['Income Category', 'Category', 'value']
 
     table = table.drop(columns = ['Delta(Muni. GR)', 'Delta(Regional GR)'])
     table['Muni. Growth (%)'] = np.round(table['Muni. Growth (%)']*100,1).astype(str) + '%'
     table['Regional Growth (%)'] = np.round(table['Regional Growth (%)']*100,1).astype(str) + '%'
 
     if IsComparison == True:
-        # table.columns = ['Income Category', '2016 Pop. ', 'Muni. Growth (%) ',
-        #    'Regional Growth (%) ', 'Delta(Muni. GR) ', 'Delta(Regional GR) ',
-        #    '2026 Pop.(Muni. GR) ', '2026 Pop.(Regional GR) ']
-    
+
         table.columns = ['HH Income Category', '2016 HHs ', 'Muni. Growth Rate (%) ',
            'Regional Growth Rate (%) ', '2026 HHs (Muni. Rate) ', '2026 HHs (Region. Rate) ']
         
@@ -1518,26 +1517,22 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr = go.Figure()
 
-        for s, c in zip(plot_df['variable'].unique(), colors[3:]):
-            
-            plot_df_frag = plot_df.loc[plot_df['variable'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] * 2
-            x = [
-                plot_df_frag['Income Category'],
-                plot_df_frag['Geo']
-            ]
-            
+        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
+
+            plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
+            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
+
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Category")
         fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1586,18 +1581,15 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for s, c in zip(plot_df['variable'].unique(), colors[3:]):
-            
-            plot_df_frag = plot_df.loc[plot_df['variable'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] * 2
 
-            x = [
-                plot_df_frag['Income Category'],
-                plot_df_frag['Geo']
-            ]
+        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
             
+            plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
+            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] 
+
+           
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
@@ -1624,18 +1616,13 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         table1_c, plot_df_c = projections_2026_pop_income(geo_c, False)
 
-        for s, c in zip(plot_df_c['variable'].unique(), colors[3:]):
+        for s, c in zip(plot_df_c['Category'].unique(), colors[3:]):
             
-            plot_df_frag = plot_df_c.loc[plot_df_c['variable'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] * 2
-
-            x = [
-                plot_df_frag['Income Category'],
-                plot_df_frag['Geo']
-            ]
+            plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
+            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
             
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
@@ -1656,10 +1643,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
-        fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['Income Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Geo'])['value'].sum().max())+10000])
-        fig_pgr.update_xaxes(tickfont = dict(size = 8), fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True)
+        fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Category")
+        fig_pgr.update_yaxes(range=[0, math.ceil(max(plot_df.groupby(['Income Category', 'Category'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Category'])['value'].sum().max())*10)/10])
+        fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -1725,23 +1712,18 @@ def projections_2026_pop_hh(geo, IsComparison):
         delta.append(d)
 
     table = pd.DataFrame({'HH Category':  h_l, '2016 Pop.': pop_2016, 'Muni. Growth (%)': gr_csd, 'Regional Growth (%)': gr_cd, 'Delta(Muni. GR)': np.round(delta, 0)})
+
+    table = table.replace([np.inf, -np.inf], 0)
+    table = table.fillna(0)
+
     table['Delta(Regional GR)'] = np.round(table['2016 Pop.'] * table['Regional Growth (%)'], 0)
     table['2026 Pop.(Muni.)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Muni. Growth (%)']), 0)
     table['2026 Pop.(Regional)'] = np.round(table['2016 Pop.'] + (table['2016 Pop.'] * table['Regional Growth (%)']), 0)
 
-    table
-
-    plot_df1 = table[['HH Category', '2016 Pop.', 'Delta(Muni. GR)']]
-    plot_df1.columns = ['HH Category', '2016 Pop.', '2026 Delta']
-    plot_df1 = plot_df1.melt(id_vars = 'HH Category', value_vars = ['2016 Pop.', '2026 Delta'])
-    plot_df1['Geo'] = 'Muni'
-
-    plot_df2 = table[['HH Category', '2016 Pop.', 'Delta(Regional GR)']]
-    plot_df2.columns = ['HH Category', '2016 Pop.', '2026 Delta']
-    plot_df2 = plot_df2.melt(id_vars = 'HH Category', value_vars = ['2016 Pop.', '2026 Delta'])
-    plot_df2['Geo'] = 'Region'
-
-    plot_df = pd.concat([plot_df1, plot_df2])
+    table_for_plot = table[['HH Category', 'Muni. Growth (%)', 'Regional Growth (%)']]
+    table_for_plot.columns = ['HH Category', 'Municipal', 'Regional']
+    plot_df = table_for_plot.melt(id_vars = 'HH Category', value_vars = ['Municipal', 'Regional'])
+    plot_df.columns = ['HH Category', 'Category', 'value']
 
     table = table.drop(columns = ['Delta(Muni. GR)', 'Delta(Regional GR)'])
     table['Muni. Growth (%)'] = np.round(table['Muni. Growth (%)']*100,1).astype(str) + '%'
@@ -1758,6 +1740,8 @@ def projections_2026_pop_hh(geo, IsComparison):
     else:
         table.columns = ['HH Size', '2016 HHs', 'Muni. Growth Rate (%)',
            'Regional Growth Rate (%)', '2026 HHs (Muni. Rate)', '2026 HHs (Region. Rate)']
+        
+    table['HH Size'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
 
     return table, plot_df
 
@@ -1844,26 +1828,22 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr = go.Figure()
 
-        for s, c in zip(plot_df['variable'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
             
-            plot_df_frag = plot_df.loc[plot_df['variable'] == s, :]
-
-            x = [
-                plot_df_frag['HH Category'],
-                plot_df_frag['Geo']
-            ]
+            plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
+            plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
             
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['HH Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Population")
+        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Population")
         fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1912,18 +1892,13 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for s, c in zip(plot_df['variable'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
             
-            plot_df_frag = plot_df.loc[plot_df['variable'] == s, :]
-            plot_df_frag['HH Category'] = ['1 Person', '2 People', '3 People', '4 People', '5+ People'] * 2
-
-            x = [
-                plot_df_frag['HH Category'],
-                plot_df_frag['Geo']
-            ]
+            plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
+            plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
             
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['HH Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
@@ -1950,18 +1925,13 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         table1_c, plot_df_c = projections_2026_pop_hh(geo_c, False)
 
-        for s, c in zip(plot_df_c['variable'].unique(), colors[3:]):
+        for s, c in zip(plot_df_c['Category'].unique(), colors[3:]):
             
-            plot_df_frag = plot_df_c.loc[plot_df_c['variable'] == s, :]
-            plot_df_frag['HH Category'] = ['1 Person', '2 People', '3 People', '4 People', '5+ People'] * 2
-
-            x = [
-                plot_df_frag['HH Category'],
-                plot_df_frag['Geo']
-            ]
+            plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
+            plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
             
             fig_pgr.add_trace(go.Bar(
-                x = x,
+                x = plot_df_frag['HH Category'],
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
@@ -1982,10 +1952,10 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode = "relative", plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Population")
-        fig_pgr.update_yaxes(range=[0, max(plot_df.groupby(['HH Category', 'Geo'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Geo'])['value'].sum().max())+10000])
-        fig_pgr.update_xaxes(tickfont = dict(size = 8), fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True)
+        fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Population")
+        fig_pgr.update_yaxes(range=[0, math.ceil(max(plot_df.groupby(['HH Category', 'Category'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Category'])['value'].sum().max())*10)/10])
+        fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 

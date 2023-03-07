@@ -74,6 +74,8 @@ map_colors_w_black = ['#000000', '#F4F739', '#fa6464', '#3EB549', '#EE39F7', '#7
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
+opacity_value = 0.2
+
 mapped_geo_code2 = mapped_geo_code.copy()
 mapped_geo_code2['Geo_Code'] = mapped_geo_code2['Geo_Code'].astype(str)
 order = pd.DataFrame(joined_df['Geography']).merge(mapped_geo_code2[['Geography','Geo_Code','Region_Code', 'Province_Code']], how = 'left', on = 'Geography')
@@ -88,7 +90,7 @@ fig_m.add_trace(go.Choroplethmapbox(geojson = json.loads(gdf_p_code_added.geomet
                                 z = gdf_p_code_added.rand, 
                                 showscale = False, 
                                 hovertext= gdf_p_code_added.NAME,
-                                marker = dict(opacity = 0.4),
+                                marker = dict(opacity = opacity_value),
                                 marker_line_width=.5))
 
 
@@ -247,6 +249,8 @@ def store_geo(geo, geo_c, btn1, btn2, btn3, btn4, btn5):
 
 # Area Selection Map
 
+
+
 def province_map(value, random_color):
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == value, :]['Province_Code'].tolist()[0]
@@ -265,8 +269,9 @@ def province_map(value, random_color):
                                     z = gdf_p_code_added.rand, 
                                     showscale = False, 
                                     colorscale = map_colors_wo_black,
-                                    hovertext= gdf_p_code_added.NAME,
-                                    marker = dict(opacity = 0.4),
+                                    text = gdf_p_code_added.NAME,
+                                    hovertemplate= '%{text} - %{location}<extra></extra>',
+                                    marker = dict(opacity = opacity_value),
                                     marker_line_width=.5))
     fig_m.update_layout(mapbox_style="carto-positron",
                 mapbox_center = {"lat": gdf_p_code_added['lat'].mean()+10, "lon": gdf_p_code_added['lon'].mean()},
@@ -309,8 +314,9 @@ def region_map(value, random_color, clicked_code):
                                     z = gdf_r_filtered.rand, 
                                     showscale = False,
                                     colorscale = map_colors_wo_black,
-                                    hovertext= gdf_r_filtered.CDNAME,
-                                    marker = dict(opacity = 0.4),
+                                    text = gdf_r_filtered.CDNAME,
+                                    hovertemplate= '%{text} - %{location}<extra></extra>',
+                                    marker = dict(opacity = opacity_value),
                                     marker_line_width=.5))
 
 
@@ -359,9 +365,10 @@ def subregion_map(value, random_color, clicked_code):
                                     locations = gdf_sr_filtered.index, 
                                     z = gdf_sr_filtered.rand, 
                                     showscale = False, 
-                                    hovertext= gdf_sr_filtered.CSDNAME,
+                                    text = gdf_sr_filtered.CSDNAME,
+                                    hovertemplate= '%{text} - %{location}<extra></extra>',
                                     colorscale = colorlist,
-                                    marker = dict(opacity = 0.4),
+                                    marker = dict(opacity = opacity_value),
                                     marker_line_width=.5))
 
     max_bound = max(abs((gdf_sr_filtered['lat'].max() - gdf_sr_filtered['lat'].min())), 
