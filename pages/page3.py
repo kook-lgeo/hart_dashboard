@@ -901,34 +901,28 @@ def projections_2026_hh_size(geo, IsComparison):
             result_csd_l.append(updated_csd_filtered[col_format].tolist()[0])
 
     income_l = ['Very Low Income'] * 5 + ['Low Income'] * 5 + ['Moderate Income'] * 5 + ['Median Income'] * 5 + ['High Income'] * 5
-
-    table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': pp_l, 'CSD_Projection': np.round(result_csd_l,0)})
+    hh_l = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+    
+    table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': hh_l * 5, 'value': np.round(result_csd_l,0)})
     table3 = table3.fillna(0)
-    # table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income Category'], columns=['HH Category'], sort = False)
-    table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
-    table3_csd = table3_csd.reset_index()
-    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
-    table3_csd['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+    table3 = table3.replace([np.inf, -np.inf], 0)
 
-    table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
-#     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
-    table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'HH Category', value_vars = ['Very Low Income', 'Low Income', 'Moderate Income',
-           'Median Income', 'High Income'])
-    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
+    table3_csd = table3.pivot_table(values='value', index=['Income Category'], columns=['HH Category'], sort = False)
+    table3_csd = table3_csd.reset_index()
+
+    table3_csd_plot = table3
+
     row_total_csd = table3_csd.sum(axis=0)
     row_total_csd[0] = 'Total'
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income', 'Low Income', 'Moderate Income',
-       'Median Income', 'High Income']
+        table3_csd.columns = ['HH Income Category', '1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
         table3_csd['Total'] = table3_csd.sum(axis=1)
 
     else:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
-       'Median Income ', 'High Income ']
+        table3_csd.columns = ['HH Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
         table3_csd['Total '] = table3_csd.sum(axis=1)
-        # table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
     return table3_csd, table3_csd_plot
 
@@ -963,10 +957,10 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         table1, table1_csd_plot = projections_2026_hh_size(geo, False)
 
         fig_csd = go.Figure()
-        for i, c in zip(table1_csd_plot['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -974,7 +968,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "HH Size")
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1024,10 +1018,10 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for i, c in zip(table1_csd_plot['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -1056,10 +1050,10 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         table1_c, table1_csd_plot_c = projections_2026_hh_size(geo_c, True)
 
-        for i, c in zip(table1_csd_plot_c['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -1081,8 +1075,8 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "Income Category")
-        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())])
+        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "HH Size")
+        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) + 100])
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1148,34 +1142,28 @@ def projections_2026_deltas(geo, IsComparison):
             result_csd_l.append(updated_csd_filtered[col_format].tolist()[0])
 
     income_l = ['Very Low Income'] * 5 + ['Low Income'] * 5 + ['Moderate Income'] * 5 + ['Median Income'] * 5 + ['High Income'] * 5
-
-    table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': pp_l, 'CSD_Projection': np.round(result_csd_l,0)})
+    hh_l = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+    
+    table3 = pd.DataFrame({'Income Category': income_l, 'HH Category': hh_l * 5, 'value': np.round(result_csd_l,0)})
     table3 = table3.fillna(0)
-    # table3_csd = table3.pivot_table(values='CSD_Projection', index=['Income Category'], columns=['HH Category'], sort = False)
-    table3_csd = table3.pivot_table(values='CSD_Projection', index=['HH Category'], columns=['Income Category'], sort = False)
-    table3_csd = table3_csd.reset_index()
-    table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
-    table3_csd['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person'][:len(table3_csd['HH Category'])]
+    table3 = table3.replace([np.inf, -np.inf], 0)
 
-    table3_csd_plot = table3_csd.replace([np.inf, -np.inf], 0)
-#     table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'Income Category', value_vars = ['1pp', '2pp', '3pp', '4pp', '5pp'])
-    table3_csd_plot = pd.melt(table3_csd_plot, id_vars = 'HH Category', value_vars = ['Very Low Income', 'Low Income', 'Moderate Income',
-           'Median Income', 'High Income'])
-    # table3_csd = table3_csd.replace([np.inf, -np.inf], 0)
+    table3_csd = table3.pivot_table(values='value', index=['Income Category'], columns=['HH Category'], sort = False)
+    table3_csd = table3_csd.reset_index()
+
+    table3_csd_plot = table3
+
     row_total_csd = table3_csd.sum(axis=0)
     row_total_csd[0] = 'Total'
     table3_csd.loc[5, :] = row_total_csd
 
     if IsComparison != True:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income', 'Low Income', 'Moderate Income',
-       'Median Income', 'High Income']
+        table3_csd.columns = ['HH Income Category', '1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
         table3_csd['Total'] = table3_csd.sum(axis=1)
 
     else:
-        table3_csd.columns = ['HH Income Category', 'Very Low Income ', 'Low Income ', 'Moderate Income ',
-       'Median Income ', 'High Income ']
+        table3_csd.columns = ['HH Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
         table3_csd['Total '] = table3_csd.sum(axis=1)
-        # table3_csd = table3_csd.rename(columns = {'1pp': '1pp ', '2pp': '2pp ', '3pp': '3pp ', '4pp': '4pp ', '5pp': '5pp ', })
 
     return table3_csd, table3_csd_plot
 
@@ -1210,10 +1198,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         table1, table1_csd_plot = projections_2026_deltas(geo, False)
 
         fig_csd = go.Figure()
-        for i, c in zip(table1_csd_plot['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -1221,7 +1209,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
+        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "HH Size")
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
@@ -1271,10 +1259,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for i, c in zip(table1_csd_plot['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot.loc[table1_csd_plot['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -1305,10 +1293,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         table1_c, table1_csd_plot_c = projections_2026_deltas(geo_c, True)
 
-        for i, c in zip(table1_csd_plot_c['Income Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['Income Category'] == i, :]
+        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
             fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
+                x = plot_df_frag['Income Category'],
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
@@ -1330,8 +1318,8 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "Income Category")
-        fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('HH Category')['value'].sum().min(), table1_csd_plot_c.groupby('HH Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('HH Category')['value'].sum().max(), table1_csd_plot_c.groupby('HH Category')['value'].sum().max())+100])
+        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "HH Size")
+        fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max())+100])
         fig_csd.update_xaxes(fixedrange = True)
         fig_csd.update_yaxes(fixedrange = True)
 
