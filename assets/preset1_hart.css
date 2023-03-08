@@ -116,7 +116,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 900px) {
   .background-pg2-lgeo  {
     width: 90%;
     height: 1100px;
@@ -128,25 +128,34 @@
 }
 
 
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .background-pg2-lgeo  {
     width: 90%;
     display: inline-block;
     padding-left: 2%;
     padding-right: 2%;
   }
-}
+} */
 
+
+
+.background-pg2-lgeo {
+  width: 90%;
+  display: inline-block;
+  padding-left: 2%;
+  padding-right: 2%;
+  /* overflow: hidden; */
+}
 
 .background-pg3-lgeo {
   width: 90%;
   display: inline-block;
   padding-left: 2%;
   padding-right: 2%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .background-pg3-lgeo  {
     width: 90%;
     height: 1800px;
@@ -165,7 +174,7 @@
     padding-left: 2%;
     padding-right: 2%;
   }
-}
+} */
 
 
 
@@ -202,10 +211,10 @@
     display: inline-block;
     padding-left: 2%;
     padding-right: 2%;
-    transform:scale(0.28);
-    transform-origin: left top;
-    margin-bottom:-2000px;
-    margin-right:-100px;
+    /* transform:scale(0.28); */
+    /* transform-origin: left top; */
+    /* margin-bottom:-2000px;
+    margin-right:-100px; */
   }
 }
 
