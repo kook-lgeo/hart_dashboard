@@ -110,17 +110,64 @@
 
 .background-lgeo {
   width: 90%;
-  /* height: 100vh; */
   display: inline-block;
   padding-left: 2%;
   padding-right: 2%;
-  /* transform: translate(-24%, -24%); */
   overflow: hidden;
-  /*border-left-style: solid;
-  border-left-color: #4A8F97;
-  border-left-width: 1pt; */
-  /* background-color: #F3F4F5; */
 }
+
+@media (max-width: 1000px) {
+  .background-pg2-lgeo  {
+    width: 90%;
+    height: 1100px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    overflow: hidden;
+  }
+}
+
+
+@media (min-width: 1000px) {
+  .background-pg2-lgeo  {
+    width: 90%;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
+
+
+.background-pg3-lgeo {
+  width: 90%;
+  display: inline-block;
+  padding-left: 2%;
+  padding-right: 2%;
+  overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  .background-pg3-lgeo  {
+    width: 90%;
+    height: 1800px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    overflow: hidden;
+  }
+}
+
+
+@media (min-width: 1000px) {
+  .background-pg3-lgeo  {
+    width: 90%;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
+
+
 
 .dashboard-pg1-lgeo {
   width: 100%;
@@ -146,6 +193,7 @@
   border-left-width: 1pt; */
   /* background-color: #F3F4F5; */
 }
+
 
 
 @media (max-width: 1000px) {
