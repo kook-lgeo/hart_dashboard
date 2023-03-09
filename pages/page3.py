@@ -37,19 +37,21 @@ df_province_list.columns = df_geo_list.columns
 
 # Importing Projection Data
 
-df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
-df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
-df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
+# df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
+# df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
+# df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
 
 # Merging Projection data with Geography codes
 
-df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
-df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
-df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
+# df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
+# df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
+# df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
 
 # New projection data
-updated_csd = pd.read_csv('./sources/updated_csd.csv')
-updated_cd = pd.read_csv('./sources/updated_cd.csv')
+# updated_csd = pd.read_csv('./sources/updated_csd.csv')
+# updated_cd = pd.read_csv('./sources/updated_cd.csv')
+updated_csd = pd.read_sql_table('csd_hh_projections', engine.connect())
+updated_cd = pd.read_sql_table('cd_hh_projections', engine.connect())
 
 # Configuration for plot icons
 
@@ -1516,7 +1518,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Category")
         fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1610,7 +1612,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y:.0%}<extra></extra>',
                 showlegend = False
             ),row = 1, col = 2)
 
@@ -1626,11 +1628,13 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
+                
+        range_ref = plot_df.groupby(['Income Category', 'Category'])['value'].sum()
+        range_ref_c = plot_df_c.groupby(['Income Category', 'Category'])['value'].sum()
 
         fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Category")
-        fig_pgr.update_yaxes(range=[0, math.ceil(max(plot_df.groupby(['Income Category', 'Category'])['value'].sum().max(), plot_df_c.groupby(['Income Category', 'Category'])['value'].sum().max())*10)/10])
+        fig_pgr.update_yaxes(tickformat =  ',.0%', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
         fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -1823,7 +1827,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Population")
         fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
+        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1915,7 +1919,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = s,
                 marker_color = c,
-                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>',
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y:.0%}<extra></extra>',
                 showlegend = False
             ),row = 1, col = 2)
 
@@ -1932,10 +1936,12 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
+        range_ref = plot_df.groupby(['HH Category', 'Category'])['value'].sum()
+        range_ref_c = plot_df_c.groupby(['HH Category', 'Category'])['value'].sum()
+
         fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Population")
-        fig_pgr.update_yaxes(range=[0, math.ceil(max(plot_df.groupby(['HH Category', 'Category'])['value'].sum().max(), plot_df_c.groupby(['HH Category', 'Category'])['value'].sum().max())*10)/10])
+        fig_pgr.update_yaxes(tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
         fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['value'].max()*10)/10])
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 

@@ -1287,8 +1287,21 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
 @callback(
     Output("ov7-download-text", "data"),
     Input("ov7-download-csv", "n_clicks"),
+    Input('main-area', 'data'),
+    Input('comparison-area', 'data'),
     prevent_initial_call=True,
 )
-def func_ov7(n_clicks):
-    return dcc.send_data_frame(joined_df.to_csv, "result.csv")
+def func_ov7(n_clicks, geo, geo_c):
+
+    if geo == None:
+        geo = 'Greater Vancouver A RDA (CSD, BC)'
+
+    if "ov7-download-csv" == ctx.triggered_id:
+        
+        joined_df_geo = joined_df.query("Geography == " + f"'{geo}'")
+        joined_df_geo_c = joined_df.query("Geography == " + f"'{geo_c}'")
+        joined_df_download = pd.concat([joined_df_geo, joined_df_geo_c])
+        joined_df_download = joined_df_download.drop(columns = ['pk_x', 'pk_y'])
+
+        return dcc.send_data_frame(joined_df_download.to_csv, "result.csv")
 
