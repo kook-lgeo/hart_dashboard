@@ -113,6 +113,7 @@
   display: inline-block;
   padding-left: 2%;
   padding-right: 2%;
+  padding-bottom: 2%;
   overflow: hidden;
 }
 
@@ -239,7 +240,7 @@
 }
 
 .dropdown-lgeo {
-  width: 430px;
+  width: 400px;
   display: inline-block;
   padding-right: 30px;
   padding-bottom: 10px;
@@ -271,7 +272,7 @@
 }
 
 .region-button-lgeo {
-  width: 250px;
+  width: 270px;
   /* display: inline-block;
   padding-right: 10px;
   padding-top: 1%; */
@@ -301,9 +302,17 @@
 
 @media (max-width: 500px) {
   .map-area-box-lgeo  {
-    width: 430px;
-    height: 200px;
+    width: 300px;
+    height: 100px;
     display: inline-block;
+  }
+
+  .dropdown-lgeo {
+    width: 330px;
+    display: inline-block;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-top: 20px;
   }
 }
 
@@ -313,6 +322,14 @@
     width: 1000px;
     height: 500px;
     display: inline-block;
+  }
+
+  .dropdown-lgeo {
+    width: 400px;
+    display: inline-block;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-top: 20px;
   }
 }
 
