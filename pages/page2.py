@@ -129,13 +129,17 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("Core Housing Need"), id = 'home')
+                html.H2(children = html.Strong("Core Housing Need, 2016"), id = 'home')
             ], className = 'title-lgeo'),
+
 
         # Area Median Household Income (AMHI) Categories and Shelter Costs
 
             html.Div([
-                html.H3(children = html.Strong('Area Median Household Income (AMHI) Categories and Shelter Costs'), id = 'overview-scenario3'),
+                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'overview-scenario3'),
+                html.Div([
+                    html.H6('This table shows the range of household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of households falls within each category.')
+                ], className = 'muni-reg-text-lgeo'),
 
 
             # Table
@@ -177,7 +181,10 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percent of Households in Core Housing Need, by Income Category'), id = 'overview-scenario'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2016'), id = 'overview-scenario'),
+                html.Div([
+                    html.H6('This chart shows the percentage of total households that are in Core Housing Need for each income category. The maximum affordable shelter cost is also indicated in brackets for each income category.')
+                ], className = 'muni-reg-text-lgeo'),
 
             # Graph
 
@@ -199,7 +206,11 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percent of Household Income Categories in Core Housing Need, by Household Size'), id = 'overview-scenario2'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'overview-scenario2'),
+                html.Div([
+                    html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. If there are no households in Core Housing Need within an income category then there will be no bar for that category.')
+                ], className = 'muni-reg-text-lgeo'),
+
 
                 # Graph
 
@@ -222,6 +233,11 @@ layout = html.Div(children = [
             html.Div([
 
                 html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
+                html.Div([
+                    html.H6('This table shows the total number of households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
+                ], className = 'muni-reg-text-lgeo'),
+
+
 
                 # Table
                 
@@ -265,7 +281,11 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population'), id = 'overview-scenario5'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2016'), id = 'overview-scenario5'),
+                html.Div([
+                    html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. Where a zero sum appears, data suppression is likely employed.')
+                ], className = 'muni-reg-text-lgeo'),
+
 
                 # Graphs
 
@@ -287,7 +307,10 @@ layout = html.Div(children = [
 
             html.Div([
 
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income'), id = 'overview-scenario6'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016'), id = 'overview-scenario6'),
+                html.Div([
+                    html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. Where a zero sum appears, data suppression is likely employed.')
+                ], className = 'muni-reg-text-lgeo'),
 
                 # Graphs
 
@@ -1297,7 +1320,7 @@ def func_ov7(n_clicks, geo, geo_c):
         geo = 'Greater Vancouver A RDA (CSD, BC)'
 
     if "ov7-download-csv" == ctx.triggered_id:
-        
+
         joined_df_geo = joined_df.query("Geography == " + f"'{geo}'")
         joined_df_geo_c = joined_df.query("Geography == " + f"'{geo_c}'")
         joined_df_download = pd.concat([joined_df_geo, joined_df_geo_c])

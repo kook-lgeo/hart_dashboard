@@ -89,7 +89,7 @@ layout = html.Div(children = [
         html.Div(
         children = [
             html.Div([
-                html.H2(children = html.Strong("2026 Household Projections by Household Size and Income Category"), id = 'home')
+                html.H2(children = html.Strong("Household Projections"), id = 'home')
             ], className = 'title-lgeo'),
 
         # 2026 Projections by HH Size and Income Level
@@ -102,6 +102,9 @@ layout = html.Div(children = [
                 html.Div([
                    
                     html.H3(children = html.Strong('2026 Household Projections by Income Category'), className = 'subtitle-lgeo'),
+                    html.Div([
+                        html.H6('This table shows the total number of households in 2016, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div(children = [ 
 
@@ -133,6 +136,9 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable5-interactivity-container'),
 
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each income category, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     # Graphs
 
@@ -154,7 +160,9 @@ layout = html.Div(children = [
                 html.Div([
                    
                     html.H3(children = html.Strong('2026 Household Projections by Household Size'), className = 'subtitle-lgeo'),
-
+                    html.Div([
+                        html.H6('This table shows the total number of households in 2016, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -186,6 +194,10 @@ layout = html.Div(children = [
                     html.Div(id='datatable6-interactivity-container'),
 
 
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each size of household, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
+                    ], className = 'muni-reg-text-lgeo'),
+
                     # Graphs
 
                     html.Div(children = [ 
@@ -203,7 +215,11 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Projected Households'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 Projected Households by Household Size and Income Category'), className = 'subtitle-lgeo'),
+
+                    html.Div([
+                        html.H6('This table shows the projected total number of households in 2026 by household size and income category.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -236,6 +252,11 @@ layout = html.Div(children = [
 
                     # Graphs
 
+
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the projected total number of households in 2026 by household size and income category. Each bar is broken out by the projected number of households within each income category.')
+                    ], className = 'muni-reg-text-lgeo'),
+
                     html.Div(children = [ 
 
                         dcc.Graph(
@@ -252,7 +273,12 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 Projected Household Change (Delta)'), className = 'table-title'),
+                    html.H3(children = html.Strong('2026 Projected Household Gain/Loss (2016 to 2026)'), className = 'table-title'),
+
+                    html.Div([
+                        html.H6('This table shows the projected gain or loss of households by household size and income. These values represent projections for the period between 2016 and 2026.')
+                    ], className = 'muni-reg-text-lgeo'),
+
 
                     html.Div([
                         dash_table.DataTable(
@@ -287,6 +313,11 @@ layout = html.Div(children = [
 
                     # Graphs
 
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the projected gain or loss of households between 2016 and 2026 for each size of household. Each bar is broken out by the projected number of households within each income category.')
+                    ], className = 'muni-reg-text-lgeo'),
+
+
                     html.Div(children = [ 
 
                         dcc.Graph(
@@ -299,13 +330,17 @@ layout = html.Div(children = [
                 ], className = 'pg3-table-plot-box-lgeo'),
 
                 html.Div([
-                    html.H3(children = html.Strong('Municipal vs Regional Rate'), className = 'subtitle-lgeo'),
-                    html.Strong('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. A significantly lower growth rate in a community compared to its region could be caused by artificially suppressed growth due to low housing supply. A significantly higher growth rate in a community compared to its region could be caused by spillover in interconnected urban communities. The following graphs and tables illustrate 2026 household growth using both the community and regional growth rates.')
+                    html.H3(children = html.Strong('Municipal vs Regional Growth Rates'), className = 'subtitle-lgeo'),
+                    html.H6('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. A significantly lower growth rate in a community compared to its region could be caused by artificially suppressed growth due to low housing supply. A significantly higher growth rate in a community compared to its region could be caused by spillover in interconnected urban communities. The following graphs and tables illustrate 2026 household growth using both the community and regional growth rates.')
                 ], className = 'muni-reg-text-lgeo'),
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by HH Income'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('2026 Projected Municipal vs Regional Household Growth Rates by Income Category'), className = 'subtitle-lgeo'),
+
+                    html.Div([
+                        html.H6('The following table illustrates the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div([
 
@@ -340,6 +375,10 @@ layout = html.Div(children = [
 
                     # Graphs
 
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
+                    ], className = 'muni-reg-text-lgeo'),
+
                     html.Div(children = [ 
                         dcc.Graph(
                             id='graph12',
@@ -354,7 +393,11 @@ layout = html.Div(children = [
 
                 html.Div([
                    
-                    html.H3(children = html.Strong('2026 HH - Municipal and Regional Growth Rates by HH Size'), className = 'subtitle-lgeo'),
+                    html.H3(children = html.Strong('Municipal vs Regional Growth Rates by Household Size'), className = 'subtitle-lgeo'),
+
+                    html.Div([
+                        html.H6('The following table illustrates the projected household growth rates between 2016 and 2026 in the community and surrounding region for each household size.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div([
                         dash_table.DataTable(
@@ -387,6 +430,10 @@ layout = html.Div(children = [
                     html.Div(id='datatable9-interactivity-container'),
 
                     # Graphs
+
+                    html.Div([
+                        html.H6('This graph illustrates the above table, displaying the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     html.Div(children = [ 
 
