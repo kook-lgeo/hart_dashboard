@@ -869,7 +869,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 name = i,
                 marker_color = c,
                 # orientation = 'h', 
-                
+                showlegend = False,
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 2)
 
@@ -886,7 +886,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', showlegend = False, plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
         fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
         fig_new_proj_1.update_xaxes(fixedrange = True)
         fig_new_proj_1.update_yaxes(fixedrange = True)
@@ -1366,7 +1366,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-
+        
         fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "HH Size")
         fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max())+100])
         fig_csd.update_xaxes(fixedrange = True)
