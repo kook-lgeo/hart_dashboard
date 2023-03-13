@@ -67,10 +67,14 @@ colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
-# map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_wo_black = ['#3EB549', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#39C0F7']
-# map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_w_black = ['#000000', '#F4F739', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#39C0F7']
+
+map_colors_province = ['#1a3758', '#78cb80', '#74d3f9', '#a480bb', '#80c2c0', '#7480dd', '#ffe6d6', '#e98098', '#b6657c', '#490076', '#008481', '#622637']
+map_colors_wo_black = ['#7480dd', '#1a3758', '#7480dd', '#b6657c', '#622637', '#80c2c0', '#78cb80', '#ffe6d6', '#e98098', '#a480bb', '#490076', '#008481', '#74d3f9']
+# map_colors_wo_black = ['#3EB549', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#39C0F7']
+map_colors_w_black = ['#000000', '#1a3758', '#7480dd', '#b6657c', '#622637', '#80c2c0', '#78cb80', '#ffe6d6', '#e98098', '#a480bb', '#490076', '#008481', '#74d3f9']
+# map_colors_w_black = ['#000000', '#F4F739', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#39C0F7']
+
+
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
@@ -116,9 +120,9 @@ layout = html.Div(children = [
 
         html.Div(
         children = [
-            html.Div([
-                html.H2(children = html.Strong("Census Geography Area Selection"), id = 'home')
-            ], className = 'title-lgeo'),
+            # html.Div([
+            #     html.H2(children = html.Strong("Census Geography Area Selection"), id = 'home')
+            # ], className = 'title-lgeo'),
 
             # Dropdown for sector selection
             # html.H3(children = html.Strong('Area Selection'), id = 'area-selection'),
@@ -128,7 +132,7 @@ layout = html.Div(children = [
                 html.Div(
                     id = 'all-geo-dropdown-parent',
                     children = [
-                    html.Strong('Select Area'),
+                    html.Strong('Select Census Geography'),
                     dcc.Dropdown(order['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
                     ], 
                     className = 'dropdown-lgeo'
@@ -137,7 +141,7 @@ layout = html.Div(children = [
                 html.Div(
                     id = 'comparison-geo-dropdown-parent',
                     children = [
-                    html.Strong('Comparison Area (Optional)'),
+                    html.Strong('Select Comparison Census Geography (Optional)'),
                     dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
                     ], 
                     className = 'dropdown-lgeo'
@@ -258,9 +262,12 @@ def province_map(value, random_color):
     gdf_p_code_added['Geo_Code'] = gdf_p_code_added.index
     
     if random_color == True:
-        gdf_p_code_added["rand"] = [i for i in range(0,len(gdf_p_code_added))]
+        gdf_p_code_added["rand"] = [round(i/(len(gdf_p_code_added) -1)*100) for i in range(0,len(gdf_p_code_added))]
+        map_colors = map_colors_wo_black
     else:
-        gdf_p_code_added["rand"] = gdf_p_code_added['Geo_Code'].apply(lambda x: 0 if x == int(clicked_code) else 100)  
+        gdf_p_code_added["rand"] = gdf_p_code_added['Geo_Code'].apply(lambda x: 0 if x == int(clicked_code) else 100)
+        map_colors = ['#37BB31', '#74D3F9']
+
 
     fig_m = go.Figure()
 
@@ -268,7 +275,7 @@ def province_map(value, random_color):
                                     locations = gdf_p_code_added.index, 
                                     z = gdf_p_code_added.rand, 
                                     showscale = False, 
-                                    colorscale = map_colors_wo_black,
+                                    colorscale = map_colors,
                                     text = gdf_p_code_added.NAME,
                                     hovertemplate= '%{text} - %{location}<extra></extra>',
                                     marker = dict(opacity = opacity_value),
@@ -300,9 +307,12 @@ def region_map(value, random_color, clicked_code):
         
     if random_color == True:
         gdf_r_filtered["rand"] = [i for i in range(0,len(gdf_r_filtered))]
+        map_colors = map_colors_wo_black
         
     else:
         gdf_r_filtered["rand"] = gdf_r_filtered['CDUID'].apply(lambda x: 0 if x == clicked_code else 100) 
+        map_colors = ['#37BB31', '#74D3F9']
+
         
         
     gdf_r_filtered = gdf_r_filtered.set_index('CDUID')
@@ -313,7 +323,7 @@ def region_map(value, random_color, clicked_code):
                                     locations = gdf_r_filtered.index, 
                                     z = gdf_r_filtered.rand, 
                                     showscale = False,
-                                    colorscale = map_colors_wo_black,
+                                    colorscale = map_colors,
                                     text = gdf_r_filtered.CDNAME,
                                     hovertemplate= '%{text} - %{location}<extra></extra>',
                                     marker = dict(opacity = opacity_value),
@@ -347,17 +357,19 @@ def subregion_map(value, random_color, clicked_code):
     
     if random_color == True:
         gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else np.random.randint(30, 100))
-    
+        if 0 in gdf_sr_filtered["rand"].tolist():
+            colorlist = map_colors_w_black
+        else:
+            colorlist = map_colors_wo_black
+
     else:
         gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == clicked_code else 100))
+        colorlist = ['#000000', '#37BB31', '#74D3F9']
     
     gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
 
-    if 0 in gdf_sr_filtered["rand"].tolist():
-        colorlist = map_colors_w_black
-    else:
-        colorlist = map_colors_wo_black
+
 
     fig_msr = go.Figure()
 

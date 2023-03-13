@@ -128,9 +128,9 @@ layout = html.Div(children = [
 
         html.Div(
         children = [
-            html.Div([
-                html.H2(children = html.Strong("Core Housing Need, 2016"), id = 'home')
-            ], className = 'title-lgeo'),
+            # html.Div([
+            #     html.H2(children = html.Strong("Core Housing Need, 2016"), id = 'home')
+            # ], className = 'title-lgeo'),
 
 
         # Area Median Household Income (AMHI) Categories and Shelter Costs
@@ -620,9 +620,19 @@ def update_geo_figure(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
             ))
 
-        fig.update_layout(showlegend = False, legend=dict(font = dict(size = 9)), yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Income")
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH')
-        fig.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
+        fig.update_layout(
+            showlegend = False, 
+            legend=dict(font = dict(size = 9)), 
+            yaxis=dict(autorange="reversed"), 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'Percentage of Households in Core Housing Need, by Income Category, 2016<br>{geo}', 
+            legend_title = "Income",
+            width = 1000
+            )
+        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 9))
+        fig.update_yaxes(tickfont = dict(size = 9), title_font = dict(size = 10), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
 
         return fig
 
@@ -680,9 +690,17 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             n += 1
 
 
-        fig.update_layout(showlegend = False, width = 1000, legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income")
-        fig.update_yaxes(fixedrange = True, autorange = "reversed", tickfont = dict(size = 9))
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH')
+        fig.update_layout(
+            title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
+            showlegend = False, 
+            width = 1000, 
+            legend=dict(font = dict(size = 9)), 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            plot_bgcolor='#F8F9F9', 
+            legend_title = "Income")
+        fig.update_yaxes(fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 9))
+        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 9))
 
         return fig
 
@@ -766,9 +784,19 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig2.update_layout(legend_traceorder = 'normal', legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Household Size")
-        fig2.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
-        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
+        fig2.update_layout(
+            legend_traceorder = 'normal', 
+            width = 1000,
+            legend=dict(font = dict(size = 9)), 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            yaxis=dict(autorange="reversed"), 
+            barmode='stack', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016<br>{geo}', 
+            legend_title = "Household Size")
+        fig2.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
+        fig2.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 9))
 
         return fig2
 
@@ -824,9 +852,19 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             ), row = 1, col = 2)
             n += 1
 
-        fig2.update_layout(width = 1000, legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
-        fig2.update_yaxes(fixedrange = True, tickfont = dict(size = 9.5), autorange = "reversed")
-        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
+        fig2.update_layout(
+            width = 1000, 
+            title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
+            legend_traceorder = 'normal', 
+            modebar_color = modebar_color,
+            modebar_activecolor = modebar_activecolor, 
+            barmode='stack', 
+            plot_bgcolor='#F8F9F9', 
+            legend_title = "Household Size", 
+            legend = dict(font = dict(size = 9))
+            )
+        fig2.update_yaxes(title_font = dict(size = 10), fixedrange = True, tickfont = dict(size = 9), autorange = "reversed")
+        fig2.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 9))
 
         return fig2
 
@@ -838,7 +876,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
-    table2 = pd.DataFrame({'Area Median HH Income': income_ct})
+    table2 = pd.DataFrame({'Income Category': income_ct})
 
     h_hold_value = []
     hh_p_num_list = [1,2,3,4,'5 or more']
@@ -877,7 +915,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
             else:
                 table2[f'{h} Person HH '] = h_hold_value 
 
-    table2['Area Median HH Income'] = [
+    table2['Income Category'] = [
                                         'Very low Income',
                                         'Low Income',
                                         'Moderate Income',
@@ -888,7 +926,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
     table2['Total'] = table2.sum(axis = 1)
     row_total_csd = table2.sum(axis=0)
     row_total_csd[0] = 'Total'
-    table2.loc[len(table2['Area Median HH Income']), :] = row_total_csd
+    table2.loc[len(table2['Income Category']), :] = row_total_csd
     
     if IsComparison == True:
         table2 = table2.rename(columns = {'Total': 'Total '})
@@ -925,7 +963,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Area Median HH Income', '1 Person HH', '2 Person HH',
+        table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
                         '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
         col_list = []
@@ -1009,14 +1047,14 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Area Median HH Income', '1 Person HH', '2 Person HH',
+        table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
                         '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
         col_list = []
 
         for i in table2.columns:
-            if i == 'Area Median HH Income':
-                col_list.append({"name": ["Income Category", i], "id": i})
+            if i == 'Income Category':
+                col_list.append({"name": ["Area", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
@@ -1033,11 +1071,11 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo = 'Greater Vancouver A RDA (CSD, BC)'
 
         table2_c = table_core_affordable_housing_deficit(geo_c, True)
-        table2_c = table2_c[['Area Median HH Income', '1 Person HH ', '2 Person HH ',
+        table2_c = table2_c[['Income Category', '1 Person HH ', '2 Person HH ',
                         '3 Person HH ', '4 Person HH ', '5+ Person HH ', 'Total ']]
 
         for i in table2_c.columns[1:]:
-            if i == 'Area Median HH Income':
+            if i == 'Income Category':
                 col_list.append({"name": ["Income Category", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
@@ -1049,7 +1087,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
                                                     precision=0
                                                     )})
 
-        table2_j = table2.merge(table2_c, how = 'left', on = 'Area Median HH Income')
+        table2_j = table2.merge(table2_c, how = 'left', on = 'Income Category')
 
         style_cell_conditional=[
             {
@@ -1102,11 +1140,6 @@ def update_table2(geo, geo_c, selected_columns, scale):
                 'backgroundColor': '#39c0f7',
                 'color': '#000000'
             },
-            # {
-            #     'if': {'row_index': 6},
-            #     'backgroundColor': '#74d3f9',
-            #     'color': '#000000'
-            # },
         ]
 
         style_header_conditional=[
@@ -1209,8 +1242,17 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
-        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "HH Category")
-        fig5.update_xaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], title = '% of HH')
+        fig5.update_layout(
+            yaxis=dict(autorange="reversed"), 
+            width = 1000,
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            showlegend = False, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'Percentage of Households in Core Housing Need by Priority Population, 2016<br>{geo}', 
+            legend_title = "HH Category"
+            )
+        fig5.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], title = '% of Priority Population HH')
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1260,8 +1302,18 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
-        fig5.update_layout(width = 1000, legend = dict(font = dict(size = 9)),yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', legend_title = "HH Category")
-        fig5.update_xaxes(tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10], title = '% of HH')
+        fig5.update_layout(
+            title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
+            width = 1000, 
+            legend = dict(font = dict(size = 9)),
+            yaxis=dict(autorange="reversed"), 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            showlegend = False, 
+            plot_bgcolor='#F8F9F9', 
+            legend_title = "HH Category"
+            )
+        fig5.update_xaxes(title_font = dict(size = 10), tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10], title = '% of Priority Population HH')
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1389,8 +1441,19 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Income Category")
-        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
+        fig6.update_layout(
+            legend_traceorder="normal", 
+            width = 1000,
+            legend = dict(font = dict(size = 9)), 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            yaxis=dict(autorange="reversed"), 
+            barmode='stack', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016<br>{geo}', 
+            legend_title = "Income Category"
+            )
+        fig6.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH')
         fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig6
@@ -1444,8 +1507,19 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             ), row = 1, col = 2)
             n += 1
             
-        fig6.update_layout(width = 1000, legend = dict(font = dict(size = 9)), legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', legend_title = "Income Category")
-        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
+        fig6.update_layout(
+            title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
+            width = 1000, 
+            legend = dict(font = dict(size = 9)), 
+            legend_traceorder="normal", 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            yaxis=dict(autorange="reversed"), 
+            barmode='stack', 
+            plot_bgcolor='#F8F9F9', 
+            legend_title = "Income Category"
+            )
+        fig6.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH')
         fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig6
