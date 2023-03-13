@@ -101,7 +101,7 @@ plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filte
 # hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
 colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
-hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
+hh_type_color = ['#002145', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
 map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
@@ -365,10 +365,10 @@ def table_amhi_shelter_cost(geo, IsComparison):
         shelter_list.append(joined_df_filtered[s].tolist()[0])
 
     if IsComparison != True:
-        table = pd.DataFrame({'Area Median HH Income': income_ct, '% of Total HHs': portion_of_total_hh , 'Annual Household Income': amhi_list, 'Affordable shelter cost (2015 CAD$)': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs': portion_of_total_hh , 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2015 CAD$)': shelter_list})
         table['% of Total HHs'] = table['% of Total HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Area Median HH Income': income_ct, '% of Total HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
         table['% of Total HHs '] = table['% of Total HHs '].astype(str) + '%'
 
     return table
@@ -378,6 +378,7 @@ def table_amhi_shelter_cost(geo, IsComparison):
     Output('datatable-interactivity', 'data'),
     Output('datatable-interactivity', 'style_data_conditional'),
     Output('datatable-interactivity', 'style_cell_conditional'),
+    Output('datatable-interactivity', 'style_header_conditional'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('datatable-interactivity', 'selected_columns'),
@@ -421,10 +422,42 @@ def update_table1(geo, geo_c, selected_columns, scale):
             }
         ]
 
-        return col_list, table.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional
+        style_data_conditional=[
+            {
+                'if': {'row_index': 0},
+                'backgroundColor': '#39C0F7',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 1},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 2},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 3},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 4},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+        ]
+
+        style_header_conditional=[
+            {
+                'backgroundColor': '#002145',
+                'color': '#FFFFFF'
+            },
+        ]
+
+        return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
         
     else:
 
@@ -443,8 +476,8 @@ def update_table1(geo, geo_c, selected_columns, scale):
         col_list = []
 
         for i in table.columns:
-            if i == 'Area Median HH Income':
-                col_list.append({"name": ["Income Category", i], "id": i})
+            if i == 'Income Category':
+                col_list.append({"name": ["Area", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], "id": i})
 
@@ -455,7 +488,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
         table_c = table_amhi_shelter_cost(geo_c, IsComparison = True)
 
-        table_j = table.merge(table_c, how = 'left', on = 'Area Median HH Income')
+        table_j = table.merge(table_c, how = 'left', on = 'Income Category')
 
         for i in table_c.columns[1:]:
             col_list.append({"name": [geo_c, i], "id": i})
@@ -480,10 +513,42 @@ def update_table1(geo, geo_c, selected_columns, scale):
             }
         ]
 
-        return col_list, table_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional
+        style_data_conditional=[
+            {
+                'if': {'row_index': 0},
+                'backgroundColor': '#39C0F7',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 1},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 2},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 3},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 4},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+        ]
+
+        style_header_conditional=[
+            {
+                'backgroundColor': '#002145',
+                'color': '#FFFFFF'
+            },
+        ]
+
+        return col_list, table_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
 
@@ -498,17 +563,18 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
 
     i = 0
     for b, c in zip(x_base, x_columns):
+        value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x = b + " ($" + f'{value:,}' + ")"
             else:
-                x = " ($" + str(joined_df_filtered[c].tolist()[0]) + ") "
+                x = " ($" + f'{value:,}' + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x = b + " (>$" + f'{value:,}' + ")"
             else:
-                x = " (>$" + str(joined_df_filtered[c].tolist()[0]) + ") "
+                x = " (>$" + f'{value:,}' + ") "
             x_list.append(x)
         i += 1
 
@@ -554,9 +620,9 @@ def update_geo_figure(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
             ))
 
-        fig.update_layout(legend=dict(font = dict(size = 9)), yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'Households in Core Housing need, By Income Category -<br>{geo}', legend_title = "Income")
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%')
-        fig.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
+        fig.update_layout(showlegend = False, legend=dict(font = dict(size = 9)), yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Income")
+        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH')
+        fig.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
 
         return fig
 
@@ -592,7 +658,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             ), row = 1, col = 1)
             n += 1
 
-        fig.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs', row = 1, col = 1)
+        fig.update_yaxes(title = 'Income Categories<br>(Max. affordable shelter costs)', row = 1, col = 1)
 
         # Comparison plot
 
@@ -614,12 +680,11 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             n += 1
 
 
-        fig.update_layout(width = 1000, legend=dict(font = dict(size = 9)), title = f'Households in Core Housing need, By Income Category', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income")
+        fig.update_layout(showlegend = False, width = 1000, legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', legend_title = "Income")
         fig.update_yaxes(fixedrange = True, autorange = "reversed", tickfont = dict(size = 9))
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%')
+        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH')
 
         return fig
-
 
 
 # Percent of Household Size Categories in Core Housing Need, by AMHI
@@ -632,17 +697,18 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
 
     i = 0
     for b, c in zip(x_base, x_columns):
+        value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x = b + " ($" + f'{value:,}' + ")"
             else:
-                x = " ($" + str(joined_df_filtered[c].tolist()[0]) + ") "
+                x = " ($" + f'{value:,}' + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+                x = b + " (>$" + f'{value:,}' + ")"
             else:
-                x = " (>$" + str(joined_df_filtered[c].tolist()[0]) + ") "
+                x = " (>$" + f'{value:,}' + ") "
             x_list.append(x)
         i += 1
 
@@ -650,7 +716,7 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
 
     h_hold_value = []
     hh_p_num_list_full = []
-    hh_column_name = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+    hh_column_name = ['1 Person', '2 Persons', '3 Persons', '4 Persons', '5+ Persons']
     for h, hc in zip(hh_p_num_list, hh_column_name):
         for i in income_lv_list:
             column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
@@ -700,9 +766,9 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig2.update_layout(legend_traceorder = 'normal', legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI -<br>{geo}', legend_title = "Household Size")
-        fig2.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>and Max. affordable shelter costs')
-        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%')
+        fig2.update_layout(legend_traceorder = 'normal', legend=dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Household Size")
+        fig2.update_yaxes(tickfont = dict(size = 9), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
+        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
 
         return fig2
 
@@ -736,7 +802,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             ), row = 1, col = 1)
             n += 1
         
-        fig2.update_yaxes(title = 'Income Categories<br>and Max. affordable shelter costs', row = 1, col = 1)
+        fig2.update_yaxes(title = 'Income Categories<br>(Max. affordable shelter costs)', row = 1, col = 1)
 
 
         # Comparison plot
@@ -758,9 +824,9 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             ), row = 1, col = 2)
             n += 1
 
-        fig2.update_layout(width = 1000, legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percent HH By Income Category and AMHI', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
+        fig2.update_layout(width = 1000, legend_traceorder = 'normal', modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='stack', plot_bgcolor='#F8F9F9', legend_title = "Household Size", legend = dict(font = dict(size = 9)))
         fig2.update_yaxes(fixedrange = True, tickfont = dict(size = 9.5), autorange = "reversed")
-        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%')
+        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
 
         return fig2
 
@@ -835,6 +901,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
     Output('datatable2-interactivity', 'data'),
     Output('datatable2-interactivity', 'style_data_conditional'),
     Output('datatable2-interactivity', 'style_cell_conditional'),
+    Output('datatable2-interactivity', 'style_header_conditional'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
     Input('datatable2-interactivity', 'selected_columns'),
@@ -875,6 +942,47 @@ def update_table2(geo, geo_c, selected_columns, scale):
             }
         ]
 
+
+        style_data_conditional=[
+            {
+                'if': {'row_index': 0},
+                'backgroundColor': '#39C0F7',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 1},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 2},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 3},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 4},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 5},
+                'backgroundColor': '#39c0f7',
+                'color': '#000000'
+            },
+        ]
+
+        style_header_conditional=[
+            {
+                'backgroundColor': '#002145',
+                'color': '#FFFFFF'
+            },
+        ]
+
         for i in table2.columns:
             col_list.append({"name": [geo, i],
                                     "id": i, 
@@ -885,10 +993,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
                                                     precision=0
                                                     )})
 
-        return col_list, table2.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional
+        return col_list, table2.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
     else:
@@ -966,10 +1071,52 @@ def update_table2(geo, geo_c, selected_columns, scale):
             }
         ]
 
-        return col_list, table2_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional
+        style_data_conditional=[
+            {
+                'if': {'row_index': 0},
+                'backgroundColor': '#39C0F7',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 1},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 2},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 3},
+                'backgroundColor': '#b0e6fc',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 4},
+                'backgroundColor': '#74d3f9',
+                'color': '#000000'
+            },
+            {
+                'if': {'row_index': 5},
+                'backgroundColor': '#39c0f7',
+                'color': '#000000'
+            },
+            # {
+            #     'if': {'row_index': 6},
+            #     'backgroundColor': '#74d3f9',
+            #     'color': '#000000'
+            # },
+        ]
+
+        style_header_conditional=[
+            {
+                'backgroundColor': '#002145',
+                'color': '#FFFFFF'
+            },
+        ]
+
+        return col_list, table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
 
@@ -1062,8 +1209,8 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ))
-        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "HH Category")
-        fig5.update_xaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10])
+        fig5.update_layout(yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "HH Category")
+        fig5.update_xaxes(fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], title = '% of HH')
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1113,8 +1260,8 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
                 
             ),row = 1, col = 2)
-        fig5.update_layout(width = 1000, legend = dict(font = dict(size = 9)),yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "HH Category")
-        fig5.update_xaxes(tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10])
+        fig5.update_layout(width = 1000, legend = dict(font = dict(size = 9)),yaxis=dict(autorange="reversed"), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, showlegend = False, plot_bgcolor='#F8F9F9', legend_title = "HH Category")
+        fig5.update_xaxes(tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10], title = '% of HH')
         fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig5
@@ -1242,8 +1389,8 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                 hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
             ))
             
-        fig6.update_layout(legend_traceorder="normal", legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need -<br>{geo}', legend_title = "Income Category")
-        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%')
+        fig6.update_layout(legend_traceorder="normal", legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'{geo}', legend_title = "Income Category")
+        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
         fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig6
@@ -1297,8 +1444,8 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             ), row = 1, col = 2)
             n += 1
             
-        fig6.update_layout(width = 1000, legend = dict(font = dict(size = 9)), legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', title = f'Percentage of HHs in Core Housing Need', legend_title = "Income Category")
-        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%')
+        fig6.update_layout(width = 1000, legend = dict(font = dict(size = 9)), legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, yaxis=dict(autorange="reversed"), barmode='stack', plot_bgcolor='#F8F9F9', legend_title = "Income Category")
+        fig6.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH')
         fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
 
         return fig6
