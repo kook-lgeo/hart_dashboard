@@ -499,7 +499,7 @@ style_header_conditional=[
     },
 ]
 
-width_num = 800
+width_num = 1000
 
 
 # new plot 1 for projection
