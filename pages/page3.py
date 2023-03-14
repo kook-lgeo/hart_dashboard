@@ -331,7 +331,7 @@ layout = html.Div(children = [
 
                 html.Div([
                     html.H3(children = html.Strong('Municipal vs Regional Growth Rates'), className = 'subtitle-lgeo'),
-                    html.H6('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. A significantly lower growth rate in a community compared to its region could be caused by artificially suppressed growth due to low housing supply. A significantly higher growth rate in a community compared to its region could be caused by spillover in interconnected urban communities. The following graphs and tables illustrate 2026 household growth using both the community and regional growth rates.')
+                    html.H6('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. There are numerous potential causes for discrepencies, which are further discussed in the project methods (link)')
                 ], className = 'muni-reg-text-lgeo'),
 
                 html.Div([
@@ -458,6 +458,50 @@ layout = html.Div(children = [
 
 
 
+
+style_data_conditional=[
+    {
+        'if': {'row_index': 0},
+        'backgroundColor': '#39C0F7',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 1},
+        'backgroundColor': '#b0e6fc',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 2},
+        'backgroundColor': '#74d3f9',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 3},
+        'backgroundColor': '#b0e6fc',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 4},
+        'backgroundColor': '#74d3f9',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 5},
+        'backgroundColor': '#39c0f7',
+        'color': '#000000'
+    },
+]
+
+style_header_conditional=[
+    {
+        'backgroundColor': '#002145',
+        'color': '#FFFFFF'
+    },
+]
+
+width_num = 800
+
+
 # new plot 1 for projection
 
 def plot1_new_projection(geo, IsComparison):
@@ -494,15 +538,20 @@ def plot1_new_projection(geo, IsComparison):
     table1['2026 Delta'] = np.round(updated_csd_filtered_2026_plot1.iloc[:,0],0)
     table1 = table1.drop(columns = ['Category'])
 
-    if IsComparison != True:
-        table1.columns = ['HH Income Category', '2016 HHs', '2026 Change in HH']
-    else:
-        table1.columns = ['HH Income Category', '2016 HHs ', '2026 Change in HH ']
-
     plot_df = pd.concat([table1_2016,
                         pd.DataFrame({'Income Category': income_category,
                             'Category': (['2026 Delta'] * len(income_category)),
                             'Pop': np.round(updated_csd_filtered_2026_plot1.iloc[:,0],0)})])
+    
+    table1['Total'] = table1.sum(axis = 1)
+    row_total_csd = table1.sum(axis=0)
+    row_total_csd[0] = 'Total'
+    table1.loc[len(table1['Income Category']), :] = row_total_csd
+
+    if IsComparison != True:
+        table1.columns = ['HH Income Category', '2016 HHs', 'Projected Gain/Loss of HHs by 2026', 'Total']
+    else:
+        table1.columns = ['HH Income Category', '2016 HHs ', 'Projected Gain/Loss of HHs by 2026 ', 'Total ']
     
     return plot_df, table1
     
@@ -513,6 +562,7 @@ def plot1_new_projection(geo, IsComparison):
     Output('datatable5-interactivity', 'data'),
     Output('datatable5-interactivity', 'style_data_conditional'),
     Output('datatable5-interactivity', 'style_cell_conditional'),
+    Output('datatable5-interactivity', 'style_header_conditional'),
     Output('graph9', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -551,9 +601,20 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
-        fig_new_proj_1.update_xaxes(fixedrange = True)
-        fig_new_proj_1.update_yaxes(fixedrange = True)
+        fig_new_proj_1.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            legend_traceorder="normal", 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Household Projections by Income Category<br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "2016 households<br>and 2016-2026 change<br>"
+            )
+        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
 
         col_list = []
 
@@ -579,10 +640,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_new_proj_1
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
 
     else:
@@ -656,10 +714,21 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
         # barmode='stack'
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
-        fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
-        fig_new_proj_1.update_xaxes(fixedrange = True)
-        fig_new_proj_1.update_yaxes(fixedrange = True)
+        fig_new_proj_1.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Household Projections by Income Category', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "2016 households<br>and 2016-2026 change<br>")
+        fig_new_proj_1.update_yaxes(
+            range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
+        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
+        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -683,10 +752,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_new_proj_1
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
 # new plot 2 for projection
 
@@ -726,10 +792,15 @@ def plot2_new_projection(geo, IsComparison):
     table2['2026 Delta'] = np.round(updated_csd_filtered_2026_plot2.iloc[:,0],0)
     table2 = table2.drop(columns = ['Category'])
 
+    table2['Total'] = table2.sum(axis = 1)
+    row_total_csd = table2.sum(axis=0)
+    row_total_csd[0] = 'Total'
+    table2.loc[len(table2['HH Category']), :] = row_total_csd
+
     if IsComparison != True:
-        table2.columns = ['HH Size', '2016 HHs', '2026 Change in HH']
+        table2.columns = ['HH Size', '2016 HHs', 'Projected Gain/Loss of HHs by 2026', 'Total']
     else:
-        table2.columns = ['HH Size', '2016 HHs ', '2026 Change in HH ']
+        table2.columns = ['HH Size', '2016 HHs ', 'Projected Gain/Loss of HHs by 2026 ', 'Total ']
 
     plot_df = pd.concat([table2_2016,
                         pd.DataFrame({'HH Category': hh_category,
@@ -743,6 +814,7 @@ def plot2_new_projection(geo, IsComparison):
     Output('datatable6-interactivity', 'data'),
     Output('datatable6-interactivity', 'style_data_conditional'),
     Output('datatable6-interactivity', 'style_cell_conditional'),
+    Output('datatable6-interactivity', 'style_header_conditional'),
     Output('graph10', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -781,9 +853,21 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_new_proj_1.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections -<br>{geo}', legend_title = "Category")
-        fig_new_proj_1.update_xaxes(fixedrange = True)
-        fig_new_proj_1.update_yaxes(fixedrange = True)
+        fig_new_proj_1.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            legend_traceorder="normal", 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Household Projections by Household Size<br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "2016 households<br>and 2016-2026 change<br>"
+            )
+        
+        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
+        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
 
         col_list = []
 
@@ -809,10 +893,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_new_proj_1
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
 
     else:
@@ -886,10 +967,21 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Household Projections', legend_title = "Category")
+        fig_new_proj_1.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Household Projections by Household Size', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "2016 households<br>and 2016-2026 change<br>"
+            )
         fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
-        fig_new_proj_1.update_xaxes(fixedrange = True)
-        fig_new_proj_1.update_yaxes(fixedrange = True)
+        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
+        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
+        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
@@ -913,10 +1005,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_new_proj_1
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
 
 
@@ -980,6 +1069,7 @@ def projections_2026_hh_size(geo, IsComparison):
     Output('datatable-h-interactivity', 'data'),
     Output('datatable-h-interactivity', 'style_data_conditional'),
     Output('datatable-h-interactivity', 'style_cell_conditional'),
+    Output('datatable-h-interactivity', 'style_header_conditional'),
     Output('graph-h', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -1017,9 +1107,20 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "HH Size")
-        fig_csd.update_xaxes(fixedrange = True)
-        fig_csd.update_yaxes(fixedrange = True)
+        fig_csd.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            legend_traceorder="normal", 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Households by Household Size and Income Category<br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "HH Size"
+            )
+        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
 
         col_list = []
 
@@ -1045,10 +1146,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_csd
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
 
     else:
@@ -1124,10 +1222,21 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "HH Size")
+        fig_csd.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Households by Household Size and Income Category', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "HH Size"
+            )
         fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) + 100])
-        fig_csd.update_xaxes(fixedrange = True)
-        fig_csd.update_yaxes(fixedrange = True)
+        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
+        fig_csd.update_yaxes(title = 'Number of Households', row = 1, col = 1)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -1151,10 +1260,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_csd
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
 
 
@@ -1221,6 +1327,7 @@ def projections_2026_deltas(geo, IsComparison):
     Output('datatable7-interactivity', 'data'),
     Output('datatable7-interactivity', 'style_data_conditional'),
     Output('datatable7-interactivity', 'style_cell_conditional'),
+    Output('datatable7-interactivity', 'style_header_conditional'),
     Output('graph11', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -1258,9 +1365,20 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "HH Size")
-        fig_csd.update_xaxes(fixedrange = True)
-        fig_csd.update_yaxes(fixedrange = True)
+        fig_csd.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            legend_traceorder="normal", 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Household Gain/Loss (2016 to 2026)<br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "HH Size"
+            )
+        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
 
         col_list = []
 
@@ -1286,10 +1404,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_csd
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
 
     else:
@@ -1318,10 +1433,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 # orientation = 'h', 
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
-
-        # fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'Community 2026 HH -<br>{geo}', legend_title = "Income Category")
-
-
 
         col_list = []
 
@@ -1367,10 +1478,20 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
         
-        fig_csd.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households', legend_title = "HH Size")
+        fig_csd.update_layout(
+            yaxis_tickformat = ',',
+            width = width_num, 
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            barmode='relative', 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Household Gain/Loss (2016 to 2026)', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "HH Size"
+            )
         fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max())+100])
-        fig_csd.update_xaxes(fixedrange = True)
-        fig_csd.update_yaxes(fixedrange = True)
+        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -1394,12 +1515,12 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_csd
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
 
+
+
+m_r_colors = ['#002145', '#39c0f7']
 
 # new plot 4 for projection
 
@@ -1476,6 +1597,7 @@ def projections_2026_pop_income(geo, IsComparison):
     Output('datatable8-interactivity', 'data'),
     Output('datatable8-interactivity', 'style_data_conditional'),
     Output('datatable8-interactivity', 'style_cell_conditional'),
+    Output('datatable8-interactivity', 'style_header_conditional'),
     Output('graph12', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -1550,10 +1672,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr = go.Figure()
 
-        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), m_r_colors):
 
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
+            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
 
             fig_pgr.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -1563,9 +1685,17 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Category")
-        fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
+        fig_pgr.update_layout(
+            modebar_color = modebar_color, 
+            width = width_num, 
+            modebar_activecolor = modebar_activecolor, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category<br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "Category"
+            )
+        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Growth Rate (%)', tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1591,10 +1721,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_pgr
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
 
 
     else:
@@ -1615,10 +1742,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
 
-        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] 
+            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] 
 
            
             fig_pgr.add_trace(go.Bar(
@@ -1649,10 +1776,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         table1_c, plot_df_c = projections_2026_pop_income(geo_c, False)
 
-        for s, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df_c['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
-            plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
+            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
             
             fig_pgr.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -1679,9 +1806,16 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         range_ref = plot_df.groupby(['Income Category', 'Category'])['value'].sum()
         range_ref_c = plot_df_c.groupby(['Income Category', 'Category'])['value'].sum()
 
-        fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Category")
-        fig_pgr.update_yaxes(tickformat =  ',.0%', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
-        fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
+        fig_pgr.update_layout(
+            legend = dict(font = dict(size = 9)), 
+            modebar_color = modebar_color, 
+            width = width_num, 
+            modebar_activecolor = modebar_activecolor, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category', 
+            legend_title = "Category")
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', title = 'Growth Rate (%)', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Income Category')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
@@ -1705,10 +1839,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_pgr
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
     
 
 # new plot 5 for projection
@@ -1785,6 +1916,7 @@ def projections_2026_pop_hh(geo, IsComparison):
     Output('datatable9-interactivity', 'data'),
     Output('datatable9-interactivity', 'style_data_conditional'),
     Output('datatable9-interactivity', 'style_cell_conditional'),
+    Output('datatable9-interactivity', 'style_header_conditional'),
     Output('graph13', 'figure'),
     Input('main-area', 'data'),
     Input('comparison-area', 'data'),
@@ -1859,7 +1991,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr = go.Figure()
 
-        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
             plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
@@ -1872,9 +2004,17 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
-        fig_pgr.update_layout(modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate -<br>{geo}', legend_title = "Population")
-        fig_pgr.update_xaxes(fixedrange = True)
-        fig_pgr.update_yaxes(fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
+        fig_pgr.update_layout(
+            modebar_color = modebar_color, 
+            modebar_activecolor = modebar_activecolor, 
+            width = width_num, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Community and Regional Household Growth Rates <br>{geo}', 
+            legend = dict(font = dict(size = 9)), 
+            legend_title = "Population"
+            )
+        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), title = 'Growth Rate (%)', fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
 
         col_list = []
 
@@ -1900,10 +2040,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        return col_list, table1.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_pgr
+        return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
 
 
     else:
@@ -1923,7 +2060,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for s, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
             plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
@@ -1956,7 +2093,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         table1_c, plot_df_c = projections_2026_pop_hh(geo_c, False)
 
-        for s, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+        for s, c in zip(plot_df_c['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
             plot_df_frag['HH Category'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
@@ -1986,9 +2123,17 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         range_ref = plot_df.groupby(['HH Category', 'Category'])['value'].sum()
         range_ref_c = plot_df_c.groupby(['HH Category', 'Category'])['value'].sum()
 
-        fig_pgr.update_layout(legend = dict(font = dict(size = 9)), modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, plot_bgcolor='#F8F9F9', title = f'2026 Household Growth Rate', legend_title = "Population")
-        fig_pgr.update_yaxes(tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
-        fig_pgr.update_xaxes(tickfont = dict(size = 9), fixedrange = True)
+        fig_pgr.update_layout(
+            legend = dict(font = dict(size = 9)), 
+            modebar_color = modebar_color, 
+            width = width_num, 
+            modebar_activecolor = modebar_activecolor, 
+            plot_bgcolor='#F8F9F9', 
+            title = f'2026 Projected Community and Regional Household Growth Rates ', 
+            legend_title = "Population"
+            )
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), title = 'Growth Rate (%)', tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Household Size')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
@@ -2012,9 +2157,6 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
             }
         ]
 
-        return col_list, table1_j.to_dict('record'), [{
-            'if': { 'column_id': i },
-            'background_color': '#D2F3FF'
-        } for i in selected_columns], style_cell_conditional, fig_pgr
+        return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
     
 
