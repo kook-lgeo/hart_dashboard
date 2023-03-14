@@ -364,7 +364,12 @@ def subregion_map(value, random_color, clicked_code):
 
     else:
         gdf_sr_filtered["rand"] = gdf_sr_filtered['CSDUID'].apply(lambda x: 0 if x in not_avail['CSDUID'].tolist() else (50 if x == clicked_code else 100))
-        colorlist = ['#000000', '#37BB31', '#74D3F9']
+
+        if 0 in gdf_sr_filtered["rand"].tolist():
+            colorlist = ['#000000', '#37BB31', '#74D3F9']
+        else:
+            colorlist = ['#37BB31', '#74D3F9']
+        
     
     gdf_sr_filtered = gdf_sr_filtered.set_index('CSDUID')
 
