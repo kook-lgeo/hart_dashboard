@@ -603,7 +603,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             legend_traceorder="normal", 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -716,7 +716,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         # barmode='stack'
         fig_new_proj_1.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             barmode='relative', 
@@ -855,7 +855,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             legend_traceorder="normal", 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -969,7 +969,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             barmode='relative', 
@@ -1109,7 +1109,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             legend_traceorder="normal", 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -1224,7 +1224,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             barmode='relative', 
@@ -1367,7 +1367,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_csd.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             legend_traceorder="normal", 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -1480,7 +1480,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         
         fig_csd.update_layout(
             yaxis_tickformat = ',',
-            width = width_num, 
+             
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             barmode='relative', 
@@ -1687,7 +1687,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         fig_pgr.update_layout(
             modebar_color = modebar_color, 
-            width = width_num, 
+             
             modebar_activecolor = modebar_activecolor, 
             plot_bgcolor='#F8F9F9', 
             title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category<br>{geo}', 
@@ -1809,7 +1809,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         fig_pgr.update_layout(
             legend = dict(font = dict(size = 9)), 
             modebar_color = modebar_color, 
-            width = width_num, 
+             
             modebar_activecolor = modebar_activecolor, 
             plot_bgcolor='#F8F9F9', 
             title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category', 
@@ -2007,7 +2007,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         fig_pgr.update_layout(
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
-            width = width_num, 
+             
             plot_bgcolor='#F8F9F9', 
             title = f'2026 Projected Community and Regional Household Growth Rates <br>{geo}', 
             legend = dict(font = dict(size = 9)), 
@@ -2126,7 +2126,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         fig_pgr.update_layout(
             legend = dict(font = dict(size = 9)), 
             modebar_color = modebar_color, 
-            width = width_num, 
+             
             modebar_activecolor = modebar_activecolor, 
             plot_bgcolor='#F8F9F9', 
             title = f'2026 Projected Community and Regional Household Growth Rates ', 
