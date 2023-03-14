@@ -1814,7 +1814,8 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             plot_bgcolor='#F8F9F9', 
             title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category', 
             legend_title = "Category")
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', title = 'Growth Rate (%)', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
         fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Income Category')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
@@ -2132,7 +2133,8 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
             title = f'2026 Projected Community and Regional Household Growth Rates ', 
             legend_title = "Population"
             )
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), title = 'Growth Rate (%)', tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
+        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
         fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Household Size')
 
         table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
