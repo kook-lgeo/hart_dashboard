@@ -372,20 +372,20 @@
 
 
 .pg2-plot-lgeo {
-  width: 90%;
-  display: block;
+  /* width: 90%; */
+  /* display: block; */
   padding-top: 1%;
 }
 
-.pg2-table-plot-box-lgeo {
-  /* width: 90%; */
+/* .pg2-table-plot-box-lgeo {
+  width: 90%;
   display: block;
-  /* padding-top: 1%; */
-}
+  padding-top: 1%;
+} */
 
 .pg3-plot-lgeo {
-  width: 95%;
-  display: block;
+  /* width: 95%; */
+  /* display: block; */
   padding-top: 1%;
 }
 
@@ -394,11 +394,11 @@
   padding-bottom: 1.5%;
 }
 
-.pg3-table-plot-box-lgeo {
-  /* width: 90%; */
+/* .pg3-table-plot-box-lgeo {
+  width: 90%;
   display: block;
-  /* padding-top: 1%; */
-}
+  padding-top: 1%;
+} */
 
 /* .pg3-table-plot-box-lgeo {
   width: 100%;
