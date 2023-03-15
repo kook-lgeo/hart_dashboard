@@ -114,7 +114,7 @@ table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 
 
-comparison_font_size = '0.7em'
+comparison_font_size = '0.6em'
 
 # Setting layout for dashboard
 
