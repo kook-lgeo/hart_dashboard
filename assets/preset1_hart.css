@@ -210,7 +210,7 @@
 @media (max-width: 1000px) {
   .dashboard-lgeo  {
     width: 1000px;
-    display: inline-block;
+    display: block;
     padding-left: 2%;
     padding-right: 2%;
     /* transform:scale(0.28); */
@@ -223,8 +223,8 @@
 
 @media (min-width: 1000px) {
   .dashboard-lgeo  {
-    width: 100%;
-    display: inline-block;
+    width: 1100px;
+    display: block;
     padding-left: 2%;
     padding-right: 2%;
   }
