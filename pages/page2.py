@@ -568,13 +568,13 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + f'{value:,}' + ")"
             else:
                 x = " ($" + f'{value:,}' + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
             else:
                 x = " (>$" + f'{value:,}' + ") "
             x_list.append(x)
@@ -722,13 +722,13 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + f'{value:,}' + ")"
             else:
                 x = " ($" + f'{value:,}' + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
             else:
                 x = " (>$" + f'{value:,}' + ") "
             x_list.append(x)
@@ -1171,7 +1171,7 @@ hh_category_dict = {
             'Percent HH head over 65 in core housing need' : 'HH head over 65', 
             'Percent HH head over 85 in core housing need' : 'HH head over 85', 
             'Percent HH with physical act. limit. in core housing need' : 'HH with physical activity limitation', 
-            'Percent HH with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental, or addictions activity limitation', 
+            'Percent HH with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental,<br>or addictions activity limitation', 
             'Percent HH in core housing need' : 'Community (all HH)'
         }
 
@@ -1257,7 +1257,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
             legend_title = "HH Category"
             )
         fig5.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], title = '% of Priority Population HH')
-        fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
+        fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
 
         return fig5
 
@@ -1337,7 +1337,7 @@ hh_category_dict2 = {
                     'Percent of HH head over 65 in core housing need' : 'HH head over 65', 
                     'Percent of HH head over 85 in core housing need' : 'HH head over 85', 
                     'Percent of HH with physical act. limit. in core housing need' : 'HH with physical activity limitation', 
-                    'Percent of HH with with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental, or addictions activity limitation',
+                    'Percent of HH with with cognitive, mental, or addictions activity limitation in core housing need' : 'HH with cognitive, mental,<br>or addictions activity limitation',
                     }
 
 hh_category_dict3 = {
@@ -1352,7 +1352,7 @@ hh_category_dict3 = {
                     'Percent of HH head over 65 core housing' : 'HH head over 65', 
                     'Percent of HH head over 85 core housing' : 'HH head over 85', 
                     'Percent of HH with physical act. limit. in core housing' : 'HH with physical activity limitation', 
-                    'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental, or addictions activity limitation', 
+                    'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental,<br>or addictions activity limitation', 
                     }
 
 hh_category_dict4 = {
@@ -1367,7 +1367,7 @@ hh_category_dict4 = {
                     'Percent of HH head over 65 in core housing' : 'HH head over 65', 
                     'Percent of HH head over 85 in core housing' : 'HH head over 85', 
                     'Percent of HH with physical act. limit. in core housing' : 'HH with physical activity limitation', 
-                    'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental, or addictions activity limitation',
+                    'Percent of HH with cognitive, mental, or addictions activity limitation in core housing' : 'HH with cognitive, mental,<br>or addictions activity limitation',
                     }
 
 columns2 = hh_category_dict2.keys()
@@ -1458,7 +1458,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             legend_title = "Income Category"
             )
         fig6.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH')
-        fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 9))
+        fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
 
         return fig6
 
