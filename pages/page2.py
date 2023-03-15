@@ -695,7 +695,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         fig.update_layout(
             title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
             showlegend = False, 
-             
+            width = 1000,
             legend=dict(font = dict(size = 8)), 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -857,7 +857,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             n += 1
 
         fig2.update_layout(
-             
+            width = 1000,
             title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
             legend_traceorder = 'normal', 
             modebar_color = modebar_color,
