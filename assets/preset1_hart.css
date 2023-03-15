@@ -359,6 +359,7 @@
 
 .pg2-table-lgeo {
   /* width: 80%; */
+  /* display: inline-block; */
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -371,14 +372,14 @@
 
 
 .pg2-plot-lgeo {
-  width: 95%;
-  display: block;
+  width: 90%;
+  display: inline-block;
   padding-top: 1%;
 }
 
 .pg2-table-plot-box-lgeo {
   /* width: 90%; */
-  display: block;
+  display: inline-block;
   /* padding-top: 1%; */
 }
 
