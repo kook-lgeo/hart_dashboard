@@ -695,7 +695,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         fig.update_layout(
             title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
             showlegend = False, 
-            width = 1000,
+            # width = 1000,
             legend=dict(font = dict(size = 8)), 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -703,8 +703,8 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             legend_title = "Income")
         # fig.update_layout(width = width_num, row = 1, col = 1)
         # fig.update_layout(width = width_num, row = 1, col = 2)
-        fig.update_yaxes(title_standoff = 30, fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 8))
-        fig.update_xaxes(title_standoff = 30, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
+        fig.update_yaxes(title_standoff = 20, fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 8))
+        fig.update_xaxes(title_standoff = 20, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
 
         return fig
 
@@ -857,7 +857,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             n += 1
 
         fig2.update_layout(
-            width = 1000,
+            # width = 1000,
             title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
             legend_traceorder = 'normal', 
             modebar_color = modebar_color,
@@ -867,7 +867,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             legend_title = "Household Size", 
             legend = dict(font = dict(size = 8))
             )
-        fig2.update_yaxes(title_standoff = 30, title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
+        fig2.update_yaxes(title_standoff = 20, title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
         fig2.update_xaxes(title_standoff = 15, title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
 
         return fig2
