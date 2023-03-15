@@ -339,7 +339,7 @@ layout = html.Div(children = [
 
 
 
-        ], className = 'dashboard-lgeo'
+        ], className = 'dashboard-pg2-lgeo'
     ), 
 ], className = 'background-pg2-lgeo'#style = {'backgroud-color': '#fffced'}
 )
