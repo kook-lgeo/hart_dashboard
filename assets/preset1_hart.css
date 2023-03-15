@@ -355,7 +355,7 @@
 
 .pg2-table-plot-box-lgeo {
   /* width: 90%; */
-  display: inline-block;
+  display: block;
   /* padding-top: 1%; */
 }
 
@@ -372,7 +372,7 @@
 
 .pg3-table-plot-box-lgeo {
   /* width: 90%; */
-  display: inline-block;
+  display: block;
   /* padding-top: 1%; */
 }
 
