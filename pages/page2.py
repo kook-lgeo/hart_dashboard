@@ -703,8 +703,8 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             legend_title = "Income")
         # fig.update_layout(width = width_num, row = 1, col = 1)
         # fig.update_layout(width = width_num, row = 1, col = 2)
-        fig.update_yaxes(title_standoff = 20, fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 8))
-        fig.update_xaxes(title_standoff = 20, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
+        fig.update_yaxes(title_standoff = 20, fixedrange = True, autorange = "reversed", title_font = dict(size = 8), tickfont = dict(size = 8))
+        fig.update_xaxes(title_standoff = 20, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 8), tickfont = dict(size = 8))
 
         return fig
 
@@ -867,8 +867,8 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             legend_title = "Household Size", 
             legend = dict(font = dict(size = 8))
             )
-        fig2.update_yaxes(title_standoff = 5, title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
-        fig2.update_xaxes(title_standoff = 5, title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
+        fig2.update_yaxes(title_standoff = 5, title_font = dict(size = 8), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
+        fig2.update_xaxes(title_standoff = 5, title_font = dict(size = 8), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
 
         return fig2
 
