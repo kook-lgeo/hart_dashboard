@@ -223,7 +223,7 @@
 
 @media (min-width: 1000px) {
   .dashboard-pg2-lgeo  {
-    width: 100%;
+    width: 1000px;
     display: inline-block;
     padding-left: 2%;
     padding-right: 2%;
@@ -246,7 +246,7 @@
 
 @media (min-width: 1000px) {
   .dashboard-pg3-lgeo  {
-    width: 100%;
+    width: 1000px;
     display: inline-block;
     padding-left: 2%;
     padding-right: 2%;
@@ -373,13 +373,13 @@
 
 .pg2-plot-lgeo {
   width: 90%;
-  display: inline-block;
+  display: block;
   padding-top: 1%;
 }
 
 .pg2-table-plot-box-lgeo {
   /* width: 90%; */
-  display: inline-block;
+  display: block;
   /* padding-top: 1%; */
 }
 
