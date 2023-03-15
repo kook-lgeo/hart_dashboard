@@ -704,7 +704,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         # fig.update_layout(width = width_num, row = 1, col = 1)
         # fig.update_layout(width = width_num, row = 1, col = 2)
         fig.update_yaxes(title_standoff = 30, fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 8))
-        fig.update_xaxes(title_standoff = 15, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
+        fig.update_xaxes(title_standoff = 30, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
 
         return fig
 
