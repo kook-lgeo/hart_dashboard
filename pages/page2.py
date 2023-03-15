@@ -345,7 +345,7 @@ layout = html.Div(children = [
 )
 
 
-width_num = 1000
+width_num = 350
 
 # Area Median Household Income (AMHI) Categories and Shelter Costs
 
@@ -701,6 +701,8 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             modebar_activecolor = modebar_activecolor, 
             plot_bgcolor='#F8F9F9', 
             legend_title = "Income")
+        # fig.update_layout(width = width_num, row = 1, col = 1)
+        # fig.update_layout(width = width_num, row = 1, col = 2)
         fig.update_yaxes(fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 8))
         fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 8))
 
