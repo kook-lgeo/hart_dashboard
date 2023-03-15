@@ -867,8 +867,8 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             legend_title = "Household Size", 
             legend = dict(font = dict(size = 8))
             )
-        fig2.update_yaxes(title_standoff = 20, title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
-        fig2.update_xaxes(title_standoff = 15, title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
+        fig2.update_yaxes(title_standoff = 5, title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
+        fig2.update_xaxes(title_standoff = 5, title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
 
         return fig2
 
