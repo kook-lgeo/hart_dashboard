@@ -145,7 +145,7 @@
   display: block;
   padding-left: 2%;
   padding-right: 2%;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .background-pg3-lgeo {
@@ -153,14 +153,14 @@
   display: block;
   padding-left: 2%;
   padding-right: 2%;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
 .background-pg2-lgeo {
 width: 90%;
 height: 1100px;
-display: inline-block;
+display: block;
 padding-left: 2%;
 padding-right: 2%;
 overflow: hidden;
@@ -171,7 +171,7 @@ overflow: hidden;
 .background-pg3-lgeo {
 width: 90%;
 height: 1800px;
-display: inline-block;
+display: block;
 padding-left: 2%;
 padding-right: 2%;
 overflow: hidden;
@@ -402,6 +402,8 @@ overflow: hidden;
   width: 95%;
   display: block;
   padding-top: 1%;
+  padding-left: 0.5%;
+  margin-left: 0;
 }
 
 /* .pg2-plot2-lgeo {

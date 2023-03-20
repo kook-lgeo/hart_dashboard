@@ -1566,4 +1566,3 @@ def func_ov7(n_clicks, geo, geo_c):
         joined_df_download = joined_df_download.drop(columns = ['pk_x', 'pk_y'])
 
         return dcc.send_data_frame(joined_df_download.to_csv, "result.csv")
-

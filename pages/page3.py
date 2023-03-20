@@ -727,7 +727,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             legend = dict(font = dict(size = 9)), 
             legend_title = "2016 households<br>and 2016-2026 change<br>")
         fig_new_proj_1.update_yaxes(
-            range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max())+100])
+            range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max()) * 1.1])
         fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
         fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
         fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
@@ -811,6 +811,8 @@ def plot2_new_projection(geo, IsComparison):
                             'Category': (['2026 Delta'] * len(hh_category)),
                             'Pop': np.round(updated_csd_filtered_2026_plot2.iloc[:,0],0)})])
     
+    plot_df = plot_df.replace([np.inf, -np.inf], 0)
+
     return plot_df, table2
 
 @callback(
@@ -983,7 +985,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             legend = dict(font = dict(size = 9)), 
             legend_title = "2016 households<br>and 2016-2026 change<br>"
             )
-        fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min())-1000, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max())+100])
+        fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max()) * 1.1])
         fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
         fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
         fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
@@ -1241,7 +1243,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             legend = dict(font = dict(size = 9)), 
             legend_title = "HH Size"
             )
-        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) + 100])
+        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1])
         fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
         fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
         fig_csd.update_yaxes(title = 'Number of Households', row = 1, col = 1)
@@ -1500,7 +1502,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             legend = dict(font = dict(size = 9)), 
             legend_title = "HH Size"
             )
-        fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min())-100, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max())+100])
+        fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min()) * 1.1, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1])
         fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
         fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
 
