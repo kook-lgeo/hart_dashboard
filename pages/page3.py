@@ -58,9 +58,9 @@ updated_cd = pd.read_sql_table('cd_hh_projections', engine.connect())
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']}
 
 # Preprocessing
-fig = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+fig = px.line(x = ['Not Available in CD/Regional level. Please select CSD/Municipal level'], y = ['Not Available in CD/Regional level. Please select CSD/Municipal level'])
 
-table = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+table = pd.DataFrame({'Not Available in CD/Regional level. Please select CSD/Municipal level':[0]})
 
 colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
@@ -72,6 +72,7 @@ modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
 comparison_font_size = '0.7em'
+comparison_font_size2 = '0.6em'
 
 # Setting layout for dashboard
 
@@ -88,9 +89,9 @@ layout = html.Div(children = [
 
         html.Div(
         children = [
-            html.Div([
-                html.H2(children = html.Strong("Household Projections"), id = 'home')
-            ], className = 'title-lgeo'),
+            # html.Div([
+            #     html.H2(children = html.Strong("Household Projections"), id = 'home')
+            # ], className = 'title-lgeo'),
 
         # 2026 Projections by HH Size and Income Level
 
@@ -621,6 +622,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -716,7 +718,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         # barmode='stack'
         fig_new_proj_1.update_layout(
             yaxis_tickformat = ',',
-             
+            # width = 1000,
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             barmode='relative', 
@@ -736,12 +738,14 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
@@ -874,6 +878,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -989,12 +994,14 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
@@ -1127,6 +1134,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -1244,12 +1252,14 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
@@ -1385,6 +1395,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -1499,12 +1510,14 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
@@ -1613,7 +1626,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
     if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
 
-        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        table3_csd = pd.DataFrame({'Not Available in CD/Regional level. Please select CSD/Municipal level':[0]})
         
         col_list_csd = []
 
@@ -1636,7 +1649,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         ]
 
 
-        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+        fig_csd = px.line(x = ['Not Available in CD/Regional level. Please select CSD/Municipal level'], y = ['Not Available in CD/Regional level. Please select CSD/Municipal level'])
 
         return col_list_csd, \
                 table3_csd.to_dict('record'), \
@@ -1702,6 +1715,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -1823,19 +1837,21 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
                 'backgroundColor': columns_color_fill[0]
             }
         ]
@@ -1933,7 +1949,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
     if len(str(clicked_code)) < 7 and geo != None and geo_c == None:
 
-        table3_csd = pd.DataFrame({'Not Available in CD/Province level. Please select CSD level region':[0]})
+        table3_csd = pd.DataFrame({'Not Available in CD/Regional level. Please select CSD/Municipal level':[0]})
         
         col_list_csd = []
 
@@ -1945,6 +1961,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         style_cell_conditional_csd=[
             {
                 'if': {'column_id': c},
+                # 'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table3_csd.columns[1:]
         ] + [
@@ -1956,7 +1973,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         ]
 
 
-        fig_csd = px.line(x = ['Not Available in CD/Province level. Please select CSD level region'], y = ['Not Available in CD/Province level. Please select CSD level region'])
+        fig_csd = px.line(x = ['Not Available in CD/Regional level. Please select CSD/Municipal level'], y = ['Not Available in CD/Regional level. Please select CSD/Municipal level'])
 
         return col_list_csd, \
                 table3_csd.to_dict('record'), \
@@ -2022,6 +2039,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
+                'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
@@ -2142,19 +2160,21 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table1.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table1_c.columns[1:]
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
-                'font_size': comparison_font_size,
+                'font_size': comparison_font_size2,
                 'backgroundColor': columns_color_fill[0]
             }
         ]

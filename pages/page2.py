@@ -114,7 +114,7 @@ table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 
 
-comparison_font_size = '0.6em'
+comparison_font_size = '0.7em'
 
 # Setting layout for dashboard
 
@@ -623,6 +623,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             ))
 
         fig.update_layout(
+            width = 900,
             showlegend = False, 
             legend=dict(font = dict(size = 9)), 
             yaxis=dict(autorange="reversed"), 
@@ -694,17 +695,19 @@ def update_geo_figure(geo, geo_c, scale, refresh):
 
         fig.update_layout(
             title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
+            # font = dict(size = 10), 
             showlegend = False, 
-            # width = 1000,
+            width = 900,
+            margin=dict(l=100, r=100),
             legend=dict(font = dict(size = 8)), 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             plot_bgcolor='#F8F9F9', 
             legend_title = "Income")
         # fig.update_layout(width = width_num, row = 1, col = 1)
-        # fig.update_layout(width = width_num, row = 1, col = 2)
-        fig.update_yaxes(title_standoff = 20, fixedrange = True, autorange = "reversed", title_font = dict(size = 8), tickfont = dict(size = 8))
-        fig.update_xaxes(title_standoff = 20, fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 8), tickfont = dict(size = 8))
+        # fig.update_layout(width = width_num, row = 1, col = 2) title_standoff = 5, 
+        fig.update_yaxes(fixedrange = True, autorange = "reversed", title_font = dict(size = 8), tickfont = dict(size = 8))
+        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 8), tickfont = dict(size = 8))
 
         return fig
 
@@ -738,7 +741,7 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
 
     h_hold_value = []
     hh_p_num_list_full = []
-    hh_column_name = ['1 Person', '2 Persons', '3 Persons', '4 Persons', '5+ Persons']
+    hh_column_name = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
     for h, hc in zip(hh_p_num_list, hh_column_name):
         for i in income_lv_list:
             column = f'Per HH with income {i} of AMHI in core housing need that are {h} person HH'
@@ -790,7 +793,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             
         fig2.update_layout(
             legend_traceorder = 'normal', 
-            
+            width = 900,
             legend=dict(font = dict(size = 9)), 
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
@@ -857,7 +860,9 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             n += 1
 
         fig2.update_layout(
-            # width = 1000,
+            # width = 900,
+            margin=dict(r=100),
+            font = dict(size = 10), 
             title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
             legend_traceorder = 'normal', 
             modebar_color = modebar_color,
@@ -867,8 +872,11 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             legend_title = "Household Size", 
             legend = dict(font = dict(size = 8))
             )
-        fig2.update_yaxes(title_standoff = 5, title_font = dict(size = 8), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
-        fig2.update_xaxes(title_standoff = 5, title_font = dict(size = 8), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
+        
+        # title_standoff = 5, 
+
+        fig2.update_yaxes(title_font = dict(size = 8), tickfont = dict(size = 8), fixedrange = True, autorange = "reversed")
+        fig2.update_xaxes(title_font = dict(size = 8), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 8))
 
         return fig2
 
@@ -975,12 +983,14 @@ def update_table2(geo, geo_c, selected_columns, scale):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
+                'backgroundColor': columns_color_fill[1],
+                'minWidth': '100px',
             } for c in table2.columns[1:]
         ] + [
             {
                 'if': {'column_id': table2.columns[0]},
-                'backgroundColor': columns_color_fill[0]
+                'backgroundColor': columns_color_fill[0],
+                
             }
         ]
 
@@ -1097,12 +1107,14 @@ def update_table2(geo, geo_c, selected_columns, scale):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table2.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
+                'minWidth': '70px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table2_c.columns[1:]
         ] + [
@@ -1248,7 +1260,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
             ))
         fig5.update_layout(
             yaxis=dict(autorange="reversed"), 
-            
+            width = 900,
             modebar_color = modebar_color, 
             modebar_activecolor = modebar_activecolor, 
             showlegend = False, 
@@ -1308,7 +1320,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
             ),row = 1, col = 2)
         fig5.update_layout(
             title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
-             
+            width = 900,
             legend = dict(font = dict(size = 8)),
             yaxis=dict(autorange="reversed"), 
             modebar_color = modebar_color, 
@@ -1446,6 +1458,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             ))
             
         fig6.update_layout(
+            width = 900,
             legend_traceorder="normal", 
             font = dict(size = 10), 
             legend = dict(font = dict(size = 9)), 
@@ -1513,6 +1526,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             
         fig6.update_layout(
             title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
+            width = 900,
             font = dict(size = 10), 
             legend = dict(font = dict(size = 8)), 
             legend_traceorder="normal", 
