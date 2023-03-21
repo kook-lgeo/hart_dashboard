@@ -156,7 +156,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
 .background-pg2-lgeo {
 width: 90%;
 height: 1100px;
@@ -165,9 +165,23 @@ padding-left: 2%;
 padding-right: 2%;
 overflow: hidden;
 }
-}
+} */
 
 @media (max-width: 1000px) {
+  .background-pg2-lgeo  {
+    width: 1000px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.33);
+    transform-origin: left top;
+    margin-bottom:-3500px;
+    margin-right:-1000px;
+  }
+}
+
+
+/* @media (max-width: 1000px) {
 .background-pg3-lgeo {
 width: 90%;
 height: 1800px;
@@ -176,7 +190,23 @@ padding-left: 2%;
 padding-right: 2%;
 overflow: hidden;
 }
+} */
+
+
+@media (max-width: 1000px) {
+  .background-pg3-lgeo  {
+    width: 1200px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.33);
+    transform-origin: left top;
+    margin-bottom:-4800px;
+    margin-right:-1000px;
+  }
 }
+
+
 
 /* @media (max-width: 1000px) {
   .background-pg3-lgeo  {
