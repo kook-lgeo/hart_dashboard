@@ -167,13 +167,26 @@ overflow: hidden;
 }
 } */
 
-@media (max-width: 1000px) {
+@media (max-width: 500px) {
   .background-pg2-lgeo  {
     width: 1000px;
     display: inline-block;
     padding-left: 2%;
     padding-right: 2%;
     transform:scale(0.33);
+    transform-origin: left top;
+    margin-bottom:-3500px;
+    margin-right:-1000px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 500px) {
+  .background-pg2-lgeo  {
+    width: 1000px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.60);
     transform-origin: left top;
     margin-bottom:-3500px;
     margin-right:-1000px;
@@ -193,7 +206,7 @@ overflow: hidden;
 } */
 
 
-@media (max-width: 1000px) {
+@media (max-width: 500px) {
   .background-pg3-lgeo  {
     width: 1250px;
     display: inline-block;
@@ -206,6 +219,18 @@ overflow: hidden;
   }
 }
 
+@media (max-width: 1000px) and (min-width: 500px) {
+  .background-pg3-lgeo  {
+    width: 1250px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.60);
+    transform-origin: left top;
+    margin-bottom:-4800px;
+    margin-right:-950px;
+  }
+}
 
 
 /* @media (max-width: 1000px) {
