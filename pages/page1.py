@@ -105,7 +105,7 @@ fig_m.update_layout(mapbox_style="carto-positron",
                 mapbox_zoom = 1.4,
                 autosize=True)
 
-
+default_value = 'Canada'
 
 # Setting layout for dashboard
 
@@ -133,7 +133,7 @@ layout = html.Div(children = [
                     id = 'all-geo-dropdown-parent',
                     children = [
                     html.Strong('Select Census Geography'),
-                    dcc.Dropdown(order['Geography'].unique()[1:], 'Greater Vancouver A RDA (CSD, BC)', id='all-geo-dropdown'),
+                    dcc.Dropdown(order['Geography'].unique(), default_value, id='all-geo-dropdown'),
                     ], 
                     className = 'dropdown-lgeo'
                 ),
@@ -142,7 +142,7 @@ layout = html.Div(children = [
                     id = 'comparison-geo-dropdown-parent',
                     children = [
                     html.Strong('Select Comparison Census Geography (Optional)'),
-                    dcc.Dropdown(order['Geography'].unique()[1:], id='comparison-geo-dropdown'),
+                    dcc.Dropdown(order['Geography'].unique(), id='comparison-geo-dropdown'),
                     ], 
                     className = 'dropdown-lgeo'
                 ),
@@ -419,7 +419,7 @@ def subregion_map(value, random_color, clicked_code):
     )
 def update_map(clickData, btn1, value, btn2, btn3, btn4, btn5):
     
-    default_value = 'Greater Vancouver A RDA (CSD, BC)'
+    # default_value = default_value
 
     if value == None:
         value = default_value

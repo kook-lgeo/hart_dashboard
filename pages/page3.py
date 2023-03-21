@@ -74,6 +74,8 @@ modebar_activecolor = '#044762'
 comparison_font_size = '0.7em'
 comparison_font_size2 = '0.6em'
 
+default_value = 'Canada'
+
 # Setting layout for dashboard
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -577,7 +579,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -834,7 +836,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1092,7 +1094,7 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1353,7 +1355,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1622,7 +1624,7 @@ def projections_2026_pop_income(geo, IsComparison):
 def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
     if geo == None:
-        geo = 'Greater Vancouver A RDA (CSD, BC)'
+        geo = default_value
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
 
@@ -1673,7 +1675,7 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1945,7 +1947,7 @@ def projections_2026_pop_hh(geo, IsComparison):
 def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
     if geo == None:
-        geo = 'Greater Vancouver A RDA (CSD, BC)'
+        geo = default_value
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
 
@@ -1997,7 +1999,7 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:

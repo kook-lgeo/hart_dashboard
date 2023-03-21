@@ -116,6 +116,8 @@ table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 
 comparison_font_size = '0.7em'
 
+default_value = 'Canada'
+
 # Setting layout for dashboard
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -393,7 +395,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -598,7 +600,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -767,7 +769,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
         if "to-geography-1" == scale:
             geo = geo
@@ -964,7 +966,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1082,7 +1084,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
         # Comparison Table
 
         if geo == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
         table2_c = table_core_affordable_housing_deficit(geo_c, True)
         table2_c = table2_c[['Income Category', '1 Person HH ', '2 Person HH ',
@@ -1233,7 +1235,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1432,7 +1434,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
-            geo = 'Greater Vancouver A RDA (CSD, BC)'
+            geo = default_value
 
 
         if "to-geography-1" == scale:
@@ -1556,7 +1558,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
 def func_ov7(n_clicks, geo, geo_c):
 
     if geo == None:
-        geo = 'Greater Vancouver A RDA (CSD, BC)'
+        geo = default_value
 
     if "ov7-download-csv" == ctx.triggered_id:
 
