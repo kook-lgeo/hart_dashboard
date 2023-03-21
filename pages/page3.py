@@ -72,7 +72,7 @@ modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
 
 comparison_font_size = '0.7em'
-comparison_font_size2 = '0.6em'
+comparison_font_size2 = '0.55em'
 
 # Setting layout for dashboard
 
