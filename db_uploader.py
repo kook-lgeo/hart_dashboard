@@ -13,7 +13,7 @@ df_income = df_income.rename(columns = {'index': 'pk'})
 
 # Importing partners data
 
-df_partners = pd.read_csv("./sources/partners_small_230321.csv")
+df_partners = pd.read_csv("./sources/partners_small_230324.csv")
 df_partners = df_partners.reset_index()
 df_partners = df_partners.rename(columns = {'index': 'pk'})
 

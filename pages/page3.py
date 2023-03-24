@@ -1,30 +1,18 @@
-from dash import Dash, dcc, dash_table, html, Input, Output, ctx, callback
-import dash
+# Importing Libraries
+
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.graph_objs.scatter.marker import Line
-from dash.dash_table.Format import Format, Scheme, Sign, Symbol, Group
-from plotly.subplots import make_subplots
-from sqlalchemy import create_engine
 import math as math
 import warnings
-import json
-import geopandas as gpd
-import fiona
-# from app import app
-# from pages import main
-
-fiona.supported_drivers  
-
+from dash.dash_table.Format import Format, Scheme, Group
+from plotly.subplots import make_subplots
+from dash import dcc, dash_table, html, Input, Output, ctx, callback
+from sqlalchemy import create_engine
 
 warnings.filterwarnings("ignore")
-
-# Importing income data
-
 engine = create_engine('sqlite:///sources//hart.db')
-
 
 # Importing Geo Code Information
 
@@ -37,77 +25,66 @@ df_province_list.columns = df_geo_list.columns
 
 # Importing Projection Data
 
-# df_csd_proj = pd.read_sql_table('csd_hh_projections', engine.connect())
-# df_cd_proj = pd.read_sql_table('cd_hh_projections', engine.connect())
-# df_cd_grow = pd.read_sql_table('cd_growthrates', engine.connect())
-
-# Merging Projection data with Geography codes
-
-# df_csd_proj_merged = df_geo_list.merge(df_csd_proj, how = 'left', on = 'Geo_Code')
-# df_cd_proj_merged = df_region_list.merge(df_cd_proj, how = 'left', on = 'Geo_Code')
-# df_cd_grow_merged = df_region_list.merge(df_cd_grow, how = 'left', on = 'Geo_Code')
-
-# New projection data
-# updated_csd = pd.read_csv('./sources/updated_csd.csv')
-# updated_cd = pd.read_csv('./sources/updated_cd.csv')
-updated_csd = pd.read_sql_table('csd_hh_projections', engine.connect())
-updated_cd = pd.read_sql_table('cd_hh_projections', engine.connect())
+updated_csd = pd.read_sql_table('csd_hh_projections', engine.connect()) # CSD level projections
+updated_cd = pd.read_sql_table('cd_hh_projections', engine.connect()) # CD level projections
 
 # Configuration for plot icons
 
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']}
 
-# Preprocessing
-fig = px.line(x = ['Not Available in CD/Regional level. Please select CSD/Municipal level'], y = ['Not Available in CD/Regional level. Please select CSD/Municipal level'])
-
-table = pd.DataFrame({'Not Available in CD/Regional level. Please select CSD/Municipal level':[0]})
+# Color lists
 
 colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
-map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
 modebar_color = '#099DD7'
 modebar_activecolor = '#044762'
+
+# Font size for tables when they are displayed on the comparison mode
 
 comparison_font_size = '0.7em'
 comparison_font_size2 = '0.6em'
 
+# Default selected area
+
 default_value = 'Canada'
+
+# Setting a default plot and table which renders before the dashboard is fully loaded
+
+fig = px.line(x = ['Not Available in CD/Regional level. Please select CSD/Municipal level'], y = ['Not Available in CD/Regional level. Please select CSD/Municipal level'])
+
+table = pd.DataFrame({'Not Available in CD/Regional level. Please select CSD/Municipal level':[0]})
+
 
 # Setting layout for dashboard
 
-#external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-# app = dash.Dash(__name__)#, external_stylesheets=external_stylesheets)
-# server = app.server
-
-# dash.register_page(__name__)
-
 layout = html.Div(children = [
+
+        # Fetching Area/Comparison Area/Clicked area scale info in local storage
+
         dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
 
+        # Main Layout
+
         html.Div(
-        children = [
-            # html.Div([
-            #     html.H2(children = html.Strong("Household Projections"), id = 'home')
-            # ], className = 'title-lgeo'),
-
-        # 2026 Projections by HH Size and Income Level
-
-
-            # Table
+        children = [    
 
             html.Div([
 
+                # 2026 Household Projections by Income Category 
+
                 html.Div([
-                   
+                    # Title
                     html.H3(children = html.Strong('2026 Household Projections by Income Category'), className = 'subtitle-lgeo'),
+                    # Table Description
                     html.Div([
                         html.H6('This table shows the total number of households in 2016, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Table
 
                     html.Div(children = [ 
 
@@ -131,7 +108,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
                     ], className = 'pg3-table-lgeo'
@@ -139,11 +115,12 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable5-interactivity-container'),
 
+                    # Graph Description
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each income category, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
                     ], className = 'muni-reg-text-lgeo'),
 
-                    # Graphs
+                    # Graph
 
                     html.Div(children = [ 
 
@@ -159,13 +136,19 @@ layout = html.Div(children = [
                 ], className = 'pg3-table-plot-box-lgeo'),
 
 
+                # 2026 Household Projections by Household Size
 
                 html.Div([
-                   
+                    # Title
+
                     html.H3(children = html.Strong('2026 Household Projections by Household Size'), className = 'subtitle-lgeo'),
+                    # Table Description
+
                     html.Div([
                         html.H6('This table shows the total number of households in 2016, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Table
 
                     html.Div([
                         dash_table.DataTable(
@@ -196,12 +179,13 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable6-interactivity-container'),
 
+                    # Graph Description
 
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each size of household, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
                     ], className = 'muni-reg-text-lgeo'),
 
-                    # Graphs
+                    # Graph
 
                     html.Div(children = [ 
                         dcc.Graph(
@@ -214,15 +198,20 @@ layout = html.Div(children = [
                 ], className = 'pg3-table-plot-box-lgeo'),
 
 
-
+                # 2026 Projected Households by Household Size and Income Category
 
                 html.Div([
-                   
+                    # Title
+
                     html.H3(children = html.Strong('2026 Projected Households by Household Size and Income Category'), className = 'subtitle-lgeo'),
+
+                    # Table Description
 
                     html.Div([
                         html.H6('This table shows the projected total number of households in 2026 by household size and income category.')
                     ], className = 'muni-reg-text-lgeo'),
+                    
+                    # Table
 
                     html.Div([
                         dash_table.DataTable(
@@ -253,12 +242,13 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable-h-interactivity-container'),
 
-                    # Graphs
-
+                    # Graph Description
 
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the projected total number of households in 2026 by household size and income category. Each bar is broken out by the projected number of households within each income category.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Graph
 
                     html.Div(children = [ 
 
@@ -272,16 +262,21 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-
+                # 2026 Projected Household Gain/Loss (2016 to 2026)
 
                 html.Div([
-                   
+    
+                    # Title
+
                     html.H3(children = html.Strong('2026 Projected Household Gain/Loss (2016 to 2026)'), className = 'table-title'),
+
+                    # Table Description
 
                     html.Div([
                         html.H6('This table shows the projected gain or loss of households by household size and income. These values represent projections for the period between 2016 and 2026.')
                     ], className = 'muni-reg-text-lgeo'),
 
+                    # Table
 
                     html.Div([
                         dash_table.DataTable(
@@ -310,16 +305,15 @@ layout = html.Div(children = [
                     ], className = 'pg3-table-lgeo'
                     ),
 
-
                     html.Div(id='datatable7-interactivity-container'),
 
-
-                    # Graphs
+                    # Graph Description
 
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the projected gain or loss of households between 2016 and 2026 for each size of household. Each bar is broken out by the projected number of households within each income category.')
                     ], className = 'muni-reg-text-lgeo'),
 
+                    # Graph
 
                     html.Div(children = [ 
 
@@ -332,18 +326,32 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
+                # Municipal vs Regional Growth Rates
+
                 html.Div([
+    
+                    # Title
                     html.H3(children = html.Strong('Municipal vs Regional Growth Rates'), className = 'subtitle-lgeo'),
+
+                    # Description
                     html.H6('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. There are numerous potential causes for discrepencies, which are further discussed in the project methods (link)')
                 ], className = 'muni-reg-text-lgeo'),
 
+
+                # 2026 Projected Municipal vs Regional Household Growth Rates by Income Category
+
                 html.Div([
-                   
+                    # Title
+
                     html.H3(children = html.Strong('2026 Projected Municipal vs Regional Household Growth Rates by Income Category'), className = 'subtitle-lgeo'),
+
+                    # Table Description
 
                     html.Div([
                         html.H6('The following table illustrates the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Table
 
                     html.Div([
 
@@ -375,12 +383,13 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable8-interactivity-container'),
 
-
-                    # Graphs
+                    # Graph Description
 
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Graph
 
                     html.Div(children = [ 
                         dcc.Graph(
@@ -393,14 +402,20 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
+                # Municipal vs Regional Growth Rates by Household Size
 
                 html.Div([
-                   
+                    # Title
+
                     html.H3(children = html.Strong('Municipal vs Regional Growth Rates by Household Size'), className = 'subtitle-lgeo'),
+
+                    # Table Description
 
                     html.Div([
                         html.H6('The following table illustrates the projected household growth rates between 2016 and 2026 in the community and surrounding region for each household size.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Table
 
                     html.Div([
                         dash_table.DataTable(
@@ -432,11 +447,13 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable9-interactivity-container'),
 
-                    # Graphs
+                    # Graph Description
 
                     html.Div([
                         html.H6('This graph illustrates the above table, displaying the projected household growth rates between 2016 and 2026 in the community and surrounding region for each income category.')
                     ], className = 'muni-reg-text-lgeo'),
+
+                    # Graph
 
                     html.Div(children = [ 
 
@@ -450,17 +467,19 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-
         ]),
-
 
         ], className = 'dashboard-pg3-lgeo'
     ), 
-], className = 'background-pg3-lgeo'#style = {'backgroud-color': '#fffced'}
+], className = 'background-pg3-lgeo'
 )
 
 
 
+
+# Plot/table generators and callbacks
+
+# Preset row colors for tables
 
 style_data_conditional=[
     {
@@ -505,7 +524,10 @@ style_header_conditional=[
 width_num = 1000
 
 
-# new plot 1 for projection
+# 2026 Household Projections by Income Category
+
+
+# Plot DF/Table Generator
 
 def plot1_new_projection(geo, IsComparison):
 
@@ -558,7 +580,7 @@ def plot1_new_projection(geo, IsComparison):
     
     return plot_df, table1
     
-
+# Callback logic for the table/plot update
 
 @callback(
     Output('datatable5-interactivity', 'columns'),
@@ -574,14 +596,17 @@ def plot1_new_projection(geo, IsComparison):
 )
 def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -589,8 +614,10 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
         plot_df, table1 = plot1_new_projection(geo, False)
 
+        # Generating plot
         fig_new_proj_1 = go.Figure()
 
         for i, c in zip(plot_df['Category'].unique(), colors[3:]):
@@ -604,21 +631,33 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
+        # Plot layout settings
         fig_new_proj_1.update_layout(
-            yaxis_tickformat = ',',
-             
-            legend_traceorder="normal", 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Household Projections by Income Category<br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "2016 households<br>and 2016-2026 change<br>"
-            )
-        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
+                                    yaxis_tickformat = ',',
+                                    legend_traceorder="normal", 
+                                    modebar_color = modebar_color, 
+                                    modebar_activecolor = modebar_activecolor, 
+                                    barmode='relative', 
+                                    plot_bgcolor='#F8F9F9', 
+                                    title = f'2026 Household Projections by Income Category<br>{geo}', 
+                                    legend = dict(font = dict(size = 9)), 
+                                    legend_title = "2016 households<br>and 2016-2026 change<br>"
+                                    )
+        fig_new_proj_1.update_xaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Income Category'
+                                    )
+        fig_new_proj_1.update_yaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Number of Households'
+                                    )
 
+
+        # Generating Table Callback output
         col_list = []
 
         style_cell_conditional=[
@@ -647,8 +686,11 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
 
+    # Comparison mode
+
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -659,7 +701,13 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         plot_df, table1 = plot1_new_projection(geo, False)
+
+        # Generating main plot
 
         fig_new_proj_1 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -670,9 +718,59 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['Pop'],
                 name = i,
                 marker_color = c,
-                # orientation = 'h', 
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
+
+
+        # Comparison Plot/Table
+
+        # Generating comparison plot df/table
+
+        plot_df_c, table1_c = plot1_new_projection(geo_c, True)
+
+        # Generating comparison plot
+
+        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+            plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
+            fig_new_proj_1.add_trace(go.Bar(
+                x = plot_df_frag['Income Category'],
+                y = plot_df_frag['Pop'],
+                name = i,
+                marker_color = c,
+                showlegend = False, 
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
+            ),row = 1, col = 2)
+
+        # Plot layout settings
+
+        fig_new_proj_1.update_layout(
+                                    yaxis_tickformat = ',',
+                                    modebar_color = modebar_color, 
+                                    modebar_activecolor = modebar_activecolor, 
+                                    barmode='relative', 
+                                    plot_bgcolor='#F8F9F9', 
+                                    title = f'2026 Household Projections by Income Category', 
+                                    legend = dict(font = dict(size = 9)), 
+                                    legend_title = "2016 households<br>and 2016-2026 change<br>")
+        fig_new_proj_1.update_yaxes(
+                                    range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max()) * 1.1],
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True                                    
+                                    )
+        fig_new_proj_1.update_xaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Income Category'
+                                    )
+        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -689,22 +787,6 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        # Comparison Plot
-
-        plot_df_c, table1_c = plot1_new_projection(geo_c, True)
-
-        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
-            plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
-            fig_new_proj_1.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['Pop'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                showlegend = False, 
-                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
-            ),row = 1, col = 2)
-
         for i in table1_c.columns[1:]:
             if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -717,24 +799,6 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-        # barmode='stack'
-        fig_new_proj_1.update_layout(
-            yaxis_tickformat = ',',
-            # width = 1000,
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Household Projections by Income Category', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "2016 households<br>and 2016-2026 change<br>")
-        fig_new_proj_1.update_yaxes(
-            range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('Income Category')['Pop'].sum().max(), plot_df_c.groupby('Income Category')['Pop'].sum().max()) * 1.1])
-        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
-        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -760,7 +824,12 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
         return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
-# new plot 2 for projection
+
+
+
+# 2026 Household Projections by Household Size
+
+# Plot DF/Table Generator
 
 def plot2_new_projection(geo, IsComparison):
 
@@ -817,6 +886,8 @@ def plot2_new_projection(geo, IsComparison):
 
     return plot_df, table2
 
+# Callback logic for the table/plot update
+
 @callback(
     Output('datatable6-interactivity', 'columns'),
     Output('datatable6-interactivity', 'data'),
@@ -831,14 +902,17 @@ def plot2_new_projection(geo, IsComparison):
 )
 def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -846,36 +920,50 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
         plot_df, table1 = plot2_new_projection(geo, False)
 
+        # Generating plot
         fig_new_proj_1 = go.Figure()
 
         for i, c in zip(plot_df['Category'].unique(), colors[3:]):
             plot_df_frag = plot_df.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
-                y = plot_df_frag['Pop'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
-            ))
+                                            x = plot_df_frag['HH Category'],
+                                            y = plot_df_frag['Pop'],
+                                            name = i,
+                                            marker_color = c,
+                                            hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
+                                        ))
 
+        # Plot layout settings
         fig_new_proj_1.update_layout(
-            yaxis_tickformat = ',',
-             
-            legend_traceorder="normal", 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Household Projections by Household Size<br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "2016 households<br>and 2016-2026 change<br>"
-            )
+                                    yaxis_tickformat = ',',
+                                    legend_traceorder="normal", 
+                                    modebar_color = modebar_color, 
+                                    modebar_activecolor = modebar_activecolor, 
+                                    barmode='relative', 
+                                    plot_bgcolor='#F8F9F9', 
+                                    title = f'2026 Household Projections by Household Size<br>{geo}', 
+                                    legend = dict(font = dict(size = 9)), 
+                                    legend_title = "2016 households<br>and 2016-2026 change<br>"
+                                    )
         
-        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
-        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
+        fig_new_proj_1.update_xaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Household Size'
+                                    )
+        fig_new_proj_1.update_yaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Number of Households'
+                                    )
+
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -904,9 +992,11 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_new_proj_1
 
+    # Comparison mode
 
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -917,7 +1007,13 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         plot_df, table1 = plot2_new_projection(geo, False)
+
+        # Generating main plot
 
         fig_new_proj_1 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -928,9 +1024,59 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['Pop'],
                 name = i,
                 marker_color = c,
-                # orientation = 'h', 
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
+
+        # Comparison Plot/Table
+
+        # Generating comparison plot df/table
+
+        plot_df_c, table1_c = plot2_new_projection(geo_c, True)
+
+        # Generating comparison plot
+
+        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+            plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
+            fig_new_proj_1.add_trace(go.Bar(
+                x = plot_df_frag['HH Category'],
+                y = plot_df_frag['Pop'],
+                name = i,
+                marker_color = c,
+                showlegend = False,
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
+            ),row = 1, col = 2)
+
+        # Plot layout settings
+
+        fig_new_proj_1.update_layout(
+                                    yaxis_tickformat = ',',
+                                    modebar_color = modebar_color, 
+                                    modebar_activecolor = modebar_activecolor, 
+                                    barmode='relative', 
+                                    plot_bgcolor='#F8F9F9', 
+                                    title = f'2026 Household Projections by Household Size', 
+                                    legend = dict(font = dict(size = 9)), 
+                                    legend_title = "2016 households<br>and 2016-2026 change<br>"
+                                    )
+        fig_new_proj_1.update_yaxes(
+                                    range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max()) * 1.1],
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True
+                                    )
+        fig_new_proj_1.update_xaxes(
+                                    title_font = dict(size = 10), 
+                                    tickfont = dict(size = 9), 
+                                    fixedrange = True, 
+                                    title = 'Household Size'
+                                    )
+        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -947,22 +1093,6 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        # Comparison Plot
-
-        plot_df_c, table1_c = plot2_new_projection(geo_c, True)
-
-        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
-            plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
-            fig_new_proj_1.add_trace(go.Bar(
-                x = plot_df_frag['HH Category'],
-                y = plot_df_frag['Pop'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                showlegend = False,
-                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
-            ),row = 1, col = 2)
-
         for i in table1_c.columns[1:]:
             if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -976,23 +1106,6 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        fig_new_proj_1.update_layout(
-            yaxis_tickformat = ',',
-             
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Household Projections by Household Size', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "2016 households<br>and 2016-2026 change<br>"
-            )
-        fig_new_proj_1.update_yaxes(range=[min(plot_df['Pop'].min(), plot_df_c['Pop'].min()) * 1.1, max(plot_df.groupby('HH Category')['Pop'].sum().max(), plot_df_c.groupby('HH Category')['Pop'].sum().max()) * 1.1])
-        fig_new_proj_1.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
-        fig_new_proj_1.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
-        fig_new_proj_1.update_yaxes(title = 'Number of Households', row = 1, col = 1)
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
         style_cell_conditional=[
             {
@@ -1021,7 +1134,9 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
 
 
-# new plot h for projection
+# 2026 Projected Households by Household Size and Income Category
+
+# Presetting global variables for table/plot
 
 income_col_list = ['20% or under of area median household income (AMHI)', 
                     '21% to 50% of AMHI', 
@@ -1031,6 +1146,7 @@ income_col_list = ['20% or under of area median household income (AMHI)',
 
 pp_list = ['1pp', '2pp', '3pp', '4pp', '5pp']
 
+# Plot DF/Table Generator
 
 def projections_2026_hh_size(geo, IsComparison):
     
@@ -1075,6 +1191,8 @@ def projections_2026_hh_size(geo, IsComparison):
 
     return table3_csd, table3_csd_plot
 
+# Callback logic for the table/plot update
+
 @callback(
     Output('datatable-h-interactivity', 'columns'),
     Output('datatable-h-interactivity', 'data'),
@@ -1089,13 +1207,18 @@ def projections_2026_hh_size(geo, IsComparison):
 )
 def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+        # When no area is selected
 
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1104,7 +1227,11 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
+
         table1, table1_csd_plot = projections_2026_hh_size(geo, False)
+
+        # Generating plot
 
         fig_csd = go.Figure()
         for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
@@ -1118,20 +1245,32 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
+        # Plot layout settings
         fig_csd.update_layout(
-            yaxis_tickformat = ',',
-             
-            legend_traceorder="normal", 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Households by Household Size and Income Category<br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "HH Size"
-            )
-        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Number of Households')
+                            yaxis_tickformat = ',',
+                            legend_traceorder="normal", 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            barmode='relative', 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Households by Household Size and Income Category<br>{geo}', 
+                            legend = dict(font = dict(size = 9)), 
+                            legend_title = "HH Size"
+                            )
+        fig_csd.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Income Category'
+                            )
+        fig_csd.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Number of Households'
+                            )
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1160,9 +1299,11 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
+    # Comparison mode
 
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -1173,7 +1314,13 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         table1, table1_csd_plot = projections_2026_hh_size(geo, False)
+
+        # Generating main plot
 
         fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -1184,11 +1331,57 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
-                # orientation = 'h', 
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
 
-        # fig_csd.update_layout(legend_traceorder="normal", modebar_color = modebar_color, modebar_activecolor = modebar_activecolor, barmode='relative', plot_bgcolor='#F8F9F9', title = f'2026 Projected Households -<br>{geo}', legend_title = "Income Category")
+
+        # Comparison Plot/Table
+
+        # Generating comparison plot df/table
+        table1_c, table1_csd_plot_c = projections_2026_hh_size(geo_c, True)
+
+        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
+            fig_csd.add_trace(go.Bar(
+                x = plot_df_frag['Income Category'],
+                y = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                showlegend = False,
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
+            ),row = 1, col = 2)
+
+        # Plot layout settings
+
+        fig_csd.update_layout(
+                                yaxis_tickformat = ',',
+                                modebar_color = modebar_color, 
+                                modebar_activecolor = modebar_activecolor, 
+                                barmode='relative', 
+                                plot_bgcolor='#F8F9F9', 
+                                title = f'2026 Projected Households by Household Size and Income Category', 
+                                legend = dict(font = dict(size = 9)), 
+                                legend_title = "HH Size"
+                                )
+        fig_csd.update_yaxes(
+                                range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1],
+                                title_font = dict(size = 10), 
+                                tickfont = dict(size = 9), 
+                                fixedrange = True
+                                )
+        fig_csd.update_xaxes(
+                                title_font = dict(size = 10), 
+                                tickfont = dict(size = 9), 
+                                fixedrange = True, 
+                                title = 'Income Category'
+                                )
+        fig_csd.update_yaxes(title = 'Number of Households', row = 1, col = 1)
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1205,22 +1398,6 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        # Comparison Plot
-
-        table1_c, table1_csd_plot_c = projections_2026_hh_size(geo_c, True)
-
-        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
-            fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                showlegend = False,
-                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
-            ),row = 1, col = 2)
-
         for i in table1_c.columns[1:]:
             if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -1233,24 +1410,6 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-
-        fig_csd.update_layout(
-            yaxis_tickformat = ',',
-             
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Households by Household Size and Income Category', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "HH Size"
-            )
-        fig_csd.update_yaxes(range=[0, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1])
-        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
-        fig_csd.update_yaxes(title = 'Number of Households', row = 1, col = 1)
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1279,9 +1438,9 @@ def update_geo_figure_h(geo, geo_c, scale, selected_columns):
 
 
 
+# 2026 Projected Household Gain/Loss (2016 to 2026)
 
-
-# new plot 3 for projection
+# Presetting global variables for table/plot
 
 income_col_list = ['20% or under of area median household income (AMHI)', 
                     '21% to 50% of AMHI', 
@@ -1291,17 +1450,16 @@ income_col_list = ['20% or under of area median household income (AMHI)',
 
 pp_list = ['1pp', '2pp', '3pp', '4pp', '5pp']
 
+# Plot DF/Table Generator
 
 def projections_2026_deltas(geo, IsComparison):
     
     geo_code_clicked = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, 'Geo_Code'].tolist()[0]
     updated_csd_filtered = updated_csd.query('Geo_Code ==' +  f"{geo_code_clicked}")
 
-
     income_l = []
     pp_l = []
     result_csd_l = []
-
 
     for i in income_col_list:
         for p in pp_list:
@@ -1336,6 +1494,8 @@ def projections_2026_deltas(geo, IsComparison):
 
     return table3_csd, table3_csd_plot
 
+# Callback logic for the table/plot update
+
 @callback(
     Output('datatable7-interactivity', 'columns'),
     Output('datatable7-interactivity', 'data'),
@@ -1350,14 +1510,17 @@ def projections_2026_deltas(geo, IsComparison):
 )
 def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -1365,8 +1528,10 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
         table1, table1_csd_plot = projections_2026_deltas(geo, False)
 
+        # Generating plot
         fig_csd = go.Figure()
         for i, c in zip(table1_csd_plot['HH Category'].unique(), colors):
             plot_df_frag = table1_csd_plot.loc[table1_csd_plot['HH Category'] == i, :]
@@ -1379,20 +1544,31 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ))
 
+        # Plot layout settings
         fig_csd.update_layout(
-            yaxis_tickformat = ',',
-             
-            legend_traceorder="normal", 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Household Gain/Loss (2016 to 2026)<br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "HH Size"
-            )
-        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
+                            yaxis_tickformat = ',',
+                            legend_traceorder="normal", 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            barmode='relative', 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Household Gain/Loss (2016 to 2026)<br>{geo}', 
+                            legend = dict(font = dict(size = 9)), 
+                            legend_title = "HH Size"
+                            )
+        fig_csd.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Income Category'
+                            )
+        fig_csd.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True
+                            )
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1421,9 +1597,11 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
+    # Comparison mode
 
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -1434,7 +1612,13 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         table1, table1_csd_plot = projections_2026_deltas(geo, False)
+
+        # Generating main plot
 
         fig_csd = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -1445,9 +1629,58 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 y = plot_df_frag['value'],
                 name = i,
                 marker_color = c,
-                # orientation = 'h', 
                 hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
             ),row = 1, col = 1)
+
+        # Comparison Plot/Table
+
+        # Generating comparison plot df/table
+
+        table1_c, table1_csd_plot_c = projections_2026_deltas(geo_c, True)
+
+        # Generating comparison plot
+
+        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
+            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
+            fig_csd.add_trace(go.Bar(
+                x = plot_df_frag['Income Category'],
+                y = plot_df_frag['value'],
+                name = i,
+                marker_color = c,
+                showlegend = False,
+                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
+            ),row = 1, col = 2)
+
+        # Plot layout settings
+        
+        fig_csd.update_layout(
+                            yaxis_tickformat = ',',
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            barmode='relative', 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Household Gain/Loss (2016 to 2026)', 
+                            legend = dict(font = dict(size = 9)), 
+                            legend_title = "HH Size"
+                            )
+        fig_csd.update_yaxes(
+                            range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min()) * 1.1, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1],
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True
+                            )
+        fig_csd.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Income Category'
+                            )
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1464,22 +1697,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        # Comparison Plot
-
-        table1_c, table1_csd_plot_c = projections_2026_deltas(geo_c, True)
-
-        for i, c in zip(table1_csd_plot_c['HH Category'].unique(), colors):
-            plot_df_frag = table1_csd_plot_c.loc[table1_csd_plot_c['HH Category'] == i, :]
-            fig_csd.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = i,
-                marker_color = c,
-                # orientation = 'h', 
-                showlegend = False,
-                hovertemplate= '%{x}, ' + f'{i} - ' + '%{y}<extra></extra>'
-            ),row = 1, col = 2)
-
         for i in table1_c.columns[1:]:
             if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -1492,23 +1709,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-        
-        fig_csd.update_layout(
-            yaxis_tickformat = ',',
-             
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            barmode='relative', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Household Gain/Loss (2016 to 2026)', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "HH Size"
-            )
-        fig_csd.update_yaxes(range=[min(table1_csd_plot.groupby('Income Category')['value'].sum().min(), table1_csd_plot_c.groupby('Income Category')['value'].sum().min()) * 1.1, max(table1_csd_plot.groupby('Income Category')['value'].sum().max(), table1_csd_plot_c.groupby('Income Category')['value'].sum().max()) * 1.1])
-        fig_csd.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_csd.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True)
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1535,11 +1735,13 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_csd
 
 
+# 2026 Projected Municipal vs Regional Household Growth Rates by Income Category
 
+# Presetting global variables for table/plot
+
+# Plot DF/Table Generator
 
 m_r_colors = ['#002145', '#39c0f7']
-
-# new plot 4 for projection
 
 def projections_2026_pop_income(geo, IsComparison):
 
@@ -1609,6 +1811,8 @@ def projections_2026_pop_income(geo, IsComparison):
 
     return table, plot_df
 
+# Callback logic for the table/plot update
+
 @callback(
     Output('datatable8-interactivity', 'columns'),
     Output('datatable8-interactivity', 'data'),
@@ -1623,8 +1827,14 @@ def projections_2026_pop_income(geo, IsComparison):
 )
 def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
+    # If selected area is None
+    # -> Set default area (Canada)
+
     if geo == None:
         geo = default_value
+
+    # If selected area is not CSD
+    # -> print 'Not Available in CD/Regional level. Please select CSD/Municipal level'
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
 
@@ -1663,6 +1873,8 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 } for i in selected_columns], \
                 style_cell_conditional_csd, fig_csd
 
+    # Single area mode
+
     if len(str(clicked_code)) >= 7 and geo_c != None:
        
         clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
@@ -1672,11 +1884,14 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected    
+
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1685,14 +1900,15 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
         table1, plot_df = projections_2026_pop_income(geo, True)
 
+        # Generating plot
         fig_pgr = go.Figure()
 
         for s, c in zip(plot_df['Category'].unique(), m_r_colors):
 
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
-            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
 
             fig_pgr.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -1702,17 +1918,32 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
+        # Plot layout settings
+
         fig_pgr.update_layout(
-            modebar_color = modebar_color, 
-             
-            modebar_activecolor = modebar_activecolor, 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category<br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "Category"
-            )
-        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Income Category')
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Growth Rate (%)', tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category<br>{geo}', 
+                            legend = dict(font = dict(size = 9)), 
+                            legend_title = "Category"
+                            )
+        fig_pgr.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Income Category'
+                            )
+        fig_pgr.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Growth Rate (%)', 
+                            tickformat =  ',.0%', 
+                            range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10]
+                            )
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1741,9 +1972,11 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
 
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
 
+    # Comparison mode
 
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -1754,17 +1987,19 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         table1, plot_df = projections_2026_pop_income(geo, True)
 
+        # Generating main plot
 
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
-
 
         for s, c in zip(plot_df['Category'].unique(), m_r_colors):
             
             plot_df_frag = plot_df.loc[plot_df['Category'] == s, :]
-            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High'] 
-
            
             fig_pgr.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -1774,6 +2009,63 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
 
             ),row = 1, col = 1)
+
+
+        # Comparison Plot/Table
+
+        # Generating comparison plot df/table
+
+        table1_c, plot_df_c = projections_2026_pop_income(geo_c, False)
+
+        # Generating comparison plot
+
+        for s, c in zip(plot_df_c['Category'].unique(), m_r_colors):
+            
+            plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
+            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
+            
+            fig_pgr.add_trace(go.Bar(
+                x = plot_df_frag['Income Category'],
+                y = plot_df_frag['value'],
+                name = s,
+                marker_color = c,
+                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y:.0%}<extra></extra>',
+                showlegend = False
+            ),row = 1, col = 2)
+
+        # Plot layout settings
+                
+        range_ref = plot_df.groupby(['Income Category', 'Category'])['value'].sum()
+        range_ref_c = plot_df_c.groupby(['Income Category', 'Category'])['value'].sum()
+
+        fig_pgr.update_layout(
+                            legend = dict(font = dict(size = 9)), 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category', 
+                            legend_title = "Category"
+                            )
+        fig_pgr.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            tickformat =  ',.0%', 
+                            fixedrange = True, 
+                            range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10]
+                            )
+        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
+        fig_pgr.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9),  
+                            fixedrange = True, 
+                            title = 'Income Category'
+                            )
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -1790,24 +2082,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     precision=0
                                                     )})
 
-        # Comparison Plot
-
-        table1_c, plot_df_c = projections_2026_pop_income(geo_c, False)
-
-        for s, c in zip(plot_df_c['Category'].unique(), m_r_colors):
-            
-            plot_df_frag = plot_df_c.loc[plot_df_c['Category'] == s, :]
-            # plot_df_frag['Income Category'] = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
-            
-            fig_pgr.add_trace(go.Bar(
-                x = plot_df_frag['Income Category'],
-                y = plot_df_frag['value'],
-                name = s,
-                marker_color = c,
-                hovertemplate= '%{x}, ' + f'{s} - ' + '%{y:.0%}<extra></extra>',
-                showlegend = False
-            ),row = 1, col = 2)
-
         for i in table1_c.columns[1:]:
             if i == 'HH Income Category':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -1820,23 +2094,6 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-                
-        range_ref = plot_df.groupby(['Income Category', 'Category'])['value'].sum()
-        range_ref_c = plot_df_c.groupby(['Income Category', 'Category'])['value'].sum()
-
-        fig_pgr.update_layout(
-            legend = dict(font = dict(size = 9)), 
-            modebar_color = modebar_color, 
-             
-            modebar_activecolor = modebar_activecolor, 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Municipal vs Regional Household Growth Rates by Income Category', 
-            legend_title = "Category")
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', fixedrange = True, range=[min(0, min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
-        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
-        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Income Category')
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Income Category')
 
         style_cell_conditional=[
             {
@@ -1861,9 +2118,12 @@ def update_geo_figure8(geo, geo_c, scale, selected_columns):
         ]
 
         return col_list, table1_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
-    
 
-# new plot 5 for projection
+
+
+# Municipal vs Regional Growth Rates by Household Size
+
+# Plot DF/Table Generator
 
 def projections_2026_pop_hh(geo, IsComparison):
 
@@ -1917,10 +2177,7 @@ def projections_2026_pop_hh(geo, IsComparison):
     table['Regional Growth (%)'] = np.round(table['Regional Growth (%)']*100,1).astype(str) + '%'
 
     if IsComparison == True:
-        # table.columns = ['Income Category', '2016 Pop. ', 'Muni. Growth (%) ',
-        #    'Regional Growth (%) ', 'Delta(Muni. GR) ', 'Delta(Regional GR) ',
-        #    '2026 Pop.(Muni. GR) ', '2026 Pop.(Regional GR) ']
-    
+   
         table.columns = ['HH Size', '2016 HHs ', 'Muni. Growth Rate (%) ',
            'Regional Growth Rate (%) ', '2026 HHs (Muni. Rate) ', '2026 HHs (Region. Rate) ']
 
@@ -1931,6 +2188,8 @@ def projections_2026_pop_hh(geo, IsComparison):
     table['HH Size'] = ['1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
 
     return table, plot_df
+
+# Callback logic for the table/plot update
 
 @callback(
     Output('datatable9-interactivity', 'columns'),
@@ -1946,8 +2205,14 @@ def projections_2026_pop_hh(geo, IsComparison):
 )
 def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
+    # If selected area is None
+    # -> Set default area (Canada)
+
     if geo == None:
         geo = default_value
+
+    # If selected area is not CSD
+    # -> print 'Not Available in CD/Regional level. Please select CSD/Municipal level'
 
     clicked_code = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, :]['Geo_Code'].tolist()[0]
 
@@ -1965,7 +2230,6 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         style_cell_conditional_csd=[
             {
                 'if': {'column_id': c},
-                # 'minWidth': '100px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table3_csd.columns[1:]
         ] + [
@@ -1987,6 +2251,8 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 } for i in selected_columns], \
                 style_cell_conditional_csd, fig_csd
 
+    # Single area mode
+
     if len(str(clicked_code)) >= 7 and geo_c != None:
        
         clicked_code_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c, :]['Geo_Code'].tolist()[0]
@@ -1995,13 +2261,14 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
             geo_c = None
 
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
-
+        
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -2009,8 +2276,10 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating plot dataframe/table
         table1, plot_df = projections_2026_pop_hh(geo, True)
 
+        # Generating plot
         fig_pgr = go.Figure()
 
         for s, c in zip(plot_df['Category'].unique(), m_r_colors):
@@ -2026,17 +2295,31 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 hovertemplate= '%{x}, ' + f'{s} - ' + '%{y}<extra></extra>'
             ))
 
+        # Plot layout settings
         fig_pgr.update_layout(
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-             
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Community and Regional Household Growth Rates <br>{geo}', 
-            legend = dict(font = dict(size = 9)), 
-            legend_title = "Population"
-            )
-        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9), fixedrange = True, title = 'Household Size')
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), title = 'Growth Rate (%)', fixedrange = True, tickformat =  ',.0%', range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10])
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Community and Regional Household Growth Rates <br>{geo}', 
+                            legend = dict(font = dict(size = 9)), 
+                            legend_title = "Population"
+                            )
+        fig_pgr.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            fixedrange = True, 
+                            title = 'Household Size'
+                            )
+        fig_pgr.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), 
+                            title = 'Growth Rate (%)', 
+                            fixedrange = True, 
+                            tickformat =  ',.0%', 
+                            range=[min(0,plot_df['value'].min()), math.ceil(plot_df['value'].max()*10)/10]
+                            )
+
+        # Generating Table Callback output
 
         col_list = []
 
@@ -2065,9 +2348,11 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
         return col_list, table1.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional, fig_pgr
 
+    # Comparison mode
 
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -2078,8 +2363,13 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Plot/Table
+
+        # Generating main plot df/table
+
         table1, plot_df = projections_2026_pop_hh(geo, True)
 
+        # Generating main plot
 
         fig_pgr = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
@@ -2097,24 +2387,14 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
 
             ),row = 1, col = 1)
 
-        col_list = []
 
-        for i in table1.columns:
-            if i == 'HH Size':
-                col_list.append({"name": ["Areas", i], "id": i})
-            else:
-                col_list.append({"name": [geo, i], 
-                                    "id": i, 
-                                    "type": 'numeric', 
-                                    "format": Format(
-                                                    group=Group.yes,
-                                                    scheme=Scheme.fixed,
-                                                    precision=0
-                                                    )})
+        # Comparison Plot/Table
 
-        # Comparison Plot
+        # Generating comparison plot df/table
 
         table1_c, plot_df_c = projections_2026_pop_hh(geo_c, False)
+
+        # Generating comparison plot
 
         for s, c in zip(plot_df_c['Category'].unique(), m_r_colors):
             
@@ -2130,6 +2410,54 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                 showlegend = False
             ),row = 1, col = 2)
 
+        # Plot layout settings
+
+        range_ref = plot_df.groupby(['HH Category', 'Category'])['value'].sum()
+        range_ref_c = plot_df_c.groupby(['HH Category', 'Category'])['value'].sum()
+
+        fig_pgr.update_layout(
+                            legend = dict(font = dict(size = 9)), 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'2026 Projected Community and Regional Household Growth Rates ', 
+                            legend_title = "Population"
+                            )
+        fig_pgr.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9), tickformat =  ',.0%', 
+                            fixedrange = True, 
+                            range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10]
+                            )
+        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
+        fig_pgr.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 9),  
+                            fixedrange = True, 
+                            title = 'Household Size'
+                            )
+
+        # Merging main and comparison table
+
+        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
+
+        # Generating Table Callback output
+
+        col_list = []
+
+        for i in table1.columns:
+            if i == 'HH Size':
+                col_list.append({"name": ["Areas", i], "id": i})
+            else:
+                col_list.append({"name": [geo, i], 
+                                    "id": i, 
+                                    "type": 'numeric', 
+                                    "format": Format(
+                                                    group=Group.yes,
+                                                    scheme=Scheme.fixed,
+                                                    precision=0
+                                                    )})
+
         for i in table1_c.columns[1:]:
             if i == 'HH Size':
                 col_list.append({"name": ["Areas", i], "id": i})
@@ -2142,24 +2470,6 @@ def update_geo_figure9(geo, geo_c, scale, selected_columns):
                                                     scheme=Scheme.fixed,
                                                     precision=0
                                                     )})
-
-        range_ref = plot_df.groupby(['HH Category', 'Category'])['value'].sum()
-        range_ref_c = plot_df_c.groupby(['HH Category', 'Category'])['value'].sum()
-
-        fig_pgr.update_layout(
-            legend = dict(font = dict(size = 9)), 
-            modebar_color = modebar_color, 
-             
-            modebar_activecolor = modebar_activecolor, 
-            plot_bgcolor='#F8F9F9', 
-            title = f'2026 Projected Community and Regional Household Growth Rates ', 
-            legend_title = "Population"
-            )
-        fig_pgr.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 9), tickformat =  ',.0%', fixedrange = True, range=[min(0,min(range_ref.min(), range_ref_c.min())), math.ceil(max(range_ref.max(), range_ref_c.max())*10)/10])
-        fig_pgr.update_yaxes(title = 'Growth Rate (%)', row = 1, col = 1)
-        fig_pgr.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 9),  fixedrange = True, title = 'Household Size')
-
-        table1_j = table1.merge(table1_c, how = 'left', on = 'HH Size')
 
         style_cell_conditional=[
             {

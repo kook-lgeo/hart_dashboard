@@ -1,60 +1,42 @@
-from dash import Dash, dcc, dash_table, html, Input, Output, ctx, callback
-import dash
+# Importing Libraries
+
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.graph_objs.scatter.marker import Line
-from dash.dash_table.Format import Format, Scheme, Sign, Symbol, Group
+import math as math
+import warnings
+from dash import dcc, dash_table, html, Input, Output, ctx, callback
+from dash.dash_table.Format import Format, Scheme, Group
 from plotly.subplots import make_subplots
 from sqlalchemy import create_engine
-import warnings
-import json
-import geopandas as gpd
-import math as math
-import fiona
-# from app import app
-# from pages import projection
-fiona.supported_drivers  
 
-
+engine = create_engine('sqlite:///sources//hart.db')
 warnings.filterwarnings("ignore")
 
 # Importing income data
 
-engine = create_engine('sqlite:///sources//hart.db')
-
 df_income = pd.read_sql_table('income', engine.connect())
-# df_income = pd.read_csv("./sources/income.csv")
 
 # Importing partners data
 
 df_partners = pd.read_sql_table('partners', engine.connect())
-#df_partners = pd.read_csv("./sources/partners_small.csv")
 
 # Importing Geo Code Information
 
 mapped_geo_code = pd.read_sql_table('geocodes_integrated', engine.connect())
-df_geo_list = pd.read_sql_table('geocodes', engine.connect())
-df_region_list = pd.read_sql_table('regioncodes', engine.connect())
-df_region_list.columns = df_geo_list.columns
-df_province_list = pd.read_sql_table('provincecodes', engine.connect())
-df_province_list.columns = df_geo_list.columns
-
 
 # Configuration for plot icons
 
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']}
 
-# Preprocessing
+# Preprocessing - Preparing main dataset and categories being used for plots
 
 income_category = df_income.drop(['Geography'], axis=1)
-
 income_category = income_category.rename(columns = {'Formatted Name': 'Geography'})
 
 joined_df = income_category.merge(df_partners, how = 'left', on = 'Geography')
 
-joined_df_filtered = joined_df.query('Geography == "Fraser Valley (CD, BC)"')
 
 x_base =['Very Low Income',
             'Low Income',
@@ -74,7 +56,26 @@ hh_p_num_list = [1,2,3,4,'5 or more']
 
 amhi_range = ['20% or under of AMHI', '21% to 50% of AMHI', '51% to 80% of AMHI', '81% to 120% of AMHI', '121% and more of AMHI']
 
+# Color Lists
+
+colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
+hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
+hh_type_color = ['#002145', '#3EB549', '#39C0F7']
+columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
+modebar_color = '#099DD7'
+modebar_activecolor = '#044762'
+
+# Font size for tables when they are displayed on the comparison mode
+comparison_font_size = '0.7em'
+
+# Default selected area
+default_value = 'Canada'
+
+# Setting a default plot and table which renders before the dashboard is fully loaded
+
 income_ct = [x + f" ({a})" for x, a in zip(x_base, amhi_range)]
+
+joined_df_filtered = joined_df.query('Geography == "Fraser Valley (CD, BC)"')
 
 x_list = []
 
@@ -97,52 +98,38 @@ columns = ['Percent HH with income 20% or under of AMHI in core housing need',
 
 plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
-# colors = ['#D7F3FD', '#B0E6FC', '#88D9FA', '#61CDF9', '#39C0F7']
-# hh_colors = ['#D8EBD4', '#B7DCAE', '#93CD8A', '#6EC067', '#3DB54A']
-colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
-hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
-hh_type_color = ['#002145', '#3EB549', '#39C0F7']
-columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
-map_colors_wo_black = ['#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-map_colors_w_black = ['#000000', '#39C0F7', '#fa6464', '#3EB549', '#EE39F7', '#752100', '#F4F739']
-modebar_color = '#099DD7'
-modebar_activecolor = '#044762'
-
 fig = px.line(x = ['Not Available'], y = ['Not Available'])
 
 table = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 table2 = joined_df_filtered[['Rent 20% of AMHI', 'Rent 50% of AMHI']]
 
 
-comparison_font_size = '0.7em'
-
-default_value = 'Canada'
 
 # Setting layout for dashboard
 
-#external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-# dash.register_page(__name__)
 
 layout = html.Div(children = [
+
+        # Fetching Area/Comparison Area/Clicked area scale info in local storage
+
         dcc.Store(id='area-scale-store', storage_type='local'),
         dcc.Store(id='main-area', storage_type='local'),
         dcc.Store(id='comparison-area', storage_type='local'),
 
+        # Main Layout
+
         html.Div(
         children = [
-            # html.Div([
-            #     html.H2(children = html.Strong("Core Housing Need, 2016"), id = 'home')
-            # ], className = 'title-lgeo'),
 
-
-        # Area Median Household Income (AMHI) Categories and Shelter Costs
+        # Income Categories and Affordable Shelter Costs, 2016
 
             html.Div([
-                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'overview-scenario3'),
+                # Title
+                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'visualization3'),
+                # Description
                 html.Div([
                     html.H6('This table shows the range of household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of households falls within each category.')
                 ], className = 'muni-reg-text-lgeo'),
-
 
             # Table
 
@@ -154,11 +141,10 @@ layout = html.Div(children = [
                         ],
                         data=table.to_dict('records'),
                         editable=True,
-                        # filter_action="native",
                         sort_action="native",
                         sort_mode="multi",
-                        column_selectable=False,#"multi",
-                        row_selectable=False,#"multi",
+                        column_selectable=False,
+                        row_selectable=False,
                         row_deletable=False,
                         selected_columns=[],
                         selected_rows=[],
@@ -168,8 +154,7 @@ layout = html.Div(children = [
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
                         style_cell = {'font-family': 'Bahnschrift'},
-                        # style_data = {'font_size': '1.0rem', 'width': '100px'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}#{'whiteSpace': 'normal', 'font_size': '1.0rem'}
+                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable-interactivity-container')
                 ], className = 'pg2-table-lgeo'
@@ -178,12 +163,14 @@ layout = html.Div(children = [
 
             ], className = 'pg2-table-plot-box-lgeo'),
 
-        # Percent of Households (HHs) in Core Housing Need, by Household Income Category
+
+        # Percentage of Households in Core Housing Need, by Income Category, 2016
 
 
             html.Div([
-
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2016'), id = 'overview-scenario'),
+                # Title
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2016'), id = 'visualization'),
+                # Description
                 html.Div([
                     html.H6('This chart shows the percentage of total households that are in Core Housing Need for each income category. The maximum affordable shelter cost is also indicated in brackets for each income category.')
                 ], className = 'muni-reg-text-lgeo'),
@@ -204,11 +191,13 @@ layout = html.Div(children = [
 
             ], className = 'pg2-table-plot-box-lgeo'),
 
-        # Percent of Household Size Categories in Core Housing Need, by AMHI
+
+        # Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016
 
             html.Div([
-
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'overview-scenario2'),
+                # Title
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
+                # Description
                 html.Div([
                     html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. If there are no households in Core Housing Need within an income category then there will be no bar for that category.')
                 ], className = 'muni-reg-text-lgeo'),
@@ -223,22 +212,22 @@ layout = html.Div(children = [
                         figure=fig,
                         config = config,
                     )
-
                 ],
                     className = 'pg2-plot-lgeo'
                 ),
 
             ], className = 'pg2-table-plot-box-lgeo'),
 
+
         # 2016 Affordable Housing Deficit
 
             html.Div([
-
-                html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'overview-scenario4'),
+                # Title
+                html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'visualization4'),
+                # Description
                 html.Div([
                     html.H6('This table shows the total number of households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
                 ], className = 'muni-reg-text-lgeo'),
-
 
 
                 # Table
@@ -253,11 +242,10 @@ layout = html.Div(children = [
                             ],
                             data=table2.to_dict('records'),
                             editable=True,
-                            # filter_action="native",
                             sort_action="native",
                             sort_mode="multi",
-                            column_selectable=False,#"multi",
-                            row_selectable=False,#"multi",
+                            column_selectable=False,
+                            row_selectable=False,
                             row_deletable=False,
                             selected_columns=[],
                             selected_rows=[],
@@ -265,7 +253,6 @@ layout = html.Div(children = [
                             page_current= 0,
                             page_size= 10,
                             merge_duplicate_headers=True,
-                            # style_table={'minWidth': '100%'},
                             style_cell = {'font-family': 'Bahnschrift'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
                             export_format = "xlsx"
@@ -273,21 +260,20 @@ layout = html.Div(children = [
                         html.Div(id='datatable2-interactivity-container')
                     ], className = 'pg2-table-lgeo'
                     ),
-
                 ]
                 ),
-
             ], className = 'pg2-table-plot-box-lgeo'),
 
-        # Percentage of HHs in Core Housing Need by Priority Population
+
+        # Percentage of Households in Core Housing Need by Priority Population, 2016
 
             html.Div([
-
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2016'), id = 'overview-scenario5'),
+                # Title
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2016'), id = 'visualization5'),
+                # Description
                 html.Div([
                     html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. Where a zero sum appears, data suppression is likely employed.')
                 ], className = 'muni-reg-text-lgeo'),
-
 
                 # Graphs
 
@@ -298,18 +284,17 @@ layout = html.Div(children = [
                         figure=fig,
                         config = config,
                     )
-
                 ],
                         className = 'pg2-plot-lgeo'
                 ),
-
             ], className = 'pg2-table-plot-box-lgeo'),
 
-        # Percentage of HHs in Core Housing Need by Priority Population and Income
+        # Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016
 
             html.Div([
-
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016'), id = 'overview-scenario6'),
+                # Title
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016'), id = 'visualization6'),
+                # Description
                 html.Div([
                     html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. Where a zero sum appears, data suppression is likely employed.')
                 ], className = 'muni-reg-text-lgeo'),
@@ -330,7 +315,8 @@ layout = html.Div(children = [
 
             ], className = 'pg2-table-plot-box-lgeo'),
 
-            # Raw data download
+
+        # Raw data download button
 
             html.Div([
                 html.Button("Download This Community", id="ov7-download-csv"),
@@ -338,19 +324,26 @@ layout = html.Div(children = [
                 ],
                 className = 'region-button-lgeo'
             ),
+        
+        # LGEO
 
+            # html.Div([
+            #         ('This dashboard was created in collaboration with LGeo, a geospatial consulting firm based in Vancouver, BC. If you have questions or comments regarding the dashboard they can be reached at (our email)')
+            #     ], className = 'muni-reg-text-lgeo', style = {'padding-top': '3%', "font_size": "0.5rem"}),
 
 
         ], className = 'dashboard-pg2-lgeo'
     ), 
-], className = 'background-pg2-lgeo'#style = {'backgroud-color': '#fffced'}
+], className = 'background-pg2-lgeo'
 )
 
 
-width_num = 350
 
-# Area Median Household Income (AMHI) Categories and Shelter Costs
+# Plot/table generators and callbacks
 
+# Income Categories and Affordable Shelter Costs, 2016
+
+# Table generator
 def table_amhi_shelter_cost(geo, IsComparison):
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -377,6 +370,9 @@ def table_amhi_shelter_cost(geo, IsComparison):
 
     return table
 
+
+# Callback logic for the table update
+
 @callback(
     Output('datatable-interactivity', 'columns'),
     Output('datatable-interactivity', 'data'),
@@ -390,14 +386,16 @@ def table_amhi_shelter_cost(geo, IsComparison):
 )
 def update_table1(geo, geo_c, selected_columns, scale):
 
+    # Single area mode
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -407,8 +405,10 @@ def update_table1(geo, geo_c, selected_columns, scale):
         else:
             geo = geo
 
+        # Generating table
         table = table_amhi_shelter_cost(geo, IsComparison = False)
     
+        # Generating callback output to update table
         col_list = []
 
         for i in table.columns:
@@ -462,8 +462,11 @@ def update_table1(geo, geo_c, selected_columns, scale):
         ]
 
         return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
-        
+
+    # Comparison mode    
     else:
+        
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -475,7 +478,25 @@ def update_table1(geo, geo_c, selected_columns, scale):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Table
+
+        # Generating main table
         table = table_amhi_shelter_cost(geo, IsComparison = False)
+ 
+
+
+        # Comparison Table
+
+        if geo_c == None:
+            geo_c = geo
+
+        # Generating comparison table
+        table_c = table_amhi_shelter_cost(geo_c, IsComparison = True)
+
+        # Merging main and comparison table
+        table_j = table.merge(table_c, how = 'left', on = 'Income Category')
+
+        # Generating Callback output
 
         col_list = []
 
@@ -484,15 +505,6 @@ def update_table1(geo, geo_c, selected_columns, scale):
                 col_list.append({"name": ["Area", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], "id": i})
-
-        # Comparison
-
-        if geo_c == None:
-            geo_c = geo
-
-        table_c = table_amhi_shelter_cost(geo_c, IsComparison = True)
-
-        table_j = table.merge(table_c, how = 'left', on = 'Income Category')
 
         for i in table_c.columns[1:]:
             col_list.append({"name": [geo_c, i], "id": i})
@@ -557,8 +569,10 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
 
 
-# Percent of Households (HHs) in Core Housing Need, by Household Income Category
+# Percentage of Households in Core Housing Need, by Income Category, 2016
 
+
+# Plot dataframe generator
 def plot_df_core_housing_need_by_income(geo, IsComparison):
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -586,6 +600,7 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
 
     return plot_df
 
+# Callback logic for the plot update
 @callback(
     Output('graph', 'figure'),
     Input('main-area', 'data'),
@@ -595,14 +610,16 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
 )
 def update_geo_figure(geo, geo_c, scale, refresh):
 
+    # Single area mode
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -610,39 +627,53 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating dataframe for plot
         plot_df = plot_df_core_housing_need_by_income(geo, IsComparison = False)
 
+        # Generating plot
         fig = go.Figure()
         for i, c in zip(plot_df['Income_Category'], colors):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
             fig.add_trace(go.Bar(
-                y = plot_df_frag['Income_Category'],
-                x = plot_df_frag['Percent HH'],
-                name = i,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
-            ))
+                                y = plot_df_frag['Income_Category'],
+                                x = plot_df_frag['Percent HH'],
+                                name = i,
+                                marker_color = c,
+                                orientation = 'h', 
+                                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>'
+                        ))
 
+        # Plot layout settings
         fig.update_layout(
-            width = 900,
-            showlegend = False, 
-            legend=dict(font = dict(size = 9)), 
-            yaxis=dict(autorange="reversed"), 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            plot_bgcolor='#F8F9F9', 
-            title = f'Percentage of Households in Core Housing Need, by Income Category, 2016<br>{geo}', 
-            legend_title = "Income",
-            
-            )
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 10)) # title_font = dict(size = 10), 
-        fig.update_yaxes(tickfont = dict(size = 10), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)')
+                        width = 900,
+                        showlegend = False, 
+                        legend=dict(font = dict(size = 9)), 
+                        yaxis=dict(autorange="reversed"), 
+                        modebar_color = modebar_color, 
+                        modebar_activecolor = modebar_activecolor, 
+                        plot_bgcolor='#F8F9F9', 
+                        title = f'Percentage of Households in Core Housing Need, by Income Category, 2016<br>{geo}', 
+                        legend_title = "Income",          
+                        )
+        fig.update_xaxes(
+                        fixedrange = True, 
+                        range = [0, 1], 
+                        tickformat =  ',.0%', 
+                        title = '% of HH', 
+                        tickfont = dict(size = 10)
+                        )      
+        fig.update_yaxes(
+            tickfont = dict(size = 10), 
+            fixedrange = True, 
+            title = 'Income Categories<br>(Max. affordable shelter costs)'
+                        )
 
         return fig
 
-
+    # Comparison mode
     else:
+
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -654,11 +685,15 @@ def update_geo_figure(geo, geo_c, scale, refresh):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
-
-        plot_df = plot_df_core_housing_need_by_income(geo, IsComparison = False)
-
+        # Subplot setting for the comparison mode
         fig = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
 
+        # Main Plot
+
+        # Generating dataframe for main plot
+        plot_df = plot_df_core_housing_need_by_income(geo, IsComparison = False)
+
+        # Generating main plot
         n = 0
         for i, c, b in zip(plot_df['Income_Category'], colors, x_base):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
@@ -677,45 +712,58 @@ def update_geo_figure(geo, geo_c, scale, refresh):
 
         # Comparison plot
 
+        # Generating dataframe for comparison plot
         plot_df_c = plot_df_core_housing_need_by_income(geo_c, IsComparison = True)
 
+        # Generating comparison plot
         n = 0
         for i, c, b in zip(plot_df_c['Income_Category'], colors, x_base):
             plot_df_frag_c = plot_df_c.loc[plot_df_c['Income_Category'] == i, :]
             fig.add_trace(go.Bar(
-                y = plot_df_frag_c['Income_Category'],
-                x = plot_df_frag_c['Percent HH'],
-                name = b.replace(" Income", ""),
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
-                legendgroup = f'{n}',
-                showlegend = False,
-            ), row = 1, col = 2)
+                                y = plot_df_frag_c['Income_Category'],
+                                x = plot_df_frag_c['Percent HH'],
+                                name = b.replace(" Income", ""),
+                                marker_color = c,
+                                orientation = 'h', 
+                                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                                legendgroup = f'{n}',
+                                showlegend = False,
+                                ), row = 1, col = 2)
             n += 1
 
-
+        # Plot layout settings
         fig.update_layout(
-            title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
-            # font = dict(size = 10), 
-            showlegend = False, 
-            width = 900,
-            # margin=dict(l=100, r=100),
-            legend=dict(font = dict(size = 8)), 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            plot_bgcolor='#F8F9F9', 
-            legend_title = "Income")
-        # fig.update_layout(width = width_num, row = 1, col = 1)
-        # fig.update_layout(width = width_num, row = 1, col = 2) title_standoff = 5, 
-        fig.update_yaxes(fixedrange = True, autorange = "reversed", title_font = dict(size = 10), tickfont = dict(size = 10))
-        fig.update_xaxes(fixedrange = True, range = [0, 1], tickformat =  ',.0%', title = '% of HH', title_font = dict(size = 10), tickfont = dict(size = 10))
+                        title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
+                        showlegend = False, 
+                        width = 900,
+                        legend=dict(font = dict(size = 8)), 
+                        modebar_color = modebar_color, 
+                        modebar_activecolor = modebar_activecolor, 
+                        plot_bgcolor='#F8F9F9', 
+                        legend_title = "Income"
+                        )
+        fig.update_yaxes(
+                        fixedrange = True, 
+                        autorange = "reversed", 
+                        title_font = dict(size = 10), 
+                        tickfont = dict(size = 10)
+                        )
+        fig.update_xaxes(
+                        fixedrange = True, 
+                        range = [0, 1], 
+                        tickformat =  ',.0%', 
+                        title = '% of HH', 
+                        title_font = dict(size = 10), 
+                        tickfont = dict(size = 10)
+                        )
 
         return fig
 
 
-# Percent of Household Size Categories in Core Housing Need, by AMHI
 
+# Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016
+
+# Plot dataframe generator
 def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -754,7 +802,7 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     
     return plot_df
 
-
+# Callback logic for the plot update
 @callback(
     Output('graph2', 'figure'),
     Input('main-area', 'data'),
@@ -763,14 +811,18 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     Input('datatable-interactivity', 'selected_columns'),
 )
 def update_geo_figure2(geo, geo_c, scale, refresh):
-    
+
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -778,39 +830,55 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating dataframe for plot
         plot_df = plot_df_core_housing_need_by_amhi(geo, False)
 
+        # Generating plot
         fig2 = go.Figure()
 
         for h, c in zip(plot_df['HH_Size'].unique(), hh_colors):
             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
             fig2.add_trace(go.Bar(
-                y = plot_df_frag['Income_Category'],
-                x = plot_df_frag['Percent'],
-                name = h,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
-            ))
-            
+                                y = plot_df_frag['Income_Category'],
+                                x = plot_df_frag['Percent'],
+                                name = h,
+                                marker_color = c,
+                                orientation = 'h', 
+                                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
+                            ))
+
+        # Plot layout settings    
         fig2.update_layout(
-            legend_traceorder = 'normal', 
-            width = 900,
-            legend=dict(font = dict(size = 9)), 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            yaxis=dict(autorange="reversed"), 
-            barmode='stack', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016<br>{geo}', 
-            legend_title = "Household Size")
-        fig2.update_yaxes(tickfont = dict(size = 10), fixedrange = True, title = 'Income Categories<br>(Max. affordable shelter costs)') # title_font = dict(size = 10), 
-        fig2.update_xaxes(fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 10))
+                        legend_traceorder = 'normal', 
+                        width = 900,
+                        legend=dict(font = dict(size = 9)), 
+                        modebar_color = modebar_color, 
+                        modebar_activecolor = modebar_activecolor, 
+                        yaxis=dict(autorange="reversed"), 
+                        barmode='stack', 
+                        plot_bgcolor='#F8F9F9', 
+                        title = f'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016<br>{geo}', 
+                        legend_title = "Household Size"
+                        )
+        fig2.update_yaxes(
+                        tickfont = dict(size = 10), 
+                        fixedrange = True, 
+                        title = 'Income Categories<br>(Max. affordable shelter costs)'
+                        )
+        fig2.update_xaxes(
+                        fixedrange = True, 
+                        tickformat =  ',.0%', 
+                        title = '% of HH', 
+                        tickfont = dict(size = 10)
+                        )
 
         return fig2
 
+
+    # Comparison mode
     else:
 
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
             geo_c = geo_c
@@ -821,10 +889,15 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
-        plot_df = plot_df_core_housing_need_by_amhi(geo, False)
-
+        # Subplot setting for the comparison mode
         fig2 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
 
+        # Main Plot
+
+        # Generating dataframe for main plot
+        plot_df = plot_df_core_housing_need_by_amhi(geo, False)
+
+        # Generating main plot
         n = 0
         for h, c in zip(plot_df['HH_Size'].unique(), hh_colors):
             plot_df_frag = plot_df.loc[plot_df['HH_Size'] == h, :]
@@ -844,41 +917,50 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
 
         # Comparison plot
 
+        # Generating dataframe for comparison plot
         plot_df_c = plot_df_core_housing_need_by_amhi(geo_c, True)
 
+        # Generating comparison plot
         n = 0
         for h, c in zip(plot_df_c['HH_Size'].unique(), hh_colors):
             plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Size'] == h, :]
             fig2.add_trace(go.Bar(
-                y = plot_df_frag_c['Income_Category'],
-                x = plot_df_frag_c['Percent'],
-                name = h,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
-                legendgroup = f'{n}',
-                showlegend = False,
-            ), row = 1, col = 2)
+                                    y = plot_df_frag_c['Income_Category'],
+                                    x = plot_df_frag_c['Percent'],
+                                    name = h,
+                                    marker_color = c,
+                                    orientation = 'h', 
+                                    hovertemplate= '%{y}, ' + f'HH Size: {h} - ' + '%{x: .2%}<extra></extra>',
+                                    legendgroup = f'{n}',
+                                    showlegend = False,
+                                ), row = 1, col = 2)
             n += 1
 
+        # Plot layout settings
         fig2.update_layout(
-            # width = 900,
-            # margin=dict(r=100),
-            font = dict(size = 10), 
-            title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
-            legend_traceorder = 'normal', 
-            modebar_color = modebar_color,
-            modebar_activecolor = modebar_activecolor, 
-            barmode='stack', 
-            plot_bgcolor='#F8F9F9', 
-            legend_title = "Household Size", 
-            legend = dict(font = dict(size = 8))
-            )
-        
-        # title_standoff = 5, 
-
-        fig2.update_yaxes(title_font = dict(size = 10), tickfont = dict(size = 10), fixedrange = True, autorange = "reversed")
-        fig2.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH', tickfont = dict(size = 10))
+                            font = dict(size = 10), 
+                            title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
+                            legend_traceorder = 'normal', 
+                            modebar_color = modebar_color,
+                            modebar_activecolor = modebar_activecolor, 
+                            barmode='stack', 
+                            plot_bgcolor='#F8F9F9', 
+                            legend_title = "Household Size", 
+                            legend = dict(font = dict(size = 8))
+                            )
+        fig2.update_yaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 10), 
+                            fixedrange = True, 
+                            autorange = "reversed"
+                            )
+        fig2.update_xaxes(
+                            title_font = dict(size = 10), 
+                            fixedrange = True, 
+                            tickformat =  ',.0%', 
+                            title = '% of HH', 
+                            tickfont = dict(size = 10)
+                            )
 
         return fig2
 
@@ -886,6 +968,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
 
 # 2016 Affordable Housing Deficit
 
+# Table generator
 def table_core_affordable_housing_deficit(geo, IsComparison):
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -930,12 +1013,12 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
                 table2[f'{h} Person HH '] = h_hold_value 
 
     table2['Income Category'] = [
-                                        'Very low Income',
-                                        'Low Income',
-                                        'Moderate Income',
-                                        'Median Income',
-                                        'High Income'
-                                        ]
+                                'Very low Income',
+                                'Low Income',
+                                'Moderate Income',
+                                'Median Income',
+                                'High Income'
+                                ]
     
     table2['Total'] = table2.sum(axis = 1)
     row_total_csd = table2.sum(axis=0)
@@ -947,6 +1030,7 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
 
     return table2
 
+# Callback logic for the table update
 
 @callback(
     Output('datatable2-interactivity', 'columns'),
@@ -961,14 +1045,17 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
 )
 def update_table2(geo, geo_c, selected_columns, scale):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -976,10 +1063,12 @@ def update_table2(geo, geo_c, selected_columns, scale):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating table
         table2 = table_core_affordable_housing_deficit(geo, False)
         table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
                         '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
+        # Generating callback output to update table
         col_list = []
 
         style_cell_conditional=[
@@ -1050,7 +1139,11 @@ def update_table2(geo, geo_c, selected_columns, scale):
         return col_list, table2.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
+    # Comparison mode
+
     else:
+
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1062,9 +1155,31 @@ def update_table2(geo, geo_c, selected_columns, scale):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Main Table
+
+        # Generating main table
+
         table2 = table_core_affordable_housing_deficit(geo, False)
         table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
                         '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
+
+
+        # Comparison Table
+
+        if geo == None:
+            geo = default_value
+
+        # Generating comparison table
+
+        table2_c = table_core_affordable_housing_deficit(geo_c, True)
+        table2_c = table2_c[['Income Category', '1 Person HH ', '2 Person HH ',
+                        '3 Person HH ', '4 Person HH ', '5+ Person HH ', 'Total ']]
+
+        # Merging main and comparison table
+
+        table2_j = table2.merge(table2_c, how = 'left', on = 'Income Category')
+
+        # Generating Callback output
 
         col_list = []
 
@@ -1081,15 +1196,6 @@ def update_table2(geo, geo_c, selected_columns, scale):
                                                     precision=0
                                                     )})
 
-        # Comparison Table
-
-        if geo == None:
-            geo = default_value
-
-        table2_c = table_core_affordable_housing_deficit(geo_c, True)
-        table2_c = table2_c[['Income Category', '1 Person HH ', '2 Person HH ',
-                        '3 Person HH ', '4 Person HH ', '5+ Person HH ', 'Total ']]
-
         for i in table2_c.columns[1:]:
             if i == 'Income Category':
                 col_list.append({"name": ["Income Category", i], "id": i})
@@ -1101,9 +1207,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
                                                     group=Group.yes,
                                                     scheme=Scheme.fixed,
                                                     precision=0
-                                                    )})
-
-        table2_j = table2.merge(table2_c, how = 'left', on = 'Income Category')
+                                                    )})     
 
         style_cell_conditional=[
             {
@@ -1171,7 +1275,9 @@ def update_table2(geo, geo_c, selected_columns, scale):
 
 
 
-# Percentage of HHs in Core Housing Need by Priority Population
+# Percentage of Households in Core Housing Need by Priority Population, 2016
+
+# Preparing global variables for the table
 
 hh_category_dict = {
             'Percent Single Mother led HH in core housing need' : 'Single mother-led HH', 
@@ -1192,6 +1298,8 @@ hh_category_dict = {
 hh_columns = hh_category_dict.keys()
 hh_categories = list(hh_category_dict.values())
 
+# Plot dataframe generator
+
 def plot_df_core_housing_need_by_priority_population(geo):
 
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -1202,6 +1310,8 @@ def plot_df_core_housing_need_by_priority_population(geo):
     plot_df['Percent_HH'] = plot_df['Percent_HH'].fillna(0)
     
     return plot_df
+
+# Plot bar color generator
 
 def color_dict_core_housing_need_by_priority_population(plot_df):
 
@@ -1221,6 +1331,8 @@ def color_dict_core_housing_need_by_priority_population(plot_df):
     
     return color_dict
 
+# Callback logic for the plot update
+
 @callback(
     Output('graph5', 'figure'),
     Input('main-area', 'data'),
@@ -1230,13 +1342,18 @@ def color_dict_core_housing_need_by_priority_population(plot_df):
 )
 def update_geo_figure5(geo, geo_c, scale, refresh):
 
+    # Single area mode
+
     if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+
+        # When no area is selected
 
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1245,37 +1362,55 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating dataframe for plot and color lists
+
         plot_df = plot_df_core_housing_need_by_priority_population(geo)
         color_dict = color_dict_core_housing_need_by_priority_population(plot_df)
+
+        # Generating plot
 
         fig5 = go.Figure()
         for i in hh_categories:
             plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
             fig5.add_trace(go.Bar(
-                y = plot_df_frag['HH_Category'],
-                x = plot_df_frag['Percent_HH'],
-                name = i,
-                marker_color = color_dict[i],
-                orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
-                
-            ))
+                                y = plot_df_frag['HH_Category'],
+                                x = plot_df_frag['Percent_HH'],
+                                name = i,
+                                marker_color = color_dict[i],
+                                orientation = 'h', 
+                                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',                
+                                ))
+            
+        # Plot layout settings
         fig5.update_layout(
-            yaxis=dict(autorange="reversed"), 
-            width = 900,
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            showlegend = False, 
-            plot_bgcolor='#F8F9F9', 
-            title = f'Percentage of Households in Core Housing Need by Priority Population, 2016<br>{geo}', 
-            legend_title = "HH Category"
-            )
-        fig5.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], title = '% of Priority Population HH')
-        fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
+                            yaxis=dict(autorange="reversed"), 
+                            width = 900,
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            showlegend = False, 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'Percentage of Households in Core Housing Need by Priority Population, 2016<br>{geo}', 
+                            legend_title = "HH Category"
+                            )
+        fig5.update_xaxes(
+                            title_font = dict(size = 10), 
+                            fixedrange = True, 
+                            tickformat =  ',.0%', 
+                            range=[0, math.ceil(plot_df['Percent_HH'].max()*10)/10], 
+                            title = '% of Priority Population HH'
+                            )
+        fig5.update_yaxes(
+                            fixedrange = True, 
+                            tickfont = dict(size = 8)
+                            )
 
         return fig5
 
+    # Comparison mode
+
     else:
+
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1287,57 +1422,82 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Subplot setting for the comparison mode 
+        fig5 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        # Main Plot
+
+        # Generating dataframe for main plot and color list
+
         plot_df = plot_df_core_housing_need_by_priority_population(geo)
         color_dict = color_dict_core_housing_need_by_priority_population(plot_df)
 
-        fig5 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+        # Generating main plot
 
         for i in hh_categories:
             plot_df_frag = plot_df.loc[plot_df['HH_Category'] == i, :]
             fig5.add_trace(go.Bar(
-                y = plot_df_frag['HH_Category'],
-                x = plot_df_frag['Percent_HH'],
-                name = i,
-                marker_color = color_dict[i],
-                orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
-                
-            ),row = 1, col = 1)
+                                y = plot_df_frag['HH_Category'],
+                                x = plot_df_frag['Percent_HH'],
+                                name = i,
+                                marker_color = color_dict[i],
+                                orientation = 'h', 
+                                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                                ),row = 1, col = 1)
 
         # Comparison Plot
+
+        # Generating dataframe for comparison plot and color list
 
         plot_df_c = plot_df_core_housing_need_by_priority_population(geo_c)
         color_dict = color_dict_core_housing_need_by_priority_population(plot_df_c)
 
+        # Generating comparison plot
+
         for i in hh_categories:
             plot_df_frag_c = plot_df_c.loc[plot_df_c['HH_Category'] == i, :]
             fig5.add_trace(go.Bar(
-                y = plot_df_frag_c['HH_Category'],
-                x = plot_df_frag_c['Percent_HH'],
-                name = i,
-                marker_color = color_dict[i],
-                orientation = 'h', 
-                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
-                
-            ),row = 1, col = 2)
+                                y = plot_df_frag_c['HH_Category'],
+                                x = plot_df_frag_c['Percent_HH'],
+                                name = i,
+                                marker_color = color_dict[i],
+                                orientation = 'h', 
+                                hovertemplate= '%{y} - ' + '%{x: .2%}<extra></extra>',
+                                ),row = 1, col = 2)
+
+        # Plot layout settings
+
         fig5.update_layout(
-            title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
-            width = 900,
-            legend = dict(font = dict(size = 8)),
-            yaxis=dict(autorange="reversed"), 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            showlegend = False, 
-            plot_bgcolor='#F8F9F9', 
-            legend_title = "HH Category"
-            )
-        fig5.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 8), tickformat =  ',.0%', fixedrange = True, range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10], title = '% of Priority Population HH')
-        fig5.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
+                            title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
+                            width = 900,
+                            legend = dict(font = dict(size = 8)),
+                            yaxis=dict(autorange="reversed"), 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            showlegend = False, 
+                            plot_bgcolor='#F8F9F9', 
+                            legend_title = "HH Category"
+                            )
+        fig5.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 8), 
+                            tickformat =  ',.0%', 
+                            fixedrange = True, 
+                            range=[0, math.ceil(max(plot_df['Percent_HH'].max(), plot_df_c['Percent_HH'].max())*10)/10], 
+                            title = '% of Priority Population HH'
+                            )
+        fig5.update_yaxes(
+                            fixedrange = True, 
+                            tickfont = dict(size = 8)
+                            )
 
         return fig5
 
 
-# Percentage of HHs in Core Housing Need by Priority Population and Income
+
+# Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016
+
+# Preparing global variables for the table
 
 hh_category_dict2 = {
                     'Percent of Single Mother led HH in core housing need' : 'Single mother-led HH', 
@@ -1390,6 +1550,8 @@ columns4 = hh_category_dict4.keys()
 
 income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
 
+# Plot dataframe generator
+
 def plot_df_core_housing_need_by_priority_population_income(geo):
     
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
@@ -1417,6 +1579,7 @@ def plot_df_core_housing_need_by_priority_population_income(geo):
     
     return plot_df
 
+# Callback logic for the plot update
 
 @callback(
     Output('graph6', 'figure'),
@@ -1427,16 +1590,19 @@ def plot_df_core_housing_need_by_priority_population_income(geo):
 )
 def update_geo_figure6(geo, geo_c, scale, refresh):
 
+    # Overried income category values
     income_category_override = ['Very Low', 'Low', 'Moderate', 'Median', 'High']
-    
-    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
 
+    # Single area mode
+        
+    if geo == geo_c or geo_c == None or (geo == None and geo_c != None):
+        # When no area is selected
         if geo == None and geo_c != None:
             geo = geo_c
         elif geo == None and geo_c == None:
             geo = default_value
 
-
+        # Area Scaling up/down when user clicks area scale button on page 1
         if "to-geography-1" == scale:
             geo = geo
         elif "to-region-1" == scale:
@@ -1444,40 +1610,54 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         elif "to-province-1" == scale:
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
 
+        # Generating dataframe for plot
         plot_df = plot_df_core_housing_need_by_priority_population_income(geo)
 
+        # Generating plot
         fig6 = go.Figure()
 
         for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
-                y = plot_df_frag['HH_Category'],
-                x = plot_df_frag['Percent'],
-                name = o,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
-            ))
+                                    y = plot_df_frag['HH_Category'],
+                                    x = plot_df_frag['Percent'],
+                                    name = o,
+                                    marker_color = c,
+                                    orientation = 'h', 
+                                    hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
+                                ))
             
+        # Plot layout settings
         fig6.update_layout(
-            width = 900,
-            legend_traceorder="normal", 
-            font = dict(size = 10), 
-            legend = dict(font = dict(size = 9)), 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            yaxis=dict(autorange="reversed"), 
-            barmode='stack', 
-            plot_bgcolor='#F8F9F9', 
-            title = f'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016<br>{geo}', 
-            legend_title = "Income Category"
-            )
-        fig6.update_xaxes(title_font = dict(size = 10), fixedrange = True, tickformat =  ',.0%', title = '% of HH')
-        fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
+                            width = 900,
+                            legend_traceorder="normal", 
+                            font = dict(size = 10), 
+                            legend = dict(font = dict(size = 9)), 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            yaxis=dict(autorange="reversed"), 
+                            barmode='stack', 
+                            plot_bgcolor='#F8F9F9', 
+                            title = f'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016<br>{geo}', 
+                            legend_title = "Income Category"
+                            )
+        fig6.update_xaxes(
+                            title_font = dict(size = 10), 
+                            fixedrange = True, 
+                            tickformat =  ',.0%', 
+                            title = '% of HH'
+                            )
+        fig6.update_yaxes(
+                            fixedrange = True, 
+                            tickfont = dict(size = 8)
+                            )
 
         return fig6
 
+    # Comparison mode
     else:
+
+        # Area Scaling up/down when user clicks area scale button on page 1
 
         if "to-geography-1" == scale:
             geo = geo
@@ -1489,64 +1669,84 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
             geo = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo,:]['Province'].tolist()[0]
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
+        # Subplot setting for the comparison mode
+        fig6 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+
+        # Main Plot
+
+        # Generating dataframe for main plot
         plot_df = plot_df_core_housing_need_by_priority_population_income(geo)
 
-        fig6 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
+        # Generating main plot
 
         n = 0
         for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag = plot_df.loc[plot_df['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
-                y = plot_df_frag['HH_Category'],
-                x = plot_df_frag['Percent'],
-                name = o,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
-                legendgroup= f'{n}'
-            ), row = 1, col = 1)
+                                    y = plot_df_frag['HH_Category'],
+                                    x = plot_df_frag['Percent'],
+                                    name = o,
+                                    marker_color = c,
+                                    orientation = 'h', 
+                                    hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
+                                    legendgroup= f'{n}'
+                                ), row = 1, col = 1)
             n += 1
             
         # Comparison plot
 
+        # Generating dataframe for comparison plot
         plot_df_c = plot_df_core_housing_need_by_priority_population_income(geo_c)
+
+        # Generating comparison plot
 
         n = 0
         for i, c, o in zip(plot_df['Income_Category'].unique(), colors, income_category_override):
             plot_df_frag_c = plot_df_c.loc[plot_df_c['Income_Category'] == i, :]
             fig6.add_trace(go.Bar(
-                y = plot_df_frag_c['HH_Category'],
-                x = plot_df_frag_c['Percent'],
-                name = o,
-                marker_color = c,
-                orientation = 'h', 
-                hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
-                legendgroup = f'{n}',
-                showlegend = False
-            ), row = 1, col = 2)
+                                    y = plot_df_frag_c['HH_Category'],
+                                    x = plot_df_frag_c['Percent'],
+                                    name = o,
+                                    marker_color = c,
+                                    orientation = 'h', 
+                                    hovertemplate= '%{y}, ' + f'{o} Income - ' + '%{x: .2%}<extra></extra>',
+                                    legendgroup = f'{n}',
+                                    showlegend = False
+                                ), row = 1, col = 2)
             n += 1
-            
+        
+        # Plot layout settings
+
         fig6.update_layout(
-            title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
-            width = 900,
-            font = dict(size = 10), 
-            legend = dict(font = dict(size = 8)), 
-            legend_traceorder="normal", 
-            modebar_color = modebar_color, 
-            modebar_activecolor = modebar_activecolor, 
-            yaxis=dict(autorange="reversed"), 
-            barmode='stack', 
-            plot_bgcolor='#F8F9F9', 
-            legend_title = "Income Category"
-            )
-        fig6.update_xaxes(title_font = dict(size = 10), tickfont = dict(size = 8), fixedrange = True, tickformat =  ',.0%', title = '% of HH')
-        fig6.update_yaxes(fixedrange = True, tickfont = dict(size = 8))
+                            title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
+                            width = 900,
+                            font = dict(size = 10), 
+                            legend = dict(font = dict(size = 8)), 
+                            legend_traceorder="normal", 
+                            modebar_color = modebar_color, 
+                            modebar_activecolor = modebar_activecolor, 
+                            yaxis=dict(autorange="reversed"), 
+                            barmode='stack', 
+                            plot_bgcolor='#F8F9F9', 
+                            legend_title = "Income Category"
+                            )
+        fig6.update_xaxes(
+                            title_font = dict(size = 10), 
+                            tickfont = dict(size = 8), 
+                            fixedrange = True, 
+                            tickformat =  ',.0%', 
+                            title = '% of HH'
+                            )
+        fig6.update_yaxes(
+                            fixedrange = True, 
+                            tickfont = dict(size = 8)
+                            )
 
         return fig6
 
 
 
-# Creating raw csv data file for download option
+# Creating raw csv data file when user clicks Download Raw Data button
 
 @callback(
     Output("ov7-download-text", "data"),
