@@ -338,6 +338,52 @@ layout = html.Div(children = [
 )
 
 
+style_data_conditional=[
+    {
+        'if': {'row_index': 0},
+        'backgroundColor': '#b0e6fc',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 1},
+        'backgroundColor': '#74d3f9',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 2},
+        'backgroundColor': '#b0e6fc',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 3},
+        'backgroundColor': '#74d3f9',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 4},
+        'backgroundColor': '#b0e6fc',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 5},
+        'backgroundColor': '#39c0f7',
+        'color': '#000000'
+    },
+]
+
+style_header_conditional=[
+    {
+        'if': {'header_index': 0},
+        'backgroundColor': '#002145',
+        'color': '#FFFFFF'
+    },
+    {
+        'if': {'header_index': 1},
+        'backgroundColor': '#39C0F7',
+        'color': '#000000'
+    },
+]
+
 
 # Plot/table generators and callbacks
 
@@ -426,41 +472,6 @@ def update_table1(geo, geo_c, selected_columns, scale):
             }
         ]
 
-        style_data_conditional=[
-            {
-                'if': {'row_index': 0},
-                'backgroundColor': '#39C0F7',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 1},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 2},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 3},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 4},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-        ]
-
-        style_header_conditional=[
-            {
-                'backgroundColor': '#002145',
-                'color': '#FFFFFF'
-            },
-        ]
-
         return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
     # Comparison mode    
@@ -527,41 +538,6 @@ def update_table1(geo, geo_c, selected_columns, scale):
                 'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
-        ]
-
-        style_data_conditional=[
-            {
-                'if': {'row_index': 0},
-                'backgroundColor': '#39C0F7',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 1},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 2},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 3},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 4},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-        ]
-
-        style_header_conditional=[
-            {
-                'backgroundColor': '#002145',
-                'color': '#FFFFFF'
-            },
         ]
 
         return col_list, table_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
@@ -1085,47 +1061,6 @@ def update_table2(geo, geo_c, selected_columns, scale):
             }
         ]
 
-
-        style_data_conditional=[
-            {
-                'if': {'row_index': 0},
-                'backgroundColor': '#39C0F7',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 1},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 2},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 3},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 4},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 5},
-                'backgroundColor': '#39c0f7',
-                'color': '#000000'
-            },
-        ]
-
-        style_header_conditional=[
-            {
-                'backgroundColor': '#002145',
-                'color': '#FFFFFF'
-            },
-        ]
-
         for i in table2.columns:
             col_list.append({"name": [geo, i],
                                     "id": i, 
@@ -1229,46 +1164,6 @@ def update_table2(geo, geo_c, selected_columns, scale):
                 'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
-        ]
-
-        style_data_conditional=[
-            {
-                'if': {'row_index': 0},
-                'backgroundColor': '#39C0F7',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 1},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 2},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 3},
-                'backgroundColor': '#b0e6fc',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 4},
-                'backgroundColor': '#74d3f9',
-                'color': '#000000'
-            },
-            {
-                'if': {'row_index': 5},
-                'backgroundColor': '#39c0f7',
-                'color': '#000000'
-            },
-        ]
-
-        style_header_conditional=[
-            {
-                'backgroundColor': '#002145',
-                'color': '#FFFFFF'
-            },
         ]
 
         return col_list, table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional

@@ -486,27 +486,27 @@ layout = html.Div(children = [
 style_data_conditional=[
     {
         'if': {'row_index': 0},
-        'backgroundColor': '#39C0F7',
+        'backgroundColor': '#b0e6fc',
         'color': '#000000'
     },
     {
         'if': {'row_index': 1},
-        'backgroundColor': '#b0e6fc',
+        'backgroundColor': '#74d3f9',
         'color': '#000000'
     },
     {
         'if': {'row_index': 2},
-        'backgroundColor': '#74d3f9',
-        'color': '#000000'
-    },
-    {
-        'if': {'row_index': 3},
         'backgroundColor': '#b0e6fc',
         'color': '#000000'
     },
     {
-        'if': {'row_index': 4},
+        'if': {'row_index': 3},
         'backgroundColor': '#74d3f9',
+        'color': '#000000'
+    },
+    {
+        'if': {'row_index': 4},
+        'backgroundColor': '#b0e6fc',
         'color': '#000000'
     },
     {
@@ -518,8 +518,14 @@ style_data_conditional=[
 
 style_header_conditional=[
     {
+        'if': {'header_index': 0},
         'backgroundColor': '#002145',
         'color': '#FFFFFF'
+    },
+    {
+        'if': {'header_index': 1},
+        'backgroundColor': '#39C0F7',
+        'color': '#000000'
     },
 ]
 
@@ -671,7 +677,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         ] + [
             {
                 'if': {'column_id': table1.columns[0]},
-                'backgroundColor': columns_color_fill[0]
+                'backgroundColor': columns_color_fill[0],
             }
         ]
 
