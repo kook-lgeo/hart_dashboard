@@ -117,29 +117,6 @@
   overflow: hidden;
 }
 
-/* @media (max-width: 900px) {
-  .background-pg2-lgeo  {
-    width: 90%;
-    height: 1100px;
-    display: inline-block;
-    padding-left: 2%;
-    padding-right: 2%;
-    overflow: hidden;
-  }
-}
-
-
-@media (min-width: 900px) {
-  .background-pg2-lgeo  {
-    width: 90%;
-    display: inline-block;
-    padding-left: 2%;
-    padding-right: 2%;
-  }
-} */
-
-
-
 .background-pg2-lgeo {
   width: 1100px;
   display: block;
@@ -155,17 +132,6 @@
   padding-right: 2%;
   overflow: hidden;
 }
-
-/* @media (max-width: 900px) {
-.background-pg2-lgeo {
-width: 90%;
-height: 1100px;
-display: block;
-padding-left: 2%;
-padding-right: 2%;
-overflow: hidden;
-}
-} */
 
 @media (max-width: 500px) {
   .background-pg2-lgeo  {
@@ -193,19 +159,6 @@ overflow: hidden;
   }
 }
 
-
-/* @media (max-width: 1000px) {
-.background-pg3-lgeo {
-width: 90%;
-height: 1800px;
-display: block;
-padding-left: 2%;
-padding-right: 2%;
-overflow: hidden;
-}
-} */
-
-
 @media (max-width: 500px) {
   .background-pg3-lgeo  {
     width: 1250px;
@@ -231,30 +184,6 @@ overflow: hidden;
     margin-right:-950px;
   }
 }
-
-
-/* @media (max-width: 1000px) {
-  .background-pg3-lgeo  {
-    width: 90%;
-    height: 1800px;
-    display: inline-block;
-    padding-left: 2%;
-    padding-right: 2%;
-    overflow: hidden;
-  }
-}
-
-
-@media (min-width: 1000px) {
-  .background-pg3-lgeo  {
-    width: 90%;
-    display: inline-block;
-    padding-left: 2%;
-    padding-right: 2%;
-  }
-} */
-
-
 
 .dashboard-pg1-lgeo {
   width: 90%;
@@ -262,12 +191,6 @@ overflow: hidden;
   padding-left: 2%;
   padding-right: 2%;
   padding-bottom: 2%;
-
-  /*border-left-style: solid;
-  border-left-color: #4A8F97;
-  border-left-width: 1pt; */
-  /* background-color: #F3F4F5; */
-
 }
 
 .dashboard-lgeo {
@@ -275,14 +198,7 @@ overflow: hidden;
   display: block;
   padding-left: 2%;
   padding-right: 2%;
-
-  /*border-left-style: solid;
-  border-left-color: #4A8F97;
-  border-left-width: 1pt; */
-  /* background-color: #F3F4F5; */
 }
-
-
 
 @media (max-width: 1000px) {
   .dashboard-pg2-lgeo  {
@@ -290,10 +206,6 @@ overflow: hidden;
     display: block;
     padding-left: 2%;
     padding-right: 2%;
-    /* transform:scale(0.28); */
-    /* transform-origin: left top; */
-    /* margin-bottom:-2000px;
-    margin-right:-100px; */
   }
 }
 
@@ -304,10 +216,6 @@ overflow: hidden;
     display: block;
     padding-left: 2%;
     padding-right: 2%;
-    /* transform:scale(0.50);
-    transform-origin: left top; */
-    /* margin-bottom:-2000px;
-    margin-right:-100px; */
   }
 }
 
@@ -317,10 +225,6 @@ overflow: hidden;
     display: block;
     padding-left: 2%;
     padding-right: 2%;
-    /* transform:scale(0.28); */
-    /* transform-origin: left top; */
-    /* margin-bottom:-2000px;
-    margin-right:-100px; */
   }
 }
 
@@ -334,15 +238,9 @@ overflow: hidden;
 
   }
 }
-
 
 .dropdown-box-lgeo {
-  /* width: 70%; */
   display: inline;
-  /* padding-right: 30px;
-  padding-bottom: 10px;
-  padding-top: 20px;
-  */
 }
 
 .dropdown-lgeo {
@@ -353,16 +251,7 @@ overflow: hidden;
   padding-top: 20px;
 }
 
-/* .scale-buttons-lgeo {
-  width: 100%;
-  display: inline;
-  padding-bottom: 5px;
-  padding-top: 5px;
-
-} */
-
 .scale-button-box-lgeo {
-  /* width: 100%; */
   display: block;
   padding-bottom: 5px;
   padding-top: 5px;
@@ -371,7 +260,6 @@ overflow: hidden;
 }
 
 .region-button-box-lgeo {
-  /* width: 280px; */
   display: inline-block;
   padding-right: 10px;
   padding-top: 1%;
@@ -379,25 +267,16 @@ overflow: hidden;
 
 .region-button-lgeo {
   width: 270px;
-  /* display: inline-block;
-  padding-right: 10px;
-  padding-top: 1%; */
 }
 
 
 .reset-button-lgeo {
-  /* width: 100%; */
   display: block;
-  /* padding-bottom: 20px; */
   padding-top: 10px;
 
 }
 
-
-
-
 .map-lgeo {
-  /* width: 100%;  */
   display: inline;
 }
 
@@ -440,18 +319,10 @@ overflow: hidden;
 }
 
 .pg2-table-lgeo {
-  /* width: 80%; */
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
-
-/* .pg2-plot-lgeo {
-  width: 80%;
-  display: inline-block;
-} */
-
 
 .pg2-plot-lgeo {
   width: 95%;
@@ -461,14 +332,7 @@ overflow: hidden;
   margin-left: 0;
 }
 
-/* .pg2-plot2-lgeo {
-  width: 80%;
-  display: block;
-  padding-top: 1%;
-} */
-
 .pg2-table-plot-box-lgeo {
-  /* width: 100%; */
   display: block;
   padding-top: 1%;
 }
@@ -479,42 +343,29 @@ overflow: hidden;
 }
 
 .pg3-table-lgeo {
-  /* width: 90%; */
   display: block;
   padding-bottom: 1.5%;
 }
 
 .pg3-table-plot-box-lgeo {
-  /* width: 90%; */
   display: block;
   padding-top: 1%;
 }
-
-/* .js-plotly-plot .plotly .user-select-none {
-  display: block;
-  width: 99%;
-}
-
-.user-select-none.svg-container {
-  display: block;
-  width: 99%;
-} */
-
-/* .pg3-table-plot-box-lgeo {
-  width: 100%;
-  display: inline-block;
-  padding-bottom: 1%;
-} */
 
 .muni-reg-text-lgeo{
   width: 90%;
   padding-bottom: 1%;
 }
 
+.lgeo-credit-text {
+  padding-top: 5%;
+  font-size: 1.5rem;
+  color: #0B4952;
+}
+
 .export{
   margin-bottom: 5%;
 }
-
 
 
 .tables {

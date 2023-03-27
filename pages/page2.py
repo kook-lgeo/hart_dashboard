@@ -172,7 +172,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2016'), id = 'visualization'),
                 # Description
                 html.Div([
-                    html.H6('This chart shows the percentage of total households that are in Core Housing Need for each income category. The maximum affordable shelter cost is also indicated in brackets for each income category.')
+                    html.H6('Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of households falls within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
             # Graph
@@ -199,7 +199,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. If there are no households in Core Housing Need within an income category then there will be no bar for that category.')
+                    html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. When there is no bar for an income category, it means that either there are no households in Core Housing Need within an income category, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -272,7 +272,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2016'), id = 'visualization5'),
                 # Description
                 html.Div([
-                    html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. Where a zero sum appears, data suppression is likely employed.')
+                    html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
                 # Graphs
@@ -296,7 +296,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016'), id = 'visualization6'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. Where a zero sum appears, data suppression is likely employed.')
+                    html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
                 # Graphs
@@ -327,9 +327,9 @@ layout = html.Div(children = [
         
         # LGEO
 
-            # html.Div([
-            #         ('This dashboard was created in collaboration with LGeo, a geospatial consulting firm based in Vancouver, BC. If you have questions or comments regarding the dashboard they can be reached at (our email)')
-            #     ], className = 'muni-reg-text-lgeo', style = {'padding-top': '3%', "font_size": "0.5rem"}),
+            html.Div([
+                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/)', target="_blank"),' using Plotly.'
+                ], className = 'lgeo-credit-text'),
 
 
         ], className = 'dashboard-pg2-lgeo'

@@ -81,7 +81,7 @@ layout = html.Div(children = [
                     html.H3(children = html.Strong('2026 Household Projections by Income Category'), className = 'subtitle-lgeo'),
                     # Table Description
                     html.Div([
-                        html.H6('This table shows the total number of households in 2016, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
+                        html.H6('This table shows the total number of households in 2016, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026 by applying the percentage change from 2006-2016, to 2016 households.')
                     ], className = 'muni-reg-text-lgeo'),
 
                     # Table
@@ -117,7 +117,7 @@ layout = html.Div(children = [
 
                     # Graph Description
                     html.Div([
-                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each income category, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
+                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each income category, with the projected gain of households between 2016 and 2026 stacked on top, and the projected loss of household stacked underneath.')
                     ], className = 'muni-reg-text-lgeo'),
 
                     # Graph
@@ -145,7 +145,7 @@ layout = html.Div(children = [
                     # Table Description
 
                     html.Div([
-                        html.H6('This table shows the total number of households in 2016, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026.')
+                        html.H6('This table shows the total number of households in 2016, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 10-year period between 2016 and 2026 by applying the percentage change from 2006-2016, to 2016 households.')
                     ], className = 'muni-reg-text-lgeo'),
 
                     # Table
@@ -171,7 +171,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
                     ], className = 'pg3-table-lgeo'
@@ -182,7 +181,7 @@ layout = html.Div(children = [
                     # Graph Description
 
                     html.Div([
-                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each size of household, with the projected gain or loss of households between 2016 and 2026 stacked on top.')
+                        html.H6('This graph illustrates the above table, displaying the total number of households in 2016, for each size of household, with the projected gain of households between 2016 and 2026 stacked on top, and the projected loss of household stacked underneath.')
                     ], className = 'muni-reg-text-lgeo'),
 
                     # Graph
@@ -234,7 +233,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
                     ], className = 'pg3-table-lgeo'
@@ -299,7 +297,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
                     ], className = 'pg3-table-lgeo'
@@ -310,7 +307,7 @@ layout = html.Div(children = [
                     # Graph Description
 
                     html.Div([
-                        html.H6('This graph illustrates the above table, displaying the projected gain or loss of households between 2016 and 2026 for each size of household. Each bar is broken out by the projected number of households within each income category.')
+                        html.H6('This graph illustrates the above table, displaying the projected gain or loss of households between 2016 and 2026 for each size of household. Each bar is broken out by the projected number of households within each income category. Projected loss of households are stacked underneath.')
                     ], className = 'muni-reg-text-lgeo'),
 
                     # Graph
@@ -334,7 +331,7 @@ layout = html.Div(children = [
                     html.H3(children = html.Strong('Municipal vs Regional Growth Rates'), className = 'subtitle-lgeo'),
 
                     # Description
-                    html.H6('Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. There are numerous potential causes for discrepencies, which are further discussed in the project methods (link)')
+                    html.H6(['Comparing a local community’s growth rates to the growth rate of the region allows for insight into if the community is matching regional patterns of change. There are numerous potential causes for discrepencies, which are further discussed in ', html.A('the project methods.', href = 'https://hartstg.wpengine.com/wp-content/uploads/2023/03/HNA-Methodology.pdf', target="_blank")])
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -375,7 +372,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
                     ], className = 'pg3-table-lgeo'
@@ -438,7 +434,6 @@ layout = html.Div(children = [
                             style_cell = {'font-family': 'Bahnschrift'},
                             merge_duplicate_headers=True,
                             export_format="xlsx",
-                            # style_table={'minWidth': '100%'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
                         ),
 
@@ -466,6 +461,13 @@ layout = html.Div(children = [
                     className = 'pg3-plot-lgeo'
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
+
+            # LGEO
+
+            html.Div([
+                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/)', target="_blank"),' using Plotly.'
+                ], className = 'lgeo-credit-text'),
+
 
         ]),
 
