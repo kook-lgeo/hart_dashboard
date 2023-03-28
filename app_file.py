@@ -1,5 +1,5 @@
 
-# Define the Dash App and it's attributes here 
+# Defining the Dash App and it's attributes
 
 import dash
 import dash_bootstrap_components as dbc

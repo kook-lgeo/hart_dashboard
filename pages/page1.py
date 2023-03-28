@@ -44,7 +44,7 @@ gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 
 # Importing subregions which don't have data
 
-not_avail = pd.read_csv('not_in_list.csv')
+not_avail = pd.read_csv('./sources/not_in_list.csv')
 not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Configuration for plot icons
