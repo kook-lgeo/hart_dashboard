@@ -133,6 +133,14 @@
   overflow: hidden;
 }
 
+.background-pg4-lgeo {
+  width: 1100px;
+  display: block;
+  padding-left: 2%;
+  padding-right: 2%;
+  overflow: hidden;
+}
+
 @media (max-width: 500px) {
   .background-pg2-lgeo  {
     width: 1000px;
@@ -184,6 +192,34 @@
     margin-right:-950px;
   }
 }
+
+
+@media (max-width: 500px) {
+  .background-pg4-lgeo  {
+    width: 1000px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.33);
+    transform-origin: left top;
+    margin-bottom:-2000px;
+    margin-right:-1000px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 500px) {
+  .background-pg4-lgeo  {
+    width: 1000px;
+    display: inline-block;
+    padding-left: 2%;
+    padding-right: 2%;
+    transform:scale(0.60);
+    transform-origin: left top;
+    margin-bottom:-2000px;
+    margin-right:-1000px;
+  }
+}
+
 
 .dashboard-pg1-lgeo {
   width: 90%;
@@ -238,6 +274,26 @@
 
   }
 }
+
+@media (max-width: 1000px) {
+  .dashboard-pg4-lgeo  {
+    width: 1000px;
+    display: block;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
+
+
+@media (min-width: 1000px) {
+  .dashboard-pg4-lgeo  {
+    width: 90%;
+    display: block;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
+
 
 .dropdown-box-lgeo {
   display: inline;
@@ -351,6 +407,27 @@
   display: block;
   padding-top: 1%;
 }
+
+
+.pg4-table-lgeo {
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.pg4-plot-lgeo {
+  width: 95%;
+  display: block;
+  padding-top: 1%;
+  padding-left: 0.5%;
+  margin-left: 0;
+}
+
+.pg4-table-plot-box-lgeo {
+  display: block;
+  padding-top: 1%;
+}
+
 
 .muni-reg-text-lgeo{
   width: 90%;

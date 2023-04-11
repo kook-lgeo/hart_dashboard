@@ -19,17 +19,15 @@ df_partners = df_partners.rename(columns = {'index': 'pk'})
 
 # Importing csd_hhprojection
 
-# df_csd_projection = pd.read_csv("./sources/csd_hhprojections.csv")
 df_csd_projection = pd.read_csv('./sources/updated_csd.csv')
 
 # Importing cd_hhprojection
 
-# df_cd_projection = pd.read_csv("./sources/cd_hhprojections.csv")
 df_cd_projection = pd.read_csv("./sources/updated_cd.csv")
 
-# Importing cd_growthrate
+# Importing indigenous dataset
 
-# df_cd_growthrate = pd.read_csv("./sources/cd_growthrate.csv")
+df_ind = pd.read_csv("./sources/indigenous_230329_r2.csv")
 
 # Preprocessing for Geocode Mapping Tables
 
@@ -90,6 +88,19 @@ class Partners(Base):
         vars()[f'{i}'] = Column(Float)
 
 Partners.__table__.create(bind=engine, checkfirst=True)
+
+class Indigenous(Base):
+    __tablename__ = "indigenous"
+    
+    # define your primary key
+    pk = Column(Integer, primary_key=True, comment='primary key')
+
+    # columns except pk
+    Geography = Column(String)
+    for i in df_ind.columns[1:]:
+        vars()[f'{i}'] = Column(Float)
+
+Indigenous.__table__.create(bind=engine, checkfirst=True)
 
 class Income(Base):
     __tablename__ = "income"
@@ -196,20 +207,7 @@ class CDHHProjections(Base):
 
 CDHHProjections.__table__.create(bind=engine, checkfirst=True)
 
-# class CDGrowthRates(Base):
-#     __tablename__ = "cd_growthrates"
-    
-#     # define your primary key
-#     Geo_Code = Column(Integer, primary_key=True, comment='primary key')
 
-#     # columns except pk
-#     for i in df_cd_growthrate.columns[1:]:
-#         if df_cd_growthrate.dtypes[i] =='int64':
-#             vars()[f'{i}'] = Column(Integer)
-#         else:
-#             vars()[f'{i}'] = Column(String)
-
-# CDGrowthRates.__table__.create(bind=engine, checkfirst=True)
 
 # Inserting data
 
@@ -217,6 +215,9 @@ conn = engine.connect()
 
 for i in range(0, len(df_partners)):
     conn.execute(insert(Partners), [df_partners.loc[i,:].to_dict()])
+
+for i in range(0, len(df_ind)):
+    conn.execute(insert(Indigenous), [df_ind.loc[i,:].to_dict()])
 
 for i in range(0, len(df_income)):
     conn.execute(insert(Income), [df_income.loc[i,:].to_dict()])
@@ -238,9 +239,6 @@ for i in range(0, len(df_csd_projection)):
 
 for i in range(0, len(df_cd_projection)):
     conn.execute(insert(CDHHProjections), [df_cd_projection.loc[i,:].to_dict()])
-
-# for i in range(0, len(df_cd_growthrate)):
-#     conn.execute(insert(CDGrowthRates), [df_cd_growthrate.loc[i,:].to_dict()])
 
 conn.close()
 

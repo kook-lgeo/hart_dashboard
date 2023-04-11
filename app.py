@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 from app_file import app
 
 # Connect to app pages
-from pages import page1, page2, page3
+from pages import page1, page2, page3, page4
 
 # Define the index page layout
 app.layout = html.Div([
@@ -25,6 +25,8 @@ def display_page(pathname):
         return page2.layout
     if pathname == '/page3':
         return page3.layout
+    if pathname == '/page4':
+        return page4.layout
     else: # if redirected to unknown link
         return "404 Page Error! Please choose a link" 
 
