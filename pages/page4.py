@@ -114,10 +114,10 @@ layout = html.Div(children = [
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs for Indigenous Household, 2016'), id = 'visualization3'),
+                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'visualization3'),
                 # Description
                 html.Div([
-                    html.H6('This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
+                    html.H6('This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households that fall within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
             # Table
@@ -188,7 +188,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. When there is no bar for an income category, it means that either there are no households in Core Housing Need within an income category, or that there are too few households to report.')
+                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -212,10 +212,10 @@ layout = html.Div(children = [
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('2016 Affordable Housing Deficit of Indigenous Household'), id = 'visualization4'),
+                html.H3(children = html.Strong('2016 Affordable Housing Deficit for Indigenous Households'), id = 'visualization4'),
                 # Description
                 html.Div([
-                    html.H6('This table shows the total number of Indigenous households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
+                    html.H6('This table shows the total number of Indigenous households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community. Where there are zero households to report, it means there are too few to report while protecting privacy.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -356,10 +356,10 @@ def table_amhi_shelter_cost_ind(geo, IsComparison):
         shelter_list.append(joined_df_filtered[s].tolist()[0])
 
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs': portion_of_total_hh , 'Annual Indigenous HH Income': amhi_list, 'Affordable Shelter Cost (2015 CAD$)': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs': portion_of_total_hh , 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2015 CAD$)': shelter_list})
         table['% of Total Indigenous HHs'] = table['% of Total Indigenous HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs ': portion_of_total_hh , 'Annual Indigenous HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
         table['% of Total Indigenous HHs '] = table['% of Total Indigenous HHs '].astype(str) + '%'
 
     return table
@@ -407,7 +407,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         col_list = []
 
         for i in table.columns:
-            col_list.append({"name": [geo, i], "id": i})
+            col_list.append({"name": [geo + " (Indigenous HH)", i], "id": i})
 
         style_cell_conditional=[
             {
@@ -462,7 +462,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
         for i in table.columns:
             if i == 'Income Category':
-                col_list.append({"name": ["Area", i], "id": i})
+                col_list.append({"name": ["Area (Indigenous HH)", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], "id": i})
 
@@ -861,7 +861,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
         ]
 
         for i in table2.columns:
-            col_list.append({"name": [geo, i],
+            col_list.append({"name": [geo + " (Indigenous HH)", i],
                                     "id": i, 
                                     "type": 'numeric', 
                                     "format": Format(
@@ -971,7 +971,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
 
         for i in table2.columns:
             if i == 'Income Category':
-                col_list.append({"name": ["Area", i], "id": i})
+                col_list.append({"name": ["Area (Indigenous HH)", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
                                     "id": i, 
