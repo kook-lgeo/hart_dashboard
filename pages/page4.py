@@ -745,11 +745,12 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     percent = plot_df.groupby('Income_Category')['Percent'].sum().reset_index()
     percent = percent.rename(columns = {'Percent':'Sum'})
     plot_df_final = plot_df.merge(percent, how = 'left', on = 'Income_Category')
+    plot_df_final['Income_Category'] = x_list * 5
     plot_df_final['Percent'] = plot_df_final['Percent'] / plot_df_final['Sum']
     plot_df_final['Percent'] = plot_df_final['Percent'].fillna(0)
     plot_df_final = plot_df_final.drop(columns = ['Sum'])
     
-    table = pd.DataFrame({'Income_Category': plot_df['Income_Category'].drop_duplicates()})\
+    table = pd.DataFrame({'Income_Category': x_base})\
             .merge(plot_df.pivot_table(values = 'Percent', index = 'Income_Category', columns = 'HH_Size').reset_index(), \
                   how = 'left', on = 'Income_Category')
 
@@ -765,6 +766,7 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
         table.columns = ['Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
         table['Total '] = table.sum(axis=1)
     
+    print(plot_df_final)
     
     return plot_df_final, table
 
@@ -888,7 +890,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
             geo_c = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo_c,:]['Province'].tolist()[0]
 
         # Subplot setting for the comparison mode
-        fig2 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True, shared_yaxes=True)
+        fig2 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_xaxes=True)
 
         # Main Plot
 
