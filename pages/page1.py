@@ -44,20 +44,18 @@ gdf_p_code_added = gdf_p_code_added.set_index('Geo_Code')
 
 # Importing subregions which don't have data
 
-not_avail = pd.read_csv('./sources/not_in_list.csv')
+not_avail = pd.read_sql_table('not_available_csd', engine.connect())
 not_avail['CSDUID'] = not_avail['CSDUID'].astype(str)
 
 # Configuration for plot icons
 
 config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove': ['zoom', 'lasso2d', 'pan', 'select', 'autoScale', 'resetScale', 'resetViewMapbox']}
 
-
 # Colors for map
 
 map_colors_province = ['#1a3758', '#78cb80', '#74d3f9', '#a480bb', '#80c2c0', '#7480dd', '#ffe6d6', '#e98098', '#b6657c', '#490076', '#008481', '#622637']
 map_colors_wo_black = ['#7480dd', '#1a3758', '#7480dd', '#b6657c', '#622637', '#80c2c0', '#78cb80', '#ffe6d6', '#e98098', '#a480bb', '#490076', '#008481', '#74d3f9']
 map_colors_w_black = ['#000000', '#1a3758', '#7480dd', '#b6657c', '#622637', '#80c2c0', '#78cb80', '#ffe6d6', '#e98098', '#a480bb', '#490076', '#008481', '#74d3f9']
-
 
 # Map color opacity
 

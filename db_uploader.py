@@ -1,4 +1,5 @@
 # import sqlalchemy
+
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, Float, MetaData
@@ -28,6 +29,12 @@ df_cd_projection = pd.read_csv("./sources/updated_cd.csv")
 # Importing indigenous dataset
 
 df_ind = pd.read_csv("./sources/indigenous_230329_r2.csv")
+
+# Importing list of CSDs we don't have data
+
+df_nil = pd.read_csv("./sources/not_in_list.csv")
+df_nil['PK'] = df_nil['CSDUID']
+df_nil = df_nil[['PK', 'CSDUID']]
 
 # Preprocessing for Geocode Mapping Tables
 
@@ -70,7 +77,7 @@ province_code_table = mapped_geo_code[['Province_Code', 'Province']].drop_duplic
 
 # Defining sqlalchemy engine
 
-engine = create_engine('sqlite:///L:\\Projects\\22005 - Housing Needs Assessment\\Scripts\\Dashboard\\dashboard_prototype_kook_practice\\sources\\hart.db')#, echo=True)
+engine = create_engine('sqlite:///L:\\Projects\\22005 - Housing Needs Assessment\\Scripts\\Dashboard\\Code_Package\\sources\\hart.db')#, echo=True)
 
 # Creating tables
 
@@ -207,7 +214,20 @@ class CDHHProjections(Base):
 
 CDHHProjections.__table__.create(bind=engine, checkfirst=True)
 
+class NotInList(Base):
+    __tablename__ = "not_available_csd"
+    
+    # define your primary key
+    Geo_Code = Column(Integer, primary_key=True, comment='primary key')
+    
+    # columns except pk
+    for i in df_nil.columns[1:]:
+        if df_nil.dtypes[i] =='int64':
+            vars()[f'{i}'] = Column(Integer)
+        else:
+            vars()[f'{i}'] = Column(Float)
 
+NotInList.__table__.create(bind=engine, checkfirst=True)
 
 # Inserting data
 
@@ -239,6 +259,9 @@ for i in range(0, len(df_csd_projection)):
 
 for i in range(0, len(df_cd_projection)):
     conn.execute(insert(CDHHProjections), [df_cd_projection.loc[i,:].to_dict()])
+
+for i in range(0, len(df_nil)):
+    conn.execute(insert(NotInList), [df_nil.loc[i,:].to_dict()])
 
 conn.close()
 

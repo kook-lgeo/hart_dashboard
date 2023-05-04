@@ -188,7 +188,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
+                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given household) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -335,7 +335,7 @@ def table_amhi_shelter_cost_ind(geo, IsComparison):
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
     portion_of_total_hh = []
-    # print(x_base)
+
     for x in x_base_echn:
         portion_of_total_hh.append(joined_df_filtered[f'Aboriginal household status-Total - Private households by tenure including presence of mortgage payments and subsidized housing-Households with income {x}'].tolist()[0])
     
@@ -765,8 +765,6 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     else:
         table.columns = ['Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
         table['Total '] = table.sum(axis=1)
-    
-    print(plot_df_final)
     
     return plot_df_final, table
 
