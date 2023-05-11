@@ -492,7 +492,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         return col_list, table_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
-# Plot1
+# Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016
 
 column_format = 'Aboriginal household status-Total - Private households by tenure including presence of mortgage payments and subsidized housing-Households with income '
 echn_columns = [column_format + e for e in x_base_echn]
@@ -696,7 +696,8 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         return fig
     
 
-# plot2, table2
+# Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016 (plot)
+# and 2016 Affordable Housing Deficit for Indigenous Households (table)
 
 # plot df, table generator
 def plot_df_core_housing_need_by_amhi(geo, IsComparison):
@@ -1019,6 +1020,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
 
         return fig2, col_list, table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
+# Download This Community
 
 @callback(
     Output("ov7-download-text_ind", "data"),
