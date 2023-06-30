@@ -133,11 +133,12 @@ layout = html.Div(children = [
 
             # Table
 
+
                 html.Div([
                     dash_table.DataTable(
                         id='datatable-interactivity',
                         columns=[
-                            {"name": i, "id": i, "deletable": False, "selectable": False} for i in table.columns
+                            {"name": i, 'id': i, "deletable": False, "selectable": False} for i in table.columns
                         ],
                         data=table.to_dict('records'),
                         editable=True,
@@ -154,7 +155,7 @@ layout = html.Div(children = [
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
                         style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        style_header = {'textAlign': 'center', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable-interactivity-container')
                 ], className = 'pg2-table-lgeo'
@@ -328,7 +329,7 @@ layout = html.Div(children = [
         # LGEO
 
             html.Div([
-                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/)', target="_blank"),' using Plotly.'
+                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/', target="_blank"),' using Plotly.'
                 ], className = 'lgeo-credit-text'),
 
 
@@ -368,7 +369,7 @@ style_data_conditional=[
         'if': {'row_index': 5},
         'backgroundColor': '#39c0f7',
         'color': '#000000'
-    },
+    }
 ]
 
 style_header_conditional=[
@@ -382,6 +383,12 @@ style_header_conditional=[
         'backgroundColor': '#39C0F7',
         'color': '#000000'
     },
+    {
+        'if': {'header_index': 2},
+        'backgroundColor': '#39C0F7',
+        'color': '#000000'
+
+    }
 ]
 
 
@@ -407,14 +414,28 @@ def table_amhi_shelter_cost(geo, IsComparison):
     for s in shelter_range:
         shelter_list.append(joined_df_filtered[s].tolist()[0])
 
+    joined_df_geo_index = joined_df_filtered.set_index('Geography')
+    # pdb.set_trace()
+    median_income = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Median income of household ($)']))
+    # print(joined_df_geo_index.at[geo, 'Median income of household ($)'])
+    median_rent = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Rent AMHI']))
+
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs': portion_of_total_hh , 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2015 CAD$)': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2015 CAD$)': shelter_list, 'Annual HH Income': amhi_list, '% of Total HHs': portion_of_total_hh})
         table['% of Total HHs'] = table['% of Total HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost ': shelter_list, 'Annual HH Income ': amhi_list, '% of Total HHs ': portion_of_total_hh})
         table['% of Total HHs '] = table['% of Total HHs '].astype(str) + '%'
 
-    return table
+    # table.loc[-1] = ['Area Median Household Income', '',median_income, median_rent]
+    # table.index = table.index + 1  # shifting index
+    # table.sort_index(inplace=True)
+    # column_combination = [('Area Median Household Income', 'Income Category'),
+    #                       ('Area Median Household Income', '% of Total HHs '),
+    #                       (median_income, 'Annual HH Income '), (median_rent, 'Affordable Shelter Cost ')]
+    # table.columns = pd.MultiIndex.from_tuples(column_combination).swaplevel(0, 1)
+
+    return table, median_income, median_rent
 
 
 # Callback logic for the table update
@@ -452,13 +473,23 @@ def update_table1(geo, geo_c, selected_columns, scale):
             geo = geo
 
         # Generating table
-        table = table_amhi_shelter_cost(geo, IsComparison = False)
+        table, median_income, median_rent = table_amhi_shelter_cost(geo, IsComparison = False)
     
         # Generating callback output to update table
         col_list = []
+        #
+        median_row = ['Area Median Household Income', median_rent, median_income, ""]
+        for i,j  in zip(list(table.columns), median_row):
+            col_list.append({"name": [geo, i, j], "id": i})
+        # Setting geography as index to fetch median rent and income data
 
-        for i in table.columns:
-            col_list.append({"name": [geo, i], "id": i})
+
+        # table_columns = list(table.columns)
+        # geo_row = [geo] * 4
+        # mapped_list = [item for pair in zip(geo_row, table_columns, median_row + [0])
+        #                          for item in pair]
+        # col_list = {"name": mapped_list, "id": mapped_list[i] for i in ran}
+        # print(table.to_dict('record'), col_list)
 
         style_cell_conditional=[
             {
@@ -471,7 +502,6 @@ def update_table1(geo, geo_c, selected_columns, scale):
                 'backgroundColor': columns_color_fill[0]
             }
         ]
-
         return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
     # Comparison mode    
@@ -492,7 +522,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         # Main Table
 
         # Generating main table
-        table = table_amhi_shelter_cost(geo, IsComparison = False)
+        table, median_income, median_rent = table_amhi_shelter_cost(geo, IsComparison = False)
  
 
 
@@ -502,7 +532,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
             geo_c = geo
 
         # Generating comparison table
-        table_c = table_amhi_shelter_cost(geo_c, IsComparison = True)
+        table_c, median_income_c, median_rent_c = table_amhi_shelter_cost(geo_c, IsComparison = True)
 
         # Merging main and comparison table
         table_j = table.merge(table_c, how = 'left', on = 'Income Category')
@@ -511,14 +541,29 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
         col_list = []
 
-        for i in table.columns:
-            if i == 'Income Category':
-                col_list.append({"name": ["Area", i], "id": i})
-            else:
-                col_list.append({"name": [geo, i], "id": i})
+        median_row = ['Area Median Household Income', median_rent,  median_income, ""]
+        median_row_c = [median_rent_c, median_income_c, ""]
 
-        for i in table_c.columns[1:]:
-            col_list.append({"name": [geo_c, i], "id": i})
+        # for i, j in zip(list(table.columns), median_row):
+        #     col_list.append({"name": [geo, i, j], "id": i})
+
+        for i, j in zip(list(table.columns), median_row):
+            if i == 'Income Category':
+                col_list.append({"name": ["Area", i, j], "id": i})
+            else:
+                col_list.append({"name": [geo, i, j], "id": i})
+
+        for i, j in zip(list(table_c.columns[1:]), median_row_c):
+            col_list.append({"name": [geo_c, i, j], "id": i})
+
+        # for i in table.columns:
+        #     if i == 'Income Category':
+        #         col_list.append({"name": ["Area", i], "id": i})
+        #     else:
+        #         col_list.append({"name": [geo, i], "id": i})
+        #
+        # for i in table_c.columns[1:]:
+        #     col_list.append({"name": [geo_c, i], "id": i})
 
         style_cell_conditional=[
             {
@@ -558,20 +603,24 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
     i = 0
     for b, c in zip(x_base, x_columns):
         value = joined_df_filtered[c].tolist()[0]
+        # print(i, b,c, value, type(value))
         if i < 4:
             if IsComparison != True:
-                x = b + '<br>' + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + value + ")"
+                # print(x)
             else:
-                x = " ($" + f'{value:,}' + ") "
+                x = " ($" + value + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + value + ")"
             else:
-                x = " (>$" + f'{value:,}' + ") "
+                x = " (>$" + value + ") "
             x_list.append(x)
         i += 1
 
+    x_list = [sub.replace('$$', '$') for sub in x_list]
+    x_list = [sub.replace('.0', '') for sub in x_list]
     plot_df = pd.DataFrame({'Income_Category': x_list, 'Percent HH': joined_df_filtered[columns].T.iloc[:,0].tolist()})
 
     return plot_df
@@ -751,19 +800,21 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + '<br>' + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + value + ")"
             else:
-                x = " ($" + f'{value:,}' + ") "
+                x = " ($" + value + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + value + ")"
             else:
-                x = " (>$" + f'{value:,}' + ") "
+                x = " (>$" + value + ") "
             x_list.append(x)
         i += 1
 
     income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
+    x_list = [sub.replace('$$', '$') for sub in x_list]
+    x_list = [sub.replace('.0', '') for sub in x_list]
 
     h_hold_value = []
     hh_p_num_list_full = []
@@ -1280,6 +1331,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
         fig5.update_layout(
                             yaxis=dict(autorange="reversed"), 
                             width = 900,
+                            height=500,
                             modebar_color = modebar_color, 
                             modebar_activecolor = modebar_activecolor, 
                             showlegend = False, 
@@ -1296,7 +1348,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                             )
         fig5.update_yaxes(
                             fixedrange = True, 
-                            tickfont = dict(size = 8)
+                            tickfont = dict(size = 10)
                             )
 
         return fig5
@@ -1365,6 +1417,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
         fig5.update_layout(
                             title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
                             width = 900,
+                            height = 500,
                             legend = dict(font = dict(size = 8)),
                             yaxis=dict(autorange="reversed"), 
                             modebar_color = modebar_color, 
@@ -1383,7 +1436,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                             )
         fig5.update_yaxes(
                             fixedrange = True, 
-                            tickfont = dict(size = 8)
+                            tickfont = dict(size = 10)
                             )
 
         return fig5
@@ -1525,8 +1578,9 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         # Plot layout settings
         fig6.update_layout(
                             width = 900,
+                            height=500,
                             legend_traceorder="normal", 
-                            font = dict(size = 10), 
+                            font = dict(size = 10),
                             legend = dict(font = dict(size = 9)), 
                             modebar_color = modebar_color, 
                             modebar_activecolor = modebar_activecolor, 
@@ -1544,7 +1598,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                             )
         fig6.update_yaxes(
                             fixedrange = True, 
-                            tickfont = dict(size = 8)
+                            tickfont = dict(size = 10)
                             )
 
         return fig6
@@ -1615,6 +1669,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         fig6.update_layout(
                             title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
                             width = 900,
+                            height=500,
                             font = dict(size = 10), 
                             legend = dict(font = dict(size = 8)), 
                             legend_traceorder="normal", 
@@ -1634,7 +1689,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                             )
         fig6.update_yaxes(
                             fixedrange = True, 
-                            tickfont = dict(size = 8)
+                            tickfont = dict(size = 10)
                             )
 
         return fig6

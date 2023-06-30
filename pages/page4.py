@@ -143,7 +143,7 @@ layout = html.Div(children = [
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
                         style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'text-align': 'middle', 'fontWeight': 'bold'}
+                        style_header = {'textAlign': 'center', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable-interactivity-container_ind')
                 ], className = 'pg4-table-lgeo'
@@ -159,24 +159,26 @@ layout = html.Div(children = [
             html.Div([
                 # Title
                 html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016'), id = 'visualization'),
+
+                # Graph
+
+                html.Div(children=[
+
+                    dcc.Graph(
+                        id='graph_ind',
+                        figure=fig,
+                        config=config,
+                    )
+                ],
+                    className='pg4-plot-lgeo'
+
+                ),
                 # Description
                 html.Div([
                     html.H6('Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
-            # Graph
 
-                html.Div(children = [ 
-
-                    dcc.Graph(
-                        id='graph_ind',
-                        figure=fig,
-                        config = config,
-                    )
-                ],
-                    className = 'pg4-plot-lgeo'
-
-                ),
 
             ], className = 'pg4-table-plot-box-lgeo'),
 
@@ -186,15 +188,10 @@ layout = html.Div(children = [
             html.Div([
                 # Title
                 html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
-                # Description
-                html.Div([
-                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given household) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
-                ], className = 'muni-reg-text-lgeo'),
-
 
                 # Graph
 
-                html.Div(children = [ 
+                html.Div(children = [
 
                     dcc.Graph(
                         id='graph2_ind',
@@ -204,6 +201,14 @@ layout = html.Div(children = [
                 ],
                     className = 'pg4-plot-lgeo'
                 ),
+
+                # Description
+                html.Div([
+                    html.H6('This chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given household) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
+                ], className = 'muni-reg-text-lgeo'),
+
+
+
 
             ], className = 'pg4-table-plot-box-lgeo'),
 
@@ -321,6 +326,12 @@ style_header_conditional=[
         'backgroundColor': '#39C0F7',
         'color': '#000000'
     },
+    {
+        'if': {'header_index': 2},
+        'backgroundColor': '#39C0F7',
+        'color': '#000000'
+
+    }
 ]
 
 
@@ -355,14 +366,20 @@ def table_amhi_shelter_cost_ind(geo, IsComparison):
     for s in shelter_range:
         shelter_list.append(joined_df_filtered[s].tolist()[0])
 
+    joined_df_geo_index = joined_df_filtered.set_index('Geography')
+    # pdb.set_trace()
+    median_income = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Median income of household ($)']))
+    # print(median_income)
+    median_rent = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Rent AMHI']))
+
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs': portion_of_total_hh , 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2015 CAD$)': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2015 CAD$)': shelter_list , 'Annual HH Income': amhi_list, '% of Total Indigenous HHs': portion_of_total_hh})
         table['% of Total Indigenous HHs'] = table['% of Total Indigenous HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs ': portion_of_total_hh , 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
+        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost ': shelter_list , 'Annual HH Income ': amhi_list, '% of Total Indigenous HHs ': portion_of_total_hh})
         table['% of Total Indigenous HHs '] = table['% of Total Indigenous HHs '].astype(str) + '%'
 
-    return table
+    return table, median_income, median_rent
 
 
 
@@ -401,13 +418,16 @@ def update_table1(geo, geo_c, selected_columns, scale):
             geo = geo
 
         # Generating table
-        table = table_amhi_shelter_cost_ind(geo, IsComparison = False)
+        table, median_income, median_rent = table_amhi_shelter_cost_ind(geo, IsComparison = False)
     
         # Generating callback output to update table
         col_list = []
+        median_row = ['Area Median Household Income', median_rent, median_income, ""]
 
-        for i in table.columns:
-            col_list.append({"name": [geo + " (Indigenous HH)", i], "id": i})
+        # for i in table.columns:
+        #     col_list.append({"name": [geo + " (Indigenous HH)", i], "id": i})
+        for i, j in zip(list(table.columns), median_row):
+            col_list.append({"name": [geo + " (Indigenous HH)", i, j], "id": i})
 
         style_cell_conditional=[
             {
@@ -441,7 +461,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         # Main Table
 
         # Generating main table
-        table = table_amhi_shelter_cost_ind(geo, IsComparison = False)
+        table, median_income, median_rent = table_amhi_shelter_cost_ind(geo, IsComparison = False)
  
 
 
@@ -451,7 +471,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
             geo_c = geo
 
         # Generating comparison table
-        table_c = table_amhi_shelter_cost_ind(geo_c, IsComparison = True)
+        table_c, median_income_c, median_rent_c = table_amhi_shelter_cost_ind(geo_c, IsComparison = True)
 
         # Merging main and comparison table
         table_j = table.merge(table_c, how = 'left', on = 'Income Category')
@@ -459,15 +479,26 @@ def update_table1(geo, geo_c, selected_columns, scale):
         # Generating Callback output
 
         col_list = []
+        median_row = ['Area Median Household Income', median_rent, median_income, ""]
+        median_row_c = [median_rent_c, median_income_c, ""]
 
-        for i in table.columns:
+        for i, j in zip(list(table.columns), median_row):
             if i == 'Income Category':
-                col_list.append({"name": ["Area (Indigenous HH)", i], "id": i})
+                col_list.append({"name": ["Area (Indigenous HH)", i, j], "id": i})
             else:
-                col_list.append({"name": [geo, i], "id": i})
+                col_list.append({"name": [geo, i, j], "id": i})
 
-        for i in table_c.columns[1:]:
-            col_list.append({"name": [geo_c, i], "id": i})
+        for i, j in zip(list(table_c.columns[1:]), median_row_c):
+            col_list.append({"name": [geo_c, i, j], "id": i})
+
+        # for i in table.columns:
+        #     if i == 'Income Category':
+        #         col_list.append({"name": ["Area (Indigenous HH)", i], "id": i})
+        #     else:
+        #         col_list.append({"name": [geo, i], "id": i})
+        #
+        # for i in table_c.columns[1:]:
+        #     col_list.append({"name": [geo_c, i], "id": i})
 
         style_cell_conditional=[
             {
@@ -510,17 +541,20 @@ def plot_df_core_housing_need_by_income(geo, IsComparison):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + '<br>' + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + value + ")"
             else:
-                x = " ($" + f'{value:,}' + ") "
+                x = " ($" + value + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + value + ")"
             else:
-                x = " (>$" + f'{value:,}' + ") "
+                x = " (>$" + value + ") "
             x_list.append(x)
         i += 1
+
+    x_list = [sub.replace('$$', '$') for sub in x_list]
+    x_list = [sub.replace('.0', '') for sub in x_list]
 
     plot_df = pd.DataFrame({
             'Income_Category': x_list, 
@@ -711,17 +745,20 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + '<br>' + " ($" + f'{value:,}' + ")"
+                x = b + '<br>' + " ($" + value + ")"
             else:
-                x = " ($" + f'{value:,}' + ") "
+                x = " ($" + value + ") "
             x_list.append(x)
         else:
             if IsComparison != True:
-                x = b + '<br>' + " (>$" + f'{value:,}' + ")"
+                x = b + '<br>' + " (>$" + value + ")"
             else:
-                x = " (>$" + f'{value:,}' + ") "
+                x = " (>$" + value + ") "
             x_list.append(x)
         i += 1
+
+    x_list = [sub.replace('$$', '$') for sub in x_list]
+    x_list = [sub.replace('.0', '') for sub in x_list]
 
     income_lv_list = [
         '20% or under of area median household income (AMHI)', 
