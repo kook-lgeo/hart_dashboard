@@ -1,4 +1,5 @@
 # import sqlalchemy
+import pdb
 
 import pandas as pd
 from sqlalchemy import create_engine
@@ -8,13 +9,15 @@ from sqlalchemy import insert
 
 # Importing income data
 
-df_income = pd.read_csv("./sources/income.csv")
+df_income = pd.read_csv("./sources/income_2021.csv")
+# df_income = pd.read_csv("./sources/income.csv")
 df_income = df_income.reset_index()
 df_income = df_income.rename(columns = {'index': 'pk'})
 
 # Importing partners data
 
-df_partners = pd.read_csv("./sources/partners_small_230324_name_revised_r4.csv")
+df_partners = pd.read_csv("./sources/partners_2021.csv")
+# df_partners = pd.read_csv("./sources/partners_small_230324_name_revised_r4.csv")
 df_partners = df_partners.reset_index()
 df_partners = df_partners.rename(columns = {'index': 'pk'})
 
@@ -28,13 +31,18 @@ df_cd_projection = pd.read_csv("./sources/updated_cd.csv")
 
 # Importing indigenous dataset
 
-df_ind = pd.read_csv("./sources/indigenous_230329_r2.csv")
+df_ind = pd.read_csv("./sources/indigenous_2021.csv")
+# df_ind = pd.read_csv("./sources/indigenous_230329_r2.csv")
 
 # Importing list of CSDs we don't have data
 
-df_nil = pd.read_csv("./sources/not_in_list.csv")
+df_nil = pd.read_csv("./sources/not_in_list_2021.csv")
+# df_nil = pd.read_csv("./sources/not_in_list.csv")
 df_nil['PK'] = df_nil['CSDUID']
 df_nil = df_nil[['PK', 'CSDUID']]
+
+# Importing all provinces
+df_provinces = pd.read_excel('../../../Source/2021/2021_Provinces.xlsx')
 
 # Preprocessing for Geocode Mapping Tables
 
@@ -42,6 +50,7 @@ geo_code = df_income['Geography']
 
 def geo_code_extractor(geography):
     geo = geography.split()
+    # print(geo)
     for g in geo:
         if g[0] == '(' and g[1].isdigit():
             g = g.replace("(", "")
@@ -75,6 +84,15 @@ region_code_table = region_code_table.drop(columns = ['index'])
 
 province_code_table = mapped_geo_code[['Province_Code', 'Province']].drop_duplicates()
 
+df_provinces['PRUID'] = df_provinces['PRUID'].astype(str)
+province_code_table = province_code_table.merge(df_provinces[['PRUID', 'PRENAME']],
+                                                how='left', left_on='Province_Code', right_on='PRUID')
+province_code_table['Province'] = province_code_table['Province'].fillna(province_code_table['PRENAME'] + ' (Province)')
+province_code_table = province_code_table[['Province_Code', 'Province']]
+
+# print(province_code_table)
+# pdb.set_trace()
+
 # Defining sqlalchemy engine
 
 engine = create_engine('sqlite:///L:\\Projects\\22005 - Housing Needs Assessment\\Scripts\\Dashboard\\Code_Package\\sources\\hart.db')#, echo=True)
@@ -85,7 +103,7 @@ Base = declarative_base()
 
 class Partners(Base):
     __tablename__ = "partners"
-    
+
     # define your primary key
     pk = Column(Integer, primary_key=True, comment='primary key')
 
