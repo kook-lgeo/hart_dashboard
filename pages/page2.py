@@ -121,11 +121,11 @@ layout = html.Div(children = [
         html.Div(
         children = [
 
-        # Income Categories and Affordable Shelter Costs, 2016
+        # Income Categories and Affordable Shelter Costs, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'visualization3'),
+                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2021'), id = 'visualization3'),
                 # Description
                 html.Div([
                     html.H6('This table shows the range of household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of households falls within each category.')
@@ -165,12 +165,12 @@ layout = html.Div(children = [
             ], className = 'pg2-table-plot-box-lgeo'),
 
 
-        # Percentage of Households in Core Housing Need, by Income Category, 2016
+        # Percentage of Households in Core Housing Need, by Income Category, 2021
 
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2016'), id = 'visualization'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category, 2021'), id = 'visualization'),
                 # Description
                 html.Div([
                     html.H6('Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of households falls within each category.')
@@ -193,11 +193,11 @@ layout = html.Div(children = [
             ], className = 'pg2-table-plot-box-lgeo'),
 
 
-        # Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016
+        # Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021'), id = 'visualization2'),
                 # Description
                 html.Div([
                     html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. When there is no bar for an income category, it means that either there are no households in Core Housing Need within an income category, or that there are too few households to report.')
@@ -220,11 +220,11 @@ layout = html.Div(children = [
             ], className = 'pg2-table-plot-box-lgeo'),
 
 
-        # 2016 Affordable Housing Deficit
+        # 2021 Affordable Housing Deficit
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('2016 Affordable Housing Deficit'), id = 'visualization4'),
+                html.H3(children = html.Strong('2021 Affordable Housing Deficit'), id = 'visualization4'),
                 # Description
                 html.Div([
                     html.H6('This table shows the total number of households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
@@ -266,11 +266,11 @@ layout = html.Div(children = [
             ], className = 'pg2-table-plot-box-lgeo'),
 
 
-        # Percentage of Households in Core Housing Need by Priority Population, 2016
+        # Percentage of Households in Core Housing Need by Priority Population, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2016'), id = 'visualization5'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2021'), id = 'visualization5'),
                 # Description
                 html.Div([
                     html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
@@ -290,11 +290,11 @@ layout = html.Div(children = [
                 ),
             ], className = 'pg2-table-plot-box-lgeo'),
 
-        # Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016
+        # Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016'), id = 'visualization6'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category,2021'), id = 'visualization6'),
                 # Description
                 html.Div([
                     html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
@@ -394,7 +394,7 @@ style_header_conditional=[
 
 # Plot/table generators and callbacks
 
-# Income Categories and Affordable Shelter Costs, 2016
+# Income Categories and Affordable Shelter Costs, 2021
 
 # Table generator
 def table_amhi_shelter_cost(geo, IsComparison):
@@ -590,7 +590,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
 
 
-# Percentage of Households in Core Housing Need, by Income Category, 2016
+# Percentage of Households in Core Housing Need, by Income Category, 2021
 
 
 # Plot dataframe generator
@@ -677,7 +677,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
                         modebar_color = modebar_color, 
                         modebar_activecolor = modebar_activecolor, 
                         plot_bgcolor='#F8F9F9', 
-                        title = f'Percentage of Households in Core Housing Need, by Income Category, 2016<br>{geo}', 
+                        title = f'Percentage of Households in Core Housing Need, by Income Category, 2021<br>{geo}',
                         legend_title = "Income",          
                         )
         fig.update_xaxes(
@@ -758,7 +758,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
 
         # Plot layout settings
         fig.update_layout(
-                        title = 'Percentage of Households in Core Housing Need, by Income Category, 2016',
+                        title = 'Percentage of Households in Core Housing Need, by Income Category, 2021',
                         showlegend = False, 
                         width = 900,
                         legend=dict(font = dict(size = 8)), 
@@ -786,7 +786,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
 
 
 
-# Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016
+# Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021
 
 # Plot dataframe generator
 def plot_df_core_housing_need_by_amhi(geo, IsComparison):
@@ -884,7 +884,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
                         yaxis=dict(autorange="reversed"), 
                         barmode='stack', 
                         plot_bgcolor='#F8F9F9', 
-                        title = f'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016<br>{geo}', 
+                        title = f'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021<br>{geo}',
                         legend_title = "Household Size"
                         )
         fig2.update_yaxes(
@@ -966,7 +966,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
         # Plot layout settings
         fig2.update_layout(
                             font = dict(size = 10), 
-                            title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016',
+                            title = 'Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021',
                             legend_traceorder = 'normal', 
                             modebar_color = modebar_color,
                             modebar_activecolor = modebar_activecolor, 
@@ -993,7 +993,7 @@ def update_geo_figure2(geo, geo_c, scale, refresh):
 
 
 
-# 2016 Affordable Housing Deficit
+# 2021 Affordable Housing Deficit
 
 # Table generator
 def table_core_affordable_housing_deficit(geo, IsComparison):
@@ -1221,7 +1221,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
 
 
 
-# Percentage of Households in Core Housing Need by Priority Population, 2016
+# Percentage of Households in Core Housing Need by Priority Population, 2021
 
 # Preparing global variables for the table
 
@@ -1336,7 +1336,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
                             modebar_activecolor = modebar_activecolor, 
                             showlegend = False, 
                             plot_bgcolor='#F8F9F9', 
-                            title = f'Percentage of Households in Core Housing Need by Priority Population, 2016<br>{geo}', 
+                            title = f'Percentage of Households in Core Housing Need by Priority Population, 2021<br>{geo}',
                             legend_title = "HH Category"
                             )
         fig5.update_xaxes(
@@ -1415,7 +1415,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
         # Plot layout settings
 
         fig5.update_layout(
-                            title = 'Percentage of Households in Core Housing Need by Priority Population, 2016',
+                            title = 'Percentage of Households in Core Housing Need by Priority Population, 2021',
                             width = 900,
                             height = 500,
                             legend = dict(font = dict(size = 8)),
@@ -1443,7 +1443,7 @@ def update_geo_figure5(geo, geo_c, scale, refresh):
 
 
 
-# Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016
+# Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021
 
 # Preparing global variables for the table
 
@@ -1587,7 +1587,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
                             yaxis=dict(autorange="reversed"), 
                             barmode='stack', 
                             plot_bgcolor='#F8F9F9', 
-                            title = f'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016<br>{geo}', 
+                            title = f'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021<br>{geo}',
                             legend_title = "Income Category"
                             )
         fig6.update_xaxes(
@@ -1667,7 +1667,7 @@ def update_geo_figure6(geo, geo_c, scale, refresh):
         # Plot layout settings
 
         fig6.update_layout(
-                            title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2016',
+                            title = 'Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021',
                             width = 900,
                             height=500,
                             font = dict(size = 10), 

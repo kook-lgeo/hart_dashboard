@@ -110,11 +110,11 @@ layout = html.Div(children = [
         html.Div(
         children = [
 
-        # Income Categories and Affordable Shelter Costs, 2016
+        # Income Categories and Affordable Shelter Costs, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2016'), id = 'visualization3'),
+                html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2021'), id = 'visualization3'),
                 # Description
                 html.Div([
                     html.H6('This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households that fall within each category.')
@@ -153,12 +153,12 @@ layout = html.Div(children = [
             ], className = 'pg4-table-plot-box-lgeo'),
 
 
-        # Percentage of Households in Core Housing Need, by Income Category, 2016
+        # Percentage of Households in Core Housing Need, by Income Category, 2021
 
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016'), id = 'visualization'),
+                html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category, 2021'), id = 'visualization'),
 
                 # Graph
 
@@ -183,11 +183,11 @@ layout = html.Div(children = [
             ], className = 'pg4-table-plot-box-lgeo'),
 
 
-        # Percentage of Households in Core Housing Need, by Income Category and HH Size, 2016
+        # Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016'), id = 'visualization2'),
+                html.H3(children = html.Strong('Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2021'), id = 'visualization2'),
 
                 # Graph
 
@@ -213,11 +213,11 @@ layout = html.Div(children = [
             ], className = 'pg4-table-plot-box-lgeo'),
 
 
-        # 2016 Affordable Housing Deficit
+        # 2021 Affordable Housing Deficit
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('2016 Affordable Housing Deficit for Indigenous Households'), id = 'visualization4'),
+                html.H3(children = html.Strong('2021 Affordable Housing Deficit for Indigenous Households'), id = 'visualization4'),
                 # Description
                 html.Div([
                     html.H6('This table shows the total number of Indigenous households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community. Where there are zero households to report, it means there are too few to report while protecting privacy.')
@@ -337,7 +337,7 @@ style_header_conditional=[
 
 # Plot/table generators and callbacks
 
-# Income Categories and Affordable Shelter Costs, 2016
+# Income Categories and Affordable Shelter Costs, 2021
 
 # Table generator
 
@@ -523,7 +523,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         return col_list, table_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
-# Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016
+# Percentage of Indigenous Households in Core Housing Need, by Income Category, 2021
 
 column_format = 'Aboriginal household status-Total - Private households by tenure including presence of mortgage payments and subsidized housing-Households with income '
 echn_columns = [column_format + e for e in x_base_echn]
@@ -622,7 +622,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
                         modebar_color = modebar_color, 
                         modebar_activecolor = modebar_activecolor, 
                         plot_bgcolor='#F8F9F9', 
-                        title = f'Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016<br>{geo}', 
+                        title = f'Percentage of Indigenous Households in Core Housing Need, by Income Category, 2021<br>{geo}',
                         legend_title = "Income",          
                         )
         fig.update_xaxes(
@@ -703,7 +703,7 @@ def update_geo_figure(geo, geo_c, scale, refresh):
 
         # Plot layout settings
         fig.update_layout(
-                        title = 'Percentage of Indigenous Households in Core Housing Need, by Income Category, 2016',
+                        title = 'Percentage of Indigenous Households in Core Housing Need, by Income Category, 2021',
                         showlegend = False, 
                         width = 900,
                         legend=dict(font = dict(size = 8)), 
@@ -730,8 +730,8 @@ def update_geo_figure(geo, geo_c, scale, refresh):
         return fig
     
 
-# Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016 (plot)
-# and 2016 Affordable Housing Deficit for Indigenous Households (table)
+# Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2021 (plot)
+# and 2021 Affordable Housing Deficit for Indigenous Households (table)
 
 # plot df, table generator
 def plot_df_core_housing_need_by_amhi(geo, IsComparison):
@@ -866,7 +866,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
                         yaxis=dict(autorange="reversed"), 
                         barmode='stack', 
                         plot_bgcolor='#F8F9F9', 
-                        title = f'Percentage of Indigenous Households in Core Housing Need, by Income and HH Size, 2016<br>{geo}', 
+                        title = f'Percentage of Indigenous Households in Core Housing Need, by Income and HH Size, 2021<br>{geo}',
                         legend_title = "Household Size"
                         )
         fig2.update_yaxes(
@@ -975,7 +975,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
         # Plot layout settings
         fig2.update_layout(
                             font = dict(size = 10), 
-                            title = 'Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2016',
+                            title = 'Percentage of Indigenous Households in Core Housing Need, by Income Category and HH Size, 2021',
                             legend_traceorder = 'normal', 
                             modebar_color = modebar_color,
                             modebar_activecolor = modebar_activecolor, 
