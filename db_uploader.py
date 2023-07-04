@@ -23,11 +23,13 @@ df_partners = df_partners.rename(columns = {'index': 'pk'})
 
 # Importing csd_hhprojection
 
-df_csd_projection = pd.read_csv('./sources/updated_csd.csv')
+# df_csd_projection = pd.read_csv('./sources/updated_csd.csv')
+df_csd_projection = pd.read_csv('./sources/updated_csd_2021.csv')
 
 # Importing cd_hhprojection
 
-df_cd_projection = pd.read_csv("./sources/updated_cd.csv")
+# df_cd_projection = pd.read_csv("./sources/updated_cd.csv")
+df_cd_projection = pd.read_csv("./sources/updated_cd_2021.csv")
 
 # Importing indigenous dataset
 
