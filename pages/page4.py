@@ -117,7 +117,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2021'), id = 'visualization3'),
                 # Description
                 html.Div([
-                    html.H6('This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households that fall within each category.')
+                    html.H6('This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of Indigenous households that fall within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
             # Table
@@ -175,7 +175,7 @@ layout = html.Div(children = [
                 ),
                 # Description
                 html.Div([
-                    html.H6('Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2015 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
+                    html.H6('Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -373,7 +373,7 @@ def table_amhi_shelter_cost_ind(geo, IsComparison):
     median_rent = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Rent AMHI']))
 
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2015 CAD$)': shelter_list , 'Annual HH Income': amhi_list, '% of Total Indigenous HHs': portion_of_total_hh})
+        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2020 CAD$)': shelter_list , 'Annual HH Income': amhi_list, '% of Total Indigenous HHs': portion_of_total_hh})
         table['% of Total Indigenous HHs'] = table['% of Total Indigenous HHs'].astype(str) + '%'
     else:
         table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost ': shelter_list , 'Annual HH Income ': amhi_list, '% of Total Indigenous HHs ': portion_of_total_hh})
