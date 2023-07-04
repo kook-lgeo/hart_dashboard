@@ -294,7 +294,7 @@ layout = html.Div(children = [
 
             html.Div([
                 # Title
-                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category,2021'), id = 'visualization6'),
+                html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021'), id = 'visualization6'),
                 # Description
                 html.Div([
                     html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
