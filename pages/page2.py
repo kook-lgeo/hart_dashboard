@@ -155,7 +155,7 @@ layout = html.Div(children = [
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
                         style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'textAlign': 'center', 'fontWeight': 'bold'}
+                        style_header = {'textAlign': 'right', 'fontWeight': 'bold'}
                     ),
                     html.Div(id='datatable-interactivity-container')
                 ], className = 'pg2-table-lgeo'
@@ -421,10 +421,10 @@ def table_amhi_shelter_cost(geo, IsComparison):
     median_rent = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Rent AMHI']))
 
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2020 CAD$)': shelter_list, 'Annual HH Income': amhi_list, '% of Total HHs': portion_of_total_hh})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs': portion_of_total_hh, 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2020 CAD$)': shelter_list})
         table['% of Total HHs'] = table['% of Total HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost ': shelter_list, 'Annual HH Income ': amhi_list, '% of Total HHs ': portion_of_total_hh})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total HHs ': portion_of_total_hh, 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list})
         table['% of Total HHs '] = table['% of Total HHs '].astype(str) + '%'
 
     # table.loc[-1] = ['Area Median Household Income', '',median_income, median_rent]
@@ -478,7 +478,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         # Generating callback output to update table
         col_list = []
         #
-        median_row = ['Area Median Household Income', median_rent, median_income, ""]
+        median_row = ['Area Median Household Income', "", median_income, median_rent]
         for i,j  in zip(list(table.columns), median_row):
             col_list.append({"name": [geo, i, j], "id": i})
         # Setting geography as index to fetch median rent and income data
@@ -499,7 +499,8 @@ def update_table1(geo, geo_c, selected_columns, scale):
         ] + [
             {
                 'if': {'column_id': table.columns[0]},
-                'backgroundColor': columns_color_fill[0]
+                'backgroundColor': columns_color_fill[0],
+                'width': '1px', 'textOverflow': 'ellipsis'
             }
         ]
         return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
@@ -541,7 +542,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
 
         col_list = []
 
-        median_row = ['Area Median Household Income', median_rent,  median_income, ""]
+        median_row = ['Area Median Household Income', "", median_income, median_rent]
         median_row_c = [median_rent_c, median_income_c, ""]
 
         # for i, j in zip(list(table.columns), median_row):
