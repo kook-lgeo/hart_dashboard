@@ -4,7 +4,7 @@ from decimal import Decimal
 import re
 import pdb
 
-source_file_path = r'L:\Projects\22005 - Housing Needs Assessment\Processed\Script Outputs\2021_Update\CHN\Canada_CHN_2021_20230629.csv'
+source_file_path = r'L:\Projects\22005 - Housing Needs Assessment\Processed\Script Outputs\2021_Update\CHN\Canada_CHN_20230704.csv'
 french_mapping_path = r'L:\Projects\22005 - Housing Needs Assessment\Scripts\Dashboard\Formatting\22005 - French regions name matching_230324.xlsx'
 old_new_column_mapping_path = r'L:\Projects\22005 - Housing Needs Assessment\Processed\2021_Data_Update\Dataprep\CHN_OldNewFieldNameMapping.xlsx'
 csd_ids_path = r"L:\Projects\22005 - Housing Needs Assessment\Source\2021\2021_CSDs.xlsx"
@@ -14,7 +14,7 @@ median_income_path = r"L:\Projects\22005 - Housing Needs Assessment\Source\2021\
 
 # Setting 4 header columns
 source_file = pd.read_csv(source_file_path,  encoding='utf-8', header=[0, 1, 2, 3])
-french_mapping_file = pd.read_excel(french_mapping_path, sheet_name='Final Mapping')
+french_mapping_file = pd.read_excel(french_mapping_path, sheet_name='Final_Mapping_2021')
 old_new_column_mapping_file = pd.read_excel(old_new_column_mapping_path)
 csd_ids = pd.read_excel(csd_ids_path)
 cd_ids = pd.read_excel(cd_ids_path)
@@ -51,7 +51,7 @@ mapped_columns_source_file = mapped_columns_source_file.rename(
              for element in mapped_columns_source_file.columns.tolist()})
 mapped_columns_source_file.columns = mapped_columns_source_file.columns.str.replace(r'\s{2,}', '', regex=True)
 
-
+# pdb.set_trace()
 # Fetching province, CD and CSD ids from geography names
 mapped_columns_source_file['CD_ids'] = mapped_columns_source_file['Geography'].str.findall(r"\b\d{4}\b")
 mapped_columns_source_file['P_ids'] = mapped_columns_source_file['Geography'].str.findall(r"\b\d{2}\b")
@@ -119,7 +119,7 @@ median_income_source_file = french_mapped_source_file.merge(formatted_median_inc
                                                             left_on='French_mapped_Geography', right_on='Formatted_Median_Geography')
 
 
-median_income_source_file.to_csv(r'L:\Projects\22005 - Housing Needs Assessment\Processed\CHN_RawData_20230629.csv')
+median_income_source_file.to_csv(r'L:\Projects\22005 - Housing Needs Assessment\Processed\CHN_RawData_20230705.csv')
 
 
 # income_csv = formatted_chn_file[['Geography', 'French_mapped_Geography', 'Median income of household']]
