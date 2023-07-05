@@ -75,6 +75,7 @@ mapped_geo_code = mapped_geo_code.merge(province_code_mapping[['Geo_Code','Geogr
 mapped_geo_code = mapped_geo_code[['Geo_Code_x', 'Region_Code', 'Province_Code', 'Geography_x','Geography_y','Geography']]
 mapped_geo_code.columns = ['Geo_Code', 'Region_Code', 'Province_Code', 'Geography','Region','Province']
 mapped_geo_code['Region'] = mapped_geo_code['Region'].fillna(mapped_geo_code['Province'])
+# pdb.set_trace()
 
 geo_code_table = mapped_geo_code[['Geo_Code', 'Geography']].drop_duplicates()
 geo_code_table = geo_code_table.loc[geo_code_table['Geo_Code'].astype(int) > 9999, :].reset_index() #307
