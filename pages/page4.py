@@ -142,8 +142,14 @@ layout = html.Div(children = [
                         page_size= 10,
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'textAlign': 'center', 'fontWeight': 'bold'}
+                        style_cell = {'font-family': 'Bahnschrift',
+                                      'height':'auto',
+                                      'whiteSpace': 'normal',
+                                      'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'},
+                        style_header = {'textAlign': 'right', 'fontWeight': 'bold'},
+                        style_data={'whiteSpace': 'normal', 'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'}
                     ),
                     html.Div(id='datatable-interactivity-container_ind')
                 ], className = 'pg4-table-lgeo'
@@ -373,10 +379,10 @@ def table_amhi_shelter_cost_ind(geo, IsComparison):
     median_rent = '${:0,.0f}'.format(float(joined_df_geo_index.at[geo, 'Rent AMHI']))
 
     if IsComparison != True:
-        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost (2020 CAD$)': shelter_list , 'Annual HH Income': amhi_list, '% of Total Indigenous HHs': portion_of_total_hh})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs': portion_of_total_hh, 'Annual HH Income': amhi_list, 'Affordable Shelter Cost (2020 CAD$)': shelter_list })
         table['% of Total Indigenous HHs'] = table['% of Total Indigenous HHs'].astype(str) + '%'
     else:
-        table = pd.DataFrame({'Income Category': income_ct, 'Affordable Shelter Cost ': shelter_list , 'Annual HH Income ': amhi_list, '% of Total Indigenous HHs ': portion_of_total_hh})
+        table = pd.DataFrame({'Income Category': income_ct, '% of Total Indigenous HHs ': portion_of_total_hh, 'Annual HH Income ': amhi_list, 'Affordable Shelter Cost ': shelter_list })
         table['% of Total Indigenous HHs '] = table['% of Total Indigenous HHs '].astype(str) + '%'
 
     return table, median_income, median_rent
@@ -422,7 +428,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
     
         # Generating callback output to update table
         col_list = []
-        median_row = ['Area Median Household Income', median_rent, median_income, ""]
+        median_row = ['Area Median Household Income', "", median_income, median_rent]
 
         # for i in table.columns:
         #     col_list.append({"name": [geo + " (Indigenous HH)", i], "id": i})
@@ -438,6 +444,19 @@ def update_table1(geo, geo_c, selected_columns, scale):
             {
                 'if': {'column_id': table.columns[0]},
                 'backgroundColor': columns_color_fill[0]
+            }
+        ] + [
+            {
+                'if': {'column_id': 'Affordable Shelter Cost (2020 CAD$)'},
+                'maxWidth': "120px",
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category'},
+                'maxWidth': "120px",
+                'width' : '35%'
+
             }
         ]
 
@@ -479,8 +498,8 @@ def update_table1(geo, geo_c, selected_columns, scale):
         # Generating Callback output
 
         col_list = []
-        median_row = ['Area Median Household Income', median_rent, median_income, ""]
-        median_row_c = [median_rent_c, median_income_c, ""]
+        median_row = ['Area Median Household Income', "", median_income, median_rent]
+        median_row_c = [ "", median_income_c, median_rent_c]
 
         for i, j in zip(list(table.columns), median_row):
             if i == 'Income Category':

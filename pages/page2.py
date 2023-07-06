@@ -154,8 +154,21 @@ layout = html.Div(children = [
                         page_size= 10,
                         merge_duplicate_headers=True,
                         export_format = "xlsx",
-                        style_cell = {'font-family': 'Bahnschrift'},
-                        style_header = {'textAlign': 'right', 'fontWeight': 'bold'}
+                        # style_table={
+                        #               'padding':'20px',
+                        #
+                        #               },
+                        style_data={'whiteSpace': 'normal', 'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'},
+                        style_cell = {'font-family': 'Bahnschrift',
+                                      'height':'auto',
+                                      'whiteSpace': 'normal',
+                                      'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'
+                                      },
+                        style_header = {'textAlign': 'right', 'fontWeight': 'bold',
+
+                                        }
                     ),
                     html.Div(id='datatable-interactivity-container')
                 ], className = 'pg2-table-lgeo'
@@ -381,7 +394,9 @@ style_header_conditional=[
     {
         'if': {'header_index': 1},
         'backgroundColor': '#39C0F7',
-        'color': '#000000'
+        'color': '#000000',
+        # 'width': '60px',
+        # 'minWidth': '60%',
     },
     {
         'if': {'header_index': 2},
@@ -494,13 +509,28 @@ def update_table1(geo, geo_c, selected_columns, scale):
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
-                'backgroundColor': columns_color_fill[1]
+                'backgroundColor': columns_color_fill[1],
+
+                # "maxWidth" : "100px"
             } for c in table.columns[1:]
         ] + [
             {
                 'if': {'column_id': table.columns[0]},
                 'backgroundColor': columns_color_fill[0],
-                'width': '1px', 'textOverflow': 'ellipsis'
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Affordable Shelter Cost (2020 CAD$)'},
+                'maxWidth': "120px",
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category'},
+                'maxWidth': "120px",
+                'width' : '35%'
+
             }
         ]
         return col_list, table.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
@@ -543,7 +573,7 @@ def update_table1(geo, geo_c, selected_columns, scale):
         col_list = []
 
         median_row = ['Area Median Household Income', "", median_income, median_rent]
-        median_row_c = [median_rent_c, median_income_c, ""]
+        median_row_c = ["", median_income_c, median_rent_c]
 
         # for i, j in zip(list(table.columns), median_row):
         #     col_list.append({"name": [geo, i, j], "id": i})
