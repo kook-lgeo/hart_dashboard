@@ -1,4 +1,5 @@
 # Importing Libraries
+import pdb
 
 import pandas as pd
 import numpy as np
@@ -265,9 +266,15 @@ layout = html.Div(children = [
                             selected_rows=[],
                             page_action="native",
                             page_current= 0,
-                            page_size= 10,
+                            page_size= 25,
                             merge_duplicate_headers=True,
-                            style_cell = {'font-family': 'Bahnschrift'},
+                            style_data={'whiteSpace': 'normal', 'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'},
+                            style_cell = {'font-family': 'Bahnschrift',
+                                      'height':'auto',
+                                      'whiteSpace': 'normal',
+                                      'overflow': 'hidden',
+                                      'textOverflow': 'ellipsis'},
                             style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
                             export_format = "xlsx"
                         ),
@@ -613,6 +620,19 @@ def update_table1(geo, geo_c, selected_columns, scale):
                 'if': {'column_id': table.columns[0]},
                 'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Affordable Shelter Cost (2020 CAD$)'},
+                'maxWidth': "120px",
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category'},
+                'maxWidth': "100px",
+                'width' : '28%'
+
             }
         ]
 
@@ -1068,8 +1088,21 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
             elif h == '5 or more':
                 table2[f'5+ Person HH '] = h_hold_value
             else:
-                table2[f'{h} Person HH '] = h_hold_value 
+                table2[f'{h} Person HH '] = h_hold_value
 
+    x_list = []
+
+    i = 0
+    for b, c in zip(x_base, x_columns):
+        if i < 4:
+            x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+            x_list.append(x)
+        else:
+            x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+            x_list.append(x)
+        i += 1
+
+    table2['Income Category (Max. affordable shelter cost)'] = x_list
     table2['Income Category'] = [
                                 'Very low Income',
                                 'Low Income',
@@ -1077,14 +1110,16 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
                                 'Median Income',
                                 'High Income'
                                 ]
-    
+
     table2['Total'] = table2.sum(axis = 1)
     row_total_csd = table2.sum(axis=0)
     row_total_csd[0] = 'Total'
     table2.loc[len(table2['Income Category']), :] = row_total_csd
-    
+    table2.loc[5, 'Income Category (Max. affordable shelter cost)'] = 'Total'
+    # pdb.set_trace()
     if IsComparison == True:
-        table2 = table2.rename(columns = {'Total': 'Total '})
+        table2 = table2.rename(columns = {'Total': 'Total ', 'Income Category (Max. affordable shelter cost)':
+                                          'Income Category (Max. affordable shelter cost) '})
 
     return table2
 
@@ -1123,7 +1158,7 @@ def update_table2(geo, geo_c, selected_columns, scale):
 
         # Generating table
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
+        table2 = table2[['Income Category (Max. affordable shelter cost)', '1 Person HH', '2 Person HH',
                         '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
 
         # Generating callback output to update table
@@ -1140,6 +1175,12 @@ def update_table2(geo, geo_c, selected_columns, scale):
                 'if': {'column_id': table2.columns[0]},
                 'backgroundColor': columns_color_fill[0],
                 
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost)'},
+                'maxWidth': "120px",
+
             }
         ]
 
@@ -1177,8 +1218,9 @@ def update_table2(geo, geo_c, selected_columns, scale):
         # Generating main table
 
         table2 = table_core_affordable_housing_deficit(geo, False)
-        table2 = table2[['Income Category', '1 Person HH', '2 Person HH',
-                        '3 Person HH', '4 Person HH', '5+ Person HH', 'Total']]
+        table2 = table2[['Income Category', 'Income Category (Max. affordable shelter cost)',
+                                 '1 Person HH', '2 Person HH', '3 Person HH',
+                                 '4 Person HH', '5+ Person HH', 'Total']]
 
 
         # Comparison Table
@@ -1189,24 +1231,26 @@ def update_table2(geo, geo_c, selected_columns, scale):
         # Generating comparison table
 
         table2_c = table_core_affordable_housing_deficit(geo_c, True)
-        table2_c = table2_c[['Income Category', '1 Person HH ', '2 Person HH ',
-                        '3 Person HH ', '4 Person HH ', '5+ Person HH ', 'Total ']]
+        table2_c = table2_c[['Income Category', 'Income Category (Max. affordable shelter cost) ',
+                                                '1 Person HH ', '2 Person HH ','3 Person HH ',
+                             '4 Person HH ', '5+ Person HH ', 'Total ']]
 
         # Merging main and comparison table
 
         table2_j = table2.merge(table2_c, how = 'left', on = 'Income Category')
-
+        new_table2_j = table2_j.iloc[:, 1:]
+        # pdb.set_trace()
         # Generating Callback output
 
         col_list = []
 
-        for i in table2.columns:
-            if i == 'Income Category':
+        for i in table2.columns[1:]:
+            if i == 'Income Category (Max. affordable shelter cost)':
                 col_list.append({"name": ["Area", i], "id": i})
             else:
-                col_list.append({"name": [geo, i], 
-                                    "id": i, 
-                                    "type": 'numeric', 
+                col_list.append({"name": [geo, i],
+                                    "id": i,
+                                    "type": 'numeric',
                                     "format": Format(
                                                     group=Group.yes,
                                                     scheme=Scheme.fixed,
@@ -1214,30 +1258,30 @@ def update_table2(geo, geo_c, selected_columns, scale):
                                                     )})
 
         for i in table2_c.columns[1:]:
-            if i == 'Income Category':
-                col_list.append({"name": ["Income Category", i], "id": i})
+            if i == 'Income Category (Max. affordable shelter cost) ':
+                col_list.append({"name": ["", i], "id": i})
             else:
-                col_list.append({"name": [geo_c, i], 
-                                    "id": i, 
-                                    "type": 'numeric', 
+                col_list.append({"name": [geo_c, i],
+                                    "id": i,
+                                    "type": 'numeric',
                                     "format": Format(
                                                     group=Group.yes,
                                                     scheme=Scheme.fixed,
                                                     precision=0
-                                                    )})     
-
+                                                    )})
+        # pdb.set_trace()
         style_cell_conditional=[
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
-                'minWidth': '70px',
+                'minWidth': '75px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table2.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
-                'minWidth': '70px',
+                'minWidth': '75px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table2_c.columns[1:]
         ] + [
@@ -1246,9 +1290,21 @@ def update_table2(geo, geo_c, selected_columns, scale):
                 'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
-        ]
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost)'},
+                'maxWidth': "120px",
 
-        return col_list, table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost) '},
+                'maxWidth': "120px",
+
+            }
+        ]
+        # pdb.set_trace()
+        return col_list, new_table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 
 
