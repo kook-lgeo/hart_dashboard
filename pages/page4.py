@@ -277,7 +277,7 @@ layout = html.Div(children = [
         # LGEO
 
             html.Div([
-                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/)', target="_blank"),' using Plotly.'
+                    'This dashboard was created in collaboration with ',  html.A('Licker Geospatial', href = 'https://www.lgeo.co/', target="_blank"),' using Plotly.'
                 ], className = 'lgeo-credit-text'),
 
 
