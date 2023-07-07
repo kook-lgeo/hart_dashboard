@@ -119,7 +119,7 @@ median_income_source_file = french_mapped_source_file.merge(formatted_median_inc
                                                             left_on='French_mapped_Geography', right_on='Formatted_Median_Geography')
 
 
-median_income_source_file.to_csv(r'L:\Projects\22005 - Housing Needs Assessment\Processed\CHN_RawData_20230705.csv')
+median_income_source_file.to_csv(r'L:\Projects\22005 - Housing Needs Assessment\Processed\Script Outputs\2021_Update\CHN\CHN_RawData_20230705.csv')
 
 
 # income_csv = formatted_chn_file[['Geography', 'French_mapped_Geography', 'Median income of household']]
