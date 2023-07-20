@@ -129,7 +129,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Income Categories and Affordable Shelter Costs, 2021'), id = 'visualization3'),
                 # Description
                 html.Div([
-                    html.H6('This table shows the range of household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of households falls within each category.')
+                    html.H6('The following table shows the range of household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of households falls within each category.')
                 ], className = 'muni-reg-text-lgeo'),
 
             # Table
@@ -214,7 +214,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need, by Income Category and HH Size, 2021'), id = 'visualization2'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. When there is no bar for an income category, it means that either there are no households in Core Housing Need within an income category, or that there are too few households to report.')
+                    html.H6('The following chart looks at those households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given houshold) for each household income category. When there is no bar for an income category, it means that either there are no households in Core Housing Need within an income category, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -241,7 +241,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('2021 Affordable Housing Deficit'), id = 'visualization4'),
                 # Description
                 html.Div([
-                    html.H6('This table shows the total number of households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
+                    html.H6('The following table shows the total number of households in Core Housing Need by household size and income category, which may be considered as the existing deficit of housing options in the community.')
                 ], className = 'muni-reg-text-lgeo'),
 
 
@@ -293,7 +293,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population, 2021'), id = 'visualization5'),
                 # Description
                 html.Div([
-                    html.H6('This chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
+                    html.H6('The following chart compares the rates of Core Housing Need across populations that are at high risk of experiencing housing need. The "Community (all HH)" bar represents the rate of Core Housing Need for all households in the selected community to act as a point of reference. The population with the greatest rate of Core Housing Need is highlighted in dark blue. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
                 # Graphs
@@ -317,7 +317,7 @@ layout = html.Div(children = [
                 html.H3(children = html.Strong('Percentage of Households in Core Housing Need by Priority Population and Income Category, 2021'), id = 'visualization6'),
                 # Description
                 html.Div([
-                    html.H6('This chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
+                    html.H6('The following chart looks at those households in Core Housing Need for each priority population and shows their relative distribution by household income category. When there is no bar for a priority population, it means that either there are no households in Core Housing Need within that priority population, or that there are too few households to report.')
                 ], className = 'muni-reg-text-lgeo'),
 
                 # Graphs
