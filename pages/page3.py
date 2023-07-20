@@ -35,6 +35,7 @@ config = {'displayModeBar': True, 'displaylogo': False, 'modeBarButtonsToRemove'
 # Color lists
 
 colors = ['#D7F3FD', '#88D9FA', '#39C0F7', '#099DD7', '#044762']
+bar_colors = ['#39C0F7', '#002145']
 hh_colors = ['#D8EBD4', '#93CD8A', '#3DB54A', '#297A32', '#143D19']
 hh_type_color = ['#3949CE', '#3EB549', '#39C0F7']
 columns_color_fill = ['#F3F4F5', '#EBF9FE', '#F0FAF1']
@@ -80,6 +81,10 @@ layout = html.Div(children = [
                     # Title
                     html.H3(children = html.Strong('2031 Household Projections by Income Category'), className = 'subtitle-lgeo'),
 
+                    # Table Description
+                    html.Div([
+                        html.H6('The following table shows the total number of households in 2021, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 15-year period between 2021 and 2031 by applying the percentage change from 2006-2021, to 2021 households.')
+                    ], className = 'muni-reg-text-lgeo'),
 
                     # Table
 
@@ -112,10 +117,11 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable5-interactivity-container'),
 
-                    # Table Description
+                    # Graph Description
                     html.Div([
-                        html.H6('This table shows the total number of households in 2021, for each household income category, as well as the projected gain (positive) or loss (negative) of households over the 15-year period between 2021 and 2031 by applying the percentage change from 2006-2021, to 2021 households.')
-                    ], className = 'muni-reg-text-lgeo'),
+                        html.H6(
+                            'The following graph illustrates the above table, displaying the total number of households in 2021, for each income category, with the projected gain of households between 2021 and 2031 stacked on top, and the projected loss of household stacked underneath.')
+                    ], className='muni-reg-text-lgeo'),
 
 
                     # Graph
@@ -133,10 +139,7 @@ layout = html.Div(children = [
 
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-                    # Graph Description
-                    html.Div([
-                        html.H6('This graph illustrates the above table, displaying the total number of households in 2021, for each income category, with the projected gain of households between 2021 and 2031 stacked on top, and the projected loss of household stacked underneath.')
-                    ], className = 'muni-reg-text-lgeo'),
+
                 # 2031 Household Projections by Household Size
 
                 html.Div([
@@ -144,6 +147,12 @@ layout = html.Div(children = [
 
                     html.H3(children = html.Strong('2031 Household Projections by Household Size'), className = 'subtitle-lgeo'),
 
+                    # Table Description
+
+                    html.Div([
+                        html.H6(
+                            'The following table shows the total number of households in 2021, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 15-year period between 2021 and 2031 by applying the percentage change from 2006-2021, to 2021 households.')
+                    ], className='muni-reg-text-lgeo'),
 
                     # Table
 
@@ -175,11 +184,12 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable6-interactivity-container'),
 
-                    # Table Description
+                    # Graph Description
 
                     html.Div([
-                        html.H6('This table shows the total number of households in 2021, for each household size category, as well as the projected gain (positive) or loss (negative) of households over the 15-year period between 2021 and 2031 by applying the percentage change from 2006-2021, to 2021 households.')
-                    ], className = 'muni-reg-text-lgeo'),
+                        html.H6(
+                            'The following graph illustrates the above table, displaying the total number of households in 2021, for each size of household, with the projected gain of households between 2021 and 2031 stacked on top, and the projected loss of household stacked underneath.')
+                    ], className='muni-reg-text-lgeo'),
 
 
                     # Graph
@@ -194,11 +204,7 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-                # Graph Description
 
-                    html.Div([
-                        html.H6('This graph illustrates the above table, displaying the total number of households in 2021, for each size of household, with the projected gain of households between 2021 and 2031 stacked on top, and the projected loss of household stacked underneath.')
-                    ], className = 'muni-reg-text-lgeo'),
 
 
                 # 2031 Projected Households by Household Size and Income Category
@@ -208,7 +214,12 @@ layout = html.Div(children = [
 
                     html.H3(children = html.Strong('2031 Projected Households by Household Size and Income Category'), className = 'subtitle-lgeo'),
 
+                    # Table Description
 
+                    html.Div([
+                        html.H6(
+                            'The following table shows the projected total number of households in 2031 by household size and income category.')
+                    ], className='muni-reg-text-lgeo'),
                     
                     # Table
 
@@ -240,11 +251,12 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable-h-interactivity-container'),
 
-                    # Table Description
+                    # Graph Description
 
                     html.Div([
-                        html.H6('This table shows the projected total number of households in 2031 by household size and income category.')
-                    ], className = 'muni-reg-text-lgeo'),
+                        html.H6(
+                            'The following graph illustrates the above table, displaying the projected total number of households in 2031 by household size and income category. Each bar is broken out by the projected number of households within each income category.')
+                    ], className='muni-reg-text-lgeo'),
 
 
 
@@ -262,12 +274,7 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-                # Graph Description
 
-                html.Div([
-                    html.H6(
-                        'This graph illustrates the above table, displaying the projected total number of households in 2031 by household size and income category. Each bar is broken out by the projected number of households within each income category.')
-                ], className='muni-reg-text-lgeo'),
 
                 # 2031 Projected Household Gain/Loss (2021 to 2031)
 
@@ -277,7 +284,12 @@ layout = html.Div(children = [
 
                     html.H3(children = html.Strong('2031 Projected Household Gain/Loss (2021 to 2031)'), className = 'table-title'),
 
+                    # Table Description
 
+                    html.Div([
+                        html.H6(
+                            'The following table shows the projected gain or loss of households by household size and income. These values represent projections for the period between 2021 and 2031.')
+                    ], className='muni-reg-text-lgeo'),
 
                     # Table
 
@@ -309,11 +321,11 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable7-interactivity-container'),
 
-                    # Table Description
+                    # Graph Description
 
                     html.Div([
                         html.H6(
-                            'This table shows the projected gain or loss of households by household size and income. These values represent projections for the period between 2021 and 2031.')
+                            'The following graph illustrates the above table, displaying the projected gain or loss of households between 2021 and 2031 for each size of household. Each bar is broken out by the projected number of households within each income category. Projected loss of households are stacked underneath.')
                     ], className='muni-reg-text-lgeo'),
 
 
@@ -331,12 +343,7 @@ layout = html.Div(children = [
                     ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
-                # Graph Description
 
-                html.Div([
-                    html.H6(
-                        'This graph illustrates the above table, displaying the projected gain or loss of households between 2021 and 2031 for each size of household. Each bar is broken out by the projected number of households within each income category. Projected loss of households are stacked underneath.')
-                ], className='muni-reg-text-lgeo'),
 
                 # Municipal vs Regional Growth Rates
 
@@ -356,24 +363,6 @@ layout = html.Div(children = [
                     # Title
 
                     html.H3(children = html.Strong('2031 Projected Municipal vs Regional Household Growth Rates by Income Category'), className = 'subtitle-lgeo'),
-
-                    # Graph Description
-
-                    html.Div([
-                        html.H6('This graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
-                    ], className = 'muni-reg-text-lgeo'),
-
-                    # Graph
-
-                    html.Div(children = [
-                        dcc.Graph(
-                            id='graph12',
-                            figure=fig,
-                            config = config,
-                        )
-                    ],
-                    className = 'pg3-plot-lgeo'
-                    ),
 
                     # Table Description
 
@@ -412,6 +401,25 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable8-interactivity-container'),
 
+                    # Graph Description
+
+                    html.Div([
+                        html.H6(
+                            'The following graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
+                    ], className='muni-reg-text-lgeo'),
+
+                    # Graph
+
+                    html.Div(children=[
+                        dcc.Graph(
+                            id='graph12',
+                            figure=fig,
+                            config=config,
+                        )
+                    ],
+                        className='pg3-plot-lgeo'
+                    ),
+
 
                 ], className = 'pg3-table-plot-box-lgeo'),
 
@@ -422,25 +430,7 @@ layout = html.Div(children = [
 
                     html.H3(children = html.Strong('Municipal vs Regional Growth Rates by Household Size'), className = 'subtitle-lgeo'),
 
-                    # Graph Description
 
-                    html.Div([
-                        html.H6(
-                            'This graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
-                    ], className='muni-reg-text-lgeo'),
-
-                    # Graph
-
-                    html.Div(children=[
-
-                        dcc.Graph(
-                            id='graph13',
-                            figure=fig,
-                            config=config,
-                        )
-                    ],
-                        className='pg3-plot-lgeo'
-                    ),
 
                     # Table Description
 
@@ -479,7 +469,25 @@ layout = html.Div(children = [
 
                     html.Div(id='datatable9-interactivity-container'),
 
+                    # Graph Description
 
+                    html.Div([
+                        html.H6(
+                            'This graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
+                    ], className='muni-reg-text-lgeo'),
+
+                    # Graph
+
+                    html.Div(children=[
+
+                        dcc.Graph(
+                            id='graph13',
+                            figure=fig,
+                            config=config,
+                        )
+                    ],
+                        className='pg3-plot-lgeo'
+                    ),
                 ], className = 'pg3-table-plot-box-lgeo'),
 
             # LGEO
@@ -648,7 +656,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
         # Generating plot
         fig_new_proj_1 = go.Figure()
 
-        for i, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df['Category'].unique(), bar_colors):
             plot_df_frag = plot_df.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -739,7 +747,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for i, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df['Category'].unique(), bar_colors):
             plot_df_frag = plot_df.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -758,7 +766,7 @@ def update_geo_figure6(geo, geo_c, scale, selected_columns):
 
         # Generating comparison plot
 
-        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df_c['Category'].unique(), bar_colors):
             plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                 x = plot_df_frag['Income Category'],
@@ -954,7 +962,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
         # Generating plot
         fig_new_proj_1 = go.Figure()
 
-        for i, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df['Category'].unique(), bar_colors):
             plot_df_frag = plot_df.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                                             x = plot_df_frag['HH Category'],
@@ -1045,7 +1053,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         fig_new_proj_1 = make_subplots(rows=1, cols=2, subplot_titles=(f"{geo}", f"{geo_c}"), shared_yaxes=True, shared_xaxes=True)
 
-        for i, c in zip(plot_df['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df['Category'].unique(), bar_colors):
             plot_df_frag = plot_df.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                 x = plot_df_frag['HH Category'],
@@ -1063,7 +1071,7 @@ def update_geo_figure7(geo, geo_c, scale, selected_columns):
 
         # Generating comparison plot
 
-        for i, c in zip(plot_df_c['Category'].unique(), colors[3:]):
+        for i, c in zip(plot_df_c['Category'].unique(), bar_colors):
             plot_df_frag = plot_df_c.loc[plot_df['Category'] == i, :]
             fig_new_proj_1.add_trace(go.Bar(
                 x = plot_df_frag['HH Category'],

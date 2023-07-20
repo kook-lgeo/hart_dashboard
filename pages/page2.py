@@ -1095,10 +1095,10 @@ def table_core_affordable_housing_deficit(geo, IsComparison):
     i = 0
     for b, c in zip(x_base, x_columns):
         if i < 4:
-            x = b + " ($" + str(joined_df_filtered[c].tolist()[0]) + ")"
+            x = b + " ($" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
             x_list.append(x)
         else:
-            x = b + " (>$" + str(joined_df_filtered[c].tolist()[0]) + ")"
+            x = b + " (>$" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
             x_list.append(x)
         i += 1
 
