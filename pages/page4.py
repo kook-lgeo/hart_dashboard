@@ -1,4 +1,5 @@
 # Importing Libraries
+import pdb
 
 import pandas as pd
 import numpy as np
@@ -169,7 +170,7 @@ layout = html.Div(children = [
                 # Description
                 html.Div([
                     html.H6(
-                        'Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). This table shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
+                        'Income categories are determined by their relationship with each geography’s Area Median Household Income (AMHI). The following graph shows the range of Indigenous household incomes and affordable shelter costs for each income category, in 2020 dollar values, as well what percentage of the total number of Indigenous households falls within each category.')
                 ], className='muni-reg-text-lgeo'),
 
                 # Graph
@@ -201,7 +202,7 @@ layout = html.Div(children = [
                 # Description
                 html.Div([
                     html.H6(
-                        'The following chart looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given household) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
+                        'The following graph looks at those Indigenous households in Core Housing Need and shows their relative distribution by household size (i.e. the number of individuals in a given household) for each household income category. Where there are no reported households in Core Housing Need, there are too few households to report while protecting privacy.')
                 ], className='muni-reg-text-lgeo'),
 
                 # Graph
@@ -255,8 +256,14 @@ layout = html.Div(children = [
                             page_current= 0,
                             page_size= 10,
                             merge_duplicate_headers=True,
-                            style_cell = {'font-family': 'Bahnschrift'},
-                            style_header = {'text-align': 'middle', 'fontWeight': 'bold'},
+                            style_data={'whiteSpace': 'normal', 'overflow': 'hidden',
+                                        'textOverflow': 'ellipsis'},
+                            style_cell={'font-family': 'Bahnschrift',
+                                        'height': 'auto',
+                                        'whiteSpace': 'normal',
+                                        'overflow': 'hidden',
+                                        'textOverflow': 'ellipsis'},
+                            style_header={'text-align': 'middle', 'fontWeight': 'bold'},
                             export_format = "xlsx"
                         ),
                         html.Div(id='datatable2-interactivity-container_ind')
@@ -539,6 +546,19 @@ def update_table1(geo, geo_c, selected_columns, scale):
                 'font_size': comparison_font_size2,
                 'backgroundColor': columns_color_fill[0]
             }
+        ] + [
+            {
+                'if': {'column_id': 'Affordable Shelter Cost (2020 CAD$)'},
+                'maxWidth': "120px",
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category'},
+                'maxWidth': "120px",
+                'width' : '28%'
+
+            }
         ]
 
         return col_list, table_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
@@ -760,26 +780,36 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     joined_df_filtered = joined_df.query('Geography == '+ f'"{geo}"')
 
     x_list = []
+    x_list_plot = []
 
     i = 0
     for b, c in zip(x_base, x_columns):
         value = joined_df_filtered[c].tolist()[0]
         if i < 4:
             if IsComparison != True:
-                x = b + '<br>' + " ($" + value + ")"
+                x = b +  " ($" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
+                x_plot = " ($" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
             else:
-                x = " ($" + value + ") "
+                x = b + " ($" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ") "
+                x_plot = " ($" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ") "
             x_list.append(x)
+            x_list_plot.append(x_plot)
         else:
             if IsComparison != True:
-                x = b + '<br>' + " (>$" + value + ")"
+                x = b +  " (>$" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
+                x_plot = " (>$" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ")"
             else:
-                x = " (>$" + value + ") "
+                x = b + " (>$" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ") "
+                x_plot = " (>$" + str(int(float(joined_df_filtered[c].tolist()[0]))) + ") "
             x_list.append(x)
+            x_list_plot.append(x_plot)
         i += 1
 
     x_list = [sub.replace('$$', '$') for sub in x_list]
     x_list = [sub.replace('.0', '') for sub in x_list]
+
+    x_list_plot = [sub.replace('$$', '$') for sub in x_list_plot]
+    x_list_plot = [sub.replace('.0', '') for sub in x_list_plot]
 
     income_lv_list = [
         '20% or under of area median household income (AMHI)', 
@@ -804,12 +834,16 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     percent = plot_df.groupby('Income_Category')['Percent'].sum().reset_index()
     percent = percent.rename(columns = {'Percent':'Sum'})
     plot_df_final = plot_df.merge(percent, how = 'left', on = 'Income_Category')
-    plot_df_final['Income_Category'] = x_list * 5
+    plot_df_final['Income_Category'] = x_list_plot * 5
     plot_df_final['Percent'] = plot_df_final['Percent'] / plot_df_final['Sum']
     plot_df_final['Percent'] = plot_df_final['Percent'].fillna(0)
     plot_df_final = plot_df_final.drop(columns = ['Sum'])
-    
-    table = pd.DataFrame({'Income_Category': x_base})\
+
+    # comp_table = plot_df.copy()
+    # pdb.set_trace()
+    # comp_table = comp_table.rename(columns = {'Income': 'Geography'})
+
+    table = pd.DataFrame({'Income_Category': x_base, 'Income Category (Max. affordable shelter cost)': x_list})\
             .merge(plot_df.pivot_table(values = 'Percent', index = 'Income_Category', columns = 'HH_Size').reset_index(), \
                   how = 'left', on = 'Income_Category')
 
@@ -817,14 +851,25 @@ def plot_df_core_housing_need_by_amhi(geo, IsComparison):
     row_total[0] = 'Total'
     table.loc[5, :] = row_total
 
+    # plot_table = table.drop('Income Category (Max. affordable shelter cost)', axis=1)
+
     if IsComparison != True:
-        table.columns = ['Income Category', '1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+        # plot_table.columns = ['Income Category', '1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
+        # plot_table['Total'] = plot_table.sum(axis=1)
+
+        table.columns = ['Income Category', 'Income Category (Max. affordable shelter cost)', '1 Person', '2 Person', '3 Person', '4 Person', '5+ Person']
         table['Total'] = table.sum(axis=1)
+        table.loc[5, 'Income Category (Max. affordable shelter cost)'] = 'Total'
 
     else:
-        table.columns = ['Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
+        # plot_table.columns = ['Income Category', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
+        # plot_table['Total '] = plot_table.sum(axis=1)
+
+        table.columns = ['Income Category', 'Income Category (Max. affordable shelter cost) ', '1 Person ', '2 Person ', '3 Person ', '4 Person ', '5+ Person ']
         table['Total '] = table.sum(axis=1)
-    
+        table.loc[5, 'Income Category (Max. affordable shelter cost) '] = 'Total'
+        # pdb.set_trace()
+
     return plot_df_final, table
 
 
@@ -862,7 +907,7 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
 
         # Generating dataframe for plot
         plot_df, table2 = plot_df_core_housing_need_by_amhi(geo, False)
-
+        table2 = table2.drop('Income Category', axis=1)
         # Generating plot
         fig2 = go.Figure()
 
@@ -916,6 +961,12 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
                 'if': {'column_id': table2.columns[0]},
                 'backgroundColor': columns_color_fill[0],
                 
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost)'},
+                'maxWidth': "120px",
+
             }
         ]
 
@@ -1023,13 +1074,14 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
         # Merging main and comparison table
 
         table2_j = table2.merge(table2_c, how = 'left', on = 'Income Category')
-
+        new_table2_j = table2_j.iloc[:, 1:]
+        # pdb.set_trace()
         # Generating Callback output
 
         col_list = []
 
-        for i in table2.columns:
-            if i == 'Income Category':
+        for i in table2.columns[1:]:
+            if i == 'Income Category (Max. affordable shelter cost)':
                 col_list.append({"name": ["Area (Indigenous HH)", i], "id": i})
             else:
                 col_list.append({"name": [geo, i], 
@@ -1042,8 +1094,8 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
                                                     )})
 
         for i in table2_c.columns[1:]:
-            if i == 'Income Category':
-                col_list.append({"name": ["Income Category", i], "id": i})
+            if i == 'Income Category (Max. affordable shelter cost) ':
+                col_list.append({"name": ["", i], "id": i})
             else:
                 col_list.append({"name": [geo_c, i], 
                                     "id": i, 
@@ -1058,14 +1110,14 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
-                'minWidth': '70px',
+                'minWidth': '75px',
                 'backgroundColor': columns_color_fill[1]
             } for c in table2.columns[1:]
         ] + [
             {
                 'if': {'column_id': c},
                 'font_size': comparison_font_size,
-                'minWidth': '70px',
+                'minWidth': '75px',
                 'backgroundColor': columns_color_fill[2]
             } for c in table2_c.columns[1:]
         ] + [
@@ -1074,9 +1126,21 @@ def update_geo_figure34(geo, geo_c, scale, refresh):
                 'font_size': comparison_font_size,
                 'backgroundColor': columns_color_fill[0]
             }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost)'},
+                'maxWidth': "120px",
+
+            }
+        ]+ [
+            {
+                'if': {'column_id': 'Income Category (Max. affordable shelter cost) '},
+                'maxWidth': "120px",
+
+            }
         ]
 
-        return fig2, col_list, table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
+        return fig2, col_list, new_table2_j.to_dict('record'), style_data_conditional, style_cell_conditional, style_header_conditional
 
 # Download This Community
 
