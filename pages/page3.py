@@ -473,7 +473,7 @@ layout = html.Div(children = [
 
                     html.Div([
                         html.H6(
-                            'This graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
+                            'The following graph illustrates the above table, displaying the projected household growth rates between 2021 and 2031 in the community and surrounding region for each income category.')
                     ], className='muni-reg-text-lgeo'),
 
                     # Graph
@@ -1785,7 +1785,6 @@ def projections_2031_pop_income(geo, IsComparison):
     geo_region_code_clicked = mapped_geo_code.loc[mapped_geo_code['Geography'] == geo, 'Region_Code'].tolist()[0]
     updated_csd_filtered = updated_csd.query('Geo_Code ==' +  f"{geo_code_clicked}")
     updated_cd_filtered = updated_cd.query('Geo_Code ==' +  f"{geo_region_code_clicked}")
-    updated_csd_filtered
 
     income_categories_g11 = [
         'income 20% or under of area median household income (AMHI)',
@@ -1798,6 +1797,7 @@ def projections_2031_pop_income(geo, IsComparison):
     pop_2021 = []
     gr_csd = []
     gr_cd = []
+    tr_cd = []
     delta = []
 
     i_l = [
@@ -1812,10 +1812,12 @@ def projections_2031_pop_income(geo, IsComparison):
         p = updated_csd_filtered[f'Total - Private households by household type including census family structure -   Households with {i} - Total - Household size'].tolist()[0]
         g = updated_csd_filtered[f'2031 Population Growth Rate with {i}'].tolist()[0]
         g_cd = updated_cd_filtered[f'2031 Population Growth Rate with {i}'].tolist()[0]
+        t_cd = updated_cd_filtered[f'2031 Population Trend with {i}'].tolist()[0]
         d = updated_csd_filtered[f'2031 Population Delta with {i}'].tolist()[0]
         pop_2021.append(p)
         gr_csd.append(g)
         gr_cd.append(g_cd)
+        tr_cd.append(t_cd)
         delta.append(d)
 
     table = pd.DataFrame({'Income Category':  i_l, '2021 Pop.': pop_2021, 'Muni. Growth (%)': gr_csd, 'Regional Growth (%)': gr_cd, 'Delta(Muni. GR)': np.round(delta, 0)})
@@ -1825,7 +1827,7 @@ def projections_2031_pop_income(geo, IsComparison):
 
     table['Delta(Regional GR)'] = np.round(table['2021 Pop.'] * table['Regional Growth (%)'], 0)
     table['2031 Pop.(Muni.)'] = np.round(table['2021 Pop.'] + (table['2021 Pop.'] * table['Muni. Growth (%)']), 0)
-    table['2031 Pop.(Regional)'] = np.round(table['2021 Pop.'] + (table['2021 Pop.'] * table['Regional Growth (%)']), 0)
+    table['2031 Pop.(Regional)'] = tr_cd
 
     table_for_plot = table[['Income Category', 'Muni. Growth (%)', 'Regional Growth (%)']]
     table_for_plot.columns = ['Income Category', 'Municipal', 'Regional']
@@ -2180,6 +2182,7 @@ def projections_2031_pop_hh(geo, IsComparison):
     pop_2021 = []
     gr_csd = []
     gr_cd = []
+    tr_cd = []
     delta = []
 
     h_l = ['1 Person', '2 People', '3 People', '4 People', '5+ People']
@@ -2188,10 +2191,12 @@ def projections_2031_pop_hh(geo, IsComparison):
         p = updated_csd_filtered[f'Total - Private households by household type including census family structure - Total – Private households by household income proportion to AMHI_1 -   {i}'].tolist()[0]
         g = updated_csd_filtered[f'2031 Population Growth Rate {i} HH'].tolist()[0]
         g_cd = updated_cd_filtered[f'2031 Population Growth Rate {i} HH'].tolist()[0]
+        t_cd = updated_cd_filtered[f'2031 Population Trend {i} HH'].tolist()[0]
         d = updated_csd_filtered[f'2031 Population Delta {i} HH'].tolist()[0]
         pop_2021.append(p)
         gr_csd.append(g)
         gr_cd.append(g_cd)
+        tr_cd.append(t_cd)
         delta.append(d)
 
     table = pd.DataFrame({'HH Category':  h_l, '2021 Pop.': pop_2021, 'Muni. Growth (%)': gr_csd, 'Regional Growth (%)': gr_cd, 'Delta(Muni. GR)': np.round(delta, 0)})
@@ -2201,7 +2206,7 @@ def projections_2031_pop_hh(geo, IsComparison):
 
     table['Delta(Regional GR)'] = np.round(table['2021 Pop.'] * table['Regional Growth (%)'], 0)
     table['2031 Pop.(Muni.)'] = np.round(table['2021 Pop.'] + (table['2021 Pop.'] * table['Muni. Growth (%)']), 0)
-    table['2031 Pop.(Regional)'] = np.round(table['2021 Pop.'] + (table['2021 Pop.'] * table['Regional Growth (%)']), 0)
+    table['2031 Pop.(Regional)'] = tr_cd
 
     table_for_plot = table[['HH Category', 'Muni. Growth (%)', 'Regional Growth (%)']]
     table_for_plot.columns = ['HH Category', 'Municipal', 'Regional']
